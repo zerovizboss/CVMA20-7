@@ -10,3 +10,4 @@ It's not that I couldn't have done this myself, it's that Claude was able to sho
 This is in my ReadMe because I want you to understand the full value of the new coding era.  AI isn't taking our jobs away, it's merely giving us the tools to do it better with less tech debt and adhere to deployments that much better, faster and easier than we could have ever dreamed of.
 
 Detonator Out
+PS, this first run doesn't include MCP Server(s) yet, more to come in that arena. Hint: Airtable
