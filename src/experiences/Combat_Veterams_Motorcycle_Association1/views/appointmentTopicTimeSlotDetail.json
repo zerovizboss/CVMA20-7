@@ -1,0 +1,51 @@
+{
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "f3a4861c-ee33-49c1-81ec-059312f49f2e",
+  "label" : "Appointment Topic Time Slot Detail",
+  "regions" : [ {
+    "id" : "cb61902d-4b63-4b81-96eb-13cdb151830c",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "bookSlotsEnabled" : true,
+        "buttonVisibilityFlow" : "",
+        "cancelSlotsEnabled" : true,
+        "rescheduleSlotsEnabled" : true
+      },
+      "componentName" : "healthcloud:appointmentSlotsCommunity",
+      "id" : "8164e5de-374a-4c53-b864-06cbb1b78b4f",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "da2a5840-2a6a-43cf-8802-fc1deaad73ed",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "18c58d74-6dab-4f71-9a39-a59ea65441d0",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "ac3b08ee-bbb6-4e5e-b781-221b3451dddb",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "81ba7be4-562a-4dca-b0bd-19b327476e61",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-0mS"
+}

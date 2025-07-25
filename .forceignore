@@ -1,0 +1,52 @@
+# List of files to ignore by the Salesforce CLI
+# Non-source files
+**/.eslintrc.json
+**/.git
+**/.gitignore
+**/node_modules/
+**/.sfdx/
+**/.project
+**/.salesforce/
+**/.settings/
+**/.vscode/
+**/nbproject/
+**/tests/
+**/.nyc_output/
+**/coverage/
+**/.DS_Store
+
+# LWC configuration files
+**/jsconfig.json
+
+# Logs
+**/logs/*.log
+
+# Dependency directories
+**/bower_components/
+
+# Salesforce cache
+**/.sfdx/
+**/.localdevserver/
+**/.deploy/
+
+# Source files to ignore
+**/destructiveChanges/*
+**/destructiveChangesPre/*
+**/destructiveChangesPost/*
+
+# Profiles (except Guest License User)
+**/profiles/*
+!**/profiles/Guest License User.profile
+!**/profiles/Admin.profile
+
+# Standard objects we don't want to deploy
+**/objects/User.object
+**/objects/Organization.object
+
+# Package files
+**/installed-packages/
+**/unpackaged/
+
+# Temp files
+**/temp/
+**/tmp/

@@ -1,0 +1,39 @@
+{
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "4746a9d1-5091-4969-8b80-dabbe5d1cfc9",
+  "label" : "Donation Related List",
+  "regions" : [ {
+    "id" : "c1a0990f-43d6-4533-9316-5beefccb35e2",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customTitle" : "",
+        "parentRecordId" : "{!recordId}",
+        "relatedListName" : "{!relationshipApiName}",
+        "showBreadCrumbs" : true,
+        "showCustomTitle" : false,
+        "showManualRefreshButton" : true,
+        "showRowNumbers" : true
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "3f8efe4e-dcc3-4891-9b0f-8d47bf74a5e0",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1134396f-91a7-4d83-8d41-b42afdca2fea",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "6a75c42b-a16f-4836-b3c0-1ce40cb2691e",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-006"
+}

@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- BDE Entry FS --></label>
+        <name>npsp__BDE_Entry_FS</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- BDE List FS --></label>
+        <name>npsp__BDE_List_FS</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Manage Household Custom --></label>
+        <name>npsp__Manage_Household_Custom</name>
+    </fieldSets>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Customer Priority --></label>
+        <name>CustomerPriority__c</name>
+        <picklistValues>
+            <masterLabel>High</masterLabel>
+            <translation><!-- High --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Low</masterLabel>
+            <translation><!-- Low --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medium</masterLabel>
+            <translation><!-- Medium --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Delinquency Score (Raw) --></label>
+        <name>DNBI__CommercialCreditScore__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Delinquency Class --></label>
+        <name>DNBI__Commercial_Credit_Score_Class__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Delinquency Score --></label>
+        <name>DNBI__Commercial_Credit_Score_Percentiles__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Address --></label>
+        <name>DNBI__D_B_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Auto Trigger Status --></label>
+        <name>DNBI__D_B_Auto_Trigger_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Avg High Credit --></label>
+        <name>DNBI__D_B_Avg_High_Credit__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B City --></label>
+        <name>DNBI__D_B_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Country/Region --></label>
+        <name>DNBI__D_B_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B High Credit --></label>
+        <name>DNBI__D_B_High_Credit__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B State/Province --></label>
+        <name>DNBI__D_B_State_Province__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Zip/Postal Code --></label>
+        <name>DNBI__D_B_Zip_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Application Created Date --></label>
+        <name>DNBI__DnB_Application_Created_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Application ID --></label>
+        <name>DNBI__DnB_Application_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Application Modified Date --></label>
+        <name>DNBI__DnB_Application_Modified_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Company Name --></label>
+        <name>DNBI__DnB_Company_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recommended Credit Limit --></label>
+        <name>DNBI__DnB_Credit_Limit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Credit Terms Status --></label>
+        <name>DNBI__DnB_Credit_Term_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B DUNS Number --></label>
+        <name>DNBI__DnB_DUNS_NO__c</name>
+    </fields>
+    <fields>
+        <label><!-- Early Payment Discount --></label>
+        <name>DNBI__DnB_Early_Payment_Discount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Terms --></label>
+        <name>DNBI__DnB_Payment_Terms__c</name>
+    </fields>
+    <fields>
+        <label><!-- Credit Requested Amount --></label>
+        <name>DNBI__DnB_Requested_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>DNBI__DnB_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Employees --></label>
+        <name>DNBI__Employees__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Failure Class --></label>
+        <name>DNBI__Financial_Stress_Score_Class__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Failure Score --></label>
+        <name>DNBI__Financial_Stress_Score_Percentile__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Failure Score (Raw) --></label>
+        <name>DNBI__Financial_Stress_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B PAYDEX --></label>
+        <name>DNBI__PAYDEX__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Primary NAICS --></label>
+        <name>DNBI__Primary_NAICS__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Primary SIC --></label>
+        <name>DNBI__Primary_SIC__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Rating --></label>
+        <name>DNBI__Rating__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Viability - Company Profile --></label>
+        <name>DNBI__Viability_Company_Profile__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Viability - Data Depth Indicator --></label>
+        <name>DNBI__Viability_Data_Depth_Indicator__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Viability - Portfolio Comparison --></label>
+        <name>DNBI__Viability_Portfolio_Comparison__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Viability Rating --></label>
+        <name>DNBI__Viability_Rating__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Viability - Viability Score --></label>
+        <name>DNBI__Viability_Viability_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- D&amp;B Years in Business --></label>
+        <name>DNBI__Years_in_Business__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Locations --></label>
+        <name>NumberofLocations__c</name>
+    </fields>
+    <fields>
+        <label><!-- SLA Expiration Date --></label>
+        <name>SLAExpirationDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- SLA Serial Number --></label>
+        <name>SLASerialNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- SLA --></label>
+        <name>SLA__c</name>
+        <picklistValues>
+            <masterLabel>Bronze</masterLabel>
+            <translation><!-- Bronze --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gold</masterLabel>
+            <translation><!-- Gold --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platinum</masterLabel>
+            <translation><!-- Platinum --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver</masterLabel>
+            <translation><!-- Silver --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Upsell Opportunity --></label>
+        <name>UpsellOpportunity__c</name>
+        <picklistValues>
+            <masterLabel>Maybe</masterLabel>
+            <translation><!-- Maybe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>El contacto principal para esta cuenta, o el contacto Uno-a-Uno para la cuenta Uno-a-Uno.</help>
+        <label><!-- Primary Contact --></label>
+        <name>npe01__One2OneContact__c</name>
+        <relationshipLabel><!-- Account --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Indica si la cuenta es o no una cuenta especial para contactos (Hogar, Uno-a-Uno, Individuo) frente a una cuenta normal.</help>
+        <label><!-- _SYSTEM: IsIndividual --></label>
+        <name>npe01__SYSTEMIsIndividual__c</name>
+    </fields>
+    <fields>
+        <help>Indica para qué modelo está destinado la cuenta: Hogar, Uno-a-Uno o Individuo.</help>
+        <label><!-- _SYSTEM: AccountType --></label>
+        <name>npe01__SYSTEM_AccountType__c</name>
+    </fields>
+    <fields>
+        <help>Importe de oportunidad ganada medio relacionado con esta cuenta. Se actualiza automáticamente.</help>
+        <label><!-- Average Gift --></label>
+        <name>npo02__AverageAmount__c</name>
+    </fields>
+    <fields>
+        <help>La suma de los importes de oportunidades ganadas en el Año de mejor donación para esta cuenta.</help>
+        <label><!-- Best Gift Year Total --></label>
+        <name>npo02__Best_Gift_Year_Total__c</name>
+    </fields>
+    <fields>
+        <help>El año en el que se produjo el importe total más grande de oportunidades ganadas relacionadas con esta cuenta. Consulte también Total en año de mejor donación.</help>
+        <label><!-- Best Gift Year --></label>
+        <name>npo02__Best_Gift_Year__c</name>
+    </fields>
+    <fields>
+        <help>La oportunidad ganada más temprana (por Fecha de cierre) con importe superior a cero relacionada con esta cuenta.</help>
+        <label><!-- First Gift Date --></label>
+        <name>npo02__FirstCloseDate__c</name>
+    </fields>
+    <fields>
+        <help>Para cuentas Hogar, utiliza campos de contactos relacionados no excluidos y ordenados. Se genera automáticamente.</help>
+        <label><!-- Formal Greeting --></label>
+        <name>npo02__Formal_Greeting__c</name>
+    </fields>
+    <fields>
+        <label><!-- Household Phone --></label>
+        <name>npo02__HouseholdPhone__c</name>
+    </fields>
+    <fields>
+        <help>Para cuentas Hogar, utiliza campos de contactos relacionados no excluidos y ordenados. Se genera automáticamente.</help>
+        <label><!-- Informal Greeting --></label>
+        <name>npo02__Informal_Greeting__c</name>
+    </fields>
+    <fields>
+        <help>El importe más grande de una oportunidad ganada relacionado con esta cuenta.</help>
+        <label><!-- Largest Gift --></label>
+        <name>npo02__LargestAmount__c</name>
+    </fields>
+    <fields>
+        <help>La Fecha de cierre más reciente de una oportunidad ganada relacionada con esta cuenta con un importe superior a cero.</help>
+        <label><!-- Last Gift Date --></label>
+        <name>npo02__LastCloseDate__c</name>
+    </fields>
+    <fields>
+        <help>El importe de la Oportunidad de afiliación (por Tipo de registro) ganada más reciente (por Fecha de cierre) para esta cuenta.</help>
+        <label><!-- Last Membership Amount --></label>
+        <name>npo02__LastMembershipAmount__c</name>
+    </fields>
+    <fields>
+        <help>La Fecha de cierre más reciente de una Oportunidad de afiliación (por Tipo de registro) relacionada con esta cuenta.</help>
+        <label><!-- Last Membership Date --></label>
+        <name>npo02__LastMembershipDate__c</name>
+    </fields>
+    <fields>
+        <help>Nivel de afiliación procedente de la Oportunidad de afiliación (por Tipo de registro) ganada más reciente (por Fecha de cierre) relacionado con esta cuenta.</help>
+        <label><!-- Last Membership Level --></label>
+        <name>npo02__LastMembershipLevel__c</name>
+    </fields>
+    <fields>
+        <help>&quot;Origen&quot; de afiliación (nuevo, renovación...) procedente de la Oportunidad de afiliación (por Tipo de registro) ganada más reciente (por Fecha de cierre) relacionado con esta cuenta.</help>
+        <label><!-- Last Membership Origin --></label>
+        <name>npo02__LastMembershipOrigin__c</name>
+    </fields>
+    <fields>
+        <help>El importe de la oportunidad ganada más reciente (por Fecha de cierre) con importe superior a cero relacionada con esta cuenta.</help>
+        <label><!-- Last Gift Amount --></label>
+        <name>npo02__LastOppAmount__c</name>
+    </fields>
+    <fields>
+        <help>Fecha de finalización de afiliación procedente de la Oportunidad de afiliación (por Tipo de registro) ganada más reciente (por Fecha de cierre) relacionado con esta cuenta.</help>
+        <label><!-- Membership End Date --></label>
+        <name>npo02__MembershipEndDate__c</name>
+    </fields>
+    <fields>
+        <help>Fecha de inicio de afiliación procedente de la Oportunidad de afiliación (por Tipo de registro) ganada más reciente (por Fecha de cierre) relacionado con esta cuenta.</help>
+        <label><!-- Membership Join Date --></label>
+        <name>npo02__MembershipJoinDate__c</name>
+    </fields>
+    <fields>
+        <help>Número total de oportunidades ganadas relacionadas con esta cuenta.</help>
+        <label><!-- Total Number of Gifts --></label>
+        <name>npo02__NumberOfClosedOpps__c</name>
+    </fields>
+    <fields>
+        <help>Número total de oportunidades de afiliación ganadas (Tipo de registro) relacionadas con esta cuenta.</help>
+        <label><!-- Number of Memberships --></label>
+        <name>npo02__NumberOfMembershipOpps__c</name>
+    </fields>
+    <fields>
+        <help>El importe total de oportunidades ganadas relacionadas con esta cuenta, cerradas dentro del año fiscal anterior al último año (consulte Configuración de Hogar).</help>
+        <label><!-- Total Gifts Two Years Ago --></label>
+        <name>npo02__OppAmount2YearsAgo__c</name>
+    </fields>
+    <fields>
+        <help>El importe total de oportunidades ganadas relacionadas con esta cuenta, cerradas en el último número de días definido en Configuración de Hogar.</help>
+        <label><!-- Total Gifts Last N Days --></label>
+        <name>npo02__OppAmountLastNDays__c</name>
+    </fields>
+    <fields>
+        <help>El importe total de oportunidades ganadas relacionadas con esta cuenta, cerradas en el año corriente o año fiscal.</help>
+        <label><!-- Total Gifts Last Year --></label>
+        <name>npo02__OppAmountLastYear__c</name>
+    </fields>
+    <fields>
+        <help>El importe total de oportunidades ganadas relacionadas con esta cuenta, cerradas en el año corriente o año fiscal.</help>
+        <label><!-- Total Gifts This Year --></label>
+        <name>npo02__OppAmountThisYear__c</name>
+    </fields>
+    <fields>
+        <help>El número total de oportunidades ganadas con un importe superior a cero relacionadas con esta cuenta, cerradas dentro del año o año fiscal anterior al último año.</help>
+        <label><!-- Number of Gifts Two Years Ago --></label>
+        <name>npo02__OppsClosed2YearsAgo__c</name>
+    </fields>
+    <fields>
+        <help>El importe total de oportunidades ganadas relacionadas con esta cuenta, cerradas en el último número de días definido en Configuración de Hogar.</help>
+        <label><!-- Number of Gifts Last N Days --></label>
+        <name>npo02__OppsClosedLastNDays__c</name>
+    </fields>
+    <fields>
+        <help>El número total de oportunidades ganadas con un importe superior a cero relacionadas con esta cuenta, cerradas en el año o el año fiscal anterior (consulte Configuración de Hogar).</help>
+        <label><!-- Number of Gifts Last Year --></label>
+        <name>npo02__OppsClosedLastYear__c</name>
+    </fields>
+    <fields>
+        <help>El número total de oportunidades ganadas con un importe superior a cero relacionadas con esta cuenta, cerradas en el año o el año fiscal corriente (consulte Configuración de Hogar).</help>
+        <label><!-- Number of Gifts This Year --></label>
+        <name>npo02__OppsClosedThisYear__c</name>
+    </fields>
+    <fields>
+        <help>Para cuentas Hogar, especifica qué campos de nombres no deben completarse automáticamente por el código de Hogares.</help>
+        <label><!-- _SYSTEM: CUSTOM NAMING --></label>
+        <name>npo02__SYSTEM_CUSTOM_NAMING__c</name>
+        <picklistValues>
+            <masterLabel>Formal_Greeting__c</masterLabel>
+            <translation><!-- Formal_Greeting__c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Informal_Greeting__c</masterLabel>
+            <translation><!-- Informal_Greeting__c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Name</masterLabel>
+            <translation><!-- Name --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>El importe más pequeño superior a cero de una oportunidad ganada relacionado con esta cuenta.</help>
+        <label><!-- Smallest Gift --></label>
+        <name>npo02__SmallestAmount__c</name>
+    </fields>
+    <fields>
+        <help>El importe total de oportunidades de afiliación ganadas (Tipo de registro) relacionadas con esta cuenta.</help>
+        <label><!-- Total Membership Amount --></label>
+        <name>npo02__TotalMembershipOppAmount__c</name>
+    </fields>
+    <fields>
+        <help>La suma de importes de todas las oportunidades ganadas relacionado con esta cuenta.</help>
+        <label><!-- Total Gifts --></label>
+        <name>npo02__TotalOppAmount__c</name>
+    </fields>
+    <fields>
+        <help>Si se selecciona, todos los miembros de este hogar están fallecidos. No actualice este campo manualmente. NPSP lo actualiza automáticamente como resultado de las actualizaciones en la casilla Fallecido en Contactos de miembro de hogar.</help>
+        <label><!-- All Household Members Deceased --></label>
+        <name>npsp__All_Members_Deceased__c</name>
+    </fields>
+    <fields>
+        <help>Lote en el que la cuenta fue creada.</help>
+        <label><!-- Batch --></label>
+        <name>npsp__Batch__c</name>
+        <relationshipLabel><!-- Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Cuando está marcada, Totalizaciones personalizables siempre utilizará el modo Desfase para totalizar los créditos duros y blandos para este registro.</help>
+        <label><!-- Customizable Rollups: Force Skew Mode --></label>
+        <name>npsp__CustomizableRollups_UseSkewMode__c</name>
+    </fields>
+    <fields>
+        <help>Áreas generales de programa que esta organización financia.</help>
+        <label><!-- Funding Focus --></label>
+        <name>npsp__Funding_Focus__c</name>
+        <picklistValues>
+            <masterLabel>Animal Welfare</masterLabel>
+            <translation>Bienestar de los animales</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Arts and Culture</masterLabel>
+            <translation>Arte y Cultura</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Capacity Building</masterLabel>
+            <translation>Creación de capacidad</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Education</masterLabel>
+            <translation>Educación</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Environmental</masterLabel>
+            <translation>Ambiental</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Health Services</masterLabel>
+            <translation>Servicios de salud</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Human Services</masterLabel>
+            <translation>Servicios Humanos</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Indica que esta organización es una organización que entrega becas.</help>
+        <label><!-- Grantmaker --></label>
+        <name>npsp__Grantmaker__c</name>
+    </fields>
+    <fields>
+        <help>El nombre del administrador del regalo que iguala en la empresa.</help>
+        <label><!-- Matching Gift Administrator Name --></label>
+        <name>npsp__Matching_Gift_Administrator_Name__c</name>
+    </fields>
+    <fields>
+        <help>El importe máximo que la empresa igualará en un solo regalo.</help>
+        <label><!-- Matching Gift Amount Max --></label>
+        <name>npsp__Matching_Gift_Amount_Max__c</name>
+    </fields>
+    <fields>
+        <help>El importe más pequeño que la empresa igualará en una sola donación.</help>
+        <label><!-- Matching Gift Amount Min --></label>
+        <name>npsp__Matching_Gift_Amount_Min__c</name>
+    </fields>
+    <fields>
+        <help>El importe máximo que la empresa igualará cada año por empleado.</help>
+        <label><!-- Matching Gift Annual Employee Max --></label>
+        <name>npsp__Matching_Gift_Annual_Employee_Max__c</name>
+    </fields>
+    <fields>
+        <help>Notas adicionales sobre el programa de regalos que igualan de la empresa.</help>
+        <label><!-- Matching Gift Comments --></label>
+        <name>npsp__Matching_Gift_Comments__c</name>
+    </fields>
+    <fields>
+        <help>Indica que esta empresa ofrece regalos que igualan.</help>
+        <label><!-- Matching Gift Company --></label>
+        <name>npsp__Matching_Gift_Company__c</name>
+    </fields>
+    <fields>
+        <help>Correo electrónico del administrador de los regalos que igualan en la empresa.</help>
+        <label><!-- Matching Gift Email --></label>
+        <name>npsp__Matching_Gift_Email__c</name>
+    </fields>
+    <fields>
+        <help>Fecha en la que la información del regalo que iguala fue actualizada por última vez.</help>
+        <label><!-- Matching Gift Info Updated --></label>
+        <name>npsp__Matching_Gift_Info_Updated__c</name>
+    </fields>
+    <fields>
+        <help>Porcentaje de la donación que la empresa igualará.</help>
+        <label><!-- Matching Gift Percent --></label>
+        <name>npsp__Matching_Gift_Percent__c</name>
+    </fields>
+    <fields>
+        <help>Teléfono de la oficina del administrador del regalo que iguala.</help>
+        <label><!-- Matching Gift Phone --></label>
+        <name>npsp__Matching_Gift_Phone__c</name>
+    </fields>
+    <fields>
+        <help>Utilice este campo para indicar cualquier restricción de edad que esta empresa aplique en la aptitud para los regalos que igualan.</help>
+        <label><!-- Matching Gift Request Deadline --></label>
+        <name>npsp__Matching_Gift_Request_Deadline__c</name>
+    </fields>
+    <fields>
+        <help>El número de años que este hogar ha tenido una afiliación (solo lectura)</help>
+        <label><!-- Membership Span --></label>
+        <name>npsp__Membership_Span__c</name>
+    </fields>
+    <fields>
+        <help>El estado de afiliación de este hogar, por ej. Actual, Vencido o en período de gracia. El valor se basa en Fecha de finalización de afiliación y Período de gracia. El Período se establece en Configuración de NPSP, parámetros del hogar. Es de solo lectura.</help>
+        <label><!-- Membership Status --></label>
+        <name>npsp__Membership_Status__c</name>
+    </fields>
+    <fields>
+        <help>El número de contactos que son miembros de este hogar.</help>
+        <label><!-- Number of Household Members --></label>
+        <name>npsp__Number_of_Household_Members__c</name>
+    </fields>
+    <fields>
+        <help>Indica si esta cuenta es un donante recurrente activo, transcurrido o anterior. El valor se basa en el estado de las donaciones recurrentes relacionadas.</help>
+        <label><!-- Sustainer --></label>
+        <name>npsp__Sustainer__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Former</masterLabel>
+            <translation>Antiguo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lapsed</masterLabel>
+            <translation>Transcurrido</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Undeliverable Billing Address --></label>
+        <name>npsp__Undeliverable_Address__c</name>
+    </fields>
+    <layouts>
+        <layout>Household Layout</layout>
+        <sections>
+            <label>Dirección</label>
+            <section>Address</section>
+        </sections>
+        <sections>
+            <label>Vínculos personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Descripción</label>
+            <section>Description</section>
+        </sections>
+        <sections>
+            <label>Información de la donación</label>
+            <section>Donation Information</section>
+        </sections>
+        <sections>
+            <label>Totales de donaciones</label>
+            <section>Donation Totals</section>
+        </sections>
+        <sections>
+            <label>Campos</label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label>Información de afiliaciones</label>
+            <section>Membership Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Organization Layout</layout>
+        <sections>
+            <label>Dirección</label>
+            <section>Address</section>
+        </sections>
+        <sections>
+            <label>Vínculos personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Descripción</label>
+            <section>Description</section>
+        </sections>
+        <sections>
+            <label>Información de la donación</label>
+            <section>Donation Information</section>
+        </sections>
+        <sections>
+            <label>Totales de donaciones</label>
+            <section>Donation Totals</section>
+        </sections>
+        <sections>
+            <label>Campos</label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label>Información de otorgamiento de donaciones</label>
+            <section>Grantmaking Information</section>
+        </sections>
+        <sections>
+            <label>Comentarios de regalo que iguala</label>
+            <section>Matching Gift Comments</section>
+        </sections>
+        <sections>
+            <label>Información del regalo que iguala</label>
+            <section>Matching Gift Information</section>
+        </sections>
+        <sections>
+            <label>Información de afiliaciones</label>
+            <section>Membership Information</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Submit for Credit Approval --></label>
+        <name>DNBI__Submit_for_Credit_Approval</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Address --></label>
+        <name>npsp__New_Address</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Affiliation --></label>
+        <name>npsp__New_Affiliation</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Quick Update --></label>
+        <name>npsp__Quick_Household_Update</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Quick Update --></label>
+        <name>npsp__Quick_Organization_Update</name>
+    </quickActions>
+    <recordTypes>
+        <description>Una cuenta que representa un hogar que contiene una o más personas.</description>
+        <label>Cuenta de hogar</label>
+        <name>HH_Account</name>
+    </recordTypes>
+    <recordTypes>
+        <description>Una cuenta que representa una organización</description>
+        <label>Organización</label>
+        <name>Organization</name>
+    </recordTypes>
+    <webLinks>
+        <label><!-- Billing --></label>
+        <name>Billing</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- D_B_Application_Details --></label>
+        <name>DNBI__D_B_Application_Details</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- DnB_Decision --></label>
+        <name>DNBI__DnB_Decision</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Household --></label>
+        <name>npsp__Manage_Household</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Gift --></label>
+        <name>npsp__New_Gift</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Recalculate_Rollups --></label>
+        <name>npsp__Recalculate_Rollups</name>
+    </webLinks>
+</CustomObjectTranslation>

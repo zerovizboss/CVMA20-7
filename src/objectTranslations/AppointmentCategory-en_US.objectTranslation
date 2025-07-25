@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Ride Category ID</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Ride Category IDs</value>
+        </caseValues>
+        <name>appointmentcategory_id</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Bike Night</value>
+        </caseValues>
+        <name>appointmentcategory_isdropin</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>CVMA 20-7 Hosted</value>
+        </caseValues>
+        <name>appointmentcategory_isscheduled</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>Road Name</value>
+        </caseValues>
+        <caseValues>
+            <plural>true</plural>
+            <value>Road Names</value>
+        </caseValues>
+        <name>appointmentcategory_name</name>
+        <startsWith>Consonant</startsWith>
+    </fields>
+</CustomObjectTranslation>

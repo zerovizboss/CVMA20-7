@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Used to show and hide export and mass update button basis profile</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Extentia_SIM__ProfileList__c</fullName>
+        <deprecated>false</deprecated>
+        <label>ProfileList</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Export&amp;MUEnabler</label>
+    <visibility>Public</visibility>
+</CustomObject>

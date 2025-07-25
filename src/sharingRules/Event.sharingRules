@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingGuestRules>
+        <fullName>Combat_Veterans_Guest_Event_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Combat Veterans Guest Event Access</label>
+        <sharedTo>
+            <guestUser>Combat_Veterams_Motorcycle_Association</guestUser>
+        </sharedTo>
+        <criteriaItems>
+            <field>IsPrivate</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <includeHVUOwnedRecords>true</includeHVUOwnedRecords>
+    </sharingGuestRules>
+</SharingRules>

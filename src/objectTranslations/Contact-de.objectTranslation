@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- BDE Entry FS --></label>
+        <name>npsp__BDE_Entry_FS</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- BDE List FS --></label>
+        <name>npsp__BDE_List_FS</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Contact Merge Found FS --></label>
+        <name>npsp__ContactMergeFoundFS</name>
+    </fieldSets>
+    <fields>
+        <label><!-- Languages --></label>
+        <name>Languages__c</name>
+    </fields>
+    <fields>
+        <label><!-- Level --></label>
+        <name>Level__c</name>
+        <picklistValues>
+            <masterLabel>Auxiliary Member</masterLabel>
+            <translation><!-- Auxiliary Member --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Full Member</masterLabel>
+            <translation><!-- Full Member --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Support Member</masterLabel>
+            <translation><!-- Support Member --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Membership Id --></label>
+        <name>Membership_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Road Name --></label>
+        <name>Road_Name__c</name>
+    </fields>
+    <fields>
+        <help>Die alternative E-Mail-Adresse ist eine optionale vierte E-Mail-Adresse: Keine persönliche, bevorzugte oder Büro-E-Mail-Adresse</help>
+        <label><!-- Alternate Email --></label>
+        <name>npe01__AlternateEmail__c</name>
+    </fields>
+    <fields>
+        <help>Siehe Feld &quot;Bevorzugte E-Mail-Adresse&quot;.</help>
+        <label><!-- Personal Email --></label>
+        <name>npe01__HomeEmail__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Verwendet primäres Adressentypfeld zur Ermittlung der Privatadresse aus der Postanschrift oder einer anderen Adresse</help>
+        <label><!-- Home Address --></label>
+        <name>npe01__Home_Address__c</name>
+    </fields>
+    <fields>
+        <help>Formel: In der Reihenfolge der Einstellung: das Feld &quot;SYSTEM_AccountTyp&quot;, das Feld &quot;Account-Typ&quot; und &quot;Organisation&quot;</help>
+        <label><!-- Organization Type --></label>
+        <name>npe01__Organization_Type__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Die Postanschrift, wenn der primäre Adresstyp &quot;Sonstige&quot; lautet Die Adresse unter &quot;Sonstige&quot;, wenn der sekundäre Adresstyp &quot;Sonstige&quot; lautet</help>
+        <label><!-- Other Address --></label>
+        <name>npe01__Other_Address__c</name>
+    </fields>
+    <fields>
+        <help>Welche Telefonnummer sollte für die meisten Gespräche mit diesem Kontakt verwendet werden?</help>
+        <label><!-- Preferred Phone --></label>
+        <name>npe01__PreferredPhone__c</name>
+        <picklistValues>
+            <masterLabel>Home</masterLabel>
+            <translation>Privat</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation>Mobil</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation>Sonstige</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Geschäftlich</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Welche E-Mail-Adresse sollte für die meisten Konversationen mit diesem Kontakt verwendet werden?</help>
+        <label><!-- Preferred Email --></label>
+        <name>npe01__Preferred_Email__c</name>
+        <picklistValues>
+            <masterLabel>Alternate</masterLabel>
+            <translation>Alternativ</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Personal</masterLabel>
+            <translation>Persönlich</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Geschäftlich</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Welcher Typ von Adresse ist die Postanschrift?</help>
+        <label><!-- Primary Address Type --></label>
+        <name>npe01__Primary_Address_Type__c</name>
+        <picklistValues>
+            <masterLabel>Home</masterLabel>
+            <translation>Privat</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation>Sonstige</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Geschäftlich</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Schließt diesen Kontakt von der Verarbeitung des Eins-zu-Eins- oder Bucket-Accounts aus</help>
+        <label><!-- Private --></label>
+        <name>npe01__Private__c</name>
+    </fields>
+    <fields>
+        <help>Welcher Typ von Adresse ist die andere Adresse?</help>
+        <label><!-- Secondary Address Type --></label>
+        <name>npe01__Secondary_Address_Type__c</name>
+        <picklistValues>
+            <masterLabel>Home</masterLabel>
+            <translation>Privat</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation>Sonstige</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Geschäftlich</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Gibt an, welches Modell für das Verhalten der Account-Beziehung maßgeblich ist: Einzelperson (Bucket) oder Eins-zu-Eins</help>
+        <label><!-- DEPRECATED - _SYSTEM: ACCOUNT PROCESSOR --></label>
+        <name>npe01__SystemAccountProcessor__c</name>
+        <picklistValues>
+            <masterLabel>Individual</masterLabel>
+            <translation>Einzelperson</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>One-to-One</masterLabel>
+            <translation>Eins-zu-Eins</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Formel: &quot;Einzelperson&quot; oder &quot;Organisation&quot; je nach Einstellung unter Account</help>
+        <label><!-- Type of Account --></label>
+        <name>npe01__Type_of_Account__c</name>
+    </fields>
+    <fields>
+        <help>Siehe Feld &quot;Bevorzugte E-Mail-Adresse&quot;.</help>
+        <label><!-- Work Email --></label>
+        <name>npe01__WorkEmail__c</name>
+    </fields>
+    <fields>
+        <help>Siehe Feld &quot;Bevorzugte Telefonnummer&quot;.</help>
+        <label><!-- Work Phone --></label>
+        <name>npe01__WorkPhone__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Die Postanschrift, wenn der primäre Adresstyp &quot;Büro&quot; lautet Die Adresse unter &quot;Sonstige&quot;, wenn der sekundäre Adresstyp &quot;Büro&quot; lautet</help>
+        <label><!-- Work Address --></label>
+        <name>npe01__Work_Address__c</name>
+    </fields>
+    <fields>
+        <help>Der durchschnittliche Betrag aller in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities.</help>
+        <label><!-- Average Gift --></label>
+        <name>npo02__AverageAmount__c</name>
+    </fields>
+    <fields>
+        <help>Die Summe der gewonnenen Opportunities im Jahr der besten Spenden.</help>
+        <label><!-- Best Gift Year Total --></label>
+        <name>npo02__Best_Gift_Year_Total__c</name>
+    </fields>
+    <fields>
+        <help>Das Jahr, in dem der höchste Opportunity-Betrag in Verbindung mit diesem Kontakte mit primärer Kontaktrolle insgesamt gewonnen wurde. Siehe auch &quot;Jahr der besten Spende gesamt&quot;.</help>
+        <label><!-- Best Gift Year --></label>
+        <name>npo02__Best_Gift_Year__c</name>
+    </fields>
+    <fields>
+        <help>Der früheste Schlusstermin einer in Verbindung mit diesem Kontakt mit primärer Opportunity-Kontaktrolle gewonnenen Opportunity mit einem Betrag über null.</help>
+        <label><!-- First Gift Date --></label>
+        <name>npo02__FirstCloseDate__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Duplikat der Postanschrift des Haushalts (auch &quot;Formel&quot; genannt)</help>
+        <label><!-- Household Mailing Address --></label>
+        <name>npo02__Formula_HouseholdMailingAddress__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Einfache Formel des Felds &quot;Haushalt-Telefon&quot;.</help>
+        <label><!-- Household Phone --></label>
+        <name>npo02__Formula_HouseholdPhone__c</name>
+    </fields>
+    <fields>
+        <help>Legt die Reihenfolge fest, in der Kontaktnamen zur Generierung des Haushalt-Namens verwendet werden.</help>
+        <label><!-- Household Naming Order --></label>
+        <name>npo02__Household_Naming_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Household --></label>
+        <name>npo02__Household__c</name>
+        <relationshipLabel><!-- Household Members --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Der größte Betrag einer in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunity.</help>
+        <label><!-- Largest Gift --></label>
+        <name>npo02__LargestAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Household Gift Date --></label>
+        <name>npo02__LastCloseDateHH__c</name>
+    </fields>
+    <fields>
+        <help>Der Schlusstermin der letzten in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunity.</help>
+        <label><!-- Last Gift Date --></label>
+        <name>npo02__LastCloseDate__c</name>
+    </fields>
+    <fields>
+        <help>Der Betrag der letzten (nach dem Schlusstermin) in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Mitgliedschaft- (Datensatztyp) Opportunity.</help>
+        <label><!-- Last Membership Amount --></label>
+        <name>npo02__LastMembershipAmount__c</name>
+    </fields>
+    <fields>
+        <help>Der letzte Schlusstermin einer in Verbindung mit diesem Haushalt nach primärer Opportunity-Kontaktrolle gewonnenen Mitgliedschaft- (Datensatztyp) Opportunity.</help>
+        <label><!-- Last Membership Date --></label>
+        <name>npo02__LastMembershipDate__c</name>
+    </fields>
+    <fields>
+        <help>Die Ebene der letzten (nach dem Schlusstermin) in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Mitgliedschaft (Datensatztyp) Opportunity.</help>
+        <label><!-- Last Membership Level --></label>
+        <name>npo02__LastMembershipLevel__c</name>
+    </fields>
+    <fields>
+        <help>Der Ursprung (neu, verlängert, erneut erworben) der letzten (Schlusstermin) in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Mitgliedschaft- (Datensatztyp) Opportunity.</help>
+        <label><!-- Last Membership Origin --></label>
+        <name>npo02__LastMembershipOrigin__c</name>
+    </fields>
+    <fields>
+        <help>Der Betrag der letzten (nach dem Schlusstermin) in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunity.</help>
+        <label><!-- Last Gift Amount --></label>
+        <name>npo02__LastOppAmount__c</name>
+    </fields>
+    <fields>
+        <help>Das Mitgliedschaft-Enddatum der letzten (Schlusstermin) Mitgliedschaft-Opportunity (Datensatztyp) in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle. </help>
+        <label><!-- Membership End Date --></label>
+        <name>npo02__MembershipEndDate__c</name>
+    </fields>
+    <fields>
+        <help>Das Beitrittsdatum der ältesten (Schlusstermin) Mitgliedschaft-Opportunity (Datensatztyp) in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle.</help>
+        <label><!-- Membership Join Date --></label>
+        <name>npo02__MembershipJoinDate__c</name>
+    </fields>
+    <fields>
+        <help>Wählen Sie diese Option aus, um den Namen dieses Kontakts aus verschiedenen generierten Haushalt-Namen auszuschließen.</help>
+        <label><!-- Naming Exclusions --></label>
+        <name>npo02__Naming_Exclusions__c</name>
+        <picklistValues>
+            <masterLabel>Household__c.Formal_Greeting__c</masterLabel>
+            <translation>Household__c.Formal_Greeting__c</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Household__c.Informal_Greeting__c</masterLabel>
+            <translation>Household__c.Informal_Greeting__c</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Household__c.Name</masterLabel>
+            <translation>Household__c.Name</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Die Gesamtzahl der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities mit einem Betrag über null.</help>
+        <label><!-- Total Number of Gifts --></label>
+        <name>npo02__NumberOfClosedOpps__c</name>
+    </fields>
+    <fields>
+        <help>Die Anzahl der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Mitgliedschaft-Opportunities (Datensatztyp).</help>
+        <label><!-- Number of Memberships --></label>
+        <name>npo02__NumberOfMembershipOpps__c</name>
+    </fields>
+    <fields>
+        <help>Der Gesamtbetrag der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities, die vor zwei Jahren geschlossen wurden.</help>
+        <label><!-- Total Gifts Two Years Ago --></label>
+        <name>npo02__OppAmount2YearsAgo__c</name>
+    </fields>
+    <fields>
+        <help>Der Gesamtbetrag der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities, die in den letzten in den Haushalt-Einstellungen definierten N Tagen geschlossen wurden.</help>
+        <label><!-- Total Gifts Last N Days --></label>
+        <name>npo02__OppAmountLastNDays__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Spenden gesamt im letzten Jahr zum verbundenen Haushalt.</help>
+        <label><!-- Total Household Gifts Last Year --></label>
+        <name>npo02__OppAmountLastYearHH__c</name>
+    </fields>
+    <fields>
+        <help>Der Gesamtbetrag der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities, die im letzten Jahr geschlossen wurden.</help>
+        <label><!-- Total Gifts Last Year --></label>
+        <name>npo02__OppAmountLastYear__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Spenden gesamt in diesem Jahr zum verbundenen Haushalt.</help>
+        <label><!-- Total Household Gifts This Year --></label>
+        <name>npo02__OppAmountThisYearHH__c</name>
+    </fields>
+    <fields>
+        <help>Der Gesamtbetrag der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities, die in diesem Jahr geschlossen wurden.</help>
+        <label><!-- Total Gifts This Year --></label>
+        <name>npo02__OppAmountThisYear__c</name>
+    </fields>
+    <fields>
+        <help>Die Gesamtzahl der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities mit einem Betrag über null, die vor zwei Jahren geschlossen wurden.</help>
+        <label><!-- Number of Gifts Two Years Ago --></label>
+        <name>npo02__OppsClosed2YearsAgo__c</name>
+    </fields>
+    <fields>
+        <help>Die Gesamtzahl der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities mit einem Betrag über null, die in den letzten in den Haushalt-Einstellungen definierten N Tagen geschlossen wurden.</help>
+        <label><!-- Number of Gifts Last N Days --></label>
+        <name>npo02__OppsClosedLastNDays__c</name>
+    </fields>
+    <fields>
+        <help>Die Gesamtzahl der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities mit einem Betrag über null, die letztes Jahr geschlossen wurden.</help>
+        <label><!-- Number of Gifts Last Year --></label>
+        <name>npo02__OppsClosedLastYear__c</name>
+    </fields>
+    <fields>
+        <help>Die Gesamtzahl der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunities mit einem Betrag über null, die dieses Jahr geschlossen wurden.</help>
+        <label><!-- Number of Gifts This Year --></label>
+        <name>npo02__OppsClosedThisYear__c</name>
+    </fields>
+    <fields>
+        <help>Der kleinste Betrag einer in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunity.</help>
+        <label><!-- Smallest Gift --></label>
+        <name>npo02__SmallestAmount__c</name>
+    </fields>
+    <fields>
+        <help>Die Summe der nach Opportunity-Kontaktrolle festgelegten und nach Rollen in den Haushalt-Einstellungen gefilterten Soft Credit-Opportunity-Beträge im letzten Jahr.</help>
+        <label><!-- Soft Credit Last Year --></label>
+        <name>npo02__Soft_Credit_Last_Year__c</name>
+    </fields>
+    <fields>
+        <help>Gesamtbetrag an Soft Credits dieses Jahr</help>
+        <label><!-- Soft Credit This Year --></label>
+        <name>npo02__Soft_Credit_This_Year__c</name>
+    </fields>
+    <fields>
+        <help>Gesamtbetrag an Soft Credits während der Lebensdauer dieses Kontakts. Wird auf der Registerkarte &quot;Haushalt-Einstellungen&quot; definiert.</help>
+        <label><!-- Soft Credit Total --></label>
+        <name>npo02__Soft_Credit_Total__c</name>
+    </fields>
+    <fields>
+        <help>Die Summe der durch die Opportunity-Kontaktrolle festgelegten und nach Rollen in den Haushalt-Einstellungen gefilterten Soft Credit-Opportunity-Beträge vor zwei Jahren.</help>
+        <label><!-- Soft Credit Two Years Ago --></label>
+        <name>npo02__Soft_Credit_Two_Years_Ago__c</name>
+    </fields>
+    <fields>
+        <label><!-- _SYSTEM: HOUSEHOLD PROCESSOR-DEPRECATED --></label>
+        <name>npo02__SystemHouseholdProcessor__c</name>
+        <picklistValues>
+            <masterLabel>All Individual Contacts</masterLabel>
+            <translation>Alle einzelnen Kontakte</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>All New or Edited Contacts</masterLabel>
+            <translation>Alle neuen oder bearbeiteten Kontakte</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No Contacts</masterLabel>
+            <translation>Keine Kontakte</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Der Gesamtbetrag der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Mitgliedschaft-Opportunities (Datensatztyp).</help>
+        <label><!-- Total Membership Amount --></label>
+        <name>npo02__TotalMembershipOppAmount__c</name>
+    </fields>
+    <fields>
+        <help>Die Summe der in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle.gewonnenen Opportunities.</help>
+        <label><!-- Total Gifts --></label>
+        <name>npo02__TotalOppAmount__c</name>
+    </fields>
+    <fields>
+        <help>Formel: Spenden gesamt zum verbundenen Haushalt.</help>
+        <label><!-- Total Household Gifts --></label>
+        <name>npo02__Total_Household_Gifts__c</name>
+    </fields>
+    <fields>
+        <help>Der Überprüfungsstatus der aktuellen Adresse. Wenn eine Überprüfung dieser Adresse erforderlich ist, navigieren Sie zum aktuellen Adressdatensatz und wählen Sie &quot;Adresse überprüfen&quot; aus. Mehr zur Adressüberprüfung finden Sie in der NPSP-Dokumentation.</help>
+        <label><!-- Address Verification Status --></label>
+        <name>npsp__Address_Verification_Status__c</name>
+    </fields>
+    <fields>
+        <help>Nachschlageoption zum Batch, in dem dieser Kontakt erstellt wurde.</help>
+        <label><!-- Batch --></label>
+        <name>npsp__Batch__c</name>
+        <relationshipLabel><!-- Contacts --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Nachschlageoption zum aktuellen Adressdatensatz für diesen Kontakt. NPSP gibt die Straße, die Stadt, das Bundesland und die Postleitzahl aus dem aktuellen Adressdatensatz in das Postadressenfeld des Kontakts ein.</help>
+        <label><!-- Current Address --></label>
+        <name>npsp__Current_Address__c</name>
+        <relationshipLabel><!-- Contacts (Current Address) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Bei aktivierter Option verwendet Anpassbare Rollups immer den &apos;verzerrten Modus&apos; für Rolllups von Hard Credits und Soft Credits für diesen Datensatz.</help>
+        <label><!-- Customizable Rollups: Force Skew Mode --></label>
+        <name>npsp__CustomizableRollups_UseSkewMode__c</name>
+    </fields>
+    <fields>
+        <help>Gibt an, dass der Kontakt verstorben ist. Bei Auswahl dieser Option wird der Kontakt als verstorben gekennz. und von der Haushalt-Benennung und von den Standard-E-Mails und Telefonanrufen ausgeschl. (Wenn er nicht der einzige Kontakt i. d. Haush. ist).</help>
+        <label><!-- Deceased --></label>
+        <name>npsp__Deceased__c</name>
+    </fields>
+    <fields>
+        <help>Gibt an, dass der Kontakt keine Anrufe und E-Mails von Ihrer Organisation erhalten möchte. Mit diesem Feld filtern Sie Kontakte aus den E-Mail- und Telefonlisten heraus. Mit dieser Option wird dieser Kontakt aus den Opp.-Bestätigungen ausgeschl.</help>
+        <label><!-- Do Not Contact --></label>
+        <name>npsp__Do_Not_Contact__c</name>
+    </fields>
+    <fields>
+        <help>Durch Aktivierung dieses Kontrollkästchens wird dieser Kontakt von der formellen Anrede des Haushalts ausgeschlossen (Einstellung unter NPSP-Einstellungen | Personen | Haushalte).</help>
+        <label><!-- Exclude from Household Formal Greeting --></label>
+        <name>npsp__Exclude_from_Household_Formal_Greeting__c</name>
+    </fields>
+    <fields>
+        <help>Durch Aktivierung dieses Kontrollkästchens wird dieser Kontakt von der informellen Anrede des Haushalts ausgeschlossen (Einstellung unter NPSP-Einstellungen | Personen | Haushalte).</help>
+        <label><!-- Exclude from Household Informal Greeting --></label>
+        <name>npsp__Exclude_from_Household_Informal_Greeting__c</name>
+    </fields>
+    <fields>
+        <help>Durch Aktivierung dieses Kontrollkästchens wird dieser Kontakt aus dem Haushalt-Namen ausgeschlossen (Einstellung unter NPSP-Einstellungen | Personen | Haushalte).</help>
+        <label><!-- Exclude from Household Name --></label>
+        <name>npsp__Exclude_from_Household_Name__c</name>
+    </fields>
+    <fields>
+        <help>Der Betrag des ersten Soft Credit</help>
+        <label><!-- First Soft Credit Amount --></label>
+        <name>npsp__First_Soft_Credit_Amount__c</name>
+    </fields>
+    <fields>
+        <help>Das Datum des ersten Soft Credit</help>
+        <label><!-- First Soft Credit Date --></label>
+        <name>npsp__First_Soft_Credit_Date__c</name>
+    </fields>
+    <fields>
+        <help>Enthält die Kennung des Haushalt-Datensatzes (entweder Haushalt-Account oder Haushalt-Objekt), mit dem dieser Kontakt aktuell verbunden ist (schreibgeschützt).</help>
+        <label><!-- HHId --></label>
+        <name>npsp__HHId__c</name>
+    </fields>
+    <fields>
+        <help>Der Betrag des höchsten Soft Credit dieses Kontakts</help>
+        <label><!-- Largest Soft Credit Amount --></label>
+        <name>npsp__Largest_Soft_Credit_Amount__c</name>
+    </fields>
+    <fields>
+        <help>Das Datum des höchsten Soft Credit dieses Kontakts</help>
+        <label><!-- Largest Soft Credit Date --></label>
+        <name>npsp__Largest_Soft_Credit_Date__c</name>
+    </fields>
+    <fields>
+        <help>Der Betrag des letzten Soft Credit dieses Kontakts</help>
+        <label><!-- Last Soft Credit Amount --></label>
+        <name>npsp__Last_Soft_Credit_Amount__c</name>
+    </fields>
+    <fields>
+        <help>Das Datum des letzten Soft Credit</help>
+        <label><!-- Last Soft Credit Date --></label>
+        <name>npsp__Last_Soft_Credit_Date__c</name>
+    </fields>
+    <fields>
+        <help>Die Anzahl der Soft Credits, die in den letzten Tagen abgeschlossen wurden, wie in den NPSP-Einstellungen definiert</help>
+        <label><!-- Number of Soft Credits Last N Days --></label>
+        <name>npsp__Number_of_Soft_Credits_Last_N_Days__c</name>
+    </fields>
+    <fields>
+        <help>Die Anzahl der diesem Kontakt im letzten Kalenderjahr zugewiesenen Soft Credits</help>
+        <label><!-- Number of Soft Credits Last Year --></label>
+        <name>npsp__Number_of_Soft_Credits_Last_Year__c</name>
+    </fields>
+    <fields>
+        <help>Die Anzahl der diesem Kontakt in diesem Kalenderjahr zugewiesenen Soft Credits</help>
+        <label><!-- Number of Soft Credits This Year --></label>
+        <name>npsp__Number_of_Soft_Credits_This_Year__c</name>
+    </fields>
+    <fields>
+        <help>Die Anzahl der diesem Kontakt vor zwei Kalenderjahren zugewiesenen Soft Credits</help>
+        <label><!-- Number of Soft Credits Two Years Ago --></label>
+        <name>npsp__Number_of_Soft_Credits_Two_Years_Ago__c</name>
+    </fields>
+    <fields>
+        <help>Die Gesamtzahl der diesem Kontakt zugewiesenen Soft Credits</help>
+        <label><!-- Number of Soft Credits --></label>
+        <name>npsp__Number_of_Soft_Credits__c</name>
+    </fields>
+    <fields>
+        <help>Der in der Liste der Organisationszugehörigkeiten dieses Kontakts als &quot;Primär&quot; gekennzeichnete Account.</help>
+        <label><!-- Primary Affiliation --></label>
+        <name>npsp__Primary_Affiliation__c</name>
+        <relationshipLabel><!-- Do Not Use.  Use Organization Affiliations. --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Gibt an, ob dieser Kontakt in seinem Account als Hauptansprechpartner festgelegt ist (schreibgeschützt).</help>
+        <label><!-- Primary Contact --></label>
+        <name>npsp__Primary_Contact__c</name>
+    </fields>
+    <fields>
+        <help>Der Gesamtbetrag des diesem Kontakt in den letzten N Tagen zugewiesenen Soft Credit. Der Wert N wird in den NPSP-Einstellungen unter &quot;Spenden&quot; &gt; &quot;Spenderstatistik&quot; definiert.</help>
+        <label><!-- Soft Credit Last N Days --></label>
+        <name>npsp__Soft_Credit_Last_N_Days__c</name>
+    </fields>
+    <fields>
+        <help>Gibt an, ob es sich bei diesem Kontakt um einen aktiven, ausgesetzten oder ehemaligen wiederkehrenden Spender handelt. Der Wert basiert auf dem Status der zugeordneten wiederkehrenden Spenden.</help>
+        <label><!-- Sustainer --></label>
+        <name>npsp__Sustainer__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Aktiv</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Former</masterLabel>
+            <translation>Früher</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lapsed</masterLabel>
+            <translation>Erloschen</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Undeliverable Mailing Address --></label>
+        <name>npsp__Undeliverable_Address__c</name>
+    </fields>
+    <fields>
+        <help>Wenn diese Option aktiviert ist, wird die Adresse dieses Kontakts nicht mit dem Standardhaushalt oder der saisonalen Adresse synchronisiert. Auf diese Weise erhalten Sie eine separate Postanschrift für diesen speziellen Kontakt.</help>
+        <label><!-- Address Override --></label>
+        <name>npsp__is_Address_Override__c</name>
+    </fields>
+    <layouts>
+        <layout>Contact Layout</layout>
+        <sections>
+            <label>Kontaktdetails</label>
+            <section>Contact Details</section>
+        </sections>
+        <sections>
+            <label>Spendeninformationen</label>
+            <section>Donation Information</section>
+        </sections>
+        <sections>
+            <label>Spendenbeträge gesamt</label>
+            <section>Donation Totals</section>
+        </sections>
+        <sections>
+            <label>Adresse des Haushalts</label>
+            <section>Household Address</section>
+        </sections>
+        <sections>
+            <label>Informationen zur Spende des Haushalts</label>
+            <section>Household Donation Info</section>
+        </sections>
+        <sections>
+            <label>Mitgliedschaftsinformationen</label>
+            <section>Membership Information</section>
+        </sections>
+        <sections>
+            <label>Sonstiges</label>
+            <section>Misc</section>
+        </sections>
+        <sections>
+            <label>Soft Credit gesamt</label>
+            <section>Soft Credit Totals</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- New Affiliation --></label>
+        <name>npsp__New_Affiliation</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Recurring Donation --></label>
+        <name>npsp__New_Recurring_Donation</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Relationship --></label>
+        <name>npsp__New_Relationship</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Quick Update --></label>
+        <name>npsp__Quick_Update</name>
+    </quickActions>
+    <webLinks>
+        <label><!-- Relationships_Viewer --></label>
+        <name>npe4__Relationships_Viewer</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Copy_Address_to_Household --></label>
+        <name>npo02__Copy_Address_to_Household</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Household --></label>
+        <name>npo02__Household</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Merge_Contacts --></label>
+        <name>npsp__Merge_Contacts</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Gift --></label>
+        <name>npsp__New_Gift</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Recalculate_Rollups --></label>
+        <name>npsp__Recalculate_Rollups</name>
+    </webLinks>
+</CustomObjectTranslation>

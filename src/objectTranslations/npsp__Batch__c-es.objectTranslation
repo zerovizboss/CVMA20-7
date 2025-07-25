@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Lote</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Lotes</value>
+    </caseValues>
+    <fieldSets>
+        <label><!-- BatchDetailView --></label>
+        <name>npsp__BatchDetailView</name>
+    </fieldSets>
+    <fields>
+        <label><!-- Batch Status --></label>
+        <name>npsp__Batch_Status__c</name>
+        <picklistValues>
+            <masterLabel>Complete</masterLabel>
+            <translation>Completo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation>En curso</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>npsp__Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Items --></label>
+        <name>npsp__Number_of_Items__c</name>
+    </fields>
+    <fields>
+        <help>Nombre de API del objeto a utilizar en el lote.</help>
+        <label><!-- Object Name --></label>
+        <name>npsp__Object_Name__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Batch Layout</layout>
+        <sections>
+            <label>Vínculos personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nombre de lote</nameFieldLabel>
+</CustomObjectTranslation>

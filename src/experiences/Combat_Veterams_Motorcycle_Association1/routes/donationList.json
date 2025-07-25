@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "9278f834-bae0-4033-acb2-74a3dd5c9ec6",
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "configurationTags" : [ ],
+  "devName" : "Donation_List__c",
+  "id" : "77e61fc9-dd9b-4c41-9d81-cfb37d4a8641",
+  "label" : "Donation List",
+  "routeType" : "list-006",
+  "type" : "route",
+  "urlPrefix" : "opportunity"
+}

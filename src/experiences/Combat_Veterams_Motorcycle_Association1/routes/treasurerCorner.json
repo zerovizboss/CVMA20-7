@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "629b09bc-5fb2-49d9-b062-f4b58530dabc",
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "configurationTags" : [ ],
+  "devName" : "treasurer_corner__c",
+  "id" : "53a27dd7-f704-4614-917d-c9131b188f3e",
+  "label" : "Treasurer Corner",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-treasurer-corner",
+  "type" : "route",
+  "urlPrefix" : "treasurer-corner"
+}

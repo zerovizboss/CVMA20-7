@@ -1,0 +1,48 @@
+{
+  "appPageId" : "64009991-6a3d-46ad-8c66-5311c760760f",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "3fa85ccb-bf04-4e0e-b175-39a1b6d4e5d5",
+  "label" : "Login Error",
+  "regions" : [ {
+    "id" : "1852de92-0538-4781-a2b9-d9b455cde301",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h2 style=\"text-align: center;\"><span style=\"background-color: rgb(255, 153, 0); color: rgb(0, 0, 0);\">Invalid Page</span><span style=\"background-color: rgb(255, 153, 0);\">: You may need to become a </span><strong style=\"background-color: rgb(255, 153, 0); color: rgb(0, 0, 0);\">CVMA Lucky-7</strong><span style=\"background-color: rgb(255, 153, 0); color: rgb(0, 0, 0);\"> </span><span style=\"background-color: rgb(255, 153, 0);\">Chapter Member to join our page.</span></h2><h2 style=\"text-align: center;\"><span style=\"background-color: rgb(255, 153, 0);\">Please contact our Chapter Commander by visiting our Contact Us page</span></h2>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "a6a8828e-6d9c-49d1-92a9-ed806dc7fecc",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1c31a59e-9f39-4d2a-9bb3-8b144d4fba2a",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "c31ef7fc-d408-4914-af7f-56442e35e11b",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Login Error"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "1953798c-0a65-4810-93aa-ec5210626ec5",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5d24020c-d5b8-45eb-b89c-1ee0f0b494f9",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Login",
+  "type" : "view",
+  "viewType" : "login-error"
+}

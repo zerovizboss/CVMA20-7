@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>DNBI Credit Information Update for Lead</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DNBI Credit Information Update for Lead</name>
+    <style>none</style>
+    <subject>Credit Application Status Update for {!Lead.Company}</subject>
+    <textOnly>A Credit Decision has been updated on {!Lead.Company} for credit application {!Lead.DNBI__DnB_Application_ID__c}. Please review the updated credit decision.Click to view the record.
+Note: You can search the credit application ID in the main search box on Salesforce.com.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

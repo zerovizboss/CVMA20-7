@@ -1,0 +1,12 @@
+{
+  "activeViewId" : null,
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "configurationTags" : [ ],
+  "devName" : "cc_xo_corner__c",
+  "id" : "13bf49d9-f09c-42b9-aa62-1efe24a6a8ac",
+  "label" : "CC - XO Corner",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-cc-xo-corner",
+  "type" : "route",
+  "urlPrefix" : "cc-xo-corner"
+}

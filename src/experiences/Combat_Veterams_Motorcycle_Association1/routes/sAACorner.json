@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "c415ce78-0529-4f03-935e-e5581375116e",
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "configurationTags" : [ ],
+  "devName" : "saa_corner__c",
+  "id" : "109d1ecb-2b53-442f-be00-8539fbd311d2",
+  "label" : "SAA Corner",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-saa-corner",
+  "type" : "route",
+  "urlPrefix" : "saa-corner"
+}

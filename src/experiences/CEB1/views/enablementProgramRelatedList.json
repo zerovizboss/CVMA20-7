@@ -1,0 +1,23 @@
+{
+  "appPageId" : "bceb6604-a949-47c2-9633-ae41072bb45e",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "85812ee5-bd9b-4a53-8938-49e8c7414f61",
+  "label" : "Enablement Program Related List",
+  "regions" : [ {
+    "id" : "4d1d322b-ead0-492b-b346-3eefda7481d1",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "8a59c077-1ebc-45c6-a6f7-7dda2a616377",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "98f093e5-4f27-4221-a3a7-5b140a10ec7f",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-0Qo"
+}

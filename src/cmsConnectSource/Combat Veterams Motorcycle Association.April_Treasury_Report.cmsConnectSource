@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CMSConnectSource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <connectionType>Public</connectionType>
+    <developerName>April_Treasury_Report</developerName>
+    <languageEnabled>N</languageEnabled>
+    <masterLabel>April Treasury Report</masterLabel>
+    <personalizationEnabled>N</personalizationEnabled>
+    <rootPath>https://onedrive.live.com/personal/73B11C5746311554/_layouts/15/Doc.aspx?resid=73B11C5746311554!sede3203353ed4aff8920ac58cbe4f04c&amp;cid=73B11C5746311554&amp;migratedtospo=true&amp;app=Word</rootPath>
+    <sortOrder>2</sortOrder>
+    <status>ACTIVE</status>
+    <type>AEM</type>
+    <websiteUrl>https://onedrive.live.com</websiteUrl>
+</CMSConnectSource>

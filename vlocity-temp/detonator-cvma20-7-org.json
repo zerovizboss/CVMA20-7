@@ -1,0 +1,11 @@
+{
+    "username": "detonator@cvma20-7.org",
+    "id": "00Dbm000007w9muEAA",
+    "connectedStatus": "Connected",
+    "accessToken": "00Dbm000007w9mu!AQEAQJ1cHmgdsF8._EpiP7FMF4yCMjnTdotEZERDay_d4100jD_DvS81a7abWnycmsAp3YkkwMgFNax5G8wHkC0yhVaKO95X",
+    "instanceUrl": "https://cvma20-7-dev-ed.develop.my.salesforce.com",
+    "clientId": "PlatformCLI",
+    "sfdxAuthUrl": "force://PlatformCLI::5Aep861GSSd.UBhhUIO6IlvdNyW0ASqk3BvMRp_glWiz5we71oQ3ORM.JxbnJH26A6TmqCw0AGfj7tSbNZNd7OS@cvma20-7-dev-ed.develop.my.salesforce.com",
+    "alias": "cvma",
+    "vbtSfdxUsername": "detonator@cvma20-7.org"
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- データインポート項目の対応付け --></value>
+    </caseValues>
+    <fields>
+        <help>この項目の対応付けが含まれるデータインポート項目の対応付けセット。</help>
+        <label><!-- Data Import Field Mapping Set --></label>
+        <name>npsp__Data_Import_Field_Mapping_Set__c</name>
+        <relationshipLabel><!-- Data Import Field Mappings --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>オンになっていると、このレコードがデータインポートの高度な対応付けのユーザインターフェースから削除されており、NPSP データインポートの処理時に無視されることを示します。</help>
+        <label><!-- Is Deleted --></label>
+        <name>npsp__Is_Deleted__c</name>
+    </fields>
+    <fields>
+        <help>NPSP データインポートオブジェクトの項目に値が含まれている必要があるかどうかを示します。必須の場合、項目に値が含まれていないと、Dry Run は失敗します。</help>
+        <label><!-- Required? --></label>
+        <name>npsp__Required__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>いいえ</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation>はい</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>NPSP データインポートオブジェクトの項目の API 参照名。</help>
+        <label><!-- Source Field API Name --></label>
+        <name>npsp__Source_Field_API_Name__c</name>
+    </fields>
+    <fields>
+        <help>対象オブジェクトの項目の API 参照名。</help>
+        <label><!-- Target Field API Name --></label>
+        <name>npsp__Target_Field_API_Name__c</name>
+    </fields>
+    <fields>
+        <help>この項目の対応付けの対象データインポートオブジェクトグループ。</help>
+        <label><!-- Target Object Mapping --></label>
+        <name>npsp__Target_Object_Mapping__c</name>
+        <relationshipLabel><!-- Data Import Field Mappings --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Data Import Field Mapping Layout</layout>
+        <sections>
+            <label>カスタムリンク</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>

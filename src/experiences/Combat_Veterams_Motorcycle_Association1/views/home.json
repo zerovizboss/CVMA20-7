@@ -1,0 +1,107 @@
+{
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "componentName" : "siteforce:sldsTwoCol84Layout",
+  "dataProviders" : [ ],
+  "id" : "3a46d8aa-31eb-4d56-b082-09836994c2e4",
+  "label" : "Home",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "bannerBackgroundColor" : "rgb(202, 53, 0)",
+        "bannerPosition" : "top",
+        "bannerSizePercent" : 15,
+        "borderRadius" : 20,
+        "boxShadow" : false,
+        "haveBanner" : true,
+        "iconBackgroundColor" : "rgb(255,255,255)",
+        "iconSize" : "medium",
+        "noImageColor" : "rgb(180, 51, 0)",
+        "overlay" : "rgba(0,0,0,0.01)",
+        "templateType" : "full",
+        "tileMenuEditor" : "Default_Navigation",
+        "titleColor" : "",
+        "titleFontSize" : "medium",
+        "titleHorizontalAlign" : "center"
+      },
+      "componentName" : "community_navigation:tileMenu",
+      "id" : "308e6030-fe38-4fa9-a00e-0a7e5eb50b6b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b5228d5a-65af-4d30-a497-17bc8b41a918",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "enableInlineEdit" : true,
+        "filterName" : "AllOpportunities",
+        "layout" : "STANDARD",
+        "pageSize" : 5,
+        "scope" : "Opportunity",
+        "showActionBar" : true,
+        "showChartsPanel" : true,
+        "showDisplay" : "showall",
+        "showFilterPanel" : true,
+        "showImageIcon" : true,
+        "showManualRefreshButton" : true,
+        "showObjectName" : true,
+        "showPinnedList" : true,
+        "showSearchBar" : true
+      },
+      "componentName" : "forceCommunity:objectHome",
+      "id" : "a23a71d9-85bc-4409-90d7-9998f0e17ce7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "79f28abd-471a-49cd-93fc-e40b71c6faa4",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "healthcloud:myAppointmentsCommunity",
+      "id" : "d16359f3-044a-49d6-b58a-a0dc837ffa95",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "45ca79d0-5509-43be-839e-06a3321f97a6",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-size: 16px;\">Quick Links</strong></p><p style=\"text-align: center;\"><br></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 1</a></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 2</a></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 3</a></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 4</a></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "bfe37b71-7e38-4e62-998c-0c3b73689445",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "08c7d5ef-183b-43dc-862a-27f70343b2bd",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Home"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "2c593bdc-c8d1-43a6-97d9-9d0833fb8027",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4f933fb5-6da5-47bf-bb9f-f4bc4bf1b2a7",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "home"
+}

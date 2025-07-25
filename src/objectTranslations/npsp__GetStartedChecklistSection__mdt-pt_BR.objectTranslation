@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Seção de lista de verificação da Introdução ao NPSP --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Seções de lista de verificação da Introdução ao NPSP --></value>
+    </caseValues>
+    <fields>
+        <help>O nome da API do rótulo Descrição deste item da seção na página Introdução. Deve corresponder a um rótulo importado no gsLabelMapper LWC.</help>
+        <label><!-- Description Label Name --></label>
+        <name>npsp__Description_Label__c</name>
+    </fields>
+    <fields>
+        <help>O tipo de página de introdução (Administrador ou Usuário final) onde esta seção aparecerá.</help>
+        <label><!-- Page Type --></label>
+        <name>npsp__Page_Type__c</name>
+        <picklistValues>
+            <masterLabel>Admin</masterLabel>
+            <translation>Administrador</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>End User</masterLabel>
+            <translation>Usuário final</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>A posição desta seção na página Introdução.</help>
+        <label><!-- Position --></label>
+        <name>npsp__Position__c</name>
+    </fields>
+    <fields>
+        <help>O nome da API do rótulo Título deste item da seção na página Introdução. Deve corresponder a um rótulo importado no LWC gsLabelMapper.</help>
+        <label><!-- Title Label Name --></label>
+        <name>npsp__Title_Label__c</name>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <layouts>
+        <layout>GS Checklist Section Layout</layout>
+        <sections>
+            <label>Links personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>

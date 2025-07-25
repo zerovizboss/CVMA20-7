@@ -1,0 +1,65 @@
+{
+  "appPageId" : "64009991-6a3d-46ad-8c66-5311c760760f",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "b583710d-bd33-45d4-ae32-dee9a68c9823",
+  "label" : "Login",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1 style=\"text-align: center;\"><strong style=\"background-color: rgb(187, 187, 187); font-size: 22px; color: rgb(0, 0, 0);\"><img class=\"sfdcCbImage\" alt=\"\" src=\"{!contentAsset.croppedLucky7_512x5121.1}\"></strong></h1>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "607bec15-9e1e-4863-947c-d7051982c0ec",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "forgotPasswordLabel" : "Forgot your password?",
+        "forgotPasswordUrl" : "/ForgotPassword",
+        "loginButtonLabel" : "Log in",
+        "passwordLabel" : "Password",
+        "selfRegisterLabel" : "Not a member?",
+        "selfRegisterUrl" : "/SelfRegister",
+        "startUrl" : "",
+        "usernameLabel" : "Username"
+      },
+      "componentName" : "salesforceIdentity:loginForm2",
+      "id" : "14ac4c30-b245-4768-961b-8ea1958237cf",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "employeeLoginLinkLabel" : "Are you a CEB Admin? Login here"
+      },
+      "componentName" : "salesforceIdentity:employeeLoginLink2",
+      "id" : "321b4241-a0ca-4d82-bbf5-4fe946686812",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e549cf7c-7341-4285-810d-a723eca15c70",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "CVMA Lucky 7 Login"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "2a7e8e8d-5389-44c4-b7d5-e401eab17135",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e2593f95-f66b-417e-b017-a5051209eadb",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Login",
+  "type" : "view",
+  "viewType" : "login-home"
+}

@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "6b78aafc-9d32-4233-b434-0dc0a6cc9ead",
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "configurationTags" : [ ],
+  "devName" : "Appointment_Topic_Time_Slot_List__c",
+  "id" : "9807722e-357c-4e17-ad82-e3bd9543e459",
+  "label" : "Appointment Topic Time Slot List",
+  "routeType" : "list-0mS",
+  "type" : "route",
+  "urlPrefix" : "appointmenttopictimeslot"
+}

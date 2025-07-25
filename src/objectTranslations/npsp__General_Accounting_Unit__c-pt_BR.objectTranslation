@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Unidade contábil geral</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Unidades contábeis gerais</value>
+    </caseValues>
+    <fields>
+        <help>Determina se esta Unidade contábil geral está disponível para seleção em Alocações. Apenas unidades contábeis gerais ativas estão disponíveis para seleção.</help>
+        <label><!-- Active --></label>
+        <name>npsp__Active__c</name>
+    </fields>
+    <fields>
+        <help>O valor médio de todas as alocações para esta Unidade contábil geral. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Average Allocation --></label>
+        <name>npsp__Average_Allocation__c</name>
+    </fields>
+    <fields>
+        <help>Informações adicionais sobre esta Unidade contábil geral.</help>
+        <label><!-- Description --></label>
+        <name>npsp__Description__c</name>
+    </fields>
+    <fields>
+        <help>A data de fechamento da primeira Oportunidade alocada a esta Unidade contábil geral. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- First Allocation Date --></label>
+        <name>npsp__First_Allocation_Date__c</name>
+    </fields>
+    <fields>
+        <help>O valor da maior alocação a esta Unidade contábil geral. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Largest Allocation --></label>
+        <name>npsp__Largest_Allocation__c</name>
+    </fields>
+    <fields>
+        <help>A última data de fechamento de Oportunidade de uma alocação associada a esta Unidade contábil geral.</help>
+        <label><!-- Last Allocation Date --></label>
+        <name>npsp__Last_Allocation_Date__c</name>
+    </fields>
+    <fields>
+        <help>Número total de alocações de oportunidades em uma fase fechada e ganha nos últimos N dias. O valor de N pode ser modificado nas configurações.</help>
+        <label><!-- Number of Allocations Last N Days --></label>
+        <name>npsp__Number_of_Allocations_Last_N_Days__c</name>
+    </fields>
+    <fields>
+        <help>O número total de alocações no ano passado de Oportunidades fechadas/ganhas. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Number of Allocations Last Year --></label>
+        <name>npsp__Number_of_Allocations_Last_Year__c</name>
+    </fields>
+    <fields>
+        <help>O número total de alocações este ano de Oportunidades fechadas/ganhas. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Number of Allocations This Year --></label>
+        <name>npsp__Number_of_Allocations_This_Year__c</name>
+    </fields>
+    <fields>
+        <help>O número total de alocações há dois anos de Oportunidades fechadas/ganhas. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Number of Allocations Two Years Ago --></label>
+        <name>npsp__Number_of_Allocations_Two_Years_Ago__c</name>
+    </fields>
+    <fields>
+        <help>O valor da menor alocação a esta Unidade contábil geral. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Smallest Allocation --></label>
+        <name>npsp__Smallest_Allocation__c</name>
+    </fields>
+    <fields>
+        <help>O número de alocações de oportunidades fechadas/ganhas nos últimos N dias. (O valor de N é definido em Configurações do NPSP &gt; Doações &gt; Alocações de GAU.) O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Total Allocations Last N Days --></label>
+        <name>npsp__Total_Allocations_Last_N_Days__c</name>
+    </fields>
+    <fields>
+        <help>Soma total de todas as alocações de oportunidades em uma fase fechada e ganha no ano passado.</help>
+        <label><!-- Total Allocations Last Year --></label>
+        <name>npsp__Total_Allocations_Last_Year__c</name>
+    </fields>
+    <fields>
+        <help>O valor total de Alocações de Oportunidades fechadas/ganhas. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Total Allocations This Year --></label>
+        <name>npsp__Total_Allocations_This_Year__c</name>
+    </fields>
+    <fields>
+        <help>O valor total de Alocações de Oportunidades fechadas/ganhas há dois anos. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Total Allocations Two Years Ago --></label>
+        <name>npsp__Total_Allocations_Two_Years_Ago__c</name>
+    </fields>
+    <fields>
+        <help>O valor total de todas as Alocações de Oportunidades fechadas/ganhas. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Total Allocations --></label>
+        <name>npsp__Total_Allocations__c</name>
+    </fields>
+    <fields>
+        <help>O número total de alocações de Oportunidades fechadas/ganhas. O NPSP atualiza este campo em um trabalho agendado noturno.</help>
+        <label><!-- Total Number of Allocations --></label>
+        <name>npsp__Total_Number_of_Allocations__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>General Accounting Unit Layout</layout>
+        <sections>
+            <label>Informações de alocação</label>
+            <section>Allocation Information</section>
+        </sections>
+        <sections>
+            <label>Totais de alocação</label>
+            <section>Allocation Totals</section>
+        </sections>
+        <sections>
+            <label>Links personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nome da Unidade contábil geral</nameFieldLabel>
+    <webLinks>
+        <label><!-- Recalculate_Rollups --></label>
+        <name>npsp__Recalculate_Rollups</name>
+    </webLinks>
+</CustomObjectTranslation>

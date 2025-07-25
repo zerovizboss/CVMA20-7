@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <caseType>Nominative</caseType>
+        <plural>false</plural>
+        <value>Teilweiser Soft Credit</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Nominative</caseType>
+        <plural>true</plural>
+        <value>Teilweise Soft Credits</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Accusative</caseType>
+        <plural>false</plural>
+        <value>Teilweisen Soft Credit</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Accusative</caseType>
+        <plural>true</plural>
+        <value>Teilweisen Soft Credits</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Genitive</caseType>
+        <plural>false</plural>
+        <value>Teilweisen Soft Credits</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Genitive</caseType>
+        <plural>true</plural>
+        <value>Teilweisen Soft Credits</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Dative</caseType>
+        <plural>false</plural>
+        <value>Teilweisen Soft Credit</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Dative</caseType>
+        <plural>true</plural>
+        <value>Teilweisen Soft Credits</value>
+    </caseValues>
+    <fields>
+        <help>Der Betrag für den Soft Credit.</help>
+        <label><!-- Amount --></label>
+        <name>npsp__Amount__c</name>
+    </fields>
+    <fields>
+        <help>Der vollständige Name des Kontakts, der diesen Soft Credit erhält (schreibgeschützt).</help>
+        <label><!-- Contact Name --></label>
+        <name>npsp__Contact_Name__c</name>
+    </fields>
+    <fields>
+        <help>Die &quot;Opportunity-Kontaktrolle&quot;, für die dieser Soft Credit gilt.</help>
+        <label><!-- Contact Role ID --></label>
+        <name>npsp__Contact_Role_ID__c</name>
+    </fields>
+    <fields>
+        <help>Der Kontakt, der diesen weichen Kredit erhält.</help>
+        <label><!-- Contact --></label>
+        <name>npsp__Contact__c</name>
+        <relationshipLabel><!-- Partial Soft Credits --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Die Opportunity, für die dieser Soft Credit gilt</help>
+        <label><!-- Opportunity --></label>
+        <name>npsp__Opportunity__c</name>
+        <relationshipLabel><!-- Partial Soft Credits --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Die Rolle dieses Soft Credit</help>
+        <label><!-- Role Name --></label>
+        <name>npsp__Role_Name__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Partial Soft Credit Layout</layout>
+        <sections>
+            <label>Benutzerdefinierte Links</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Name des teilweisen Soft Credits</nameFieldLabel>
+    <webLinks>
+        <label><!-- Manage_Soft_Credits --></label>
+        <name>npsp__Manage_Soft_Credits</name>
+    </webLinks>
+</CustomObjectTranslation>

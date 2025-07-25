@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>CVMA Full Member</fullName>
+        <default>false</default>
+        <label>CVMA Full Member</label>
+    </standardValue>
+    <standardValue>
+        <fullName>CVMA Support Member</fullName>
+        <default>false</default>
+        <label>CVMA Support Member</label>
+    </standardValue>
+    <standardValue>
+        <fullName>CVMA Auxiliary Member</fullName>
+        <default>false</default>
+        <label>CVMA Auxiliary Member</label>
+    </standardValue>
+</StandardValueSet>

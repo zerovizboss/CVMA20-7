@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "f79f381b-0c9b-4310-8792-3bd1dae977e2",
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "configurationTags" : [ ],
+  "devName" : "cvmaSupport__c",
+  "id" : "31f5cce1-7870-4b40-9567-776b3f024b36",
+  "label" : "Cvma Support",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-cvmasupport",
+  "type" : "route",
+  "urlPrefix" : "cvmasupport"
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Crédit indirect partiel</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Crédits indirects partiels</value>
+    </caseValues>
+    <fields>
+        <help>Le montant du crédit indirect.</help>
+        <label><!-- Amount --></label>
+        <name>npsp__Amount__c</name>
+    </fields>
+    <fields>
+        <help>Le nom complet du contact qui reçoit ce crédit indirect (lecture seule).</help>
+        <label><!-- Contact Name --></label>
+        <name>npsp__Contact_Name__c</name>
+    </fields>
+    <fields>
+        <help>Le rôle de contact d’opportunité auquel ce crédit indirect s’applique.</help>
+        <label><!-- Contact Role ID --></label>
+        <name>npsp__Contact_Role_ID__c</name>
+    </fields>
+    <fields>
+        <help>Le contact recevant ce crédit indirect.</help>
+        <label><!-- Contact --></label>
+        <name>npsp__Contact__c</name>
+        <relationshipLabel><!-- Partial Soft Credits --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>L’opportunité à laquelle ce crédit indirect s’applique.</help>
+        <label><!-- Opportunity --></label>
+        <name>npsp__Opportunity__c</name>
+        <relationshipLabel><!-- Partial Soft Credits --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Le rôle de ce crédit indirect.</help>
+        <label><!-- Role Name --></label>
+        <name>npsp__Role_Name__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Partial Soft Credit Layout</layout>
+        <sections>
+            <label>Liens personnalisés</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nom du crédit indirect partiel</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Manage_Soft_Credits --></label>
+        <name>npsp__Manage_Soft_Credits</name>
+    </webLinks>
+</CustomObjectTranslation>

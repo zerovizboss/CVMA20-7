@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Crédito indireto de conta</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Créditos indiretos de conta</value>
+    </caseValues>
+    <fields>
+        <help>A conta que recebe esse crédito indireto.</help>
+        <label><!-- Account --></label>
+        <name>npsp__Account__c</name>
+        <relationshipLabel><!-- Account Soft Credits --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>O valor a ser creditado indiretamente.</help>
+        <label><!-- Amount --></label>
+        <name>npsp__Amount__c</name>
+    </fields>
+    <fields>
+        <help>A oportunidade a que este crédito indireto se aplica.</help>
+        <label><!-- Opportunity --></label>
+        <name>npsp__Opportunity__c</name>
+        <relationshipLabel><!-- Account Soft Credits --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>A função associada a esse crédito indireto. A função descreve como a conta estava envolvida com a oportunidade.</help>
+        <label><!-- Role --></label>
+        <name>npsp__Role__c</name>
+        <picklistValues>
+            <masterLabel>Donation Source</masterLabel>
+            <translation>Fonte de doação</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Influencer</masterLabel>
+            <translation>Influenciador</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Match</masterLabel>
+            <translation>Correspondência</translation>
+        </picklistValues>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nome do crédito indireto da conta</nameFieldLabel>
+</CustomObjectTranslation>

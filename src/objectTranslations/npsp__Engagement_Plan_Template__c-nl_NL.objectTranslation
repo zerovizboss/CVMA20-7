@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Betrokkenheidsplansjabloon</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Betrokkenheidsplansjablonen</value>
+    </caseValues>
+    <fieldSets>
+        <label><!-- Manage EP Template FS --></label>
+        <name>npsp__ManageEPTemplateFS</name>
+    </fieldSets>
+    <fields>
+        <help>Berekent de vervaldatum van een onderliggende Taak opnieuw op basis van wanneer de bovenliggende Taak daadwerkelijk werd voltooid.</help>
+        <label><!-- Automatically Update Child Task Due Date --></label>
+        <name>npsp__Automatically_Update_Child_Task_Due_Date__c</name>
+    </fields>
+    <fields>
+        <help>Als het veld Toegewezen aan van een Betrokkenheidsplantaak wordt leeggelaten, aan wie moet de Taak dan worden toegewezen?</help>
+        <label><!-- Default Assignee --></label>
+        <name>npsp__Default_Assignee__c</name>
+        <picklistValues>
+            <masterLabel>Owner of Object for Engagement Plan</masterLabel>
+            <translation>Eigenaar van Object voor Betrokkenheidsplan</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User Creating Engagement Plan</masterLabel>
+            <translation>Gebruiker Maakt Betrokkenheidsplan</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>npsp__Description__c</name>
+    </fields>
+    <fields>
+        <help>Moeten Taken met een Vervaldatum in het weekend gepland worden voor vrijdag vóór het weekend of voor maandag erna? Dit is enkel van toepassing als Weekend overslaan is geselecteerd.</help>
+        <label><!-- Reschedule To --></label>
+        <name>npsp__Reschedule_To__c</name>
+        <picklistValues>
+            <masterLabel>Friday</masterLabel>
+            <translation>Vrijdag</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monday</masterLabel>
+            <translation>Maandag</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Indien geselecteerd, hebben Taken die gecreëerd zijn in dit Betrokkenheidsplan geen Vervaldatum die op een zaterdag of zondag vallen.</help>
+        <label><!-- Skip Weekends --></label>
+        <name>npsp__Skip_Weekends__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Engagement Plans --></label>
+        <name>npsp__Total_Engagement_Plans__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Tasks --></label>
+        <name>npsp__Total_Tasks__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Engagement Plan Template Layout</layout>
+        <sections>
+            <label>Aangepaste Koppelingen</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Sjabloonnaam van Betrokkenheidsplan</nameFieldLabel>
+    <webLinks>
+        <label><!-- Manage_Template --></label>
+        <name>npsp__Manage_Template</name>
+    </webLinks>
+</CustomObjectTranslation>

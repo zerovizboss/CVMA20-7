@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Commander (CO)</fullName>
+        <default>false</default>
+        <label>Commander (CO)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Executive Officer (XO)</fullName>
+        <default>false</default>
+        <label>Executive Officer (XO)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mr.</fullName>
+        <default>false</default>
+        <label>Mr.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mrs.</fullName>
+        <default>false</default>
+        <label>Mrs.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Ms.</fullName>
+        <default>false</default>
+        <label>Ms.</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Road Captain</fullName>
+        <default>false</default>
+        <label>Road Captain</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Sargeant at Arms (SAA)</fullName>
+        <default>false</default>
+        <label>Sargeant at Arms (SAA)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>State Public Relations Officer (SPRO)</fullName>
+        <default>false</default>
+        <label>State Public Relations Officer (SPRO)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>State Secretary (SAA)</fullName>
+        <default>false</default>
+        <label>State Secretary (SAA)</label>
+    </standardValue>
+</StandardValueSet>

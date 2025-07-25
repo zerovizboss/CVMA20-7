@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Entrega</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Entregas</value>
+    </caseValues>
+    <fields>
+        <help>A data de vencimento deste objetivo.</help>
+        <label><!-- Due Date --></label>
+        <name>npsp__Grant_Deadline_Due_Date__c</name>
+    </fields>
+    <fields>
+        <help>A data em que este objetivo foi realmente apresentado.</help>
+        <label><!-- Close Date --></label>
+        <name>npsp__Grant_Deliverable_Close_Date__c</name>
+    </fields>
+    <fields>
+        <help>Descrição do que é necessário para este objetivo.</help>
+        <label><!-- Requirements --></label>
+        <name>npsp__Grant_Deliverable_Requirements__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>npsp__Opportunity__c</name>
+        <relationshipLabel><!-- Deliverables --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>npsp__Type__c</name>
+        <picklistValues>
+            <masterLabel>Application</masterLabel>
+            <translation>Aplicativo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Final Report</masterLabel>
+            <translation>Relatório final</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Interim Report</masterLabel>
+            <translation>Relatório provisório</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LOI</masterLabel>
+            <translation>LOI</translation>
+        </picklistValues>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Grant Deadline Layout</layout>
+        <sections>
+            <label>Links personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Requisitos de objetivos da bolsa</label>
+            <section>Grant Deliverable Requirements</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nome do objetivo</nameFieldLabel>
+</CustomObjectTranslation>

@@ -1,0 +1,39 @@
+{
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "e3f8d5e2-3029-4242-a0a4-5ce0f162969d",
+  "label" : "Appointment Topic Time Slot Related List",
+  "regions" : [ {
+    "id" : "24826f36-a907-4105-a14d-62a0f6dbe8fc",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customTitle" : "",
+        "parentRecordId" : "{!recordId}",
+        "relatedListName" : "{!relationshipApiName}",
+        "showBreadCrumbs" : true,
+        "showCustomTitle" : false,
+        "showManualRefreshButton" : true,
+        "showRowNumbers" : true
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "87e9daff-959a-426d-9bd9-c12433f10ea4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "97320553-a980-4273-8358-005a91d25e73",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "3e628ed3-69ee-4dc1-a400-3cdcb8f8abe1",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-0mS"
+}

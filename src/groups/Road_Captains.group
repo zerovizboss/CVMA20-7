@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Road Captains are designated to keep our Group Riders safe by publishing updated Road Rules and Travel Plans for various events</description>
+    <doesIncludeBosses>true</doesIncludeBosses>
+    <name>Road Captains</name>
+</Group>

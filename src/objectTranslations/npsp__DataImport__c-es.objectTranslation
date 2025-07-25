@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Importación de datos de NPSP</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Importaciones de datos de NPSP</value>
+    </caseValues>
+    <fields>
+        <help>El mensaje de consentimiento de la página de aportación de Elevate que el donante aceptó.</help>
+        <label><!-- Payment ACH Consent Message --></label>
+        <name>npsp__ACH_Consent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account1 Import Status --></label>
+        <name>npsp__Account1ImportStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account1 Imported --></label>
+        <name>npsp__Account1Imported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (Account1 Imported) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Account1.BillingCity --></help>
+        <label><!-- Account1 City --></label>
+        <name>npsp__Account1_City__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account1.BillingCountry --></help>
+        <label><!-- Account1 Country --></label>
+        <name>npsp__Account1_Country__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account1.Name --></help>
+        <label><!-- Account1 Name --></label>
+        <name>npsp__Account1_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account1.Phone --></help>
+        <label><!-- Account1 Phone --></label>
+        <name>npsp__Account1_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account1.BillingState --></help>
+        <label><!-- Account1 State/Province --></label>
+        <name>npsp__Account1_State_Province__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account1.BillingStreet --></help>
+        <label><!-- Account1 Street --></label>
+        <name>npsp__Account1_Street__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account1.Website --></help>
+        <label><!-- Account1 Website --></label>
+        <name>npsp__Account1_Website__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account1.BillingPostalCode --></help>
+        <label><!-- Account1 Zip/Postal Code --></label>
+        <name>npsp__Account1_Zip_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account2 Import Status --></label>
+        <name>npsp__Account2ImportStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account2 Imported --></label>
+        <name>npsp__Account2Imported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (Account2 Imported) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Account2.BillingCity --></help>
+        <label><!-- Account2 City --></label>
+        <name>npsp__Account2_City__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account2.BillingCountry --></help>
+        <label><!-- Account2 Country --></label>
+        <name>npsp__Account2_Country__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account2.Name --></help>
+        <label><!-- Account2 Name --></label>
+        <name>npsp__Account2_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account2.Phone --></help>
+        <label><!-- Account2 Phone --></label>
+        <name>npsp__Account2_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account2.BillingState --></help>
+        <label><!-- Account2 State/Province --></label>
+        <name>npsp__Account2_State_Province__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account2.BillingStreet --></help>
+        <label><!-- Account2 Street --></label>
+        <name>npsp__Account2_Street__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account2.Website --></help>
+        <label><!-- Account2 Website --></label>
+        <name>npsp__Account2_Website__c</name>
+    </fields>
+    <fields>
+        <help><!-- Account2.BillingPostalCode --></help>
+        <label><!-- Account2 Zip/Postal Code --></label>
+        <name>npsp__Account2_Zip_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <help>Este campo permite un número dinámico de registros para crear un número de objetos dinámico a partir de un único registro de importación de datos. La información de objetos adicional se almacena aquí en formato JSON.</help>
+        <label><!-- Additional Object JSON --></label>
+        <name>npsp__Additional_Object_JSON__c</name>
+    </fields>
+    <fields>
+        <help>El Id del trabajo de Apex que procesó este registro</help>
+        <label><!-- ApexJobId --></label>
+        <name>npsp__ApexJobId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Campaign Member Status --></label>
+        <name>npsp__Campaign_Member_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact1 Import Status --></label>
+        <name>npsp__Contact1ImportStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact1 Imported --></label>
+        <name>npsp__Contact1Imported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (Contact1 Imported) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Contact1.npe01__AlternateEmail__c --></help>
+        <label><!-- Contact1 Alternate Email --></label>
+        <name>npsp__Contact1_Alternate_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.Birthdate --></help>
+        <label><!-- Contact1 Birthdate --></label>
+        <name>npsp__Contact1_Birthdate__c</name>
+    </fields>
+    <fields>
+        <help>Proporciona detalles sobre lo que suscribió el contacto.</help>
+        <label><!-- Contact1 Consent Message --></label>
+        <name>npsp__Contact1_Consent_Message__c</name>
+    </fields>
+    <fields>
+        <help>Determina si un contacto dio su consentimiento para realizar la suscripción.</help>
+        <label><!-- Contact1 Consent Opt-In --></label>
+        <name>npsp__Contact1_Consent_Opt_In__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.Firstname --></help>
+        <label><!-- Contact1 First Name --></label>
+        <name>npsp__Contact1_Firstname__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.HomePhone --></help>
+        <label><!-- Contact1 Home Phone --></label>
+        <name>npsp__Contact1_Home_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.Lastname --></help>
+        <label><!-- Contact1 Last Name --></label>
+        <name>npsp__Contact1_Lastname__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.MobilePhone --></help>
+        <label><!-- Contact1 Mobile Phone --></label>
+        <name>npsp__Contact1_Mobile_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.OtherPhone --></help>
+        <label><!-- Contact1 Other Phone --></label>
+        <name>npsp__Contact1_Other_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.npe01__HomeEmail__c --></help>
+        <label><!-- Contact1 Personal Email --></label>
+        <name>npsp__Contact1_Personal_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.npe01__Preferred_Email__c --></help>
+        <label><!-- Contact1 Preferred Email --></label>
+        <name>npsp__Contact1_Preferred_Email__c</name>
+        <picklistValues>
+            <masterLabel>Alternate</masterLabel>
+            <translation>Alternativo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Personal</masterLabel>
+            <translation>Particular</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Laboral</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Contact1.npe01__PreferredPhone__c --></help>
+        <label><!-- Contact1 Preferred Phone --></label>
+        <name>npsp__Contact1_Preferred_Phone__c</name>
+        <picklistValues>
+            <masterLabel>Home</masterLabel>
+            <translation>Particular</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation>Móvil</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation>Otro</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Laboral</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Contact1.Salutation --></help>
+        <label><!-- Contact1 Salutation --></label>
+        <name>npsp__Contact1_Salutation__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.Title --></help>
+        <label><!-- Contact1 Title --></label>
+        <name>npsp__Contact1_Title__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.npe01__WorkEmail__c --></help>
+        <label><!-- Contact1 Work Email --></label>
+        <name>npsp__Contact1_Work_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact1.npe01__WorkPhone__c --></help>
+        <label><!-- Contact1 Work Phone --></label>
+        <name>npsp__Contact1_Work_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact2 Import Status --></label>
+        <name>npsp__Contact2ImportStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact2 Imported --></label>
+        <name>npsp__Contact2Imported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (Contact2 Imported) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Contact2.npe01__AlternateEmail__c --></help>
+        <label><!-- Contact2 Alternate Email --></label>
+        <name>npsp__Contact2_Alternate_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.Birthdate --></help>
+        <label><!-- Contact2 Birthdate --></label>
+        <name>npsp__Contact2_Birthdate__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.Firstname --></help>
+        <label><!-- Contact2 First Name --></label>
+        <name>npsp__Contact2_Firstname__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.HomePhone --></help>
+        <label><!-- Contact2 Home Phone --></label>
+        <name>npsp__Contact2_Home_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.Lastname --></help>
+        <label><!-- Contact2 Last Name --></label>
+        <name>npsp__Contact2_Lastname__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.MobilePhone --></help>
+        <label><!-- Contact2 Mobile Phone --></label>
+        <name>npsp__Contact2_Mobile_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.OtherPhone --></help>
+        <label><!-- Contact2 Other Phone --></label>
+        <name>npsp__Contact2_Other_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.npe01__HomeEmail__c --></help>
+        <label><!-- Contact2 Personal Email --></label>
+        <name>npsp__Contact2_Personal_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.npe01__Preferred_Email__c --></help>
+        <label><!-- Contact2 Preferred Email --></label>
+        <name>npsp__Contact2_Preferred_Email__c</name>
+        <picklistValues>
+            <masterLabel>Alternate</masterLabel>
+            <translation>Alternativo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Personal</masterLabel>
+            <translation>Particular</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Laboral</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Contact2.npe01__PreferredPhone__c --></help>
+        <label><!-- Contact2 Preferred Phone --></label>
+        <name>npsp__Contact2_Preferred_Phone__c</name>
+        <picklistValues>
+            <masterLabel>Home</masterLabel>
+            <translation>Particular</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation>Móvil</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation>Otro</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation>Laboral</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Contact2.Salutation --></help>
+        <label><!-- Contact2 Salutation --></label>
+        <name>npsp__Contact2_Salutation__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.Title --></help>
+        <label><!-- Contact2 Title --></label>
+        <name>npsp__Contact2_Title__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.npe01__WorkEmail__c --></help>
+        <label><!-- Contact2 Work Email --></label>
+        <name>npsp__Contact2_Work_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contact2.npe01__WorkPhone__c --></help>
+        <label><!-- Contact2 Work Phone --></label>
+        <name>npsp__Contact2_Work_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Campaign Import Status --></label>
+        <name>npsp__DonationCampaignImportStatus__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.CampaignId --></help>
+        <label><!-- Donation Campaign Source --></label>
+        <name>npsp__DonationCampaignImported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Donation Import Status --></label>
+        <name>npsp__DonationImportStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Imported --></label>
+        <name>npsp__DonationImported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (Opportunity1 Imported) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.Amount --></help>
+        <label><!-- Donation Amount --></label>
+        <name>npsp__Donation_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Campaign Name --></label>
+        <name>npsp__Donation_Campaign_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.CloseDate --></help>
+        <label><!-- Donation Date --></label>
+        <name>npsp__Donation_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.Description --></help>
+        <label><!-- Donation Description --></label>
+        <name>npsp__Donation_Description__c</name>
+    </fields>
+    <fields>
+        <help>Especifica si la donación es una donación individual del contacto1, o una donación de la Cuenta1</help>
+        <label><!-- Donation Donor --></label>
+        <name>npsp__Donation_Donor__c</name>
+        <picklistValues>
+            <masterLabel>Account1</masterLabel>
+            <translation>Cuenta1</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact1</masterLabel>
+            <translation>Contacto1</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>El identificador externo exclusivo de la Donación recurrente en Elevate al que esta oportunidad de donación está vinculado.</help>
+        <label><!-- Donation Elevate Recurring ID --></label>
+        <name>npsp__Donation_Elevate_Recurring_ID__c</name>
+    </fields>
+    <fields>
+        <help>La información de contacto, como la dirección de correo electrónico, la dirección o el teléfono que proporcionó el donante para el galardonado con el tributo.</help>
+        <label><!-- Donation Honoree Information --></label>
+        <name>npsp__Donation_Honoree_Information__c</name>
+    </fields>
+    <fields>
+        <help>El nombre del galardonado como lo proporciona el donante.</help>
+        <label><!-- Donation Honoree Name --></label>
+        <name>npsp__Donation_Honoree_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.npe01__Member_Level__c --></help>
+        <label><!-- Donation Member Level --></label>
+        <name>npsp__Donation_Member_Level__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.npe01__Membership_End_Date__c --></help>
+        <label><!-- Donation Membership End Date --></label>
+        <name>npsp__Donation_Membership_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.npe01__Membership_Origin__c --></help>
+        <label><!-- Donation Membership Origin --></label>
+        <name>npsp__Donation_Membership_Origin__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.npe01__Membership_Start_Date__c --></help>
+        <label><!-- Donation Membership Start Date --></label>
+        <name>npsp__Donation_Membership_Start_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.Name --></help>
+        <label><!-- Donation Name --></label>
+        <name>npsp__Donation_Name__c</name>
+    </fields>
+    <fields>
+        <help>Un mensaje personalizado para el destinatario de la notificación</help>
+        <label><!-- Donation Notification Message --></label>
+        <name>npsp__Donation_Notification_Message__c</name>
+    </fields>
+    <fields>
+        <help>Indica cómo debe notificarse al destinatario de la notificación. Por ejemplo, por correo electrónico o por teléfono.</help>
+        <label><!-- Donation Notification Preference --></label>
+        <name>npsp__Donation_Notification_Preference__c</name>
+        <picklistValues>
+            <masterLabel>Do Not Notify</masterLabel>
+            <translation>No notificar</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation>Correo electrónico</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone</masterLabel>
+            <translation>Teléfono</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Postal Mail</masterLabel>
+            <translation>Correo</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Es la dirección de correo electrónico de la persona que recibe la notificación.</help>
+        <label><!-- Donation Notification Recipient Email --></label>
+        <name>npsp__Donation_Notification_Recipient_Email__c</name>
+    </fields>
+    <fields>
+        <help>La información de contacto, como la dirección o el teléfono que proporcionó el donante para el destinatario de la notificación.</help>
+        <label><!-- Donation Notification Recipient Info --></label>
+        <name>npsp__Donation_Notification_Recipient_Info__c</name>
+    </fields>
+    <fields>
+        <help>El nombre de la persona a la que notificar este regalo.</help>
+        <label><!-- Donation Notification Recipient Name --></label>
+        <name>npsp__Donation_Notification_Recipient_Name__c</name>
+    </fields>
+    <fields>
+        <help>Una lista separada por comas de los identificadores de las 10 primeras coincidencias de posibles oportunidades para una donación.</help>
+        <label><!-- Donation Possible Matches --></label>
+        <name>npsp__Donation_Possible_Matches__c</name>
+    </fields>
+    <fields>
+        <help>Opportunity.RecordTypeId</help>
+        <label><!-- Donation Record Type Name --></label>
+        <name>npsp__Donation_Record_Type_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.StageName --></help>
+        <label><!-- Donation Stage --></label>
+        <name>npsp__Donation_Stage__c</name>
+    </fields>
+    <fields>
+        <help>Indica si la donación es en honor o memoria de una persona.</help>
+        <label><!-- Donation Tribute Type --></label>
+        <name>npsp__Donation_Tribute_Type__c</name>
+        <picklistValues>
+            <masterLabel>Honor</masterLabel>
+            <translation>Homenaje</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Memorial</masterLabel>
+            <translation>En memoria</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Opportunity.Type --></help>
+        <label><!-- Donation Type --></label>
+        <name>npsp__Donation_Type__c</name>
+    </fields>
+    <fields>
+        <help>Metadatos personalizados procedentes de páginas de aportación de Elevate, almacenados como JSON.</help>
+        <label><!-- Elevate Custom Metadata --></label>
+        <name>npsp__Elevate_Custom_Metadata__c</name>
+    </fields>
+    <fields>
+        <help>El estado de la transacción mostrado en Elevate.</help>
+        <label><!-- Elevate Payment Status --></label>
+        <name>npsp__Elevate_Payment_Status__c</name>
+    </fields>
+    <fields>
+        <help>Descripción de lo que provocó que el registro de importación no se importara.</help>
+        <label><!-- Failure Information --></label>
+        <name>npsp__FailureInformation__c</name>
+    </fields>
+    <fields>
+        <help>El importe monetario atribuido a la primera asignación de CCG de la oportunidad. Debe utilizar Asignación avanzada de importación de datos para asignar a este campo.</help>
+        <label><!-- GAU Allocation 1: Amount --></label>
+        <name>npsp__GAU_Allocation_1_Amount__c</name>
+    </fields>
+    <fields>
+        <help>El Id. de Salesforce de la CCG que hay que utilizar para la primera asignación.</help>
+        <label><!-- GAU Allocation 1: GAU --></label>
+        <name>npsp__GAU_Allocation_1_GAU__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (GAU 1) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>El estado de intentar insertar la primera Asignación de CCG.</help>
+        <label><!-- GAU Allocation 1: Import Status --></label>
+        <name>npsp__GAU_Allocation_1_Import_Status__c</name>
+    </fields>
+    <fields>
+        <help>Una consulta de la primera asignación de CCG si se creó correctamente.</help>
+        <label><!-- GAU Allocation 1: Imported --></label>
+        <name>npsp__GAU_Allocation_1_Imported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (GAU 1) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>El porcentaje atribuido a la primera asignación de CCG. Debe utilizar Asignación avanzada de importación de datos para asignar a este campo.</help>
+        <label><!-- GAU Allocation 1: Percent --></label>
+        <name>npsp__GAU_Allocation_1_Percent__c</name>
+    </fields>
+    <fields>
+        <help>El importe monetario atribuido a la segunda asignación de CCG de la oportunidad. Debe utilizar Asignación avanzada de importación de datos para asignar a este campo.</help>
+        <label><!-- GAU Allocation 2: Amount --></label>
+        <name>npsp__GAU_Allocation_2_Amount__c</name>
+    </fields>
+    <fields>
+        <help>El Id. de Salesforce de la CCG que hay que utilizar para la segunda asignación de CCG.</help>
+        <label><!-- GAU Allocation 2: GAU --></label>
+        <name>npsp__GAU_Allocation_2_GAU__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (GAU 2) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>El estado de intentar insertar la segunda Asignación de CCG.</help>
+        <label><!-- GAU Allocation 2: Import Status --></label>
+        <name>npsp__GAU_Allocation_2_Import_Status__c</name>
+    </fields>
+    <fields>
+        <help>Una consulta de la primera asignación de CCG si se creó correctamente.</help>
+        <label><!-- GAU Allocation 2: Imported --></label>
+        <name>npsp__GAU_Allocation_2_Imported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports (GAU 2) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>El porcentaje atribuido a la segunda asignación de CCG. Debe utilizar Asignación avanzada de importación de datos para asignar a este campo.</help>
+        <label><!-- GAU Allocation 2: Percent --></label>
+        <name>npsp__GAU_Allocation_2_Percent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Address Import Status --></label>
+        <name>npsp__HomeAddressImportStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Address Imported --></label>
+        <name>npsp__HomeAddressImported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Address.npsp__MailingCity__c --></help>
+        <label><!-- Home City --></label>
+        <name>npsp__Home_City__c</name>
+    </fields>
+    <fields>
+        <help><!-- Address.npsp__MailingCountry__c --></help>
+        <label><!-- Home Country --></label>
+        <name>npsp__Home_Country__c</name>
+    </fields>
+    <fields>
+        <help><!-- Address.npsp__MailingState__c --></help>
+        <label><!-- Home State/Province --></label>
+        <name>npsp__Home_State_Province__c</name>
+    </fields>
+    <fields>
+        <help><!-- Address.npsp__MailingStreet__c --></help>
+        <label><!-- Home Street --></label>
+        <name>npsp__Home_Street__c</name>
+    </fields>
+    <fields>
+        <help><!-- Address.npsp__MailingPostalCode__c --></help>
+        <label><!-- Home Zip/Postal Code --></label>
+        <name>npsp__Home_Zip_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Household Account Imported --></label>
+        <name>npsp__HouseholdAccountImported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Household.Phone --></help>
+        <label><!-- Household Phone --></label>
+        <name>npsp__Household_Phone__c</name>
+    </fields>
+    <fields>
+        <help>La fecha y la hora en la que el registro de importación de datos se importó correctamente.</help>
+        <label><!-- Imported Date --></label>
+        <name>npsp__ImportedDate__c</name>
+    </fields>
+    <fields>
+        <help>Búsqueda del lote de importación de datos de NPSP al que pertenece este registro.</help>
+        <label><!-- NPSP Data Import Batch --></label>
+        <name>npsp__NPSP_Data_Import_Batch__c</name>
+        <relationshipLabel><!-- NPSP Data Imports --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>El estado de intentar insertar la primera función de contacto de oportunidad.</help>
+        <label><!-- Opportunity Contact Role 1: ImportStatus --></label>
+        <name>npsp__Opportunity_Contact_Role_1_ImportStatus__c</name>
+    </fields>
+    <fields>
+        <help>El Id. de Salesforce de la función del contacto de oportunidad importada.</help>
+        <label><!-- Opportunity Contact Role 1: Imported --></label>
+        <name>npsp__Opportunity_Contact_Role_1_Imported__c</name>
+    </fields>
+    <fields>
+        <help>La función con la que debe crearse la función del contacto de oportunidad. Por ejemplo, introduzca &quot;Crédito blando&quot; para crear una función de contacto de oportunidad de crédito blando.</help>
+        <label><!-- Opportunity Contact Role 1: Role --></label>
+        <name>npsp__Opportunity_Contact_Role_1_Role__c</name>
+    </fields>
+    <fields>
+        <help>El estado de intentar insertar la segunda función de contacto de oportunidad.</help>
+        <label><!-- Opportunity Contact Role 2: ImportStatus --></label>
+        <name>npsp__Opportunity_Contact_Role_2_ImportStatus__c</name>
+    </fields>
+    <fields>
+        <help>El Id. de Salesforce de la función del contacto de oportunidad importada.</help>
+        <label><!-- Opportunity Contact Role 2: Imported --></label>
+        <name>npsp__Opportunity_Contact_Role_2_Imported__c</name>
+    </fields>
+    <fields>
+        <help>La función con la que debe crearse la función del contacto de oportunidad. Por ejemplo, introduzca &quot;Crédito blando&quot; para crear una función de contacto de oportunidad de crédito blando.</help>
+        <label><!-- Opportunity Contact Role 2: Role --></label>
+        <name>npsp__Opportunity_Contact_Role_2_Role__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Import Status --></label>
+        <name>npsp__PaymentImportStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Imported --></label>
+        <name>npsp__PaymentImported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>El código de Clase de entrada estándar (SEC) empleado para esta transacción ACH.</help>
+        <label><!-- Payment ACH Code --></label>
+        <name>npsp__Payment_ACH_Code__c</name>
+    </fields>
+    <fields>
+        <help>Los últimos cuatro dígitos de la cuenta bancaria empleada para esta transacción.</help>
+        <label><!-- Payment ACH Last 4 --></label>
+        <name>npsp__Payment_ACH_Last_4__c</name>
+    </fields>
+    <fields>
+        <help>Token de autorización para una transacción.</help>
+        <label><!-- Payment Authorization Token --></label>
+        <name>npsp__Payment_Authorization_Token__c</name>
+    </fields>
+    <fields>
+        <help>La fecha y la hora en las que se autorizó la transacción.</help>
+        <label><!-- Payment Authorized Date --></label>
+        <name>npsp__Payment_Authorized_Date__c</name>
+    </fields>
+    <fields>
+        <help>La fecha y hora exactas (hasta el milisegundo) procedente de la pasarela de pago en las que se autorizó correctamente esta transacción.</help>
+        <label><!-- Payment Authorized UTC Timestamp --></label>
+        <name>npsp__Payment_Authorized_UTC_Timestamp__c</name>
+    </fields>
+    <fields>
+        <help>El mes de caducidad de la tarjeta empleada para esta transacción.</help>
+        <label><!-- Payment Card Expiration Month --></label>
+        <name>npsp__Payment_Card_Expiration_Month__c</name>
+    </fields>
+    <fields>
+        <help>El año de caducidad de la tarjeta empleada para esta transacción.</help>
+        <label><!-- Payment Card Expiration Year --></label>
+        <name>npsp__Payment_Card_Expiration_Year__c</name>
+    </fields>
+    <fields>
+        <help>Los últimos cuatro dígitos de la tarjeta empleada para esta transacción.</help>
+        <label><!-- Payment Card Last 4 --></label>
+        <name>npsp__Payment_Card_Last_4__c</name>
+    </fields>
+    <fields>
+        <help>La red de tarjeta de la tarjeta empleada para esta transacción.</help>
+        <label><!-- Payment Card Network --></label>
+        <name>npsp__Payment_Card_Network__c</name>
+    </fields>
+    <fields>
+        <help><!-- Payment.npe01__Check_Reference_Number__c --></help>
+        <label><!-- Payment Check/Reference Number --></label>
+        <name>npsp__Payment_Check_Reference_Number__c</name>
+    </fields>
+    <fields>
+        <help>Proporciona detalles sobre el motivo por el que se rechazó una transacción.</help>
+        <label><!-- Payment Elevate API Declined Reason --></label>
+        <name>npsp__Payment_Declined_Reason__c</name>
+    </fields>
+    <fields>
+        <help>El importe que pagó el donante además del importe de su donación para ayudar a cubrir comisiones por transacción o incorporar una propina a su donación.</help>
+        <label><!-- Payment Donor Cover Amount --></label>
+        <name>npsp__Payment_Donor_Cover_Amount__c</name>
+    </fields>
+    <fields>
+        <help>El Id. de un lote de pagos enviados a Elevate para su procesamiento.</help>
+        <label><!-- Payment Elevate Batch ID --></label>
+        <name>npsp__Payment_Elevate_Batch_ID__c</name>
+    </fields>
+    <fields>
+        <help>La fecha y la hora en las que se creó la transacción.</help>
+        <label><!-- Payment Elevate Created Date --></label>
+        <name>npsp__Payment_Elevate_Created_Date__c</name>
+    </fields>
+    <fields>
+        <help>La fecha y hora exactas (hasta el milisegundo) procedente de Elevate en que se creó la transacción.</help>
+        <label><!-- Payment Elevate Created UTC  Timestamp --></label>
+        <name>npsp__Payment_Elevate_Created_UTC_Timestamp__c</name>
+    </fields>
+    <fields>
+        <help>El Id. exclusivo para esta transacción procedente de Elevate.</help>
+        <label><!-- Payment Elevate ID --></label>
+        <name>npsp__Payment_Elevate_ID__c</name>
+    </fields>
+    <fields>
+        <help>Solo para reembolsos. Muestra el Id. de la transacción de pago original procedente de Elevate.</help>
+        <label><!-- Payment Elevate Original Payment ID --></label>
+        <name>npsp__Payment_Elevate_Original_Payment_ID__c</name>
+    </fields>
+    <fields>
+        <help>La comisión de transacción cargada por Elevate.</help>
+        <label><!-- Payment Elevate Transaction Fee --></label>
+        <name>npsp__Payment_Elevate_Transaction_Fee__c</name>
+    </fields>
+    <fields>
+        <help>El Id. de la pasarela de pago que procesó esta transacción.</help>
+        <label><!-- Payment Gateway ID --></label>
+        <name>npsp__Payment_Gateway_ID__c</name>
+    </fields>
+    <fields>
+        <help>El Id. exclusivo para esta transacción procedente de la pasarela de pago.</help>
+        <label><!-- Payment Gateway Payment ID --></label>
+        <name>npsp__Payment_Gateway_Payment_ID__c</name>
+    </fields>
+    <fields>
+        <help>La comisión de transacción cargada por su pasarela de pago.</help>
+        <label><!-- Payment Gateway Transaction Fee --></label>
+        <name>npsp__Payment_Gateway_Transaction_Fee__c</name>
+    </fields>
+    <fields>
+        <help><!-- Payment.npe01__Payment_Method__c --></help>
+        <label><!-- Payment Method --></label>
+        <name>npsp__Payment_Method__c</name>
+    </fields>
+    <fields>
+        <help>El Id. del sistema donde se inició la transacción.</help>
+        <label><!-- Payment Origin ID --></label>
+        <name>npsp__Payment_Origin_ID__c</name>
+    </fields>
+    <fields>
+        <help>El nombre del sistema donde se inició la transacción.</help>
+        <label><!-- Payment Origin Name --></label>
+        <name>npsp__Payment_Origin_Name__c</name>
+    </fields>
+    <fields>
+        <help>El tipo de sistema utilizado para iniciar la transacción. Los valores disponibles incluyen Núcleo de participación, Página de donaciones, API de pagos, Salesforce.</help>
+        <label><!-- Payment Origin Type --></label>
+        <name>npsp__Payment_Origin_Type__c</name>
+    </fields>
+    <fields>
+        <help>Indica si este pago se realizó o no.</help>
+        <label><!-- Payment Paid --></label>
+        <name>npsp__Payment_Paid__c</name>
+        <picklistValues>
+            <masterLabel>False</masterLabel>
+            <translation>Falso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>True</masterLabel>
+            <translation>Verdadero</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Una lista separada por comas de los identificadores de las 10 primeras coincidencias de posibles pagos para una donación.</help>
+        <label><!-- Payment Possible Matches --></label>
+        <name>npsp__Payment_Possible_Matches__c</name>
+    </fields>
+    <fields>
+        <help>El estado de API de la transacción procedente de Elevate</help>
+        <label><!-- Payment Elevate API Status --></label>
+        <name>npsp__Payment_Status__c</name>
+    </fields>
+    <fields>
+        <help>La suma de las comisiones de transacciones cargadas por Elevate y su pasarela de pago.</help>
+        <label><!-- Payment Total Transaction Fees --></label>
+        <name>npsp__Payment_Total_Transaction_Fees__c</name>
+    </fields>
+    <fields>
+        <help>Indica el tipo de transacción.</help>
+        <label><!-- Payment Type --></label>
+        <name>npsp__Payment_Type__c</name>
+    </fields>
+    <fields>
+        <help>El estado de intentar insertar la donación recurrente.</help>
+        <label><!-- Recurring Donation Import Status --></label>
+        <name>npsp__RecurringDonationImportStatus__c</name>
+    </fields>
+    <fields>
+        <help>Una consulta de la donación recurrente si se creó correctamente.</help>
+        <label><!-- Recurring Donation Imported --></label>
+        <name>npsp__RecurringDonationImported__c</name>
+        <relationshipLabel><!-- NPSP Data Imports --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Los últimos cuatro dígitos de la cuenta bancaria empleada para esta donación recurrente.</help>
+        <label><!-- Recurring Donation ACH Last 4 --></label>
+        <name>npsp__Recurring_Donation_ACH_Last_4__c</name>
+    </fields>
+    <fields>
+        <help>El importe de cada oportunidad de cuota.</help>
+        <label><!-- Recurring Donation Amount --></label>
+        <name>npsp__Recurring_Donation_Amount__c</name>
+    </fields>
+    <fields>
+        <help>El mes de caducidad de la tarjeta empleada para esta donación recurrente.</help>
+        <label><!-- Recurring Donation Card Expiration Month --></label>
+        <name>npsp__Recurring_Donation_Card_Expiration_Month__c</name>
+    </fields>
+    <fields>
+        <help>El año de caducidad de la tarjeta empleada para esta donación recurrente.</help>
+        <label><!-- Recurring Donation Card Expiration Year --></label>
+        <name>npsp__Recurring_Donation_Card_Expiration_Year__c</name>
+    </fields>
+    <fields>
+        <help>Los últimos cuatro dígitos de la tarjeta empleada para esta donación recurrente.</help>
+        <label><!-- Recurring Donation Card Last 4 --></label>
+        <name>npsp__Recurring_Donation_Card_Last_4__c</name>
+    </fields>
+    <fields>
+        <help>El tipo de cambio (Actualización, Rebaja de categoría, etc.) que representa esta actualización.</help>
+        <label><!-- Recurring Donation Change Type --></label>
+        <name>npsp__Recurring_Donation_Change_Type__c</name>
+    </fields>
+    <fields>
+        <help>La fecha de efecto inicial de esta donación recurrente. El valor predeterminado es la fecha vigente.</help>
+        <label><!-- Recurring Donation Date Established --></label>
+        <name>npsp__Recurring_Donation_Date_Established__c</name>
+    </fields>
+    <fields>
+        <help>Establece el día específico del mes para Oportunidades de cuota futuras cuando el Período de cuota es Mensualmente. Si selecciona 29 o 30, la fecha de la cuota será el último día del mes para los meses que no tengan ese número de días.</help>
+        <label><!-- Recurring Donation Day of Month --></label>
+        <name>npsp__Recurring_Donation_Day_of_Month__c</name>
+    </fields>
+    <fields>
+        <help>La fecha en la que entra en vigor esa información de programación nueva o actualizada (Importe, Día del mes, etc.) para esta Donación recurrente. El valor predeterminado es la fecha actual.</help>
+        <label><!-- Recurring Donation Effective Date --></label>
+        <name>npsp__Recurring_Donation_Effective_Date__c</name>
+    </fields>
+    <fields>
+        <help>La versión del evento de Elevate que se utilizó para crear este registro de importación de datos.</help>
+        <label><!-- Recurring Donation Elevate Event Version --></label>
+        <name>npsp__Recurring_Donation_Elevate_Event_Version__c</name>
+    </fields>
+    <fields>
+        <help>El Id. exclusivo externo de la donación recurrente en Elevate.</help>
+        <label><!-- Recurring Donation Elevate Recurring ID --></label>
+        <name>npsp__Recurring_Donation_Elevate_Recurring_ID__c</name>
+    </fields>
+    <fields>
+        <help>La fecha en la que se cerró esta donación recurrente.</help>
+        <label><!-- Recurring Donation End Date --></label>
+        <name>npsp__Recurring_Donation_End_Date__c</name>
+    </fields>
+    <fields>
+        <help>Frecuencia de cuota junto con Período de cuota definen la programación de cuotas para esta Donación recurrente. Por ejemplo, si Período de cuota es Mensualmente y Frecuencia de cuota es 3, la programación se define como &quot;cada 3 meses&quot;.</help>
+        <label><!-- Recurring Donation Installment Frequency --></label>
+        <name>npsp__Recurring_Donation_Installment_Frequency__c</name>
+    </fields>
+    <fields>
+        <help>Período de cuota junto con Frecuencia de cuota definen la programación de cuotas para esta Donación recurrente. Por ejemplo, si Período de cuota es Mensualmente y Frecuencia de cuota es 3, la programación se define como &quot;cada 3 meses&quot;.</help>
+        <label><!-- Recurring Donation Installment Period --></label>
+        <name>npsp__Recurring_Donation_Installment_Period__c</name>
+    </fields>
+    <fields>
+        <help>Deje en blanco si tiene un Formato de nombre de Donación recurrente seleccionado. En caso contrario, introduzca su propio nombre.</help>
+        <label><!-- Recurring Donation Name --></label>
+        <name>npsp__Recurring_Donation_Name__c</name>
+    </fields>
+    <fields>
+        <help>La forma de pago para esta Donación recurrente. NPSP copia automáticamente el valor seleccionado con cada registro de Pago relacionado.</help>
+        <label><!-- Recurring Donation Payment Method --></label>
+        <name>npsp__Recurring_Donation_Payment_Method__c</name>
+    </fields>
+    <fields>
+        <help>Número de cuotas que espera recibir. Solo se utiliza cuando Tipo de recurrencia es Fijo.</help>
+        <label><!-- Recurring Donation Planned Installments --></label>
+        <name>npsp__Recurring_Donation_Planned_Installments__c</name>
+    </fields>
+    <fields>
+        <help>Abierto indica una donación recurrente continuada. Fijo indica una donación recurrente que tiene un número específico de cuotas. Para Fijo, también debe rellenar el campo Cantidad de cuotas planificadas.</help>
+        <label><!-- Recurring Donation Recurring Type --></label>
+        <name>npsp__Recurring_Donation_Recurring_Type__c</name>
+    </fields>
+    <fields>
+        <help>El motivo por el que esta Donación recurrente tiene su valor de Estado actual.</help>
+        <label><!-- Recurring Donation Status Reason --></label>
+        <name>npsp__Recurring_Donation_Status_Reason__c</name>
+    </fields>
+    <fields>
+        <help>Indica si esta Donación recurrente está en uso activamente, suspendida temporalmente o cerrada.</help>
+        <label><!-- Recurring Donation Status --></label>
+        <name>npsp__Recurring_Donation_Status__c</name>
+    </fields>
+    <fields>
+        <help>Estado de importación de este registro, como por ejemplo Importado o Fallo.</help>
+        <label><!-- Status --></label>
+        <name>npsp__Status__c</name>
+        <picklistValues>
+            <masterLabel>Dry Run - Error</masterLabel>
+            <translation>Ejecución en seco - Error</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dry Run - Validated</masterLabel>
+            <translation>Ejecución en seco - Validada</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Failed</masterLabel>
+            <translation>Fallo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Imported</masterLabel>
+            <translation>Importado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Processing</masterLabel>
+            <translation>Procesando</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ready to Process</masterLabel>
+            <translation>Listo para procesar</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Parámetro de Google Analytics para seguir el nombre del código de licitación para el esfuerzo de alcance. Por ejemplo, spring_2021_fundraiser.</help>
+        <label><!-- UTM Campaign --></label>
+        <name>npsp__UTM_Campaign__c</name>
+    </fields>
+    <fields>
+        <help>Parámetro de Google Analytics para diferenciar contenido parecido o vínculos dentro de una licitación.</help>
+        <label><!-- UTM Content --></label>
+        <name>npsp__UTM_Content__c</name>
+    </fields>
+    <fields>
+        <help>Parámetro de Google Analytics para seguir términos de búsquedas pagadas.</help>
+        <label><!-- UTM Keyword Terms --></label>
+        <name>npsp__UTM_Keyword_Terms__c</name>
+    </fields>
+    <fields>
+        <help>Parámetro de Google Analytics para seguir cómo se compartió la URL. Por ejemplo, email o banner_ad.</help>
+        <label><!-- UTM Medium --></label>
+        <name>npsp__UTM_Medium__c</name>
+    </fields>
+    <fields>
+        <help>Parámetro de Google Analytics para seguir el origen referente. Por ejemplo, website o newsletter.</help>
+        <label><!-- UTM Source --></label>
+        <name>npsp__UTM_Source__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <layouts>
+        <layout>Data Import Layout</layout>
+        <sections>
+            <label>Cuenta1 Información de organización</label>
+            <section>Account1 Organization Information</section>
+        </sections>
+        <sections>
+            <label>Cuenta2 Información de organización</label>
+            <section>Account2 Organization Information</section>
+        </sections>
+        <sections>
+            <label>Información de la campaña</label>
+            <section>Campaign Information</section>
+        </sections>
+        <sections>
+            <label>Contacto1 Información</label>
+            <section>Contact1 Information</section>
+        </sections>
+        <sections>
+            <label>Contacto2 Información</label>
+            <section>Contact2 Information</section>
+        </sections>
+        <sections>
+            <label>Vínculos personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Información de asignación GAU 1</label>
+            <section>GAU Allocation 1 Information</section>
+        </sections>
+        <sections>
+            <label>Información de asignación GAU 2</label>
+            <section>GAU Allocation 2 Information</section>
+        </sections>
+        <sections>
+            <label>Dirección particular</label>
+            <section>Home Address</section>
+        </sections>
+        <sections>
+            <label>Información de cuenta Hogar</label>
+            <section>Household Account Information</section>
+        </sections>
+        <sections>
+            <label>Información de función de contacto de oportunidad 1</label>
+            <section>Opportunity Contact Role 1 Information</section>
+        </sections>
+        <sections>
+            <label>Información de función de contacto de oportunidad 2</label>
+            <section>Opportunity Contact Role 2 Information</section>
+        </sections>
+        <sections>
+            <label>Información de oportunidad</label>
+            <section>Opportunity Information</section>
+        </sections>
+        <sections>
+            <label>Información del pago</label>
+            <section>Payment Information</section>
+        </sections>
+        <sections>
+            <label>Información de donación recurrente</label>
+            <section>Recurring Donation Information</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Id. de importación de datos</nameFieldLabel>
+    <webLinks>
+        <label><!-- Delete_All_Data_Import_Records --></label>
+        <name>npsp__Delete_All_Data_Import_Records</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Delete_Imported_Data_Import_Records --></label>
+        <name>npsp__Delete_Imported_Data_Import_Records</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Import_Selected_Data_Import_Records --></label>
+        <name>npsp__Import_Selected_Data_Import_Records</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Process_Data_Import --></label>
+        <name>npsp__Process_Data_Import</name>
+    </webLinks>
+</CustomObjectTranslation>

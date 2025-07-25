@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Pagamento</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Pagamentos</value>
+    </caseValues>
+    <fieldSets>
+        <label><!-- Payment Wizard FS --></label>
+        <name>npsp__Payment_WizardFS</name>
+    </fieldSets>
+    <fields>
+        <label><!-- Check/Reference Number --></label>
+        <name>npe01__Check_Reference_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Custom Payment Field --></label>
+        <name>npe01__Custom_Payment_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>npe01__Opportunity__c</name>
+        <relationshipLabel><!-- Payments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Paid --></label>
+        <name>npe01__Paid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Amount --></label>
+        <name>npe01__Payment_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Date --></label>
+        <name>npe01__Payment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>npe01__Payment_Method__c</name>
+        <picklistValues>
+            <masterLabel>ACH</masterLabel>
+            <translation>ACH</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cash</masterLabel>
+            <translation>Dinheiro</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Check</masterLabel>
+            <translation>Cheque</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Credit Card</masterLabel>
+            <translation>Cartão de crédito</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PayPal</masterLabel>
+            <translation>PayPal</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Scheduled Date --></label>
+        <name>npe01__Scheduled_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Written Off --></label>
+        <name>npe01__Written_Off__c</name>
+    </fields>
+    <fields>
+        <help>O código SEC (Standard Entry Class, classe de entrada padrão) usado para esta transação da ACH.</help>
+        <label><!-- ACH Code --></label>
+        <name>npsp__ACH_Code__c</name>
+    </fields>
+    <fields>
+        <help>Os últimos quatro dígitos da conta bancária usada para esta transação.</help>
+        <label><!-- ACH Last 4 --></label>
+        <name>npsp__ACH_Last_4__c</name>
+    </fields>
+    <fields>
+        <help>Data e hora em que a transação foi autorizada.</help>
+        <label><!-- Authorized Date --></label>
+        <name>npsp__Authorized_Date__c</name>
+    </fields>
+    <fields>
+        <help>A data e a hora exatas (até o milissegundo) do gateway de pagamento no qual essa transação foi autorizada com sucesso.</help>
+        <label><!-- Authorized UTC Timestamp --></label>
+        <name>npsp__Authorized_UTC_Timestamp__c</name>
+    </fields>
+    <fields>
+        <help>O lote que definiu este Pagamento como realizado. Este campo é preenchido automaticamente com base nas Configurações de número de lote nas Configurações do NPSP.</help>
+        <label><!-- Batch Number --></label>
+        <name>npsp__Batch_Number__c</name>
+    </fields>
+    <fields>
+        <help>O mês de vencimento do cartão utilizado nesta transação.</help>
+        <label><!-- Card Expiration Month --></label>
+        <name>npsp__Card_Expiration_Month__c</name>
+    </fields>
+    <fields>
+        <help>O ano de vencimento do cartão utilizado nesta transação.</help>
+        <label><!-- Card Expiration Year --></label>
+        <name>npsp__Card_Expiration_Year__c</name>
+    </fields>
+    <fields>
+        <help>Os últimos quatro dígitos do cartão usado para esta transação.</help>
+        <label><!-- Card Last 4 --></label>
+        <name>npsp__Card_Last_4__c</name>
+    </fields>
+    <fields>
+        <help>A operadora do cartão usado para esta transação.</help>
+        <label><!-- Card Network --></label>
+        <name>npsp__Card_Network__c</name>
+    </fields>
+    <fields>
+        <label><!-- Debit Type --></label>
+        <name>npsp__DebitType__c</name>
+        <picklistValues>
+            <masterLabel>Chargeback</masterLabel>
+            <translation>Estorno</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partial Refund</masterLabel>
+            <translation>Reembolso parcial</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Refund</masterLabel>
+            <translation>Reembolso</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>O valor que o doador pagou além do valor da doação, muitas vezes para ajudar a cobrir as taxas de transação ou para adicionar uma gorjeta à doação.</help>
+        <label><!-- Donor Cover Amount --></label>
+        <name>npsp__Donor_Cover_Amount__c</name>
+    </fields>
+    <fields>
+        <help>Somente para reembolsos. Mostra o ID da transação de pagamento original do Elevate.</help>
+        <label><!-- Elevate Original Payment ID --></label>
+        <name>npsp__Elevate_Original_Payment_ID__c</name>
+    </fields>
+    <fields>
+        <help>Fornece detalhes sobre por que uma transação foi recusada.</help>
+        <label><!-- Elevate Payment API Declined Reason --></label>
+        <name>npsp__Elevate_Payment_API_Declined_Reason__c</name>
+    </fields>
+    <fields>
+        <help>O valor de status da API para este registro de Pagamento conectado ao Elevate.</help>
+        <label><!-- Elevate Payment API Status --></label>
+        <name>npsp__Elevate_Payment_API_Status__c</name>
+    </fields>
+    <fields>
+        <help>Data e hora em que a transação foi criada.</help>
+        <label><!-- Elevate Payment Created Date --></label>
+        <name>npsp__Elevate_Payment_Created_Date__c</name>
+    </fields>
+    <fields>
+        <help>A data e a hora exatas (até o milissegundo) do Elevate em que a transação foi criada.</help>
+        <label><!-- Elevate Payment Created  UTC Timestamp --></label>
+        <name>npsp__Elevate_Payment_Created_UTC_Timestamp__c</name>
+    </fields>
+    <fields>
+        <help>O ID exclusivo para esta transação do Elevate.</help>
+        <label><!-- Elevate Payment ID --></label>
+        <name>npsp__Elevate_Payment_ID__c</name>
+    </fields>
+    <fields>
+        <help>A taxa de transação cobrada pelo Elevate.</help>
+        <label><!-- Elevate Transaction Fee --></label>
+        <name>npsp__Elevate_Transaction_Fee__c</name>
+    </fields>
+    <fields>
+        <help>O ID do gateway de pagamento que processou a transação.</help>
+        <label><!-- Gateway ID --></label>
+        <name>npsp__Gateway_ID__c</name>
+    </fields>
+    <fields>
+        <help>O ID exclusivo para esta transação do gateway de pagamento.</help>
+        <label><!-- Gateway Payment ID --></label>
+        <name>npsp__Gateway_Payment_ID__c</name>
+    </fields>
+    <fields>
+        <help>A taxa de transação cobrada pelo seu gateway de pagamento.</help>
+        <label><!-- Gateway Transaction Fee --></label>
+        <name>npsp__Gateway_Transaction_Fee__c</name>
+    </fields>
+    <fields>
+        <help>O ID do sistema em que a transação foi iniciada.</help>
+        <label><!-- Origin ID --></label>
+        <name>npsp__Origin_ID__c</name>
+    </fields>
+    <fields>
+        <help>O nome do sistema em que a transação foi iniciada.</help>
+        <label><!-- Origin Name --></label>
+        <name>npsp__Origin_Name__c</name>
+    </fields>
+    <fields>
+        <help>O tipo de sistema usado para iniciar a transação. Os valores disponíveis incluem Hub de interações, Página de doações, API de pagamentos, Salesforce.</help>
+        <label><!-- Origin Type --></label>
+        <name>npsp__Origin_Type__c</name>
+    </fields>
+    <fields>
+        <help>A transação de pagamento original associada a este registro.</help>
+        <label><!-- Original Payment --></label>
+        <name>npsp__OriginalPayment__c</name>
+        <relationshipLabel><!-- Refunds --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Data de confirmação</help>
+        <label><!-- Payment Acknowledged Date --></label>
+        <name>npsp__Payment_Acknowledged_Date__c</name>
+    </fields>
+    <fields>
+        <help>Status de confirmação deste pagamento.</help>
+        <label><!-- Payment Acknowledgment Status --></label>
+        <name>npsp__Payment_Acknowledgment_Status__c</name>
+        <picklistValues>
+            <masterLabel>Acknowledged</masterLabel>
+            <translation>Confirmado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Do Not Acknowledge</masterLabel>
+            <translation>Não confirmar</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>To Be Acknowledged</masterLabel>
+            <translation>A ser confirmado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>A soma das taxas de transação cobradas pelo Elevate e pelo gateway de pagamento.</help>
+        <label><!-- Total Transaction Fees --></label>
+        <name>npsp__Total_Transaction_Fees__c</name>
+    </fields>
+    <fields>
+        <help>Indica o tipo de transação.</help>
+        <label><!-- Type --></label>
+        <name>npsp__Type__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>Payment Layout</layout>
+        <sections>
+            <label>Links personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Número do pagamento</nameFieldLabel>
+    <quickActions>
+        <label><!-- Quick Update --></label>
+        <name>npsp__Quick_Update</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Refund --></label>
+        <name>npsp__Refund</name>
+    </quickActions>
+    <webLinks>
+        <label><!-- Schedule_Payments --></label>
+        <name>npe01__Schedule_Payments</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Writeoff_Payments --></label>
+        <name>npe01__Writeoff_Payments</name>
+    </webLinks>
+</CustomObjectTranslation>

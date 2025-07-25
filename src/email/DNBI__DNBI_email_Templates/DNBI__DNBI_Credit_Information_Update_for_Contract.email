@@ -1,0 +1,4 @@
+A Credit Decision has been updated on {!Contract.Account} for credit application {!Contract.DNBI__DnB_Application_ID__c}. Please review the updated credit decision. Click to <a href="{!Contract.Link}">view the record</a>.
+<br>
+
+Note: You can search the credit application ID in the main search box on Salesforce.com

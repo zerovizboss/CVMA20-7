@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "bf91ca3d-b491-45f0-bb76-ff489768aaf4",
+    "propertyOverrides" : {
+      "activeViewId" : "3147e0bf-ad3b-4993-afcc-fe86f0bfc127"
+    },
+    "targetId" : "13bf49d9-f09c-42b9-aa62-1efe24a6a8ac",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "CC_XO_Corner_CC_XO_Corner_Page",
+  "id" : "3a4a40e7-f6b0-4d5e-978b-c145c7fbf200",
+  "type" : "experienceVariation"
+}
