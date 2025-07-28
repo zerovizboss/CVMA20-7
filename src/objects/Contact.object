@@ -3416,4 +3416,64 @@ npo02__Household__r.npo02__TotalOppAmount__c)</formula>
         <page>npsp__CRLP_RollupContact_BTN</page>
         <protected>false</protected>
     </webLinks>
+    <validationRules>
+        <fullName>CVMA_Membership_Level_Validation</fullName>
+        <active>true</active>
+        <description>Validates Membership ID prefix matches membership level: FM, SUP, or AUX</description>
+        <errorConditionFormula>AND(
+  NOT(ISBLANK(TEXT(Level__c))),
+  NOT(ISBLANK(Membership_Id__c)),
+  OR(
+    AND(
+      TEXT(Level__c) = "Full Member",
+      NOT(BEGINS(UPPER(Membership_Id__c), "FM"))
+    ),
+    AND(
+      TEXT(Level__c) = "Support Member",
+      NOT(BEGINS(UPPER(Membership_Id__c), "SUP"))
+    ),
+    AND(
+      TEXT(Level__c) = "Auxiliary Member",
+      NOT(BEGINS(UPPER(Membership_Id__c), "AUX"))
+    )
+  )
+)</errorConditionFormula>
+        <errorDisplayField>Membership_Id__c</errorDisplayField>
+        <errorMessage>Membership ID prefix must match level: Full Member=FM, Support Member=SUP, Auxiliary Member=AUX (e.g., FM1, SUP123, AUX12345)</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CVMA_Membership_Format_Validation</fullName>
+        <active>true</active>
+        <description>Validates Membership ID format: FM/SUP/AUX + 1-5 digits, max 8 characters</description>
+        <errorConditionFormula>AND(
+  NOT(ISBLANK(Membership_Id__c)),
+  NOT(ISBLANK(TEXT(Level__c))),
+  OR(
+    LEN(Membership_Id__c) > 8,
+    AND(
+      TEXT(Level__c) = "Full Member",
+      OR(
+        LEN(Membership_Id__c) &lt; 3,
+        NOT(REGEX(Membership_Id__c, "^[A-Za-z]{2}[0-9]{1,5}$"))
+      )
+    ),
+    AND(
+      TEXT(Level__c) = "Support Member",
+      OR(
+        LEN(Membership_Id__c) &lt; 4,
+        NOT(REGEX(Membership_Id__c, "^[A-Za-z]{3}[0-9]{1,5}$"))
+      )
+    ),
+    AND(
+      TEXT(Level__c) = "Auxiliary Member",
+      OR(
+        LEN(Membership_Id__c) &lt; 4,
+        NOT(REGEX(Membership_Id__c, "^[A-Za-z]{3}[0-9]{1,5}$"))
+      )
+    )
+  )
+)</errorConditionFormula>
+        <errorDisplayField>Membership_Id__c</errorDisplayField>
+        <errorMessage>Invalid format. Use: FM+1-5 digits (3-8 chars), SUP+1-5 digits (4-8 chars), or AUX+1-5 digits (4-8 chars)</errorMessage>
+    </validationRules>
 </CustomObject>

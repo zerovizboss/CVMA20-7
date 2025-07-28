@@ -43,9 +43,22 @@ public class CVMAGuestUserSchedulerAccessTest {
             FirstName = 'Test',
             LastName = 'Member',
             Email = 'testmember@cvma207.org',
-            AccountId = testAccount.Id
+            AccountId = testAccount.Id,
+            Level__c = 'Full Member',
+            Membership_Id__c = 'FM00001'
         );
         insert testContact;
+        
+        // Create test Work Order for Service Appointments
+        WorkOrder testWorkOrder = new WorkOrder(
+            Subject = 'CVMA Test Work Order',
+            AccountId = testAccount.Id,
+            ContactId = testContact.Id,
+            WorkTypeId = workType.Id,
+            ServiceTerritoryId = territory.Id,
+            Status = 'New'
+        );
+        insert testWorkOrder;
         
         // Create test Service Appointments
         List<ServiceAppointment> appointments = new List<ServiceAppointment>();
@@ -54,6 +67,7 @@ public class CVMAGuestUserSchedulerAccessTest {
             ContactId = testContact.Id,
             ServiceTerritoryId = territory.Id,
             WorkTypeId = workType.Id,
+            ParentRecordId = testWorkOrder.Id,
             SchedStartTime = DateTime.now().addDays(1),
             SchedEndTime = DateTime.now().addDays(1).addHours(1),
             Status = 'Scheduled',
@@ -65,6 +79,7 @@ public class CVMAGuestUserSchedulerAccessTest {
             ContactId = testContact.Id,
             ServiceTerritoryId = territory.Id,
             WorkTypeId = workType.Id,
+            ParentRecordId = testWorkOrder.Id,
             SchedStartTime = DateTime.now().addDays(2),
             SchedEndTime = DateTime.now().addDays(2).addHours(1),
             Status = 'Canceled',
@@ -111,9 +126,7 @@ public class CVMAGuestUserSchedulerAccessTest {
             Description = 'Private event not visible to guests',
             StartDateTime = DateTime.now().addDays(4),
             EndDateTime = DateTime.now().addDays(4).addHours(2),
-            IsPrivate = true,
-            WhatId = testAccount.Id,
-            WhoId = testContact.Id
+            IsPrivate = true
         ));
         insert events;
     }
@@ -144,12 +157,14 @@ public class CVMAGuestUserSchedulerAccessTest {
             WorkType workType = [SELECT Id FROM WorkType LIMIT 1];
             Account testAccount = [SELECT Id FROM Account LIMIT 1];
             Contact testContact = [SELECT Id FROM Contact LIMIT 1];
+            WorkOrder testWorkOrder = [SELECT Id FROM WorkOrder LIMIT 1];
             
             ServiceAppointment newAppointment = new ServiceAppointment(
                 Subject = 'Guest Created Appointment',
                 ContactId = testContact.Id,
                 ServiceTerritoryId = territory.Id,
                 WorkTypeId = workType.Id,
+                ParentRecordId = testWorkOrder.Id,
                 SchedStartTime = DateTime.now().addDays(5),
                 SchedEndTime = DateTime.now().addDays(5).addHours(1),
                 Status = 'Scheduled',
