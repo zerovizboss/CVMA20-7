@@ -1,0 +1,135 @@
+.slds-progress-indicator {
+    margin-bottom: 1.5rem;
+}
+
+.slds-notify_alert {
+    margin-bottom: 1rem;
+}
+
+.slds-box {
+    background-color: #ffffff;
+    border: 1px solid #d8dbdd;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+.slds-theme_shade {
+    background-color: #f3f2f2;
+}
+
+.slds-list_horizontal dt {
+    width: 30%;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.slds-list_horizontal dd {
+    width: 65%;
+    margin-bottom: 0.5rem;
+}
+
+.slds-required {
+    color: #c23934;
+}
+
+.slds-text-color_success {
+    color: #2e844a;
+}
+
+.file-upload-section {
+    border: 2px dashed #d8dbdd;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.application-header {
+    background: linear-gradient(45deg, #1b5f9f, #c41e3a);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.step-content {
+    min-height: 400px;
+    padding: 1rem 0;
+}
+
+.navigation-buttons {
+    border-top: 1px solid #d8dbdd;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.field-help-text {
+    font-size: 0.875rem;
+    color: #706e6b;
+    margin-top: 0.25rem;
+}
+
+.military-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #1b5f9f;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+}
+
+.combat-veteran-indicator {
+    background-color: #c41e3a;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.application-review-item {
+    border-bottom: 1px solid #f3f2f2;
+    padding: 0.5rem 0;
+}
+
+.application-review-item:last-child {
+    border-bottom: none;
+}
+
+.terms-section {
+    background-color: #f8f9fa;
+    border-left: 4px solid #1b5f9f;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.success-message {
+    text-align: center;
+    padding: 2rem;
+}
+
+.success-message lightning-icon {
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .slds-col {
+        width: 100% !important;
+    }
+    
+    .slds-list_horizontal dt,
+    .slds-list_horizontal dd {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    .navigation-buttons .slds-grid {
+        flex-direction: column;
+    }
+    
+    .navigation-buttons .slds-col_bump-left {
+        margin-left: 0 !important;
+        margin-top: 0.5rem;
+    }
+}

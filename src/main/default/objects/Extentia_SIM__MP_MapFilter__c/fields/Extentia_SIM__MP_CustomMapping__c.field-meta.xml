@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Extentia_SIM__MP_CustomMapping__c</fullName>
+    <deprecated>false</deprecated>
+    <label>MP_CustomMapping</label>
+    <referenceTo>Extentia_SIM__MP_CustomMapping__c</referenceTo>
+    <relationshipLabel>MP_MapFilters</relationshipLabel>
+    <relationshipName>MapFilters</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

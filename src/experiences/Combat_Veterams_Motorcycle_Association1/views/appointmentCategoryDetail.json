@@ -1,6 +1,6 @@
 {
   "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
-  "componentName" : "siteforce:sldsOneColLayout",
+  "componentName" : "siteforce:sldsTwoCol84Layout",
   "dataProviders" : [ ],
   "id" : "d3ec8eba-3e54-4cf6-942f-52dd096e5d63",
   "label" : "Appointment Category Detail",
@@ -25,9 +25,9 @@
         "discussionsTabLabel" : "Feed",
         "recordId" : "{!recordId}",
         "relatedTabLabel" : "Related",
-        "showLegacyActivityComposer" : true,
+        "showLegacyActivityComposer" : false,
         "tab1Type" : "details",
-        "tab2Type" : "timeline",
+        "tab2Type" : "none",
         "tab3Type" : "none",
         "tab4Type" : "none",
         "timelineTabLabel" : "Activity"
@@ -59,6 +59,27 @@
     } ],
     "id" : "bc002620-aed7-4103-a471-7261d765b092",
     "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "canChangeSorting" : true,
+        "defaultFilter" : "",
+        "defaultSortOrderHomeFeed" : "Relevance",
+        "defaultSortOrderTopicsFeed" : "Relevance",
+        "feedDesign" : "DEFAULT",
+        "hasFeedSearch" : true,
+        "subjectId" : "{!recordId}",
+        "type" : "Record"
+      },
+      "componentName" : "forceCommunity:forceCommunityFeed",
+      "id" : "195d49e7-a268-4a02-b3f8-691c373826e0",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d99585aa-f2c0-490c-ae9a-5e7ef4aa5462",
+    "regionName" : "sidebar",
     "type" : "region"
   } ],
   "themeLayoutType" : "Inner",

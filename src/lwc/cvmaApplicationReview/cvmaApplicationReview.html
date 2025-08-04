@@ -1,0 +1,216 @@
+<template>
+    <lightning-card title="Membership Applications Review" icon-name="standard:approval">
+        <div class="slds-p-horizontal_large slds-p-vertical_medium">
+            
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center slds-p-vertical_large">
+                    <lightning-spinner alternative-text="Loading applications..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+            
+            <!-- Applications Summary -->
+            <template if:false={isLoading}>
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-box slds-text-align_center">
+                            <div class="slds-text-heading_large slds-text-color_brand">{pendingCount}</div>
+                            <div class="slds-text-body_regular">Pending Applications</div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-box slds-text-align_center">
+                            <div class="slds-text-heading_large slds-text-color_success">{approvedCount}</div>
+                            <div class="slds-text-body_regular">Approved This Month</div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-box slds-text-align_center">
+                            <div class="slds-text-heading_large slds-text-color_error">{rejectedCount}</div>
+                            <div class="slds-text-body_regular">Rejected This Month</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Applications List -->
+                <template if:true={hasApplications}>
+                    <div class="slds-scrollable_y" style="height: 600px;">
+                        <template for:each={applications} for:item="application">
+                            <div key={application.applicationId} class="slds-box slds-m-bottom_medium">
+                                <div class="slds-grid slds-wrap">
+                                    <!-- Applicant Information -->
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-m-bottom_small">
+                                            <div class="slds-text-heading_small">
+                                                <lightning-button 
+                                                    variant="base" 
+                                                    label={application.applicantName}
+                                                    title="View Application Details"
+                                                    onclick={handleViewApplication}
+                                                    data-id={application.applicationId}
+                                                    class="application-name-button">
+                                                </lightning-button>
+                                            </div>
+                                            <div class="slds-text-body_small slds-text-color_weak">
+                                                {application.applicationNumber} • {application.formattedSubmissionDate}
+                                            </div>
+                                        </div>
+                                        
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Email:</dt>
+                                            <dd class="slds-item_detail slds-truncate">
+                                                <lightning-formatted-email value={application.email}></lightning-formatted-email>
+                                            </dd>
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Phone:</dt>
+                                            <dd class="slds-item_detail slds-truncate">
+                                                <lightning-formatted-phone value={application.phone}></lightning-formatted-phone>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    
+                                    <!-- Military Service Information -->
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Service:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{application.serviceBranch}</dd>
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Status:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{application.serviceStatus}</dd>
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Level:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{application.membershipLevel}</dd>
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Combat Vet:</dt>
+                                            <dd class="slds-item_detail slds-truncate">
+                                                <template if:true={application.combatVeteran}>
+                                                    <span class="slds-badge slds-theme_success">Yes</span>
+                                                </template>
+                                                <template if:false={application.combatVeteran}>
+                                                    <span class="slds-badge slds-theme_default">No</span>
+                                                </template>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="slds-col slds-size_1-of-1 slds-m-top_medium">
+                                        <div class="slds-grid slds-grid_align-end">
+                                            <lightning-button-group>
+                                                <lightning-button 
+                                                    variant="success" 
+                                                    label="Approve" 
+                                                    onclick={handleApprove}
+                                                    data-id={application.applicationId}
+                                                    disabled={isProcessing}>
+                                                </lightning-button>
+                                                <lightning-button 
+                                                    variant="destructive" 
+                                                    label="Reject" 
+                                                    onclick={handleReject}
+                                                    data-id={application.applicationId}
+                                                    disabled={isProcessing}>
+                                                </lightning-button>
+                                                <lightning-button 
+                                                    variant="neutral" 
+                                                    label="More Info" 
+                                                    onclick={handleMoreInfo}
+                                                    data-id={application.applicationId}
+                                                    disabled={isProcessing}>
+                                                </lightning-button>
+                                            </lightning-button-group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                
+                <!-- No Applications Message -->
+                <template if:false={hasApplications}>
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-align_center slds-p-vertical_large">
+                            <lightning-icon 
+                                icon-name="utility:checkin" 
+                                size="large" 
+                                variant="inverse">
+                            </lightning-icon>
+                            <h3 class="slds-text-heading_medium slds-m-top_medium">No Pending Applications</h3>
+                            <p class="slds-text-color_weak">All membership applications have been reviewed.</p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Application Detail Modal -->
+    <template if:true={showApplicationModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                            onclick={closeApplicationModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Application Details</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={selectedApplication}>
+                        <!-- Application details content would go here -->
+                        <div class="slds-text-align_center">
+                            <p>Detailed application view for {selectedApplication.applicantName}</p>
+                            <p class="slds-text-color_weak">Full application details would be displayed here</p>
+                        </div>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Close" onclick={closeApplicationModal}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Status Update Modal -->
+    <template if:true={showStatusModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                            onclick={closeStatusModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">
+                        {statusModalTitle}
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={selectedApplication}>
+                        <div class="slds-m-bottom_medium">
+                            <strong>Applicant:</strong> {selectedApplication.applicantName}<br>
+                            <strong>Application:</strong> {selectedApplication.applicationNumber}
+                        </div>
+                        
+                        <lightning-textarea 
+                            label="Review Notes"
+                            value={reviewNotes}
+                            onchange={handleNotesChange}
+                            placeholder="Enter your review notes here..."
+                            required>
+                        </lightning-textarea>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={closeStatusModal}></lightning-button>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Confirm" 
+                        onclick={confirmStatusUpdate}
+                        disabled={confirmDisabled}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

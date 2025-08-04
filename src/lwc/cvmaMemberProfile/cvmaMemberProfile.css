@@ -1,0 +1,90 @@
+/* CVMA Member Profile Component Styles */
+
+.slds-section__title {
+    background-color: #f3f3f3;
+    border-left: 4px solid #1b5f9f;
+    padding: 0.75rem;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.slds-section__content {
+    padding: 1rem;
+    background-color: #ffffff;
+}
+
+.slds-form-element__static {
+    color: #181818;
+    font-weight: 400;
+    min-height: 1.5rem;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.slds-form-element__static:empty::after {
+    content: "—";
+    color: #706e6b;
+    font-style: italic;
+}
+
+.slds-theme_info {
+    background-color: #e8f4fd;
+    border-left: 4px solid #1b96ff;
+}
+
+.slds-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-header-content {
+    padding: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slds-section__title {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .slds-section__content {
+        padding: 0.75rem;
+    }
+    
+    .slds-card__body {
+        padding: 0.5rem !important;
+    }
+}
+
+/* Custom styling for CVMA branding */
+.cvma-brand-primary {
+    background-color: #1b5f9f;
+    color: white;
+}
+
+.cvma-brand-secondary {
+    background-color: #c41e3a;
+    color: white;
+}
+
+.cvma-accent {
+    border-left-color: #1b5f9f;
+}
+
+/* Loading state styles */
+.slds-is-relative {
+    position: relative;
+}
+
+/* Form validation styles */
+.slds-has-error .slds-form-element__control {
+    border-color: #c23934;
+}
+
+.slds-form-element__help {
+    color: #c23934;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}

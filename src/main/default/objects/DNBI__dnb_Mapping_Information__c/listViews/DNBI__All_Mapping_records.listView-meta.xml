@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DNBI__All_Mapping_records</fullName>
+    <columns>NAME</columns>
+    <columns>OBJECT_ID</columns>
+    <columns>DNBI__Entity_Field__c</columns>
+    <columns>DNBI__Entity_Field_Label__c</columns>
+    <columns>DNBI__Entity_Type__c</columns>
+    <columns>DNBI__isDefaultMapping__c</columns>
+    <columns>DNBI__isRequired__c</columns>
+    <columns>DNBI__Selected_Entity_Type__c</columns>
+    <columns>DNBI__WebService_DataType__c</columns>
+    <columns>DNBI__WebServiceField__c</columns>
+    <columns>DNBI__WebServiceLabel__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Mapping records</label>
+</ListView>

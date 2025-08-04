@@ -6,6 +6,15 @@
         <option name="connectionName" value="cvma" />
         <option name="connectionType" value="OAUTH" />
         <option name="defaultSourceRootUrl" value="file://$MODULE_DIR$/src" />
+        <option name="deploymentSubstitutionRules">
+          <list>
+            <SubstitutionRule>
+              <option name="filenamePattern" value="" />
+              <option name="substitutionPattern" value="" />
+              <option name="substitutionText" value="" />
+            </SubstitutionRule>
+          </list>
+        </option>
         <option name="moduleContents">
           <ModuleContents>
             <option name="contentSelectionType" value="PACKAGE_XML" />

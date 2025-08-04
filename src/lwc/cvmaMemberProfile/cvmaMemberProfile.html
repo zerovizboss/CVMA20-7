@@ -1,0 +1,363 @@
+<!-- CVMA Member Profile Management Component -->
+<template>
+    <lightning-card title="Member Profile" icon-name="utility:user">
+        
+        <!-- Loading Spinner -->
+        <div if:true={isLoading} class="slds-is-relative">
+            <lightning-spinner alternative-text="Saving profile..." size="medium"></lightning-spinner>
+        </div>
+
+        <!-- Profile Header -->
+        <div class="slds-card__header">
+            <div class="slds-media slds-media_center">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="utility:user" size="large" variant="inverse" class="slds-avatar slds-avatar_large slds-avatar_circle" style="background-color: #1b5f9f;"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title slds-text-heading_medium">{displayName}</h2>
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        Member ID: {membershipId} | Road Name: {roadName}
+                    </p>
+                </div>
+                <div class="slds-media__figure slds-media__figure_reverse">
+                    <template if:false={isEditing}>
+                        <lightning-button 
+                            label="Edit Profile" 
+                            variant="brand" 
+                            onclick={handleEdit}
+                            icon-name="utility:edit">
+                        </lightning-button>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="slds-card__body slds-card__body_inner slds-p-around_medium">
+            
+            <!-- Personal Information Section -->
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <span class="slds-truncate slds-p-horizontal_small" title="Personal Information">
+                        <lightning-icon icon-name="utility:user" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        Personal Information
+                    </span>
+                </h3>
+                
+                <div class="slds-section__content slds-p-top_medium">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <!-- First Name -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="text" 
+                                    label="First Name" 
+                                    value={userRecord.FirstName}
+                                    data-field="FirstName"
+                                    data-record-type="user"
+                                    onchange={handleInputChange}
+                                    required>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">First Name</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{userRecord.FirstName}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="text" 
+                                    label="Last Name" 
+                                    value={userRecord.LastName}
+                                    data-field="LastName"
+                                    data-record-type="user"
+                                    onchange={handleInputChange}
+                                    required>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">Last Name</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{userRecord.LastName}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="slds-section slds-is-open slds-m-top_large">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <span class="slds-truncate slds-p-horizontal_small" title="Contact Information">
+                        <lightning-icon icon-name="utility:email" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        Contact Information
+                    </span>
+                </h3>
+                
+                <div class="slds-section__content slds-p-top_medium">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <!-- Email -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="email" 
+                                    label="Email" 
+                                    value={userRecord.Email}
+                                    data-field="Email"
+                                    data-record-type="user"
+                                    onchange={handleInputChange}
+                                    required>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">Email</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{userRecord.Email}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="tel" 
+                                    label="Phone" 
+                                    value={contactRecord.Phone}
+                                    data-field="Phone"
+                                    data-record-type="contact"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">Phone</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{contactRecord.Phone}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Mobile Phone -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="tel" 
+                                    label="Mobile Phone" 
+                                    value={contactRecord.MobilePhone}
+                                    data-field="MobilePhone"
+                                    data-record-type="contact"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">Mobile Phone</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{contactRecord.MobilePhone}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address Information Section -->
+            <div class="slds-section slds-is-open slds-m-top_large">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <span class="slds-truncate slds-p-horizontal_small" title="Address Information">
+                        <lightning-icon icon-name="utility:location" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        Mailing Address
+                    </span>
+                </h3>
+                
+                <div class="slds-section__content slds-p-top_medium">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <!-- Street Address -->
+                        <div class="slds-col slds-size_1-of-1">
+                            <template if:true={isEditing}>
+                                <lightning-textarea 
+                                    label="Street Address" 
+                                    value={contactRecord.MailingStreet}
+                                    data-field="MailingStreet"
+                                    data-record-type="contact"
+                                    onchange={handleInputChange}
+                                    rows="3">
+                                </lightning-textarea>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">Street Address</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{contactRecord.MailingStreet}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- City -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="text" 
+                                    label="City" 
+                                    value={contactRecord.MailingCity}
+                                    data-field="MailingCity"
+                                    data-record-type="contact"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">City</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{contactRecord.MailingCity}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- State -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="text" 
+                                    label="State/Province" 
+                                    value={contactRecord.MailingState}
+                                    data-field="MailingState"
+                                    data-record-type="contact"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">State/Province</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{contactRecord.MailingState}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Postal Code -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="text" 
+                                    label="Postal Code" 
+                                    value={contactRecord.MailingPostalCode}
+                                    data-field="MailingPostalCode"
+                                    data-record-type="contact"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">Postal Code</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{contactRecord.MailingPostalCode}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Country -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={isEditing}>
+                                <lightning-input 
+                                    type="text" 
+                                    label="Country" 
+                                    value={contactRecord.MailingCountry}
+                                    data-field="MailingCountry"
+                                    data-record-type="contact"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </template>
+                            <template if:false={isEditing}>
+                                <div class="slds-form-element">
+                                    <span class="slds-form-element__label">Country</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{contactRecord.MailingCountry}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CVMA Information Section (Read-only) -->
+            <div class="slds-section slds-is-open slds-m-top_large">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <span class="slds-truncate slds-p-horizontal_small" title="CVMA Information">
+                        <lightning-icon icon-name="utility:groups" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        CVMA Information
+                    </span>
+                </h3>
+                
+                <div class="slds-section__content slds-p-top_medium">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <!-- Membership ID (Read-only) -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">Membership ID</span>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">{membershipId}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Road Name (Read-only) -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">Road Name</span>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">{roadName}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-box slds-box_x-small slds-theme_info slds-m-top_medium">
+                        <p class="slds-text-body_small">
+                            <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            Membership ID and Road Name are managed by chapter officers. 
+                            Contact your chapter administration if these need to be updated.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <template if:true={isEditing}>
+                <div class="slds-m-top_large slds-text-align_right">
+                    <lightning-button 
+                        label="Cancel" 
+                        onclick={handleCancel}
+                        class="slds-m-right_small">
+                    </lightning-button>
+                    <lightning-button 
+                        label="Save Profile" 
+                        variant="brand" 
+                        onclick={handleSave}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

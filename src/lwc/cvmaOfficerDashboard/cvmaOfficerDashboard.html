@@ -1,0 +1,182 @@
+<!-- CVMA Officer Member Dashboard -->
+<template>
+    <lightning-card title="Member Management Dashboard" icon-name="utility:groups">
+        
+        <!-- Loading Spinner -->
+        <div if:true={isLoading} class="slds-is-relative">
+            <lightning-spinner alternative-text="Loading dashboard..." size="medium"></lightning-spinner>
+        </div>
+
+        <!-- Dashboard Header with Stats -->
+        <div class="slds-card__header">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <template for:each={dashboardStats} for:item="stat">
+                    <div key={stat.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-large-size_1-of-6">
+                        <div class={stat.cssClass}>
+                            <div class="slds-text-align_center slds-p-around_small">
+                                <div class="slds-text-heading_large slds-text-color_default">{stat.value}</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{stat.label}</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-gutters slds-grid_align-spread slds-m-bottom_medium">
+                <div class="slds-col slds-grid slds-gutters">
+                    <!-- Search -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-input 
+                            type="search" 
+                            label="Search Members" 
+                            placeholder="Name, ID, or Email..."
+                            value={searchTerm}
+                            onchange={handleSearch}>
+                        </lightning-input>
+                    </div>
+                    
+                    <!-- Status Filter -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-combobox
+                            label="Filter by Status"
+                            value={statusFilter}
+                            options={statusOptions}
+                            onchange={handleStatusFilter}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="slds-col slds-no-flex">
+                    <div class="slds-button-group" role="group">
+                        <lightning-button 
+                            label="Refresh"
+                            icon-name="utility:refresh"
+                            onclick={handleRefresh}
+                            class="slds-m-right_x-small">
+                        </lightning-button>
+                        <lightning-button 
+                            label="Export Members"
+                            icon-name="utility:download"
+                            onclick={handleExportMembers}
+                            disabled={isLoading}
+                            class="slds-m-right_x-small">
+                        </lightning-button>
+                        <lightning-button 
+                            label="Send Reminders"
+                            icon-name="utility:email"
+                            variant="brand"
+                            onclick={handleSendReminders}
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member List Table -->
+            <div if:true={hasMembers}>
+                <div class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
+                    Showing {filteredMembers.length} members
+                </div>
+                <lightning-datatable
+                    data={filteredMembers}
+                    columns={columns}
+                    key-field="contactId"
+                    onrowselection={handleRowSelection}
+                    show-row-number-column="true"
+                    resize-column-disabled="false"
+                    sorted-direction="asc"
+                    sorted-by="fullName"
+                    max-row-selection="50">
+                </lightning-datatable>
+            </div>
+
+            <!-- No Members Message -->
+            <div if:false={hasMembers} class="slds-text-align_center slds-p-vertical_large">
+                <lightning-icon icon-name="utility:groups" size="large" variant="inverse" 
+                               class="slds-icon_container slds-icon-utility-groups slds-m-bottom_small"></lightning-icon>
+                <div class="slds-text-heading_medium slds-m-bottom_small">No members found</div>
+                <div class="slds-text-body_regular slds-text-color_weak">
+                    Try adjusting your search criteria or filters
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+
+    <!-- Export Confirmation Modal -->
+    <template if:true={showExportModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">Export Member Data</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p>This will export {filteredMembers.length} members to a CSV file including:</p>
+                    <ul class="slds-list_dotted slds-m-top_small">
+                        <li>Member contact information</li>
+                        <li>Membership status and dates</li>
+                        <li>Renewal information</li>
+                    </ul>
+                    <div class="slds-box slds-box_x-small slds-theme_warning slds-m-top_medium">
+                        <p class="slds-text-body_small">
+                            <lightning-icon icon-name="utility:warning" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            This file contains sensitive member information. Handle according to CVMA privacy policies.
+                        </p>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button 
+                        label="Cancel" 
+                        onclick={handleCloseModal}>
+                    </lightning-button>
+                    <lightning-button 
+                        label="Export CSV" 
+                        variant="brand" 
+                        onclick={handleExportConfirm}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Reminder Confirmation Modal -->
+    <template if:true={showReminderModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">Send Renewal Reminders</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p>This will send renewal reminder emails to all members with renewals due within 90 days.</p>
+                    <div class="slds-text-body_small slds-text-color_weak slds-m-top_small">
+                        Recipients will receive:
+                    </div>
+                    <ul class="slds-list_dotted slds-m-top_x-small">
+                        <li>Personalized renewal reminder email</li>
+                        <li>Current membership status</li>
+                        <li>Renewal instructions and deadlines</li>
+                        <li>Contact information for questions</li>
+                    </ul>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button 
+                        label="Cancel" 
+                        onclick={handleCloseModal}>
+                    </lightning-button>
+                    <lightning-button 
+                        label="Send Reminders" 
+                        variant="brand" 
+                        onclick={handleReminderConfirm}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

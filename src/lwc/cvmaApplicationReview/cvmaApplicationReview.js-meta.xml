@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <masterLabel>CVMA Application Review</masterLabel>
+    <description>Officer dashboard for reviewing pending CVMA membership applications. Allows officers to approve, reject, or request additional information from applicants. Includes application details, military service verification, and automated email notifications.</description>
+</LightningComponentBundle>

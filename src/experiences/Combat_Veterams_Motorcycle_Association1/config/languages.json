@@ -2,5 +2,14 @@
   "defaultCode" : "en_US",
   "defaultLabel" : "English (US)",
   "id" : "fc489c89-9290-461f-a6c8-395d1e91f89e",
+  "languages" : [ {
+    "countryCode" : "",
+    "fallbackLanguageId" : null,
+    "id" : "4a2c45b3-d8f8-4810-bdfb-968886ba0841",
+    "isActive" : true,
+    "label" : "Spanish",
+    "languageCode" : "es",
+    "type" : "language"
+  } ],
   "type" : "languageContainer"
 }

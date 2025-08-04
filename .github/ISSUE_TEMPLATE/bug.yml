@@ -1,0 +1,97 @@
+name: Bug Report
+description: File a bug report for the CVMA 20-7 project
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: input
+    id: bug-title
+    attributes:
+      label: Bug Summary
+      description: A brief, descriptive title for this bug
+      placeholder: e.g., Login form not accepting valid credentials
+    validations:
+      required: true
+  
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: A detailed description of the bug
+      placeholder: Describe what happened, what you expected to happen, and any error messages
+    validations:
+      required: true
+  
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the bug
+      placeholder: |
+        1. Go to login page
+        2. Enter valid username and password
+        3. Click "Login" button
+        4. Observe error message
+    validations:
+      required: true
+  
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+      placeholder: User should be logged in and redirected to dashboard
+    validations:
+      required: true
+  
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Error message displayed and user remains on login page
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this bug?
+      options:
+        - Critical (System down, data loss)
+        - High (Major feature broken)
+        - Medium (Feature partially working)
+        - Low (Minor issue, workaround available)
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where was this bug encountered?
+      options:
+        - Production
+        - Staging
+        - Development
+        - Local
+    validations:
+      required: true
+  
+  - type: input
+    id: browser
+    attributes:
+      label: Browser/Device
+      description: Browser and version, or device information
+      placeholder: e.g., Chrome 120.0, Safari on iPhone 15, Edge 119.0
+    validations:
+      required: false
+  
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any additional context, screenshots, or logs
+      placeholder: Error logs, screenshots, or any other relevant information
+    validations:
+      required: false

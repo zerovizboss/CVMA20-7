@@ -1,0 +1,152 @@
+/* CVMA Officer Dashboard Styles */
+
+.slds-card__header {
+    background: linear-gradient(135deg, #1b5f9f 0%, #c41e3a 100%);
+    color: white;
+    padding: 1rem;
+    margin-bottom: 0;
+}
+
+.slds-card__header .slds-text-color_default {
+    color: white !important;
+}
+
+.slds-card__header .slds-text-color_weak {
+    color: #e8f4fd !important;
+}
+
+.stat-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.stat-warning {
+    background-color: #ffb75d;
+    color: #181818;
+    border-radius: 0.25rem;
+    border: 1px solid #fe9339;
+}
+
+.stat-error {
+    background-color: #c23934;
+    color: white;
+    border-radius: 0.25rem;
+    border: 1px solid #a61e1a;
+}
+
+.stat-success {
+    background-color: #2e844a;
+    color: white;
+    border-radius: 0.25rem;
+    border: 1px solid #1c6b2e;
+}
+
+.stat-base {
+    background-color: #f3f3f3;
+    color: #181818;
+    border-radius: 0.25rem;
+    border: 1px solid #dddbda;
+}
+
+/* Action button styling */
+.slds-button-group .slds-button {
+    white-space: nowrap;
+}
+
+/* Table enhancements */
+.slds-table th {
+    background-color: #f7f9fb;
+    font-weight: 600;
+}
+
+/* Status indicators */
+.status-active {
+    color: #2e844a;
+    font-weight: 600;
+}
+
+.status-expired {
+    color: #c23934;
+    font-weight: 600;
+}
+
+.status-due {
+    color: #fe9339;
+    font-weight: 600;
+}
+
+/* Modal styling */
+.slds-modal__container {
+    max-width: 640px;
+}
+
+.slds-list_dotted {
+    padding-left: 1rem;
+}
+
+.slds-list_dotted li {
+    margin-bottom: 0.25rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .slds-card__header {
+        padding: 0.75rem;
+    }
+    
+    .slds-button-group {
+        flex-direction: column;
+    }
+    
+    .slds-button-group .slds-button {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    
+    .slds-col.slds-no-flex {
+        margin-top: 1rem;
+    }
+}
+
+/* Loading state */
+.slds-is-relative {
+    position: relative;
+    min-height: 6rem;
+}
+
+/* CVMA brand colors */
+.cvma-primary {
+    background-color: #1b5f9f;
+}
+
+.cvma-secondary {
+    background-color: #c41e3a;
+}
+
+/* Dashboard stats animations */
+@keyframes statPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.stat-card.stat-warning,
+.stat-card.stat-error {
+    animation: statPulse 2s ease-in-out infinite;
+}
+
+/* Empty state styling */
+.slds-icon_container.slds-icon-utility-groups {
+    background-color: #f3f3f3;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto;
+}

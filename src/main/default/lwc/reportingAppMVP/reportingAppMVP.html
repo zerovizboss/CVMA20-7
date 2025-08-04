@@ -1,0 +1,147 @@
+<template>
+    <div class="mvp-container">
+        <!-- Header -->
+        <div class="mvp-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <lightning-icon icon-name="utility:chart" size="medium" class="title-icon"></lightning-icon>
+                    Advanced Reporting
+                </h1>
+                <p class="app-subtitle">Custom JavaScript Analytics on Salesforce Data with Template Library.</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="mvp-tabs">
+            <button
+                    class={queryTabClass}
+                    onclick={handleQueryTab}
+                    data-tab="query">
+                <lightning-icon icon-name="utility:edit" size="x-small"></lightning-icon>
+                Query Builder
+            </button>
+            <button
+                    class={resultsTabClass}
+                    onclick={handleResultsTab}
+                    data-tab="results"
+                    disabled={hasNoResults}>
+                <lightning-icon icon-name="utility:chart" size="x-small"></lightning-icon>
+                Results ({resultCount})
+            </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="mvp-content">
+            <!-- Query Builder Tab with Template Sidebar -->
+            <div if:true={showQueryTab} class="tab-content">
+                <div class="query-builder-layout">
+                    <!-- Template Manager Sidebar -->
+                    <div class="template-sidebar">
+                        <c-template-manager
+                                ontemplateapplied={handleTemplateApplied}
+                                ontemplatesuccess={handleTemplateSuccess}
+                                ontemplaterefresh={handleTemplateRefresh}>
+                        </c-template-manager>
+                    </div>
+
+                    <!-- Query Builder Main Area -->
+                    <div class="query-builder-main">
+                        <c-query-executor-m-v-p
+                                onexecutioncomplete={handleResults}
+                                onexecutionstarted={handleExecutionStarted}
+                                onexecutionerror={handleExecutionError}>
+                        </c-query-executor-m-v-p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Tab -->
+            <div if:true={showResultsTab} class="tab-content">
+                <template if:true={hasResults}>
+                    <c-dynamic-results-viewer
+                            results={executionResults}>
+                    </c-dynamic-results-viewer>
+                </template>
+
+                <template if:false={hasResults}>
+                    <div class="empty-state">
+                        <lightning-icon icon-name="utility:preview" size="large" class="empty-icon"></lightning-icon>
+                        <h3>No Results Yet</h3>
+                        <p>Execute a query in the Query Builder tab to see results here.</p>
+                        <button class="slds-button slds-button_brand" onclick={handleQueryTab}>
+                            Build Query
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Toast Messages -->
+        <template if:true={showToast}>
+            <div class={toastClass}>
+                <div class="toast-content">
+                    <lightning-icon icon-name={toastIcon} size="small" class="toast-icon"></lightning-icon>
+                    <span class="toast-message">{toastMessage}</span>
+                </div>
+                <button class="toast-close" onclick={hideToast}>
+                    <lightning-icon icon-name="utility:close" size="xx-small"></lightning-icon>
+                </button>
+            </div>
+        </template>
+
+        <!-- Download Modal -->
+        <template if:true={showDownloadModal}>
+            <div class="modal-overlay" onclick={closeDownloadModal}>
+                <div class="modal-content download-modal-content" onclick={stopModalPropagation}>
+                    <div class="modal-header download-modal-header">
+                        <h3>{downloadModalTitle}</h3>
+                        <button class="modal-close-button" onclick={closeDownloadModal}>
+                            <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        </button>
+                    </div>
+
+                    <div class="modal-body download-modal-body">
+                        <div class="download-instructions">
+                            <lightning-icon icon-name="utility:info" size="small" class="instruction-icon"></lightning-icon>
+                            <p>{downloadModalMessage}</p>
+                            <div class="download-steps">
+                                <span class="step">1. Click "Copy to Clipboard" below</span>
+                                <span class="step">2. Open a text editor (Notepad, TextEdit, etc.)</span>
+                                <span class="step">3. Paste the content (Ctrl+V or Cmd+V)</span>
+                                <span class="step">4. Save as "{downloadModalFilename}"</span>
+                            </div>
+                        </div>
+
+                        <div class="download-content">
+                            <div class="download-toolbar">
+                                <span class="content-info">File: {downloadModalFilename} ({downloadModalContent.length} characters)</span>
+                                <button class="copy-button" onclick={copyDownloadContent}>
+                                    <lightning-icon icon-name="utility:copy" size="x-small"></lightning-icon>
+                                    Copy to Clipboard
+                                </button>
+                            </div>
+
+                            <textarea
+                                    class="download-modal-textarea"
+                                    readonly
+                                    value={downloadModalTextareaContent}
+                                    placeholder="CSV content will appear here...">
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer download-modal-footer">
+                        <button class="modal-button secondary-button" onclick={closeDownloadModal}>
+                            <lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+                            Close
+                        </button>
+                        <button class="modal-button primary-button" onclick={copyDownloadContent}>
+                            <lightning-icon icon-name="utility:copy" size="x-small"></lightning-icon>
+                            Copy & Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

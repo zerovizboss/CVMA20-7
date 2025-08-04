@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <masterLabel>CVMA Membership Application</masterLabel>
+    <description>Multi-step membership application form for CVMA Chapter 20-7. Collects personal information, military service details, emergency contacts, and required documentation. Includes validation, document upload, and application tracking capabilities.</description>
+</LightningComponentBundle>

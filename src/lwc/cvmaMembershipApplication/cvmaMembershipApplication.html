@@ -1,0 +1,413 @@
+<template>
+    <lightning-card title="CVMA Chapter 20-7 Membership Application" icon-name="standard:contact">
+        <div class="slds-p-horizontal_large slds-p-vertical_medium">
+            
+            <!-- Application Progress Indicator -->
+            <lightning-progress-indicator 
+                current-step={currentStep} 
+                type="path" 
+                variant="base">
+                <lightning-progress-step 
+                    label="Personal Information" 
+                    value="personal">
+                </lightning-progress-step>
+                <lightning-progress-step 
+                    label="Military Service" 
+                    value="military">
+                </lightning-progress-step>
+                <lightning-progress-step 
+                    label="Emergency Contact" 
+                    value="emergency">
+                </lightning-progress-step>
+                <lightning-progress-step 
+                    label="Documents & Review" 
+                    value="documents">
+                </lightning-progress-step>
+            </lightning-progress-indicator>
+
+            <!-- Error Messages -->
+            <template if:true={hasErrors}>
+                <div class="slds-m-bottom_medium">
+                    <div class="slds-notify slds-notify_alert slds-alert_error">
+                        <span class="slds-assistive-text">Error</span>
+                        <lightning-icon icon-name="utility:error" alternative-text="Error" size="x-small"></lightning-icon>
+                        <h2 class="slds-text-heading_small">Please correct the following errors:</h2>
+                        <ul class="slds-list_dotted slds-m-top_x-small">
+                            <template for:each={errors} for:item="error">
+                                <li key={error}>{error}</li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Step 1: Personal Information -->
+            <template if:true={isPersonalStep}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="First Name" 
+                            value={application.firstName}
+                            onchange={handleInputChange}
+                            data-field="firstName"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Last Name" 
+                            value={application.lastName}
+                            onchange={handleInputChange}
+                            data-field="lastName"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Email Address" 
+                            type="email"
+                            value={application.email}
+                            onchange={handleInputChange}
+                            data-field="email"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Phone Number" 
+                            type="tel"
+                            value={application.phone}
+                            onchange={handleInputChange}
+                            data-field="phone"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-textarea 
+                            label="Mailing Address" 
+                            value={application.mailingAddress}
+                            onchange={handleInputChange}
+                            data-field="mailingAddress"
+                            required>
+                        </lightning-textarea>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input 
+                            label="City" 
+                            value={application.city}
+                            onchange={handleInputChange}
+                            data-field="city"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-combobox 
+                            label="State/Province" 
+                            value={application.state}
+                            options={stateOptions}
+                            onchange={handleInputChange}
+                            data-field="state"
+                            required>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input 
+                            label="ZIP/Postal Code" 
+                            value={application.postalCode}
+                            onchange={handleInputChange}
+                            data-field="postalCode"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Date of Birth" 
+                            type="date"
+                            value={application.dateOfBirth}
+                            onchange={handleInputChange}
+                            data-field="dateOfBirth"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Desired Road Name (Optional)" 
+                            value={application.roadName}
+                            onchange={handleInputChange}
+                            data-field="roadName">
+                        </lightning-input>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Step 2: Military Service -->
+            <template if:true={isMilitaryStep}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">
+                                <abbr class="slds-required" title="required">*</abbr>
+                                Military Service Status
+                            </label>
+                            <div class="slds-form-element__control">
+                                <lightning-radio-group 
+                                    name="serviceStatus"
+                                    value={application.serviceStatus}
+                                    options={serviceStatusOptions}
+                                    onchange={handleInputChange}
+                                    data-field="serviceStatus"
+                                    required>
+                                </lightning-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-combobox 
+                            label="Branch of Service" 
+                            value={application.serviceBranch}
+                            options={serviceBranchOptions}
+                            onchange={handleInputChange}
+                            data-field="servicesBranch"
+                            required>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Military Occupation/MOS" 
+                            value={application.militaryOccupation}
+                            onchange={handleInputChange}
+                            data-field="militaryOccupation">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Service Start Date" 
+                            type="date"
+                            value={application.serviceStartDate}
+                            onchange={handleInputChange}
+                            data-field="serviceStartDate"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Service End Date" 
+                            type="date"
+                            value={application.serviceEndDate}
+                            onchange={handleInputChange}
+                            data-field="serviceEndDate">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-textarea 
+                            label="Deployments/Combat Zones (Include dates and locations)" 
+                            value={application.deployments}
+                            onchange={handleInputChange}
+                            data-field="deployments">
+                        </lightning-textarea>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-textarea 
+                            label="Awards and Decorations" 
+                            value={application.awards}
+                            onchange={handleInputChange}
+                            data-field="awards">
+                        </lightning-textarea>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <span class="slds-checkbox">
+                                    <input 
+                                        type="checkbox" 
+                                        id="combatVeteran"
+                                        checked={application.isCombatVeteran}
+                                        onchange={handleCheckboxChange}
+                                        data-field="isCombatVeteran" />
+                                    <label class="slds-checkbox__label" for="combatVeteran">
+                                        <span class="slds-checkbox__faux"></span>
+                                        <span class="slds-form-element__label">I am a Combat Veteran</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Step 3: Emergency Contact -->
+            <template if:true={isEmergencyStep}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Emergency Contact Name" 
+                            value={application.emergencyContactName}
+                            onchange={handleInputChange}
+                            data-field="emergencyContactName"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Relationship" 
+                            value={application.emergencyContactRelationship}
+                            onchange={handleInputChange}
+                            data-field="emergencyContactRelationship"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Emergency Contact Phone" 
+                            type="tel"
+                            value={application.emergencyContactPhone}
+                            onchange={handleInputChange}
+                            data-field="emergencyContactPhone"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input 
+                            label="Emergency Contact Email" 
+                            type="email"
+                            value={application.emergencyContactEmail}
+                            onchange={handleInputChange}
+                            data-field="emergencyContactEmail">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">
+                                <abbr class="slds-required" title="required">*</abbr>
+                                Desired Membership Level
+                            </label>
+                            <div class="slds-form-element__control">
+                                <lightning-radio-group 
+                                    name="membershipLevel"
+                                    value={application.membershipLevel}
+                                    options={membershipLevelOptions}
+                                    onchange={handleInputChange}
+                                    data-field="membershipLevel"
+                                    required>
+                                </lightning-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Step 4: Documents & Review -->
+            <template if:true={isDocumentsStep}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <!-- Document Upload Section -->
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Required Documents</h3>
+                            <p class="slds-m-bottom_medium">Please upload the following documents to complete your application:</p>
+                            
+                            <lightning-file-upload
+                                label="DD-214 or Service Record"
+                                name="dd214Upload"
+                                accept=".pdf,.jpg,.jpeg,.png"
+                                record-id={recordId}
+                                onuploadfinished={handleDD214Upload}
+                                multiple="false">
+                            </lightning-file-upload>
+                            
+                            <template if:true={application.dd214Uploaded}>
+                                <div class="slds-m-top_x-small">
+                                    <lightning-icon icon-name="utility:success" size="x-small" variant="success"></lightning-icon>
+                                    <span class="slds-text-color_success slds-m-left_x-small">DD-214 uploaded successfully</span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Application Review -->
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-box">
+                            <h3 class="slds-text-heading_small slds-m-bottom_medium">Application Review</h3>
+                            
+                            <dl class="slds-list_horizontal slds-wrap">
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Name:</dt>
+                                <dd class="slds-item_detail slds-truncate">{application.firstName} {application.lastName}</dd>
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Email:</dt>
+                                <dd class="slds-item_detail slds-truncate">{application.email}</dd>
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Service Branch:</dt>
+                                <dd class="slds-item_detail slds-truncate">{application.servicesBranch}</dd>
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Service Status:</dt>
+                                <dd class="slds-item_detail slds-truncate">{application.serviceStatus}</dd>
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Membership Level:</dt>
+                                <dd class="slds-item_detail slds-truncate">{application.membershipLevel}</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-box slds-theme_shade">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <span class="slds-checkbox">
+                                        <input 
+                                            type="checkbox" 
+                                            id="termsAccepted"
+                                            checked={application.termsAccepted}
+                                            onchange={handleCheckboxChange}
+                                            data-field="termsAccepted" />
+                                        <label class="slds-checkbox__label" for="termsAccepted">
+                                            <span class="slds-checkbox__faux"></span>
+                                            <span class="slds-form-element__label">
+                                                <abbr class="slds-required" title="required">*</abbr>
+                                                I agree to the CVMA terms and conditions, bylaws, and code of conduct
+                                            </span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Navigation Buttons -->
+            <div class="slds-m-top_large">
+                <div class="slds-grid">
+                    <template if:false={isFirstStep}>
+                        <lightning-button 
+                            label="Previous" 
+                            onclick={handlePrevious}
+                            class="slds-m-right_small">
+                        </lightning-button>
+                    </template>
+                    
+                    <div class="slds-col_bump-left">
+                        <template if:false={isLastStep}>
+                            <lightning-button 
+                                variant="brand" 
+                                label="Next" 
+                                onclick={handleNext}
+                                disabled={isProcessing}>
+                            </lightning-button>
+                        </template>
+                        
+                        <template if:true={isLastStep}>
+                            <lightning-button 
+                                variant="brand" 
+                                label="Submit Application" 
+                                onclick={handleSubmit}
+                                disabled={submitDisabled}
+                                class="slds-m-right_small">
+                            </lightning-button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isProcessing}>
+                <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>

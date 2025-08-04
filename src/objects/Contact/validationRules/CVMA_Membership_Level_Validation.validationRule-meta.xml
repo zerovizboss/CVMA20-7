@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CVMA_Membership_Level_Validation</fullName>
+    <active>true</active>
+    <description>Validates Membership ID prefix matches membership level: FM, SUP, or AUX</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(TEXT(Level__c))),
+  NOT(ISBLANK(Membership_Id__c)),
+  OR(
+    AND(
+      TEXT(Level__c) = &quot;Full Member&quot;,
+      NOT(BEGINS(UPPER(Membership_Id__c), &quot;FM&quot;))
+    ),
+    AND(
+      TEXT(Level__c) = &quot;Support Member&quot;,
+      NOT(BEGINS(UPPER(Membership_Id__c), &quot;SUP&quot;))
+    ),
+    AND(
+      TEXT(Level__c) = &quot;Auxiliary Member&quot;,
+      NOT(BEGINS(UPPER(Membership_Id__c), &quot;AUX&quot;))
+    )
+  )
+)</errorConditionFormula>
+    <errorDisplayField>Membership_Id__c</errorDisplayField>
+    <errorMessage>Membership ID prefix must match level: Full Member=FM, Support Member=SUP, Auxiliary Member=AUX (e.g., FM1, SUP123, AUX12345)</errorMessage>
+</ValidationRule>

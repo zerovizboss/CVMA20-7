@@ -1,0 +1,122 @@
+name: User Story
+description: Create a new user story for the CVMA 20-7 project
+title: "[USER STORY] As a [user type], I want [functionality]"
+labels: ["user-story", "enhancement"]
+body:
+  - type: input
+    id: user-story-title
+    attributes:
+      label: User Story
+      description: Complete user story in the format "As a [user type], I want [functionality] so that [benefit]"
+      placeholder: As a CVMA member, I want to update my profile information online so that I can keep my contact details current
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: epic
+    attributes:
+      label: Epic
+      description: Which epic does this user story belong to?
+      options:
+        - Enhanced Member Management
+        - Event Management & Calendar Enhancement
+        - Resource Library & Documentation
+        - Communication Hub
+        - Veteran Support Services
+        - Mobile Experience Optimization
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: What is the priority level of this user story?
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+  
+  - type: input
+    id: story-points
+    attributes:
+      label: Story Points
+      description: Estimated effort in story points (1, 2, 3, 5, 8, 13, 21)
+      placeholder: e.g., 5
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: sprint
+    attributes:
+      label: Sprint
+      description: Which sprint should this story be included in?
+      options:
+        - Backlog
+        - Sprint 1
+        - Sprint 2
+        - Sprint 3
+        - Sprint 4
+        - Pre-Development
+        - Testing
+        - Deployment
+    validations:
+      required: false
+  
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Specific, testable criteria that must be met for this story to be considered complete
+      placeholder: |
+        - [ ] User can log in securely using existing credentials
+        - [ ] Profile form includes all relevant fields (contact info, bike details, emergency contacts)
+        - [ ] Changes are saved and validated before submission
+        - [ ] Email confirmation sent for major changes
+    validations:
+      required: true
+  
+  - type: textarea
+    id: technical-requirements
+    attributes:
+      label: Technical Requirements
+      description: Any specific technical requirements or constraints
+      placeholder: Database schema changes, API integrations, security considerations, etc.
+    validations:
+      required: false
+  
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: Definition of Done
+      description: Checklist for what constitutes completion of this story
+      placeholder: |
+        - [ ] Code written and peer reviewed
+        - [ ] Unit tests written and passing
+        - [ ] Integration tests written and passing
+        - [ ] Documentation updated
+        - [ ] Feature tested in staging environment
+        - [ ] Stakeholder approval received
+    validations:
+      required: false
+  
+  - type: textarea
+    id: mockups-wireframes
+    attributes:
+      label: Mockups/Wireframes
+      description: Links to or descriptions of any mockups, wireframes, or design specifications
+      placeholder: Link to Figma designs, wireframes, or detailed UI descriptions
+    validations:
+      required: false
+  
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Other stories, epics, or external dependencies that must be completed first
+      placeholder: Depends on completion of user authentication system
+    validations:
+      required: false

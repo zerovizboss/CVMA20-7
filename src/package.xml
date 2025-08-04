@@ -2157,7 +2157,6 @@
         <members>trailheadapp__Trailmix_Assignment__c</members>
         <members>trailheadapp__User_Badge__c</members>
         <members>trailheadapp__User_Trailmix__c</members>
-        <members>User</members>
         <members>UserCapabilityPreference</members>
         <members>UserExternalCredential</members>
         <members>UserLocalWebServerIdentity</members>
@@ -2192,6 +2191,7 @@
         <members>WorkType</members>
         <members>WorkTypeGroup</members>
         <members>WorkTypeGroupMember</members>
+        <members>User</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -2267,9 +2267,10 @@
         <members>Communities_Dashboards</members>
         <members>Communities_Dashboards/CVMATreasury</members>
         <members>Communities_Dashboards/CVMATreasury/drCgWqzgBoRvnmydCdbfVRoWCuEhXQ</members>
-        <members>Enablement_sfdcSESv60-meta.xml</members>
-        <members>Enablement_sfdcSESv61-meta.xml</members>
         <members>prm_channel_dashboard_folder/Enablement_Root_Prm_sfdcSES/Enablement_Prm_sfdcSESv61-meta.xml</members>
+        <members>Enablement_sfdcSESv60.dashboardFolder</members>
+        <members>Enablement_sfdcSESv61.dashboardFolder</members>
+        <members>prm_channel_dashboard_folder/Enablement_Root_Prm_sfdcSES/Enablement_Prm_sfdcSESv61.dashboardFolder</members>
         <name>Dashboard</name>
     </types>
     <types>
@@ -2314,7 +2315,6 @@
         <members>DNBI__DNBI_email_Templates/DNBI__DNBI_Credit_Information_Update_for_Opportunity</members>
         <members>npsp__NPSP_Email_Templates</members>
         <members>npsp__NPSP_Email_Templates/npsp__NPSP_Opportunity_Acknowledgment</members>
-        <members>unfiled$public</members>
         <members>unfiled$public/Case_Assigned_Sample_1749737826161</members>
         <members>unfiled$public/Case_Closed_Sample_1749737826411</members>
         <members>unfiled$public/Case_Created_or_Updated_Sample_1749737825947</members>
@@ -2362,6 +2362,8 @@
         <members>unfiled$public/SupportSelfServiceResetPassword</members>
         <members>unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE</members>
         <members>unfiled$public/Web_to_Case_Sample_1749737826330</members>
+        <members>DNBI__DNBI_email_Templates.emailFolder</members>
+        <members>npsp__NPSP_Email_Templates.emailFolder</members>
         <name>EmailTemplate</name>
     </types>
     <types>
@@ -2909,6 +2911,141 @@
         <members>Event</members>
         <members>ServiceAppointment</members>
         <name>SharingRules</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ExternalAIModel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ExternalAuthIdentityProvider</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>FlowCategory</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>FlowTest</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>GlobalValueSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>HomePageComponent</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>HomePageLayout</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningBolt</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningExperienceTheme</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningMessageChannel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningOnboardingConfig</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningTypeBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MLDataDefinition</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MlDomain</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MLPredictionDefinition</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MLRecommendationDefinition</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MyDomainDiscoverableLogin</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>OauthCustomScope</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>OauthTokenExchangeHandler</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>PlatformCachePartition</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>PlatformEventChannel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>PlatformEventSubscriberConfig</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>QueueRoutingConfig</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ServiceAISetupDefinition</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ServiceAISetupField</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Settings</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>SharingCriteriaRule</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>SharingOwnerRule</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>SharingSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>SiteDotCom</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>UserProvisioningConfig</name>
+    </types>
+    <types>
+        <name>RecordType</name>
     </types>
     <version>63.0</version>
 </Package>

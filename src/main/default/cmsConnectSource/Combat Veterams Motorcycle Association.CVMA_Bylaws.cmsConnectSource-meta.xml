@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CMSConnectSource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <connectionType>Public</connectionType>
+    <developerName>CVMA_Bylaws</developerName>
+    <languageEnabled>N</languageEnabled>
+    <masterLabel>CVMA Bylaws</masterLabel>
+    <personalizationEnabled>N</personalizationEnabled>
+    <sortOrder>1</sortOrder>
+    <status>ACTIVE</status>
+    <type>AEM</type>
+    <websiteUrl>https://www.combatvet.us</websiteUrl>
+</CMSConnectSource>

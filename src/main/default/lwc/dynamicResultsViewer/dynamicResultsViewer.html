@@ -1,0 +1,307 @@
+<template>
+    <div class="dynamic-results-container">
+        <!-- No Results State -->
+        <template if:false={hasResults}>
+            <div class="no-results">
+                <lightning-icon icon-name="utility:database" size="large" class="no-results-icon"></lightning-icon>
+                <h3>No Results to Display</h3>
+                <p>Execute a query in the Query Builder tab to see results here.</p>
+            </div>
+        </template>
+
+        <!-- Dynamic Dashboard -->
+        <template if:true={hasResults}>
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <h2>Dynamic Analytics Dashboard</h2>
+                    <span class="header-timestamp">Generated on {formattedTimestamp}</span>
+                </div>
+                <div class="header-actions">
+                    <button class="action-button" onclick={toggleRawData} title="Toggle Raw Data">
+                        <lightning-icon icon-name="utility:code" size="xx-small"></lightning-icon>
+                        {rawDataToggleLabel}
+                    </button>
+                    <button class="action-button export-button" onclick={handleExport} title="Export Data">
+                        <lightning-icon icon-name="utility:download" size="xx-small"></lightning-icon>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Sections -->
+            <template if:true={hasProcessedData}>
+                <template for:each={dashboardSections} for:item="section">
+                    <div key={section.id} class="dashboard-section">
+
+                        <!-- Section Header -->
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <lightning-icon icon-name={section.icon} size="small"></lightning-icon>
+                                {section.title}
+                            </h3>
+                            <div class="section-actions">
+                                <button class="section-export-btn" onclick={handleSectionExport} data-section-id={section.id} title="Export Section Data">
+                                    <lightning-icon icon-name="utility:download" size="xx-small"></lightning-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Metrics Display (Key-Value Pairs) -->
+                        <template if:true={section.isMetrics}>
+                            <div class="metrics-container">
+                                <template for:each={section.dataEntries} for:item="metric">
+                                    <div key={metric.key} class="metric-card">
+                                        <div class="metric-value">{metric.formattedValue}</div>
+                                        <div class="metric-label">{metric.label}</div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Single Metric Display -->
+                        <template if:true={section.isMetric}>
+                            <div class="single-metric-container">
+                                <div class="single-metric-card">
+                                    <div class="single-metric-value">{section.formattedValue}</div>
+                                    <div class="single-metric-label">{section.title}</div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Table Display (Array of Objects) -->
+                        <template if:true={section.isTable}>
+                            <div class="table-container">
+                                <!-- Pagination Controls (Top) -->
+                                <template if:true={section.showPagination}>
+                                    <div class="pagination-controls-top">
+                                        <div class="pagination-info">
+                                            Showing {section.paginationInfo.startRecord}-{section.paginationInfo.endRecord} of {section.paginationInfo.totalRecords} records
+                                        </div>
+                                        <div class="page-size-controls">
+                                            <label class="page-size-label">Page size:</label>
+                                            <select class="page-size-select" onchange={handlePageSizeChange} data-section-id={section.id}>
+                                                <template for:each={section.paginationInfo.pageOptions} for:item="option">
+                                                    <option key={option.value} value={option.value}>{option.label}</option>
+                                                </template>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <div class="table-wrapper">
+                                    <table class="dynamic-table">
+                                        <thead>
+                                        <tr>
+                                            <template for:each={section.columns} for:item="column">
+                                                <th key={column.field}
+                                                    class="table-header"
+                                                    onclick={handleSort}
+                                                    data-section-id={section.id}
+                                                    data-field={column.field}>
+                                                    <div class="header-content">
+                                                        <span class="header-text">{column.label}</span>
+                                                        <template if:true={column.sortable}>
+                                                            <lightning-icon icon-name="utility:arrowup" size="xx-small" class="sort-icon"></lightning-icon>
+                                                        </template>
+                                                    </div>
+                                                </th>
+                                            </template>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <template for:each={section.data} for:item="row">
+                                            <tr key={row.uniqueKey} class="table-row">
+                                                <template for:each={row.cells} for:item="cell">
+                                                    <td key={cell.uniqueKey} class={cell.cellClass}>
+                                                        <template if:true={cell.isEmail}>
+                                                            <a href={cell.emailLink} class="email-link">{cell.value}</a>
+                                                        </template>
+                                                        <template if:true={cell.isNotEmail}>
+                                                            <span class={cell.valueClass}>{cell.value}</span>
+                                                        </template>
+                                                    </td>
+                                                </template>
+                                            </tr>
+                                        </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Pagination Controls (Bottom) - Always show for tables with more than 5 records -->
+                                <template if:true={section.totalRecords}>
+                                    <div class="pagination-controls-bottom">
+                                        <div class="pagination-info">
+                                            Showing {section.paginationInfo.startRecord}-{section.paginationInfo.endRecord} of {section.paginationInfo.totalRecords} records
+                                        </div>
+
+                                        <div class="pagination-controls-center">
+                                            <div class="page-size-controls">
+                                                <label class="page-size-label">Show:</label>
+                                                <select class="page-size-select" onchange={handlePageSizeChange} data-section-id={section.id}>
+                                                    <template for:each={section.paginationInfo.pageOptions} for:item="option">
+                                                        <option key={option.value} value={option.value} selected={option.selected}>{option.label}</option>
+                                                    </template>
+                                                </select>
+                                                <span class="page-size-suffix">per page</span>
+                                            </div>
+                                        </div>
+
+                                        <template if:true={section.showPagination}>
+                                            <div class="pagination-buttons">
+                                                <button class="pagination-btn"
+                                                        onclick={handlePageChange}
+                                                        data-section-id={section.id}
+                                                        data-action="first"
+                                                        disabled={section.paginationInfo.disablePrevious}
+                                                        title="First Page">
+                                                    <lightning-icon icon-name="utility:chevronleft" size="xx-small"></lightning-icon>
+                                                    <lightning-icon icon-name="utility:chevronleft" size="xx-small"></lightning-icon>
+                                                </button>
+                                                <button class="pagination-btn"
+                                                        onclick={handlePageChange}
+                                                        data-section-id={section.id}
+                                                        data-action="previous"
+                                                        disabled={section.paginationInfo.disablePrevious}
+                                                        title="Previous Page">
+                                                    <lightning-icon icon-name="utility:chevronleft" size="xx-small"></lightning-icon>
+                                                </button>
+                                                <span class="page-indicator">
+                                                    Page {section.paginationInfo.currentPage} of {section.paginationInfo.totalPages}
+                                                </span>
+                                                <button class="pagination-btn"
+                                                        onclick={handlePageChange}
+                                                        data-section-id={section.id}
+                                                        data-action="next"
+                                                        disabled={section.paginationInfo.disableNext}
+                                                        title="Next Page">
+                                                    <lightning-icon icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                                                </button>
+                                                <button class="pagination-btn"
+                                                        onclick={handlePageChange}
+                                                        data-section-id={section.id}
+                                                        data-action="last"
+                                                        disabled={section.paginationInfo.disableNext}
+                                                        title="Last Page">
+                                                    <lightning-icon icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                                                    <lightning-icon icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Chart Display -->
+                        <template if:true={section.isChart}>
+                            <div class="chart-container">
+                                <div class="chart-wrapper">
+                                    <canvas data-chart-id={section.chartId} class="chart-canvas"></canvas>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- List Display (Array of Strings) -->
+                        <template if:true={section.isList}>
+                            <div class="list-container">
+                                <template if:true={section.isInsightsList}>
+                                    <ul class="insights-list">
+                                        <template for:each={section.listItems} for:item="listItem">
+                                            <li key={listItem.uniqueKey} class="insight-item">
+                                                <lightning-icon icon-name="utility:success" size="xx-small" class="insight-icon"></lightning-icon>
+                                                {listItem.content}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </template>
+
+                                <template if:true={section.isRecommendationsList}>
+                                    <ul class="recommendations-list">
+                                        <template for:each={section.listItems} for:item="listItem">
+                                            <li key={listItem.uniqueKey} class="recommendation-item">
+                                                <lightning-icon icon-name="utility:forward" size="xx-small" class="recommendation-icon"></lightning-icon>
+                                                {listItem.content}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </template>
+
+                                <template if:true={section.isGenericList}>
+                                    <ul class="generic-list">
+                                        <template for:each={section.listItems} for:item="listItem">
+                                            <li key={listItem.uniqueKey} class="list-item">
+                                                <lightning-icon icon-name="utility:list" size="xx-small" class="list-icon"></lightning-icon>
+                                                {listItem.content}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+            </template>
+
+            <!-- Empty State for Processed Data -->
+            <template if:false={hasProcessedData}>
+                <div class="empty-processed-data">
+                    <lightning-icon icon-name="utility:warning" size="large" class="warning-icon"></lightning-icon>
+                    <h3>No Processed Data</h3>
+                    <p>Your JavaScript processor function may have returned an empty result or encountered an error.</p>
+                    <div class="troubleshooting-tips">
+                        <h4>Troubleshooting Tips:</h4>
+                        <ul>
+                            <li>Check your JavaScript processor function returns a data object</li>
+                            <li>Verify your SOQL queries are returning data</li>
+                            <li>Use console.log() to debug your processing logic</li>
+                            <li>Check the execution details below for error messages</li>
+                        </ul>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Raw Data Section (Collapsible) -->
+            <template if:true={showRawData}>
+                <div class="dashboard-section raw-data-section">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            <lightning-icon icon-name="utility:database" size="small"></lightning-icon>
+                            Raw Query Results ({rawDataCount} records)
+                        </h3>
+                    </div>
+                    <div class="raw-data-container">
+                        <pre class="raw-data-output">{formattedRawData}</pre>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Execution Details -->
+            <div class="dashboard-section execution-details-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <lightning-icon icon-name="utility:info" size="small"></lightning-icon>
+                        Execution Details
+                    </h3>
+                </div>
+
+                <div class="execution-details-grid">
+                    <div class="execution-detail-item">
+                        <h4>SOQL Queries</h4>
+                        <div class="code-block">
+                            <pre class="code-display">{executedQuery}</pre>
+                        </div>
+                    </div>
+
+                    <div class="execution-detail-item">
+                        <h4>JavaScript Processing</h4>
+                        <div class="code-block">
+                            <pre class="code-display">{executedScript}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Level__c</fullName>
+    <label>Level</label>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Full Member</fullName>
+                <default>false</default>
+                <label>Full Member</label>
+            </value>
+            <value>
+                <fullName>Support Member</fullName>
+                <default>false</default>
+                <label>Support Member</label>
+            </value>
+            <value>
+                <fullName>Auxiliary Member</fullName>
+                <default>false</default>
+                <label>Auxiliary Member</label>
+            </value>
+            <value>
+                <fullName>Primary</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Primary</label>
+            </value>
+            <value>
+                <fullName>Secondary</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Secondary</label>
+            </value>
+            <value>
+                <fullName>Tertiary</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Tertiary</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

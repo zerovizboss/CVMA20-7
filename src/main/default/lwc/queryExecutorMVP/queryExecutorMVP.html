@@ -1,0 +1,300 @@
+<template>
+    <div class="executor-container">
+        <!-- Upgrade Notice (show when templates with >2 queries are applied) -->
+        <template if:true={showUpgradeNotice}>
+            <div class="upgrade-notice">
+                <div class="upgrade-content">
+                    <lightning-icon icon-name="utility:info" size="small" class="upgrade-icon"></lightning-icon>
+                    <div class="upgrade-text">
+                        <strong>This is the free trial, please upgrade to Full version</strong>
+                        <p>
+                            contact <a href="#upgrade" class="upgrade-link">jesco@rpdevstudios.com </a> to unlock all query slots.
+                        </p>
+                    </div>
+                </div>
+                <button class="close-upgrade" onclick={hideUpgradeNotice}>
+                    <lightning-icon icon-name="utility:close" size="xx-small"></lightning-icon>
+                </button>
+            </div>
+        </template>
+
+        <!-- Query Input Sections (4 Queries) -->
+        <template for:each={queryInputs} for:item="queryInput" for:index="index">
+            <div key={queryInput.id} class="section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <lightning-icon icon-name="utility:database" size="small"></lightning-icon>
+                        {queryInput.title}
+                    </h3>
+                    <div class="section-actions">
+                        <button class="help-button" onclick={handleQueryHelp} title="Query Help">
+                            <lightning-icon icon-name="utility:info" size="xx-small"></lightning-icon>
+                        </button>
+                        <button class="sample-button" onclick={loadSampleQuery} data-query-index={index} title="Load Sample">
+                            <lightning-icon icon-name="utility:preview" size="xx-small"></lightning-icon>
+                            Sample
+                        </button>
+                        <button class="clear-button" onclick={clearSingleQuery} data-query-index={index} title="Clear Query">
+                            <lightning-icon icon-name="utility:clear" size="xx-small"></lightning-icon>
+                            Clear
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <textarea
+                            class="query-input"
+                            value={queryInput.query}
+                            onchange={handleQueryChange}
+                            oninput={handleQueryInput}
+                            data-query-index={index}
+                            placeholder={queryInput.placeholder}>
+                    </textarea>
+
+                    <div class="input-footer">
+                        <div class="input-meta">
+                            <span class="char-count">{queryInput.charCount} characters</span>
+                            <template if:true={queryInput.estimatedRecords}>
+                                <span class="estimated-records">~{queryInput.estimatedRecords} records estimated</span>
+                            </template>
+                            <template if:true={queryInput.validation.isValid}>
+                                <span class="validation-success">
+                                    <lightning-icon icon-name="utility:success" size="xx-small"></lightning-icon>
+                                    Valid
+                                </span>
+                            </template>
+                        </div>
+
+                        <template if:true={queryInput.validation.hasErrors}>
+                            <div class="validation-errors">
+                                <template for:each={queryInput.validation.errors} for:item="error">
+                                    <div key={error} class="error-message">
+                                        <lightning-icon icon-name="utility:error" size="xx-small"></lightning-icon>
+                                        {error}
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- JavaScript Processing Section -->
+        <div class="section">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <lightning-icon icon-name="utility:code" size="small"></lightning-icon>
+                    JavaScript Processing
+                </h3>
+                <div class="section-actions">
+                    <button class="help-button" onclick={handleScriptHelp} title="Script Help">
+                        <lightning-icon icon-name="utility:info" size="xx-small"></lightning-icon>
+                    </button>
+                    <button class="sample-button" onclick={loadSampleScript} title="Load Sample">
+                        <lightning-icon icon-name="utility:preview" size="xx-small"></lightning-icon>
+                        Sample
+                    </button>
+                    <button class="test-button" onclick={testScript} disabled={isExecuting} title="Test Script">
+                        <lightning-icon icon-name="utility:test" size="xx-small"></lightning-icon>
+                        Test
+                    </button>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <textarea
+                        class="script-input"
+                        value={processingScript}
+                        onchange={handleScriptChange}
+                        oninput={handleScriptInput}
+                        placeholder="function processData(query1Results, query2Results, query3Results, query4Results) {&#10;    // Your processing logic here&#10;    // Each parameter contains the results from the corresponding query&#10;    &#10;    // Example: Combine results from multiple queries&#10;    return {&#10;        totalRecords: query1Results.length + query2Results.length,&#10;        combinedData: [...query1Results, ...query2Results]&#10;    };&#10;}">
+                </textarea>
+
+                <div class="input-footer">
+                    <div class="input-meta">
+                        <span class="char-count">{scriptCharCount} characters</span>
+                        <template if:true={scriptValidation.isValid}>
+                            <span class="validation-success">
+                                <lightning-icon icon-name="utility:success" size="xx-small"></lightning-icon>
+                                Syntax valid
+                            </span>
+                        </template>
+                    </div>
+
+                    <template if:true={scriptValidation.hasErrors}>
+                        <div class="validation-errors">
+                            <template for:each={scriptValidation.errors} for:item="error">
+                                <div key={error} class="error-message">
+                                    <lightning-icon icon-name="utility:error" size="xx-small"></lightning-icon>
+                                    {error}
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Execution Controls -->
+        <div class="section execution-section">
+            <div class="execution-controls">
+                <button
+                        class={executeButtonClass}
+                        onclick={handleExecute}
+                        disabled={cannotExecute}>
+                    <lightning-icon icon-name={executeButtonIcon} size="small"></lightning-icon>
+                    {executeButtonLabel}
+                </button>
+
+                <template if:true={isExecuting}>
+                    <button class="cancel-button" onclick={handleCancel}>
+                        <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        Cancel
+                    </button>
+                </template>
+
+                <template if:false={isExecuting}>
+                    <button class="clear-button" onclick={handleClearAll}>
+                        <lightning-icon icon-name="utility:clear" size="small"></lightning-icon>
+                        Clear All
+                    </button>
+                </template>
+            </div>
+
+            <!-- Query Summary -->
+            <template if:false={isExecuting}>
+                <div class="query-summary">
+                    <h4>Execution Summary:</h4>
+                    <ul>
+                        <template for:each={queryInputs} for:item="queryInput">
+                            <li key={queryInput.id} class={queryInput.summaryClass}>
+                                {queryInput.title}: {queryInput.summaryText}
+                            </li>
+                        </template>
+                        <li class={scriptSummaryClass}>
+                            JavaScript Processing: {scriptSummaryText}
+                        </li>
+                    </ul>
+                </div>
+            </template>
+
+            <!-- Progress Indicator -->
+            <template if:true={isExecuting}>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style={progressStyle}></div>
+                    </div>
+                    <div class="progress-text">
+                        <lightning-icon icon-name="utility:spinner" size="xx-small" class="spinning"></lightning-icon>
+                        {progressMessage}
+                    </div>
+                </div>
+            </template>
+
+            <!-- Error Display -->
+            <template if:true={hasExecutionError}>
+                <div class="execution-error">
+                    <div class="error-header">
+                        <lightning-icon icon-name="utility:error" size="small"></lightning-icon>
+                        <span class="error-title">Execution Failed</span>
+                    </div>
+                    <div class="error-details">{executionError}</div>
+                    <button class="retry-button" onclick={handleRetry}>
+                        <lightning-icon icon-name="utility:refresh" size="xx-small"></lightning-icon>
+                        Retry
+                    </button>
+                </div>
+            </template>
+        </div>
+
+        <!-- Help Modals -->
+        <template if:true={showQueryHelp}>
+            <div class="modal-overlay" onclick={closeModals}>
+                <div class="modal-content" onclick={stopPropagation}>
+                    <div class="modal-header">
+                        <h3>Multi-Query SOQL Help</h3>
+                        <button class="close-button" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Writing effective multi-query reports:</h4>
+                        <ul>
+                            <li>Each query can target different objects or different subsets of the same object</li>
+                            <li>Use LIMIT to control the number of records returned from each query</li>
+                            <li>Consider relationships between your queries for meaningful analysis</li>
+                            <li>All queries execute in the same transaction, sharing governor limits</li>
+                        </ul>
+                        <h4>Example queries:</h4>
+                        <pre class="code-example">Query 1 - Accounts:
+SELECT Id, Name, Industry FROM Account LIMIT 100
+
+Query 2 - Related Contacts:
+SELECT Id, Name, AccountId FROM Contact WHERE AccountId != null LIMIT 200
+
+Query 3 - Opportunities:
+SELECT Id, Name, Amount, AccountId FROM Opportunity LIMIT 150
+
+Query 4 - Recent Activities:
+SELECT Id, Subject, WhoId, WhatId FROM Task WHERE CreatedDate = LAST_30_DAYS LIMIT 50</pre>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={showScriptHelp}>
+            <div class="modal-overlay" onclick={closeModals}>
+                <div class="modal-content" onclick={stopPropagation}>
+                    <div class="modal-header">
+                        <h3>Multi-Query JavaScript Processing Help</h3>
+                        <button class="close-button" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Your script receives results from all 4 queries:</h4>
+                        <pre class="code-example">function processData(query1Results, query2Results, query3Results, query4Results) &#123;
+    // Each parameter is an array of records from the corresponding query
+    // Empty arrays are passed for queries that returned no results
+
+    // Example: Cross-reference data
+    const accountMap = new Map();
+    query1Results.forEach(account => &#123;
+        accountMap.set(account.Id, account);
+    &#125;);
+
+    // Enrich contacts with account data
+    const enrichedContacts = query2Results.map(contact => &#123;
+        const account = accountMap.get(contact.AccountId);
+        return &#123;
+            ...contact,
+            AccountName: account?.Name,
+            AccountIndustry: account?.Industry
+        &#125;;
+    &#125;);
+
+    return &#123;
+        accountCount: query1Results.length,
+        contactCount: query2Results.length,
+        enrichedContacts: enrichedContacts
+    &#125;;
+&#125;</pre>
+                        <h4>Available utilities:</h4>
+                        <ul>
+                            <li>Standard JavaScript functions (Array, Object, Map, Set, Math, Date)</li>
+                            <li>console.log() for debugging</li>
+                            <li>JSON.parse() and JSON.stringify()</li>
+                        </ul>
+                        <h4>Restrictions:</h4>
+                        <ul>
+                            <li>No eval() or Function() constructors</li>
+                            <li>No DOM access (window, document)</li>
+                            <li>No external network requests</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,91 @@
+name: Epic
+description: Create a new epic for the CVMA 20-7 project
+title: "[EPIC] "
+labels: ["epic", "enhancement"]
+body:
+  - type: input
+    id: epic-title
+    attributes:
+      label: Epic Title
+      description: A brief, descriptive title for this epic
+      placeholder: e.g., Enhanced Member Management
+    validations:
+      required: true
+  
+  - type: textarea
+    id: epic-description
+    attributes:
+      label: Epic Description
+      description: Describe the business value and overall goal of this epic
+      placeholder: Explain what this epic aims to achieve and why it's valuable
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: What is the priority level of this epic?
+      options:
+        - Critical
+        - High  
+        - Medium
+        - Low
+    validations:
+      required: true
+  
+  - type: input
+    id: story-points
+    attributes:
+      label: Estimated Story Points
+      description: Total estimated story points for all user stories in this epic
+      placeholder: e.g., 21
+    validations:
+      required: false
+  
+  - type: dropdown
+    id: phase
+    attributes:
+      label: SDLC Phase
+      description: Which phase of the SDLC does this epic primarily belong to?
+      options:
+        - Requirements
+        - Design
+        - Development
+        - Testing
+        - Deployment
+        - Maintenance
+    validations:
+      required: true
+  
+  - type: textarea
+    id: user-stories
+    attributes:
+      label: User Stories
+      description: List the user stories that belong to this epic
+      placeholder: |
+        - [ ] As a [user type], I want [functionality] so that [benefit]
+        - [ ] As a [user type], I want [functionality] so that [benefit]
+    validations:
+      required: false
+  
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Epic Acceptance Criteria
+      description: What needs to be completed for this epic to be considered done?
+      placeholder: |
+        - [ ] All user stories completed and tested
+        - [ ] Performance requirements met
+        - [ ] Security requirements implemented
+    validations:
+      required: true
+  
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: List any dependencies or prerequisites for this epic
+      placeholder: Dependencies on other epics, external systems, or resources
+    validations:
+      required: false

@@ -1,0 +1,277 @@
+<template>
+    <div class="template-manager-container">
+        <!-- Header Section -->
+        <div class="template-header">
+            <div class="header-content">
+                <h2 class="section-title">
+                    <lightning-icon icon-name="utility:collection_variable" size="small"></lightning-icon>
+                    Template Library
+                </h2>
+                <p class="section-subtitle">Pre-built analytics templates to get you started quickly</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-container">
+                    <lightning-icon icon-name="utility:search" size="x-small" class="search-icon"></lightning-icon>
+                    <input
+                            type="text"
+                            class="search-input"
+                            placeholder="Search templates..."
+                            value={searchTerm}
+                            onchange={handleSearch}
+                            oninput={handleSearchInput}
+                    />
+                </div>
+                <button class="action-button" onclick={refreshTemplates} title="Refresh Templates">
+                    <lightning-icon icon-name="utility:refresh" size="x-small"></lightning-icon>
+                    Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter Tags -->
+        <div class="filter-section">
+            <div class="filter-label">Categories:</div>
+            <div class="filter-tags">
+                <template for:each={categories} for:item="category">
+                    <button
+                            key={category.name}
+                            class={category.buttonClass}
+                            onclick={handleCategoryFilter}
+                            data-category={category.name}>
+                        {category.label}
+                        <span class="category-count">({category.count})</span>
+                    </button>
+                </template>
+            </div>
+        </div>
+
+        <!-- Templates Grid -->
+        <div class="templates-grid">
+            <template if:false={hasFilteredTemplates}>
+                <div class="no-templates">
+                    <lightning-icon icon-name="utility:search" size="large" class="no-templates-icon"></lightning-icon>
+                    <h3>No Templates Found</h3>
+                    <p>Try adjusting your search criteria or category filter.</p>
+                    <button class="action-button" onclick={clearFilters}>
+                        <lightning-icon icon-name="utility:clear" size="x-small"></lightning-icon>
+                        Clear Filters
+                    </button>
+                </div>
+            </template>
+
+            <template if:true={hasFilteredTemplates}>
+                <template for:each={filteredTemplates} for:item="template">
+                    <div key={template.id} class="template-card">
+                        <!-- Template Header -->
+                        <div class="template-card-header">
+                            <div class="template-icon-container">
+                                <lightning-icon icon-name={template.icon} size="medium" class="template-icon"></lightning-icon>
+                            </div>
+                            <div class="template-meta">
+                                <h3 class="template-title">{template.name}</h3>
+                                <div class="template-tags">
+                                    <span class="category-tag">{template.category}</span>
+                                    <span class="complexity-tag" data-complexity={template.complexity}>
+                                        {template.complexity}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FIXED: Template Content Wrapper -->
+                        <div class="template-content">
+                            <!-- Template Description -->
+                            <div class="template-description">
+                                <p>{template.description}</p>
+                            </div>
+
+                            <!-- Template Features -->
+                            <div class="template-features">
+                                <div class="feature-list">
+                                    <template for:each={template.features} for:item="feature">
+                                        <div key={feature} class="feature-item">
+                                            <lightning-icon icon-name="utility:check" size="xx-small" class="feature-check"></lightning-icon>
+                                            <span>{feature}</span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Template Stats -->
+                            <div class="template-stats">
+                                <div class="stat-item">
+                                    <lightning-icon icon-name="utility:database" size="xx-small"></lightning-icon>
+                                    <span>{template.queryCount} Queries</span>
+                                </div>
+                                <div class="stat-item">
+                                    <lightning-icon icon-name="utility:chart" size="xx-small"></lightning-icon>
+                                    <span>{template.chartCount} Charts</span>
+                                </div>
+                                <div class="stat-item">
+                                    <lightning-icon icon-name="utility:table" size="xx-small"></lightning-icon>
+                                    <span>{template.tableCount} Tables</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FIXED: Template Actions - Always at Bottom -->
+                        <div class="template-actions">
+                            <button
+                                    class="template-action-button preview-button"
+                                    onclick={handlePreview}
+                                    data-template-id={template.id}
+                                    title="Preview Template">
+                                <lightning-icon icon-name="utility:preview" size="x-small"></lightning-icon>
+                                Preview
+                            </button>
+                            <button
+                                    class="template-action-button apply-button"
+                                    onclick={handleApplyTemplate}
+                                    data-template-id={template.id}
+                                    title="Apply Template">
+                                <lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon>
+                                Apply Template
+                            </button>
+                        </div>
+
+                        <!-- Template Usage Info (Optional - shown on hover or click) -->
+                        <template if:true={template.showUsageInfo}>
+                            <div class="template-usage-info">
+                                <div class="usage-header">
+                                    <lightning-icon icon-name="utility:info" size="x-small"></lightning-icon>
+                                    <span>Usage Information</span>
+                                </div>
+                                <div class="usage-details">
+                                    <div class="usage-item">
+                                        <strong>Objects Used:</strong> {template.objectsUsed}
+                                    </div>
+                                    <div class="usage-item">
+                                        <strong>Estimated Runtime:</strong> {template.estimatedRuntime}
+                                    </div>
+                                    <div class="usage-item">
+                                        <strong>Best For:</strong> {template.bestFor}
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+        </div>
+
+        <!-- Template Preview Modal -->
+        <template if:true={showPreviewModal}>
+            <div class="modal-overlay" onclick={closePreviewModal}>
+                <div class="modal-container" onclick={stopPropagation}>
+                    <div class="modal-header">
+                        <h3>Template Preview: {selectedTemplate.name}</h3>
+                        <button class="modal-close-button" onclick={closePreviewModal}>
+                            <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- Template Overview -->
+                        <div class="preview-section">
+                            <h4>Overview</h4>
+                            <p>{selectedTemplate.description}</p>
+                            <div class="preview-tags">
+                                <span class="preview-tag category-tag">{selectedTemplate.category}</span>
+                                <span class="preview-tag complexity-tag" data-complexity={selectedTemplate.complexity}>
+                                    {selectedTemplate.complexity}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Queries Preview -->
+                        <div class="preview-section">
+                            <h4>SOQL Queries ({selectedTemplate.queries.length})</h4>
+                            <template for:each={selectedTemplate.queries} for:item="query" for:index="index">
+                                <div key={query.id} class="query-preview">
+                                    <div class="query-preview-header">
+                                        <span class="query-number">Query {query.index}</span>
+                                        <span class="query-description">{query.description}</span>
+                                    </div>
+                                    <div class="code-preview">
+                                        <pre class="code-block">{query.soql}</pre>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- JavaScript Preview -->
+                        <div class="preview-section">
+                            <h4>JavaScript Processor</h4>
+                            <div class="processor-preview">
+                                <div class="processor-description">{selectedTemplate.processor.description}</div>
+                                <div class="code-preview">
+                                    <pre class="code-block processor-code">{selectedTemplate.processor.javascript}</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expected Output Preview -->
+                        <div class="preview-section">
+                            <h4>Expected Output</h4>
+                            <div class="output-preview">
+                                <template for:each={selectedTemplate.expectedOutput} for:item="output">
+                                    <div key={output.type} class="output-item">
+                                        <lightning-icon icon-name={output.icon} size="x-small"></lightning-icon>
+                                        <span><strong>{output.type}:</strong> {output.description}</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="modal-button secondary-button" onclick={closePreviewModal}>
+                            <lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+                            Close
+                        </button>
+                        <button
+                                class="modal-button primary-button"
+                                onclick={handleApplyFromPreview}
+                                data-template-id={selectedTemplate.id}>
+                            <lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon>
+                            Apply Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Apply Confirmation Modal -->
+        <template if:true={showApplyConfirmation}>
+            <div class="modal-overlay" onclick={closeApplyConfirmation}>
+                <div class="modal-container confirmation-modal" onclick={stopPropagation}>
+                    <div class="modal-header">
+                        <lightning-icon icon-name="utility:warning" size="medium" class="warning-icon"></lightning-icon>
+                        <h3>Apply Template</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <p class="confirmation-message">
+                            Are you sure you want to apply the template "<strong>{templateToApply.name}</strong>"?
+                        </p>
+                        <div class="warning-notice">
+                            <lightning-icon icon-name="utility:info" size="x-small"></lightning-icon>
+                            <span>This will replace all current queries and JavaScript code in the Query Builder.</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="modal-button secondary-button" onclick={closeApplyConfirmation}>
+                            <lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+                            Cancel
+                        </button>
+                        <button class="modal-button primary-button" onclick={confirmApplyTemplate}>
+                            <lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon>
+                            Apply Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

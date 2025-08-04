@@ -241,7 +241,7 @@
     "regions" : [ {
       "components" : [ {
         "componentAttributes" : {
-          "background" : "background: rgb(217,177,1) url(/sfsites/c/file-asset/X2LUCKY7BANNER?v=1) center center /contain no-repeat",
+          "background" : "background: rgb(217,177,1) url(/sfsites/c/file-asset/X2LUCKY7BANNER?v=1) top center /contain no-repeat",
           "backgroundOverlayColor" : "rgba(0, 0, 0, 0.3)",
           "borderBottomColor" : "rgba(228, 195, 0, 0.8)",
           "borderTopColor" : "rgba(0, 0, 0, 0.8)",

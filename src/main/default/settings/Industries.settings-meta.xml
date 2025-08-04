@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IndustriesSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <appointmentDistributionOrgPref>true</appointmentDistributionOrgPref>
+    <captureResourceUtilizationOrgPref>false</captureResourceUtilizationOrgPref>
+    <enableAccountScoreEnabled>false</enableAccountScoreEnabled>
+    <enableAnyResourceTypeOrgPref>false</enableAnyResourceTypeOrgPref>
+    <enableAppFrmAnywhereOrgPref>false</enableAppFrmAnywhereOrgPref>
+    <enableAppInviteOrgPref>false</enableAppInviteOrgPref>
+    <enableBlockResourceAvailabilityOrgPref>false</enableBlockResourceAvailabilityOrgPref>
+    <enableCapacitySchedulingPref>false</enableCapacitySchedulingPref>
+    <enableCreateMultiAttendeeEventOrgPref>false</enableCreateMultiAttendeeEventOrgPref>
+    <enableDepriveSoqlAccessGuestUserOrgPref>true</enableDepriveSoqlAccessGuestUserOrgPref>
+    <enableDepriveSoqlAccessOrgPref>true</enableDepriveSoqlAccessOrgPref>
+    <enableDontSharePartyprofWPortalOrgPref>false</enableDontSharePartyprofWPortalOrgPref>
+    <enableDropInAppointmentsOrgPref>false</enableDropInAppointmentsOrgPref>
+    <enableEventManagementOrgPref>true</enableEventManagementOrgPref>
+    <enableEventWriteOrgPref>true</enableEventWriteOrgPref>
+    <enableMultiResourceOrgPref>true</enableMultiResourceOrgPref>
+    <enableMultipleTopicsForShiftsOrgPref>false</enableMultipleTopicsForShiftsOrgPref>
+    <enableOverbookingOrgPref>false</enableOverbookingOrgPref>
+    <enablePartyProfileParentSharingOrgPref>false</enablePartyProfileParentSharingOrgPref>
+    <enablePartyprofParentMultiSharingOrgPref>false</enablePartyprofParentMultiSharingOrgPref>
+    <enablePreBookedFallbackMechOrgPref>false</enablePreBookedFallbackMechOrgPref>
+    <enableSchedulerPaymentsPref>false</enableSchedulerPaymentsPref>
+    <enableShareSaWithArOrgPref>true</enableShareSaWithArOrgPref>
+    <enableTopicOrTemplate>false</enableTopicOrTemplate>
+    <enableTopicTimeSlot>true</enableTopicTimeSlot>
+    <partyProfMultiShrPrtnrsOrgPref>false</partyProfMultiShrPrtnrsOrgPref>
+    <rlaEditIfAccHasEdit>false</rlaEditIfAccHasEdit>
+</IndustriesSettings>

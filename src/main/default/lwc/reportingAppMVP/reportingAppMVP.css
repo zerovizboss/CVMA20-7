@@ -1,0 +1,884 @@
+.mvp-container {
+    min-height: 100vh;
+    background: #f3f3f3;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+/* ===========================================
+   HEADER STYLES
+   =========================================== */
+
+.mvp-header {
+    background: linear-gradient(135deg, #1589ee 0%, #0176d3 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.app-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.title-icon {
+    background: rgba(255,255,255,0.2);
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+}
+
+.app-subtitle {
+    font-size: 1rem;
+    margin: 0;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* ===========================================
+   TAB NAVIGATION
+   =========================================== */
+
+.mvp-tabs {
+    background: white;
+    border-bottom: 1px solid #dddbda;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto; /* Handle overflow on smaller screens */
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #706e6b;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap; /* Prevent text wrapping */
+    flex-shrink: 0; /* Prevent tabs from shrinking */
+}
+
+.tab:hover {
+    color: #0176d3;
+    background: #f8f9fa;
+}
+
+.tab-active {
+    color: #0176d3;
+    border-bottom-color: #0176d3;
+    background: white;
+}
+
+.tab:disabled {
+    color: #c9c7c5;
+    cursor: not-allowed;
+}
+
+.tab:disabled:hover {
+    background: none;
+    color: #c9c7c5;
+}
+
+/* ===========================================
+   CONTENT AREA WITH SIDEBAR LAYOUT
+   =========================================== */
+
+.mvp-content {
+    max-width: none; /* Remove max-width to allow full sidebar layout */
+    margin: 0;
+    padding: 0;
+    min-height: calc(100vh - 200px);
+    width: 100%;
+}
+
+.tab-content {
+    background: white;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+/* ===========================================
+   QUERY BUILDER LAYOUT WITH SIDEBAR
+   =========================================== */
+
+.query-builder-layout {
+    display: flex;
+    height: calc(100vh - 140px); /* Adjust height for header + tabs */
+    width: 100%;
+    min-height: 600px;
+}
+
+.template-sidebar {
+    width: 380px;
+    min-width: 380px;
+    max-width: 380px;
+    background: #f8f9fa;
+    border-right: 2px solid #dddbda;
+    overflow-y: auto;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.query-builder-main {
+    flex: 1;
+    background: white;
+    overflow-y: auto;
+    min-width: 0; /* Prevent flex item from overflowing */
+    height: 100%;
+    padding: 0; /* Remove any padding that might interfere */
+}
+
+/* Ensure template manager fills sidebar properly */
+.template-sidebar c-template-manager {
+    height: 100%;
+    display: block;
+}
+
+/* ===========================================
+   EMPTY STATE
+   =========================================== */
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #706e6b;
+}
+
+.empty-icon {
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+    color: #080707;
+}
+
+.empty-state p {
+    margin: 0 0 2rem 0;
+    font-size: 1rem;
+}
+
+/* ===========================================
+   TOAST NOTIFICATIONS
+   =========================================== */
+
+.toast {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    min-width: 300px;
+    max-width: 500px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.toast-success {
+    background: #d9f7be;
+    border-left: 4px solid #04844b;
+    color: #04844b;
+}
+
+.toast-error {
+    background: #fef7f7;
+    border-left: 4px solid #ea001e;
+    color: #ea001e;
+}
+
+.toast-warning {
+    background: #fff2e6;
+    border-left: 4px solid #fe9339;
+    color: #fe9339;
+}
+
+.toast-info {
+    background: #f7fafe;
+    border-left: 4px solid #0176d3;
+    color: #0176d3;
+}
+
+.toast-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    padding-right: 3rem;
+}
+
+.toast-icon {
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+}
+
+.toast-message {
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.toast-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.toast-close:hover {
+    opacity: 1;
+}
+
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+/* Desktop and Large Tablets */
+@media (max-width: 1200px) {
+    .template-sidebar {
+        width: 350px;
+        min-width: 350px;
+        max-width: 350px;
+    }
+}
+
+/* Medium Tablets */
+@media (max-width: 1024px) {
+    .template-sidebar {
+        width: 320px;
+        min-width: 320px;
+        max-width: 320px;
+    }
+
+    .mvp-header {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .app-title {
+        font-size: 1.625rem;
+    }
+}
+
+/* Small Tablets and Large Phones */
+@media (max-width: 768px) {
+    .mvp-content {
+        padding: 0;
+    }
+
+    .mvp-header {
+        padding: 1rem;
+    }
+
+    .app-title {
+        font-size: 1.5rem;
+    }
+
+    .mvp-tabs {
+        padding: 0 1rem;
+        gap: 0;
+        justify-content: flex-start; /* Allow horizontal scrolling */
+    }
+
+    .tab {
+        padding: 0.75rem 1rem;
+        font-size: 0.8125rem;
+        min-width: fit-content; /* Ensure tabs don't get too small */
+    }
+
+    /* Switch to stacked layout on mobile */
+    .query-builder-layout {
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 120px);
+    }
+
+    .template-sidebar {
+        width: 100%;
+        max-width: none;
+        min-width: auto;
+        max-height: 50vh;
+        border-right: none;
+        border-bottom: 2px solid #dddbda;
+        flex-shrink: 0;
+        overflow-y: auto;
+    }
+
+    .query-builder-main {
+        min-height: 500px;
+        flex: 1;
+        height: auto;
+    }
+
+    .toast {
+        top: 1rem;
+        right: 1rem;
+        left: 1rem;
+        min-width: auto;
+    }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+    .mvp-header {
+        padding: 0.75rem;
+    }
+
+    .app-title {
+        font-size: 1.375rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .app-subtitle {
+        font-size: 0.875rem;
+        text-align: center;
+    }
+
+    .mvp-tabs {
+        padding: 0 0.5rem;
+    }
+
+    .tab {
+        padding: 0.75rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .tab span {
+        display: none; /* Hide tab text on very small screens, keep only icons */
+    }
+
+    .template-sidebar {
+        max-height: 40vh;
+    }
+
+    .query-builder-main {
+        min-height: 400px;
+    }
+
+    .empty-state {
+        padding: 2rem 1rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.125rem;
+    }
+
+    .toast {
+        top: 0.5rem;
+        right: 0.5rem;
+        left: 0.5rem;
+    }
+
+    .toast-content {
+        padding: 0.75rem;
+        padding-right: 2.5rem;
+    }
+
+    .toast-message {
+        font-size: 0.875rem;
+    }
+}
+
+/* Extra Small Phones */
+@media (max-width: 320px) {
+    .app-title {
+        font-size: 1.25rem;
+    }
+
+    .tab {
+        padding: 0.5rem;
+        font-size: 0.6875rem;
+    }
+
+    .template-sidebar {
+        max-height: 35vh;
+    }
+
+    .query-builder-main {
+        min-height: 350px;
+    }
+}
+
+/* ===========================================
+   HIGH DPI / RETINA DISPLAYS
+   =========================================== */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .mvp-header {
+        box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+
+    .template-sidebar {
+        border-right: 1px solid #dddbda;
+    }
+
+    .toast {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+}
+
+/* ===========================================
+   PRINT STYLES
+   =========================================== */
+
+@media print {
+    .mvp-header,
+    .mvp-tabs,
+    .template-sidebar,
+    .toast {
+        display: none;
+    }
+
+    .mvp-content {
+        padding: 0;
+        max-width: none;
+    }
+
+    .query-builder-layout {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .query-builder-main {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+/* ===========================================
+   DARK MODE SUPPORT (FUTURE ENHANCEMENT)
+   =========================================== */
+
+@media (prefers-color-scheme: dark) {
+    /*
+    Future dark mode styles could be added here
+    Currently using Salesforce Lightning Design System colors
+    which don't have built-in dark mode support
+    */
+}
+
+/* ===========================================
+   REDUCED MOTION ACCESSIBILITY
+   =========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .tab,
+    .toast-close,
+    .query-builder-layout,
+    .template-sidebar {
+        transition: none;
+    }
+
+    .toast {
+        animation: none;
+    }
+}
+
+/* ===========================================
+   HIGH CONTRAST MODE ACCESSIBILITY
+   =========================================== */
+
+@media (prefers-contrast: high) {
+    .mvp-header {
+        background: #000080;
+    }
+
+    .tab-active {
+        border-bottom-width: 4px;
+    }
+
+    .template-sidebar {
+        border-right-width: 3px;
+        border-right-color: #000;
+    }
+
+    .toast-success {
+        border-left-width: 6px;
+    }
+
+    .toast-error {
+        border-left-width: 6px;
+    }
+
+    .toast-warning {
+        border-left-width: 6px;
+    }
+
+    .toast-info {
+        border-left-width: 6px;
+    }
+}
+
+/* ===========================================
+   DOWNLOAD MODAL STYLES
+   =========================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+}
+
+.download-modal-content {
+    max-width: 900px;
+    width: 95%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #f3f3f3;
+    background: #f8f9fa;
+}
+
+.download-modal-header {
+    background: linear-gradient(135deg, #0176d3 0%, #1589ee 100%);
+    color: white;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+}
+
+.modal-close-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.modal-body {
+    padding: 2rem;
+    overflow-y: auto;
+    max-height: calc(90vh - 140px);
+}
+
+.download-modal-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.download-instructions {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.instruction-icon {
+    color: #0176d3;
+    align-self: flex-start;
+}
+
+.download-instructions p {
+    margin: 0;
+    color: #0c4a6e;
+    font-weight: 500;
+}
+
+.download-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.step {
+    font-size: 0.875rem;
+    color: #0369a1;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.step::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0176d3;
+    font-weight: bold;
+}
+
+.download-content {
+    border: 1px solid #dddbda;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.download-toolbar {
+    background: #f8f9fa;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dddbda;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.content-info {
+    font-size: 0.875rem;
+    color: #706e6b;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+.copy-button {
+    background: #04844b;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+    background: #036639;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(4, 132, 75, 0.3);
+}
+
+.download-modal-textarea {
+    width: 100%;
+    min-height: 300px;
+    max-height: 400px;
+    padding: 1rem;
+    border: none;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    resize: vertical;
+    outline: none;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+.download-modal-textarea:focus {
+    background: #2d2d30;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #f3f3f3;
+    background: #f8f9fa;
+}
+
+.download-modal-footer {
+    justify-content: space-between;
+}
+
+.modal-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.secondary-button {
+    background: white;
+    border: 1px solid #dddbda;
+    color: #080707;
+}
+
+.secondary-button:hover {
+    background: #f3f3f3;
+    border-color: #c9c7c5;
+}
+
+.primary-button {
+    background: #04844b;
+    border: 1px solid #04844b;
+    color: white;
+}
+
+.primary-button:hover {
+    background: #036639;
+    border-color: #036639;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(4, 132, 75, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive Design for Download Modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+    }
+
+    .download-modal-content {
+        width: 98%;
+    }
+
+    .modal-header,
+    .modal-footer {
+        padding: 1rem;
+    }
+
+    .modal-body,
+    .download-modal-body {
+        padding: 1rem;
+    }
+
+    .download-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .content-info {
+        font-size: 0.75rem;
+        word-break: break-all;
+    }
+
+    .download-modal-textarea {
+        min-height: 200px;
+        font-size: 0.75rem;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .modal-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .download-instructions {
+        padding: 0.75rem;
+    }
+
+    .step {
+        font-size: 0.8125rem;
+    }
+
+    .download-modal-textarea {
+        min-height: 150px;
+        padding: 0.75rem;
+    }
+}

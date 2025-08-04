@@ -1,0 +1,108 @@
+name: Task
+description: Create a task for the CVMA 20-7 project
+title: "[TASK] "
+labels: ["task"]
+body:
+  - type: input
+    id: task-title
+    attributes:
+      label: Task Title
+      description: A brief, descriptive title for this task
+      placeholder: e.g., Set up CI/CD pipeline for automated testing
+    validations:
+      required: true
+  
+  - type: textarea
+    id: task-description
+    attributes:
+      label: Task Description
+      description: Detailed description of what needs to be done
+      placeholder: Describe the task, its purpose, and any specific requirements
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: task-type
+    attributes:
+      label: Task Type
+      description: What type of task is this?
+      options:
+        - Setup/Configuration
+        - Documentation
+        - Research/Analysis
+        - Testing
+        - DevOps/Infrastructure
+        - Maintenance
+        - Other
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: What is the priority level of this task?
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: sprint
+    attributes:
+      label: Sprint
+      description: Which sprint should this task be included in?
+      options:
+        - Backlog
+        - Sprint 1
+        - Sprint 2
+        - Sprint 3
+        - Sprint 4
+        - Pre-Development
+        - Testing
+        - Deployment
+    validations:
+      required: false
+  
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this task is complete?
+      placeholder: |
+        - [ ] CI/CD pipeline configured in GitHub Actions
+        - [ ] Pipeline runs tests on every pull request
+        - [ ] Pipeline deploys to staging on merge to develop branch
+        - [ ] Documentation updated with pipeline details
+    validations:
+      required: true
+  
+  - type: input
+    id: estimated-hours
+    attributes:
+      label: Estimated Hours
+      description: Estimated time to complete this task
+      placeholder: e.g., 4 hours
+    validations:
+      required: false
+  
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Any dependencies or prerequisites for this task
+      placeholder: Depends on completion of development environment setup
+    validations:
+      required: false
+  
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Any additional context or information
+      placeholder: Links to documentation, examples, or other relevant resources
+    validations:
+      required: false
