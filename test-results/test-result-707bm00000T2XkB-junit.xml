@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2025-08-04T22:58:09.000Z" hostname="https://cvma20-7-dev-ed.develop.my.salesforce.com" tests="160" failures="84"  errors="0"  time="19.75">
+        <properties>
+            <property name="outcome" value="Failed"/>
+            <property name="testsRan" value="160"/>
+            <property name="passing" value="76"/>
+            <property name="failing" value="84"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="48%"/>
+            <property name="failRate" value="53%"/>
+            <property name="testStartTime" value="Mon Aug 04 2025 6:58:09 PM"/>
+            <property name="testSetupTimeInMs" value="19490"/>
+            <property name="testExecutionTime" value="19.75 s"/>
+            <property name="testTotalTime" value="39.24 s"/>
+            <property name="commandTime" value="0.13 s"/>
+            <property name="hostname" value="https://cvma20-7-dev-ed.develop.my.salesforce.com"/>
+            <property name="orgId" value="00Dbm000007w9muEAA"/>
+            <property name="username" value="detonator@cvma20-7.org"/>
+            <property name="testRunId" value="707bm00000T2XkB"/>
+            <property name="userId" value="005bm000004mcqIAAQ"/>
+            <property name="coveredLines" value="570"/>
+            <property name="testRunCoverage" value="60%"/>
+            <property name="orgWideCoverage" value="26%"/>
+        </properties>
+        <testcase name="testChangePasswordController" classname="ChangePasswordControllerTest" time="0.03">
+        </testcase>
+        <testcase name="LightningLoginFormControllerInstantiation" classname="LightningLoginFormControllerTest" time="0.02">
+        </testcase>
+        <testcase name="testAuthConfig" classname="LightningLoginFormControllerTest" time="0.02">
+        </testcase>
+        <testcase name="testGetSelfRegistrationURL" classname="LightningLoginFormControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testIsSelfRegistrationEnabled" classname="LightningLoginFormControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testIsUsernamePasswordEnabled" classname="LightningLoginFormControllerTest" time="0.02">
+        </testcase>
+        <testcase name="testRegistration" classname="SiteRegisterControllerTest" time="0.04">
+        </testcase>
+        <testcase name="testCommunitiesLoginController" classname="CommunitiesLoginControllerTest" time="0.03">
+        </testcase>
+        <testcase name="testAccountBuilder" classname="CVMATestDataFactoryTest" time="0.03">
+        </testcase>
+        <testcase name="testBasicTestDataSetup" classname="CVMATestDataFactoryTest" time="0.86">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: STRING_TOO_LONG, Membership Id: data value too large: CVMA-20-7-2025-0001 (max length=10): [Membership_Id__c]"><![CDATA[Class.CVMATestDataFactory.ContactBuilder.create: line 130, column 1
+Class.CVMATestDataFactory.setupBasicTestData: line 452, column 1
+Class.CVMATestDataFactoryTest.testBasicTestDataSetup: line 192, column 1]]></failure>
+        </testcase>
+        <testcase name="testBulkDataCreation" classname="CVMATestDataFactoryTest" time="0.01">
+        </testcase>
+        <testcase name="testContactBuilder" classname="CVMATestDataFactoryTest" time="0.01">
+        </testcase>
+        <testcase name="testContactWithMembershipStatuses" classname="CVMATestDataFactoryTest" time="0.01">
+        </testcase>
+        <testcase name="testCreateAndInsertMethods" classname="CVMATestDataFactoryTest" time="0.01">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: STRING_TOO_LONG, Membership Id: data value too large: CVMA-20-7-2025-0001 (max length=10): [Membership_Id__c]"><![CDATA[Class.CVMATestDataFactory.ContactBuilder.create: line 130, column 1
+Class.CVMATestDataFactoryTest.testCreateAndInsertMethods: line 223, column 1]]></failure>
+        </testcase>
+        <testcase name="testDataUniqueness" classname="CVMATestDataFactoryTest" time="0.01">
+        </testcase>
+        <testcase name="testErrorLogCreation" classname="CVMATestDataFactoryTest" time="0.01">
+        </testcase>
+        <testcase name="testMembersWithVariousStatuses" classname="CVMATestDataFactoryTest" time="0.01">
+        </testcase>
+        <testcase name="testUserBuilder" classname="CVMATestDataFactoryTest" time="0.03">
+        </testcase>
+        <testcase name="testSave" classname="MyProfilePageControllerTest" time="0.63">
+        </testcase>
+        <testcase name="LightningSelfRegisterControllerInstantiation" classname="LightningSelfRegisterControllerTest" time="0.04">
+        </testcase>
+        <testcase name="testGetExtraFieldsInSelfRegistration" classname="LightningSelfRegisterControllerTest" time="0.02">
+        </testcase>
+        <testcase name="testGetNonEmptyExtraFields" classname="LightningSelfRegisterControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testGetNullExtraFields" classname="LightningSelfRegisterControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testIsValidPassword" classname="LightningSelfRegisterControllerTest" time="0.00">
+        </testcase>
+        <testcase name="testSelfRegisterWithCreatedAccount" classname="LightningSelfRegisterControllerTest" time="1.07">
+        </testcase>
+        <testcase name="testSelfRegisterWithProperCredentials" classname="LightningSelfRegisterControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testSelfRegistration" classname="LightningSelfRegisterControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testSiteAsContainerEnabled" classname="LightningSelfRegisterControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testEdgeCases" classname="CVMAMembershipValidationTest" time="1.35">
+        </testcase>
+        <testcase name="testInvalidLevelMembershipMismatch" classname="CVMAMembershipValidationTest" time="0.12">
+        </testcase>
+        <testcase name="testInvalidMembershipFormat" classname="CVMAMembershipValidationTest" time="0.14">
+        </testcase>
+        <testcase name="testUpdateValidation" classname="CVMAMembershipValidationTest" time="0.57">
+        </testcase>
+        <testcase name="testValidLengthCombinations" classname="CVMAMembershipValidationTest" time="0.46">
+        </testcase>
+        <testcase name="testValidMembershipCombinations" classname="CVMAMembershipValidationTest" time="0.36">
+        </testcase>
+        <testcase name="testSiteLoginController" classname="SiteLoginControllerTest" time="0.02">
+        </testcase>
+        <testcase name="debugValidationError" classname="CVMAValidationDebugTest" time="2.70">
+        </testcase>
+        <testcase name="testCountWithGroupBy" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testDefaultLimitAddition" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testErrorHandling_InvalidSyntax" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testExecuteMultipleQueries_SecurityViolation" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testExecuteMultipleQueries_SubsequentSecurityViolations" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testExecuteMultipleQueries_Success" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testExecuteQuery_Success" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testExecutionTimeTracking" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testFieldAccessValidation" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testGetBasicSchemaInfo" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testInputValidation_AllBlankQueries" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testInputValidation_BlankQueries" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testInputValidation_BlankSingleQuery" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testInputValidation_EmptyQueries" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testInputValidation_NullQueries" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testInputValidation_TooManyQueries" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testLargeResultSetHandling" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testMixedSuccessFailure" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testPerformanceValidation_CountWithoutGroupBy" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testPerformanceValidation_ExcessiveLimit" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testPerformanceValidation_TooManyRelationships" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testQueryIndexTracking" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testSecurityValidation_DeleteVsIsDeleted" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testSecurityValidation_ForUpdate" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testSecurityValidation_ForbiddenOperations" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testSecurityValidation_LimitAllCustomObjects" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testSecurityValidation_NonSelectQuery" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testSerializationComplexQueries" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testSerializationErrorHandling" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testUserFriendlyErrorMessages" classname="QueryControllerMVPTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.QueryControllerMVPTest.setupTestData: line 36, column 1]]></failure>
+        </testcase>
+        <testcase name="testCommunitiesLandingController" classname="CommunitiesLandingControllerTest" time="0.04">
+        </testcase>
+        <testcase name="testGetMemberProfile_Success" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testGetProfilePermissions" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testInvalidJsonHandling" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testUpdateMemberProfile_SecurityError_WrongUser" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testUpdateMemberProfile_Success" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testUpdateMemberProfile_ValidationError_InvalidEmail" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testUpdateMemberProfile_ValidationError_RequiredFields" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testUserWithoutContact" classname="CVMAMemberProfileControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAMemberProfileControllerTest.setupTestData: line 54, column 1]]></failure>
+        </testcase>
+        <testcase name="testCSVEscaping" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testEmailGeneration" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testEmptyMemberList" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testExportMemberData_NonOfficerAccess" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testExportMemberData_Success" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testGetMemberDashboardData_NonOfficerAccess" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testGetMemberDashboardData_OfficerSuccess" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testMemberStatusCalculation" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testSendRenewalReminders_NonOfficerAccess" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testSendRenewalReminders_Success" classname="CVMAOfficerDashboardControllerTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: FIELD_INTEGRITY_EXCEPTION, only portal users can be associated to a contact: []"><![CDATA[Class.CVMAOfficerDashboardControllerTest.setupTestData: line 108, column 1]]></failure>
+        </testcase>
+        <testcase name="testIterableForLoop" classname="MyIterableTest" time="0.03">
+        </testcase>
+        <testcase name="LightningForgotPasswordControllerInstantiation" classname="LightningForgotPasswordControllerTest" time="0.03">
+        </testcase>
+        <testcase name="testLightningForgotPasswordControllerInvalidUserName" classname="LightningForgotPasswordControllerTest" time="0.01">
+        </testcase>
+        <testcase name="testLightningForgotPasswordControllerWithNullCheckEmailRef" classname="LightningForgotPasswordControllerTest" time="0.00">
+        </testcase>
+        <testcase name="testCommunityConfiguration" classname="CVMAExperienceBuilderIntegrationTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.CVMAExperienceBuilderIntegrationTest.setupCommunityTestData: line 31, column 1]]></failure>
+        </testcase>
+        <testcase name="testComponentDataAccess" classname="CVMAExperienceBuilderIntegrationTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.CVMAExperienceBuilderIntegrationTest.setupCommunityTestData: line 31, column 1]]></failure>
+        </testcase>
+        <testcase name="testRelatedRecordAccess" classname="CVMAExperienceBuilderIntegrationTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.CVMAExperienceBuilderIntegrationTest.setupCommunityTestData: line 31, column 1]]></failure>
+        </testcase>
+        <testcase name="testServiceAppointmentAvailability" classname="CVMAExperienceBuilderIntegrationTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.CVMAExperienceBuilderIntegrationTest.setupCommunityTestData: line 31, column 1]]></failure>
+        </testcase>
+        <testcase name="testServiceAppointmentBookingFlow" classname="CVMAExperienceBuilderIntegrationTest" time="0.00">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [Level__c, Membership_Id__c]: [Level__c, Membership_Id__c]"><![CDATA[Class.CVMAExperienceBuilderIntegrationTest.setupCommunityTestData: line 31, column 1]]></failure>
+        </testcase>
+        <testcase name="testCaseObjectAccess" classname="CVMASimpleGuestUserTest" time="0.41">
+            <failure message="System.AssertException: Assertion Failed: Case should be accessible for guest user"><![CDATA[Class.CVMASimpleGuestUserTest.testCaseObjectAccess: line 88, column 1]]></failure>
+        </testcase>
+        <testcase name="testCaseQuery" classname="CVMASimpleGuestUserTest" time="0.35">
+        </testcase>
+        <testcase name="testEventObjectAccess" classname="CVMASimpleGuestUserTest" time="0.31">
+            <failure message="System.AssertException: Assertion Failed: Event should be accessible for guest user"><![CDATA[Class.CVMASimpleGuestUserTest.testEventObjectAccess: line 67, column 1]]></failure>
+        </testcase>
+        <testcase name="testEventQuery" classname="CVMASimpleGuestUserTest" time="0.42">
+        </testcase>
+        <testcase name="testGuestUserProfileExists" classname="CVMASimpleGuestUserTest" time="0.02">
+        </testcase>
+        <testcase name="testPermissionSetExists" classname="CVMASimpleGuestUserTest" time="0.04">
+        </testcase>
+        <testcase name="testRelatedObjectAccess" classname="CVMASimpleGuestUserTest" time="0.37">
+        </testcase>
+        <testcase name="testSchedulerAppAccess" classname="CVMASimpleGuestUserTest" time="0.33">
+            <failure message="System.AssertException: Assertion Failed: ServiceResource should be accessible for guest user"><![CDATA[Class.CVMASimpleGuestUserTest.testSchedulerAppAccess: line 237, column 1]]></failure>
+        </testcase>
+        <testcase name="testServiceAppointmentObjectAccess" classname="CVMASimpleGuestUserTest" time="0.32">
+            <failure message="System.AssertException: Assertion Failed: ServiceAppointment should be accessible for guest user"><![CDATA[Class.CVMASimpleGuestUserTest.testServiceAppointmentObjectAccess: line 44, column 1]]></failure>
+        </testcase>
+        <testcase name="testServiceAppointmentQuery" classname="CVMASimpleGuestUserTest" time="0.34">
+        </testcase>
+        <testcase name="testCreateUserMessage_DataValidationCategory" classname="CVMAErrorHandlerTest" time="0.07">
+        </testcase>
+        <testcase name="testCreateUserMessage_DmlException" classname="CVMAErrorHandlerTest" time="0.11">
+        </testcase>
+        <testcase name="testCreateUserMessage_SecurityCategory" classname="CVMAErrorHandlerTest" time="0.01">
+        </testcase>
+        <testcase name="testCustomExceptionTypes" classname="CVMAErrorHandlerTest" time="0.01">
+        </testcase>
+        <testcase name="testErrorLogFallback" classname="CVMAErrorHandlerTest" time="0.15">
+        </testcase>
+        <testcase name="testHandleException_FullWorkflow" classname="CVMAErrorHandlerTest" time="0.13">
+        </testcase>
+        <testcase name="testIsValidEmail" classname="CVMAErrorHandlerTest" time="0.01">
+        </testcase>
+        <testcase name="testLogError_BasicLogging" classname="CVMAErrorHandlerTest" time="0.16">
+            <failure message="System.AssertException: Assertion Failed: Error message should contain exception details"><![CDATA[Class.CVMAErrorHandlerTest.testLogError_BasicLogging: line 57, column 1]]></failure>
+        </testcase>
+        <testcase name="testLogError_WithContextData" classname="CVMAErrorHandlerTest" time="0.22">
+        </testcase>
+        <testcase name="testSanitizeInput" classname="CVMAErrorHandlerTest" time="0.01">
+        </testcase>
+        <testcase name="testValidateCRUDPermissions_SecurityException" classname="CVMAErrorHandlerTest" time="0.02">
+        </testcase>
+        <testcase name="testValidateCRUDPermissions_Success" classname="CVMAErrorHandlerTest" time="0.03">
+        </testcase>
+        <testcase name="testCheckApplicationStatus_Found" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testCheckApplicationStatus_NotFound" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testGetPendingApplications_NonOfficerAccess" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testGetPendingApplications_OfficerAccess" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testMembershipIdGeneration" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testSubmitMembershipApplication_DuplicateEmail" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testSubmitMembershipApplication_Success" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testSubmitMembershipApplication_ValidationFailure" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testUpdateApplicationStatus_Approval" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testUpdateApplicationStatus_NonOfficerAccess" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testUpdateApplicationStatus_Rejection" classname="CVMAMembershipApplicationControllerTest" time="0.00">
+            <failure message="System.DmlException: Update failed. First exception on row 0 with id 005bm00000FpnAvAAJ; first error: UNKNOWN_EXCEPTION, You can&apos;t create a contact for this user because the org doesn&apos;t have the necessary permissions. Contact Salesforce Customer Support for help.: []"><![CDATA[Class.CVMAMembershipApplicationControllerTest.setupTestData: line 49, column 1]]></failure>
+        </testcase>
+        <testcase name="testGuestUserCaseAccess" classname="CVMAGuestUserSchedulerAccessTest" time="0.42">
+            <failure message="System.AssertException: Assertion Failed: Guest user should see 1 public Case: Expected: 1, Actual: 0"><![CDATA[Class.CVMAGuestUserSchedulerAccessTest.testGuestUserCaseAccess: line 204, column 1]]></failure>
+        </testcase>
+        <testcase name="testGuestUserEventAccess" classname="CVMAGuestUserSchedulerAccessTest" time="0.55">
+            <failure message="System.AssertException: Assertion Failed: Guest user should see 1 public Event: Expected: 1, Actual: 0"><![CDATA[Class.CVMAGuestUserSchedulerAccessTest.testGuestUserEventAccess: line 242, column 1]]></failure>
+        </testcase>
+        <testcase name="testGuestUserProfilePermissions" classname="CVMAGuestUserSchedulerAccessTest" time="0.37">
+            <failure message="System.AssertException: Assertion Failed: ServiceAppointment should be createable for guest user"><![CDATA[Class.CVMAGuestUserSchedulerAccessTest.testGuestUserProfilePermissions: line 325, column 1]]></failure>
+        </testcase>
+        <testcase name="testGuestUserServiceAppointmentAccess" classname="CVMAGuestUserSchedulerAccessTest" time="0.37">
+            <failure message="System.AssertException: Assertion Failed: Guest user should see 1 non-canceled Service Appointment: Expected: 1, Actual: 0"><![CDATA[Class.CVMAGuestUserSchedulerAccessTest.testGuestUserServiceAppointmentAccess: line 149, column 1]]></failure>
+        </testcase>
+        <testcase name="testSharingRulesEffectiveness" classname="CVMAGuestUserSchedulerAccessTest" time="0.50">
+        </testcase>
+        <testcase name="testCheckApplicationStatus_Found" classname="CVMAMembershipApplicationSimpleTest" time="0.22">
+            <failure message="System.AssertException: Assertion Failed: Should find application"><![CDATA[Class.CVMAMembershipApplicationSimpleTest.testCheckApplicationStatus_Found: line 102, column 1]]></failure>
+        </testcase>
+        <testcase name="testCheckApplicationStatus_NotFound" classname="CVMAMembershipApplicationSimpleTest" time="0.02">
+        </testcase>
+        <testcase name="testSubmitMembershipApplication_DuplicateEmail" classname="CVMAMembershipApplicationSimpleTest" time="1.84">
+        </testcase>
+        <testcase name="testSubmitMembershipApplication_Success" classname="CVMAMembershipApplicationSimpleTest" time="0.06">
+            <failure message="System.AssertException: Assertion Failed: Application submission should succeed"><![CDATA[Class.CVMAMembershipApplicationSimpleTest.testSubmitMembershipApplication_Success: line 19, column 1]]></failure>
+        </testcase>
+        <testcase name="testSubmitMembershipApplication_ValidationFailure" classname="CVMAMembershipApplicationSimpleTest" time="0.01">
+        </testcase>
+        <testcase name="testForgotPasswordController" classname="ForgotPasswordControllerTest" time="0.02">
+        </testcase>
+        <testcase name="testConstantsAndEdgeCases" classname="CVMAGuestUserSchedulerTest" time="0.55">
+        </testcase>
+        <testcase name="testGuestUserPermissionHelper_ObjectAccess" classname="CVMAGuestUserSchedulerTest" time="0.59">
+            <failure message="System.AssertException: Assertion Failed: Should have some accessible objects"><![CDATA[Class.CVMAGuestUserSchedulerTest.testGuestUserPermissionHelper_ObjectAccess: line 88, column 1]]></failure>
+        </testcase>
+        <testcase name="testGuestUserPermissionHelper_ProfileValidation" classname="CVMAGuestUserSchedulerTest" time="0.17">
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_AppointmentCancellation" classname="CVMAGuestUserSchedulerTest" time="0.21">
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_AppointmentCreation" classname="CVMAGuestUserSchedulerTest" time="0.56">
+            <failure message="CVMASchedulerBookingHelper.CVMASchedulerException: Failed to create appointment: Insert failed. First exception on row 0; first error: INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY, insufficient access rights on cross-reference id: 08qbm0000003m6Y: []"><![CDATA[Class.CVMASchedulerBookingHelper.createGuestAppointment: line 32, column 1
+Class.CVMAGuestUserSchedulerTest.testSchedulerBookingHelper_AppointmentCreation: line 169, column 1]]></failure>
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_AppointmentUpdates" classname="CVMAGuestUserSchedulerTest" time="0.15">
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_AvailabilityChecking" classname="CVMAGuestUserSchedulerTest" time="0.21">
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_DurationAndLimits" classname="CVMAGuestUserSchedulerTest" time="0.01">
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_GuestAppointments" classname="CVMAGuestUserSchedulerTest" time="0.13">
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_InvalidRequests" classname="CVMAGuestUserSchedulerTest" time="0.01">
+        </testcase>
+        <testcase name="testSchedulerBookingHelper_RequestValidation" classname="CVMAGuestUserSchedulerTest" time="0.01">
+        </testcase>
+        <testcase name="testMicrobatchSelfRegController" classname="MicrobatchSelfRegControllerTest" time="0.03">
+        </testcase>
+        <testcase name="testCommunitiesSelfRegController" classname="CommunitiesSelfRegControllerTest" time="0.03">
+        </testcase>
+        <testcase name="testCommunitiesSelfRegConfirmController" classname="CommunitiesSelfRegConfirmControllerTest" time="0.02">
+        </testcase>
+    </testsuite>
+</testsuites>

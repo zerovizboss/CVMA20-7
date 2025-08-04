@@ -12,23 +12,23 @@ public class CVMAExperienceBuilderIntegrationTest {
     
     @TestSetup
     static void setupCommunityTestData() {
-        // Create test data that would typically exist in the community context
+        // Use CVMATestDataFactory for consistent test data creation
         
         // Create Account for community context
-        Account communityAccount = new Account(
-            Name = 'CVMA Community Account',
-            Type = 'Organization'
-        );
-        insert communityAccount;
+        Account communityAccount = CVMATestDataFactory.createAccount()
+            .withName('CVMA Community Account')
+            .withType('Organization')
+            .create();
         
-        // Create Contact for community member
-        Contact communityContact = new Contact(
-            FirstName = 'Community',
-            LastName = 'Member',
-            Email = 'member@cvma207.org',
-            AccountId = communityAccount.Id
-        );
-        insert communityContact;
+        // Create Contact for community member with required fields
+        Contact communityContact = CVMATestDataFactory.createContact()
+            .withFirstName('Community')
+            .withLastName('Member')
+            .withEmail('member@cvma207.org')
+            .withLevel('Full Member')
+            .withMembershipId('CVMA-20-7-2024-9999')
+            .withAccount(communityAccount.Id)
+            .create();
         
         // Create Operating Hours for Service Territory
         OperatingHours opHours = new OperatingHours(

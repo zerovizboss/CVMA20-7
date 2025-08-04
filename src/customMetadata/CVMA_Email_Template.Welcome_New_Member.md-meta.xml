@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Welcome New Member</label>
+    <protected>false</protected>
+    <values>
+        <field>Email_Body__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">&lt;html&gt;&lt;body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"&gt;
+&lt;div style="max-width: 600px; margin: 0 auto; padding: 20px;"&gt;
+&lt;h2 style="color: #1b5f9f; border-bottom: 2px solid #c41e3a; padding-bottom: 10px;"&gt;Welcome to CVMA Chapter 20-7!&lt;/h2&gt;
+&lt;p&gt;Dear {!FirstName} {!LastName},&lt;/p&gt;
+&lt;p&gt;Welcome to the Combat Veterans Motorcycle Association Chapter 20-7! We are honored to have you join our brotherhood of veterans dedicated to serving our fellow vets.&lt;/p&gt;
+&lt;div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #1b5f9f; margin: 20px 0;"&gt;
+&lt;strong&gt;Your Membership Details:&lt;/strong&gt;&lt;br&gt;
+Membership ID: {!MembershipId}&lt;br&gt;
+Member Level: {!MemberLevel}&lt;br&gt;
+Road Name: {!RoadName}&lt;br&gt;
+Join Date: {!JoinDate}&lt;/div&gt;
+&lt;p&gt;As a member of CVMA, you are now part of a nationwide organization committed to Vets Serving Vets. We encourage you to participate in our chapter activities, rides, and community service events.&lt;/p&gt;
+&lt;p&gt;For questions or more information, contact us at chapter20-7@cvma.org or (904) 555-CVMA.&lt;/p&gt;
+&lt;p&gt;Vets Serving Vets,&lt;br&gt;&lt;strong&gt;CVMA Chapter 20-7&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</value>
+    </values>
+    <values>
+        <field>Email_Subject__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Welcome to CVMA Chapter 20-7!</value>
+    </values>
+    <values>
+        <field>From_Address__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">chapter20-7@cvma.org</value>
+    </values>
+    <values>
+        <field>From_Name__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">CVMA Chapter 20-7</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">true</value>
+    </values>
+    <values>
+        <field>Template_Type__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Welcome</value>
+    </values>
+</CustomMetadata>

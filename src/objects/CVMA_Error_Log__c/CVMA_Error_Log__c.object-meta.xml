@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store error logs and debugging information for the CVMA application</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <label>CVMA Error Log</label>
+    <nameField>
+        <displayFormat>ERR-{0000}</displayFormat>
+        <label>Error Log Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CVMA Error Logs</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Class_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Method_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Error_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Severity__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Timestamp__c</customTabListAdditionalFields>
+        <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
+        <excludedStandardButtons>MassAssignRecordLabel</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>Class_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Method_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Error_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Severity__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Class_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Method_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Error_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Severity__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Timestamp__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+    
+    <!-- Custom Fields -->
+    <fields>
+        <fullName>Class_Name__c</fullName>
+        <description>Name of the Apex class where the error occurred</description>
+        <externalId>false</externalId>
+        <label>Class Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    
+    <fields>
+        <fullName>Method_Name__c</fullName>
+        <description>Name of the method where the error occurred</description>
+        <externalId>false</externalId>
+        <label>Method Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    
+    <fields>
+        <fullName>Error_Message__c</fullName>
+        <description>The error message from the exception</description>
+        <externalId>false</externalId>
+        <label>Error Message</label>
+        <length>32768</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    
+    <fields>
+        <fullName>Stack_Trace__c</fullName>
+        <description>Full stack trace of the error</description>
+        <externalId>false</externalId>
+        <label>Stack Trace</label>
+        <length>32768</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    
+    <fields>
+        <fullName>Error_Type__c</fullName>
+        <description>Type of exception (e.g., DmlException, QueryException)</description>
+        <externalId>false</externalId>
+        <label>Error Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    
+    <fields>
+        <fullName>Severity__c</fullName>
+        <description>Severity level of the error</description>
+        <externalId>false</externalId>
+        <label>Severity</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <value>
+                    <fullName>LOW</fullName>
+                    <default>false</default>
+                    <label>Low</label>
+                </value>
+                <value>
+                    <fullName>MEDIUM</fullName>
+                    <default>true</default>
+                    <label>Medium</label>
+                </value>
+                <value>
+                    <fullName>HIGH</fullName>
+                    <default>false</default>
+                    <label>High</label>
+                </value>
+                <value>
+                    <fullName>CRITICAL</fullName>
+                    <default>false</default>
+                    <label>Critical</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    
+    <fields>
+        <fullName>Category__c</fullName>
+        <description>Category of error for classification</description>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <value>
+                    <fullName>SECURITY</fullName>
+                    <default>false</default>
+                    <label>Security</label>
+                </value>
+                <value>
+                    <fullName>DATA_VALIDATION</fullName>
+                    <default>false</default>
+                    <label>Data Validation</label>
+                </value>
+                <value>
+                    <fullName>INTEGRATION</fullName>
+                    <default>false</default>
+                    <label>Integration</label>
+                </value>
+                <value>
+                    <fullName>PERFORMANCE</fullName>
+                    <default>false</default>
+                    <label>Performance</label>
+                </value>
+                <value>
+                    <fullName>BUSINESS_LOGIC</fullName>
+                    <default>false</default>
+                    <label>Business Logic</label>
+                </value>
+                <value>
+                    <fullName>SYSTEM</fullName>
+                    <default>true</default>
+                    <label>System</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    
+    <fields>
+        <fullName>User__c</fullName>
+        <description>User who experienced the error</description>
+        <externalId>false</externalId>
+        <label>User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Error_Logs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    
+    <fields>
+        <fullName>Timestamp__c</fullName>
+        <description>When the error occurred</description>
+        <externalId>false</externalId>
+        <label>Timestamp</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    
+    <fields>
+        <fullName>Org_Id__c</fullName>
+        <description>Organization ID where error occurred</description>
+        <externalId>false</externalId>
+        <label>Org ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    
+    <fields>
+        <fullName>User_Profile__c</fullName>
+        <description>Profile of the user who experienced the error</description>
+        <externalId>false</externalId>
+        <label>User Profile</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    
+    <fields>
+        <fullName>Session_Id__c</fullName>
+        <description>Session ID when the error occurred</description>
+        <externalId>false</externalId>
+        <label>Session ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    
+    <fields>
+        <fullName>Context_Data__c</fullName>
+        <description>Additional context data as JSON</description>
+        <externalId>false</externalId>
+        <label>Context Data</label>
+        <length>32768</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    
+    <fields>
+        <fullName>Resolution_Notes__c</fullName>
+        <description>Notes about how the error was resolved</description>
+        <externalId>false</externalId>
+        <label>Resolution Notes</label>
+        <length>32768</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Status of the error log</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Resolved</fullName>
+                    <default>false</default>
+                    <label>Resolved</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+</CustomObject>

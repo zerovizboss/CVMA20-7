@@ -2192,6 +2192,8 @@
         <members>WorkTypeGroup</members>
         <members>WorkTypeGroupMember</members>
         <members>User</members>
+        <members>Membership_Application__c</members>
+        <members>CVMA_Error_Log__c</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -3046,6 +3048,16 @@
     </types>
     <types>
         <name>RecordType</name>
+    </types>
+    <types>
+        <members>CVMA_Application_Config</members>
+        <members>CVMA_Email_Template</members>
+        <members>CVMA_Application_Config.Membership_ID_Format</members>
+        <members>CVMA_Application_Config.Dashboard_Page_Size</members>
+        <members>CVMA_Application_Config.Email_Batch_Size</members>
+        <members>CVMA_Email_Template.Renewal_Reminder</members>
+        <members>CVMA_Email_Template.Welcome_New_Member</members>
+        <name>CustomMetadata</name>
     </types>
     <version>63.0</version>
 </Package>

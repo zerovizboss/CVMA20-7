@@ -7,44 +7,11 @@ public class CVMAMembershipApplicationControllerTest {
     
     @TestSetup
     static void setupTestData() {
-        // Create test account
-        Account testAccount = new Account(
-            Name = 'CVMA Test Chapter'
-        );
-        insert testAccount;
+        // Use CVMATestDataFactory for consistent test data creation
+        CVMATestDataFactory.TestDataBundle testData = CVMATestDataFactory.setupBasicTestData();
         
-        // Create officer user
-        Profile testProfile = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
-        User officerUser = new User(
-            FirstName = 'Test',
-            LastName = 'Officer',
-            Email = 'test.officer@cvma.com',
-            Username = 'test.officer.app@cvma.com.test',
-            Alias = 'tofficer',
-            TimeZoneSidKey = 'America/New_York',
-            LocaleSidKey = 'en_US',
-            EmailEncodingKey = 'UTF-8',
-            LanguageLocaleKey = 'en_US',
-            ProfileId = testProfile.Id
-        );
-        insert officerUser;
-        
-        // Create officer contact
-        Contact officerContact = new Contact(
-            FirstName = 'Test',
-            LastName = 'Officer',
-            Email = 'test.officer@cvma.com',
-            Phone = '555-123-4567',
-            Membership_Id__c = 'FM999',
-            Level__c = 'Full Member',
-            Road_Name__c = 'President Highway',
-            npo02__MembershipJoinDate__c = Date.today().addYears(-2),
-            npo02__MembershipEndDate__c = Date.today().addYears(1),
-            AccountId = testAccount.Id
-        );
-        insert officerContact;
-        
-        // Skip linking user to contact due to org permission limitations in test context
+        // Create additional test contacts for membership applications
+        List<Contact> additionalContacts = CVMATestDataFactory.createAndInsertContacts(3);
     }
     
     @IsTest
