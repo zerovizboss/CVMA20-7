@@ -8,7 +8,7 @@
 @IsTest
 public class CVMAGuestUserSchedulerAccessTest {
     
-    private static final String COMMUNITY_NAME = 'Combat Veterams Motorcycle Association';
+    private static final String COMMUNITY_NAME = 'Combat Veterans Motorcycle Association';
     private static final String GUEST_PROFILE_NAME = 'Guest License User';
     
     @TestSetup
@@ -68,8 +68,8 @@ public class CVMAGuestUserSchedulerAccessTest {
             ServiceTerritoryId = territory.Id,
             WorkTypeId = workType.Id,
             ParentRecordId = testWorkOrder.Id,
-            SchedStartTime = DateTime.now().addDays(1),
-            SchedEndTime = DateTime.now().addDays(1).addHours(1),
+            SchedStartTime = Datetime.now().addDays(1),
+            SchedEndTime = Datetime.now().addDays(1).addHours(1),
             Status = 'Scheduled',
             Description = 'Public CVMA meeting accessible to guests'
         ));
@@ -80,8 +80,8 @@ public class CVMAGuestUserSchedulerAccessTest {
             ServiceTerritoryId = territory.Id,
             WorkTypeId = workType.Id,
             ParentRecordId = testWorkOrder.Id,
-            SchedStartTime = DateTime.now().addDays(2),
-            SchedEndTime = DateTime.now().addDays(2).addHours(1),
+            SchedStartTime = Datetime.now().addDays(2),
+            SchedEndTime = Datetime.now().addDays(2).addHours(1),
             Status = 'Canceled',
             Description = 'Canceled meeting - should not be visible to guests'
         ));
@@ -114,8 +114,8 @@ public class CVMAGuestUserSchedulerAccessTest {
         events.add(new Event(
             Subject = 'Public CVMA Event',
             Description = 'Public event visible to guests',
-            StartDateTime = DateTime.now().addDays(3),
-            EndDateTime = DateTime.now().addDays(3).addHours(2),
+            StartDateTime = Datetime.now().addDays(3),
+            EndDateTime = Datetime.now().addDays(3).addHours(2),
             IsPrivate = false,
             WhatId = testAccount.Id,
             WhoId = testContact.Id
@@ -124,8 +124,8 @@ public class CVMAGuestUserSchedulerAccessTest {
         events.add(new Event(
             Subject = 'Private CVMA Event',
             Description = 'Private event not visible to guests',
-            StartDateTime = DateTime.now().addDays(4),
-            EndDateTime = DateTime.now().addDays(4).addHours(2),
+            StartDateTime = Datetime.now().addDays(4),
+            EndDateTime = Datetime.now().addDays(4).addHours(2),
             IsPrivate = true
         ));
         insert events;
@@ -165,8 +165,8 @@ public class CVMAGuestUserSchedulerAccessTest {
                 ServiceTerritoryId = territory.Id,
                 WorkTypeId = workType.Id,
                 ParentRecordId = testWorkOrder.Id,
-                SchedStartTime = DateTime.now().addDays(5),
-                SchedEndTime = DateTime.now().addDays(5).addHours(1),
+                SchedStartTime = Datetime.now().addDays(5),
+                SchedEndTime = Datetime.now().addDays(5).addHours(1),
                 Status = 'Scheduled',
                 Description = 'Appointment created by guest user'
             );
@@ -198,7 +198,7 @@ public class CVMAGuestUserSchedulerAccessTest {
             List<Case> visibleCases = [
                 SELECT Id, Subject, Type, Description 
                 FROM Case 
-                WHERE Type != 'Internal' OR Type = null
+                WHERE Type != 'Internal' OR Type = NULL
             ];
             
             System.assertEquals(1, visibleCases.size(), 
@@ -236,7 +236,7 @@ public class CVMAGuestUserSchedulerAccessTest {
             List<Event> visibleEvents = [
                 SELECT Id, Subject, IsPrivate, Description 
                 FROM Event 
-                WHERE IsPrivate = false
+                WHERE IsPrivate = FALSE
             ];
             
             System.assertEquals(1, visibleEvents.size(), 
@@ -252,8 +252,8 @@ public class CVMAGuestUserSchedulerAccessTest {
             Event newEvent = new Event(
                 Subject = 'Guest User Event',
                 Description = 'Event creation attempt by guest',
-                StartDateTime = DateTime.now().addDays(6),
-                EndDateTime = DateTime.now().addDays(6).addHours(1),
+                StartDateTime = Datetime.now().addDays(6),
+                EndDateTime = Datetime.now().addDays(6).addHours(1),
                 IsPrivate = false
             );
             
@@ -300,7 +300,7 @@ public class CVMAGuestUserSchedulerAccessTest {
             List<Event> privateEvents = [
                 SELECT Id, Subject, IsPrivate 
                 FROM Event 
-                WHERE IsPrivate = true
+                WHERE IsPrivate = TRUE
             ];
             
             System.assertEquals(0, privateEvents.size(), 
@@ -321,17 +321,17 @@ public class CVMAGuestUserSchedulerAccessTest {
         
         // Test object permissions through describe calls
         System.runAs(guestUser) {
-            Schema.DescribeSObjectResult serviceAppointmentDescribe = ServiceAppointment.sObjectType.getDescribe();
+            Schema.DescribeSObjectResult serviceAppointmentDescribe = ServiceAppointment.SObjectType.getDescribe();
             System.assert(serviceAppointmentDescribe.createable, 
                 'ServiceAppointment should be createable for guest user');
             System.assert(serviceAppointmentDescribe.updateable, 
                 'ServiceAppointment should be updateable for guest user');
             
-            Schema.DescribeSObjectResult caseDescribe = Case.sObjectType.getDescribe();
+            Schema.DescribeSObjectResult caseDescribe = Case.SObjectType.getDescribe();
             System.assert(caseDescribe.accessible, 
                 'Case should be accessible for guest user');
             
-            Schema.DescribeSObjectResult eventDescribe = Event.sObjectType.getDescribe();
+            Schema.DescribeSObjectResult eventDescribe = Event.SObjectType.getDescribe();
             System.assert(eventDescribe.accessible, 
                 'Event should be accessible for guest user');
         }
@@ -339,6 +339,7 @@ public class CVMAGuestUserSchedulerAccessTest {
     
     /**
      * Helper method to get or create a guest user for testing
+     * @return existingGuestUser
      */
     private static User getGuestUser() {
         Profile guestProfile = [SELECT Id FROM Profile WHERE Name = :GUEST_PROFILE_NAME LIMIT 1];
@@ -348,7 +349,7 @@ public class CVMAGuestUserSchedulerAccessTest {
             SELECT Id, Username, ProfileId 
             FROM User 
             WHERE ProfileId = :guestProfile.Id 
-            AND IsActive = true 
+            AND IsActive = TRUE
             LIMIT 1
         ];
         
@@ -376,6 +377,7 @@ public class CVMAGuestUserSchedulerAccessTest {
     
     /**
      * Helper method to get or create Operating Hours
+     * @return existingHours Id
      */
     private static Id getOperatingHours() {
         List<OperatingHours> existingHours = [SELECT Id FROM OperatingHours LIMIT 1];

@@ -25,7 +25,9 @@
       "Bash(unzip:*)",
       "Bash(ls:*)",
       "Bash(rm:*)",
-      "Bash(./bin/gh.exe:*)"
+      "Bash(./bin/gh.exe:*)",
+      "Bash(gh project:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }
