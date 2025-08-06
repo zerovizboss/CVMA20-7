@@ -2194,6 +2194,7 @@
         <members>User</members>
         <members>Membership_Application__c</members>
         <members>CVMA_Error_Log__c</members>
+        <members>CVMA_Event_RSVP__c</members>
         <name>CustomObject</name>
     </types>
     <types>

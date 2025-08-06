@@ -1,0 +1,206 @@
+<!--
+    Lightning Web Component template for CVMA Event RSVP functionality
+    Author: Claude AI - CVMA Development Team
+    Date: January 2025
+-->
+
+<template>
+    <lightning-card title="Event RSVP" icon-name="standard:event">
+        
+        <!-- Current RSVP Status -->
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-gutters slds-wrap">
+                
+                <!-- User's Current Response -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="slds-box slds-theme_shade slds-text-align_center">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Your Response</h3>
+                        <p class={currentResponseClass}>
+                            <lightning-formatted-text value={currentResponseDisplay}></lightning-formatted-text>
+                        </p>
+                        <template if:true={hasExistingRSVP}>
+                            <p class="slds-text-body_small slds-text-color_weak">
+                                Submitted: <lightning-formatted-date-time 
+                                    value={currentRSVP.RSVP_Date__c}
+                                    year="numeric" month="short" day="numeric"
+                                    hour="2-digit" minute="2-digit">
+                                </lightning-formatted-date-time>
+                            </p>
+                            <template if:true={currentRSVP.Plus_One__c}>
+                                <p class="slds-text-body_small">
+                                    <lightning-icon icon-name="utility:adduser" size="xx-small"></lightning-icon>
+                                    Plus One: {currentRSVP.Plus_One_Name__c}
+                                </p>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+                
+                <!-- RSVP Summary (if enabled) -->
+                <template if:true={showSummary}>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <template if:true={rsvpSummary}>
+                            <div class="slds-box slds-theme_default">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small slds-text-align_center">
+                                    Event Summary
+                                </h3>
+                                <div class="slds-grid slds-gutters slds-grid_align-center">
+                                    <div class="slds-col slds-text-align_center">
+                                        <span class="slds-text-heading_medium slds-text-color_success">
+                                            {rsvpSummary.totalAttending}
+                                        </span>
+                                        <p class="slds-text-body_small">Attending</p>
+                                    </div>
+                                    <div class="slds-col slds-text-align_center">
+                                        <span class="slds-text-heading_medium slds-text-color_error">
+                                            {rsvpSummary.noCount}
+                                        </span>
+                                        <p class="slds-text-body_small">Can't Make It</p>
+                                    </div>
+                                    <div class="slds-col slds-text-align_center">
+                                        <span class="slds-text-heading_medium slds-text-color_default">
+                                            {rsvpSummary.maybeCount}
+                                        </span>
+                                        <p class="slds-text-body_small">Maybe</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                
+            </div>
+            
+            <!-- Quick RSVP Buttons (when not showing form) -->
+            <template if:false={showRSVPForm}>
+                <div class="slds-m-top_medium slds-text-align_center">
+                    <template if:false={hasExistingRSVP}>
+                        <h4 class="slds-text-heading_small slds-m-bottom_small">
+                            Will you be attending this event?
+                        </h4>
+                    </template>
+                    <template if:true={hasExistingRSVP}>
+                        <h4 class="slds-text-heading_small slds-m-bottom_small">
+                            Want to change your response?
+                        </h4>
+                    </template>
+                    
+                    <div class="slds-button-group" role="group">
+                        <button class="slds-button slds-button_success" 
+                                data-response="Yes"
+                                onclick={handleQuickRSVP}
+                                disabled={isLoading}>
+                            <lightning-icon icon-name="utility:check" size="xx-small"></lightning-icon>
+                            Yes
+                        </button>
+                        <button class="slds-button slds-button_destructive" 
+                                data-response="No"
+                                onclick={handleQuickRSVP}
+                                disabled={isLoading}>
+                            <lightning-icon icon-name="utility:close" size="xx-small"></lightning-icon>
+                            No
+                        </button>
+                        <button class="slds-button slds-button_neutral" 
+                                onclick={handleRSVPClick}
+                                disabled={isLoading}>
+                            <lightning-icon icon-name="utility:edit" size="xx-small"></lightning-icon>
+More Options
+                        </button>
+                    </div>
+                </div>
+            </template>
+            
+            <!-- Detailed RSVP Form -->
+            <template if:true={showRSVPForm}>
+                <div class="slds-m-top_medium">
+                    <lightning-card title="RSVP Details">
+                        <div class="slds-card__body slds-card__body_inner">
+                            
+                            <!-- Response Selection -->
+                            <div class="slds-form-element slds-m-bottom_medium">
+                                <label class="slds-form-element__label slds-text-body_small">
+                                    <abbr class="slds-required" title="required">*</abbr>
+                                    Your Response
+                                </label>
+                                <lightning-radio-group 
+                                    name="rsvpResponse"
+                                    options={responseOptions}
+                                    value={selectedResponse}
+                                    type="radio"
+                                    onchange={handleResponseChange}
+                                    required>
+                                </lightning-radio-group>
+                            </div>
+                            
+                            <!-- Plus One Section -->
+                            <template if:true={allowPlusOne}>
+                                <div class="slds-form-element slds-m-bottom_medium">
+                                    <lightning-input 
+                                        type="checkbox"
+                                        label="I'm bringing a guest (+1)"
+                                        checked={bringPlusOne}
+                                        onchange={handlePlusOneChange}>
+                                    </lightning-input>
+                                </div>
+                                
+                                <template if:true={showPlusOneName}>
+                                    <div class="slds-form-element slds-m-bottom_medium">
+                                        <lightning-input 
+                                            type="text"
+                                            label="Guest Name"
+                                            value={plusOneName}
+                                            onchange={handlePlusOneNameChange}
+                                            placeholder="Enter your guest's name"
+                                            required>
+                                        </lightning-input>
+                                    </div>
+                                </template>
+                            </template>
+                            
+                            <!-- Notes Section -->
+                            <template if:true={allowNotes}>
+                                <div class="slds-form-element slds-m-bottom_medium">
+                                    <lightning-textarea 
+                                        label="Additional Notes (Optional)"
+                                        value={rsvpNotes}
+                                        onchange={handleNotesChange}
+                                        placeholder="Any additional comments or special requirements..."
+                                        max-length="1000">
+                                    </lightning-textarea>
+                                </div>
+                            </template>
+                            
+                            <!-- Action Buttons -->
+                            <div class="slds-text-align_center">
+                                <button class="slds-button slds-button_neutral slds-m-right_small" 
+                                        onclick={handleCancel}
+                                        disabled={isLoading}>
+                                    Cancel
+                                </button>
+                                <button class="slds-button slds-button_brand" 
+                                        onclick={handleSubmit}
+                                        disabled={isSubmitDisabled}>
+                                    <template if:true={isLoading}>
+                                        <lightning-spinner alternative-text="Submitting..." size="small"></lightning-spinner>
+                                    </template>
+                                    <template if:false={isLoading}>
+    Submit RSVP
+                                    </template>
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </lightning-card>
+                </div>
+            </template>
+            
+            <!-- Loading State -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-m-top_medium">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+            
+        </div>
+    </lightning-card>
+</template>

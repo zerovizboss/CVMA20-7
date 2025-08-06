@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Lightning Web Component for displaying CVMA Event attendee list with privacy controls and summary statistics</description>
+    <masterLabel>CVMA Event Attendee List</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Event</object>
+            </objects>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="eventId" type="String" label="Event ID" description="The Event record ID to display attendees for"/>
+            <property name="showPrivateInfo" type="Boolean" default="false" label="Show Private Info" description="Whether to show full member details (requires proper permissions)"/>
+            <property name="maxDisplayCount" type="Integer" default="10" label="Max Display Count" description="Maximum number of attendees to show initially"/>
+            <property name="showSummaryStats" type="Boolean" default="true" label="Show Summary Stats" description="Whether to display RSVP summary statistics"/>
+            <property name="allowExpansion" type="Boolean" default="true" label="Allow Expansion" description="Whether to allow expanding the attendee list"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
