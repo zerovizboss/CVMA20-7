@@ -1,0 +1,60 @@
+# CVMA Pre-commit Configuration
+# Ensures code quality before commits reach the repository
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        files: \.(cls|trigger|js|html|css|xml|md)$
+      - id: end-of-file-fixer
+        files: \.(cls|trigger|js|html|css|xml|md)$
+      - id: check-yaml
+        files: \.(yml|yaml)$
+      - id: check-json
+        files: \.json$
+      - id: check-xml
+        files: \.xml$
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        files: \.py$
+        language_version: python3
+
+  - repo: local
+    hooks:
+      - id: apex-pmd-check
+        name: Apex PMD Analysis
+        entry: scripts/pre-commit-pmd.sh
+        language: script
+        files: \.cls$
+        pass_filenames: false
+        
+      - id: apex-test-validation
+        name: Validate Apex Test Classes
+        entry: scripts/validate-apex-tests.sh
+        language: script
+        files: \.cls$
+        pass_filenames: false
+        
+      - id: security-scan
+        name: Security Pattern Validation
+        entry: scripts/security-scan.sh
+        language: script
+        files: \.(cls|trigger)$
+        pass_filenames: false
+        
+      - id: cvma-naming-validation
+        name: CVMA Naming Convention Check
+        entry: scripts/cvma-naming-check.sh
+        language: script
+        files: \.(cls|trigger)$
+        pass_filenames: false
