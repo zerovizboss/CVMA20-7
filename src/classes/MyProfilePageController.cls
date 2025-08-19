@@ -49,5 +49,5 @@ public with sharing class MyProfilePageController {
                 street, city, country, postalcode, state, localesidkey, mobilephone, extension, fax, contact.email
                 FROM User
                 WHERE id = :UserInfo.getUserId()];
-    }    
+    }
 }

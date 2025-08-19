@@ -1,9 +1,9 @@
 # CVMA 20-7 Experience Builder Site - SDLC Lifecycle
 
 ## Project Overview
-**Project Name**: CVMA 20-7 Enhanced Experience Builder Site  
-**Site URL**: https://cvma20-7-dev-ed.develop.my.site.com  
-**Mission**: Enhance the Combat Veterans Motorcycle Association Chapter 20-7 digital experience to better serve veterans and their families  
+**Project Name**: CVMA 20-7 Enhanced Experience Builder Site
+**Site URL**: https://cvma20-7-dev-ed.develop.my.site.com
+**Mission**: Enhance the Combat Veterans Motorcycle Association Chapter 20-7 digital experience to better serve veterans and their families
 **Primary Goal**: Expand functionality beyond guest user event calendar access to create a comprehensive veteran services platform
 
 ---
@@ -11,7 +11,7 @@
 ## SDLC Framework
 
 ### Phase 1: Requirements Gathering & Analysis
-**Duration**: 2-3 weeks  
+**Duration**: 2-3 weeks
 **Key Activities**:
 - Stakeholder interviews with CVMA leadership
 - Current state analysis of existing site
@@ -19,7 +19,7 @@
 - Technical assessment and constraints analysis
 
 ### Phase 2: Design & Architecture
-**Duration**: 3-4 weeks  
+**Duration**: 3-4 weeks
 **Key Activities**:
 - User experience design
 - Technical architecture planning
@@ -27,7 +27,7 @@
 - Security and access control design
 
 ### Phase 3: Development Sprints
-**Duration**: 8-12 weeks (3-4 sprints of 2-3 weeks each)  
+**Duration**: 8-12 weeks (3-4 sprints of 2-3 weeks each)
 **Key Activities**:
 - Agile development cycles
 - Feature implementation
@@ -35,7 +35,7 @@
 - Continuous integration
 
 ### Phase 4: Testing & Quality Assurance
-**Duration**: 2-3 weeks  
+**Duration**: 2-3 weeks
 **Key Activities**:
 - System integration testing
 - User acceptance testing
@@ -43,7 +43,7 @@
 - Security vulnerability assessment
 
 ### Phase 5: Deployment & Launch
-**Duration**: 1-2 weeks  
+**Duration**: 1-2 weeks
 **Key Activities**:
 - Production deployment
 - Go-live support
@@ -51,7 +51,7 @@
 - Post-launch monitoring
 
 ### Phase 6: Maintenance & Enhancement
-**Duration**: Ongoing  
+**Duration**: Ongoing
 **Key Activities**:
 - Bug fixes and patches
 - Feature enhancements
@@ -67,7 +67,7 @@
 
 #### User Stories:
 1. **As a CVMA member**, I want to update my profile information online so that I can keep my contact details current without calling the office.
-   - **Acceptance Criteria**: 
+   - **Acceptance Criteria**:
      - Member can log in securely
      - Profile form includes all relevant fields (contact info, bike details, emergency contacts)
      - Changes are saved and validated

@@ -9,6 +9,6 @@ global with sharing class SiteLoginController {
         String startUrl = System.currentPageReference().getParameters().get('startURL');
         return Site.login(username, password, startUrl);
     }
-    
+
    	global SiteLoginController () {}
 }

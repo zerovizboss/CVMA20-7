@@ -6,19 +6,19 @@
     <externalId>false</externalId>
     <formula>IF(
   ISPICKVAL(npe01__Primary_Address_Type__c,&quot;Work&quot;),
-  IF(ISBLANK(MailingStreet), &quot;&quot;, MailingStreet &amp; &quot;, &quot;) &amp; 
-  IF(ISBLANK(MailingCity), &quot;&quot;, MailingCity &amp; &quot;, &quot;)&amp; 
-  IF(ISBLANK(MailingState), &quot;&quot;, MailingState &amp; &quot; &quot;)&amp; 
-  IF(ISBLANK(MailingPostalCode), &quot;&quot;, MailingPostalCode) &amp; 
+  IF(ISBLANK(MailingStreet), &quot;&quot;, MailingStreet &amp; &quot;, &quot;) &amp;
+  IF(ISBLANK(MailingCity), &quot;&quot;, MailingCity &amp; &quot;, &quot;)&amp;
+  IF(ISBLANK(MailingState), &quot;&quot;, MailingState &amp; &quot; &quot;)&amp;
+  IF(ISBLANK(MailingPostalCode), &quot;&quot;, MailingPostalCode) &amp;
   IF(ISBLANK(MailingCountry), &quot;&quot;, &quot;, &quot; &amp;MailingCountry)
 ,
 IF(ISPICKVAL(npe01__Secondary_Address_Type__c,&quot;Work&quot;),
-  IF(ISBLANK(OtherStreet), &quot;&quot;, OtherStreet &amp; &quot;, &quot;) &amp; 
-  IF(ISBLANK(OtherCity), &quot;&quot;, OtherCity &amp; &quot;, &quot;)&amp; 
-  IF(ISBLANK(OtherState), &quot;&quot;, OtherState &amp; &quot; &quot;)&amp; 
-  IF(ISBLANK(OtherPostalCode), &quot;&quot;, OtherPostalCode) &amp; 
+  IF(ISBLANK(OtherStreet), &quot;&quot;, OtherStreet &amp; &quot;, &quot;) &amp;
+  IF(ISBLANK(OtherCity), &quot;&quot;, OtherCity &amp; &quot;, &quot;)&amp;
+  IF(ISBLANK(OtherState), &quot;&quot;, OtherState &amp; &quot; &quot;)&amp;
+  IF(ISBLANK(OtherPostalCode), &quot;&quot;, OtherPostalCode) &amp;
   IF(ISBLANK(OtherCountry), &quot;&quot;, &quot;, &quot; &amp; OtherCountry)
-  ,&quot;&quot; 
+  ,&quot;&quot;
 )
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

@@ -2,9 +2,9 @@
 
 ## Test Execution Summary
 
-**Date:** July 25, 2025  
-**Org:** cvma20-7-dev-ed.develop.my.salesforce.com  
-**Test Run ID:** 707bm00000SI7Xr  
+**Date:** July 25, 2025
+**Org:** cvma20-7-dev-ed.develop.my.salesforce.com
+**Test Run ID:** 707bm00000SI7Xr
 **Total Execution Time:** 10.833 seconds
 
 ### Overall Results
@@ -22,13 +22,13 @@
 - **Validation:** Guest License User profile exists and is properly configured
 - **Result:** Profile found and correctly named
 
-### 2. **testServiceAppointmentObjectAccess** ✅  
+### 2. **testServiceAppointmentObjectAccess** ✅
 - **Runtime:** 372ms
 - **Status:** PASSED
 - **Validation:** Guest users can access ServiceAppointment object with proper permissions
-- **Result:** 
+- **Result:**
   - ✅ ServiceAppointment accessible
-  - ✅ ServiceAppointment createable 
+  - ✅ ServiceAppointment createable
   - ✅ ServiceAppointment updateable
 
 ### 3. **testServiceAppointmentQuery** ✅
@@ -38,7 +38,7 @@
 - **Result:** SOQL queries execute successfully for guest users
 
 ### 4. **testEventQuery** ✅
-- **Runtime:** 482ms  
+- **Runtime:** 482ms
 - **Status:** PASSED
 - **Validation:** Guest users can query Event records
 - **Result:** Event queries work with privacy filtering
@@ -51,7 +51,7 @@
 
 ### 6. **testRelatedObjectAccess** ✅
 - **Runtime:** 596ms
-- **Status:** PASSED  
+- **Status:** PASSED
 - **Validation:** Guest users can access Service Territory and Work Type objects
 - **Result:**
   - ✅ ServiceTerritory accessible and queryable
@@ -68,7 +68,7 @@
 
 ### 2. **testCaseObjectAccess** ❌
 - **Runtime:** 8,032ms
-- **Status:** FAILED  
+- **Status:** FAILED
 - **Error:** "Case should be accessible for guest user"
 - **Root Cause:** Case object permissions not properly configured in Guest License User profile
 - **Recommendation:** Update Guest License User profile to include Case object read permissions
@@ -143,7 +143,7 @@ The test class `CVMASimpleGuestUserTest` focuses on **permissions validation** r
 
 ### Classes in Org (No Coverage Required)
 - **CVMAGuestUserSchedulerAccessTest:** 627 lines (0% coverage)
-- **CVMASimpleGuestUserTest:** 255 lines (0% coverage) 
+- **CVMASimpleGuestUserTest:** 255 lines (0% coverage)
 - **MyIterable:** 4 lines (0% coverage)
 - **Various Controllers:** Community login/registration controllers (0% coverage)
 
@@ -154,7 +154,7 @@ The test class `CVMASimpleGuestUserTest` focuses on **permissions validation** r
 # Deploy missing object permissions
 sf project deploy start --source-dir src/profiles --target-org cvma
 
-# Deploy custom permission set  
+# Deploy custom permission set
 sf project deploy start --source-dir src/permissionsets --target-org cvma
 
 # Deploy sharing rules
@@ -164,7 +164,7 @@ sf project deploy start --source-dir src/sharingRules --target-org cvma
 ### 2. **Profile Updates Needed**
 Update `src/profiles/Guest License User.profile` to include:
 - Event object read permissions
-- Case object read permissions  
+- Case object read permissions
 - ServiceResource object read permissions
 - OperatingHours object read permissions
 

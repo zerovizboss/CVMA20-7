@@ -18,14 +18,14 @@
             System.assert(controller.getIsEdit() == true);
             controller.cancel();
             System.assert(controller.getIsEdit() == false);
-            
+
             System.assert(Page.ChangePassword.getUrl().equals(controller.changePassword().getUrl()));
-            
+
             String randFax = Math.rint(Math.random() * 1000) + '5551234';
             controller.getUser().Fax = randFax;
             controller.save();
             System.assert(controller.getIsEdit() == false);
-            
+
             currentUser = [Select id, fax from User where id =: currentUser.Id];
             System.assert(currentUser.fax == randFax);
         } else {

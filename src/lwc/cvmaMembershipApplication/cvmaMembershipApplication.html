@@ -1,26 +1,26 @@
 <template>
     <lightning-card title="CVMA Chapter 20-7 Membership Application" icon-name="standard:contact">
         <div class="slds-p-horizontal_large slds-p-vertical_medium">
-            
+
             <!-- Application Progress Indicator -->
-            <lightning-progress-indicator 
-                current-step={currentStep} 
-                type="path" 
+            <lightning-progress-indicator
+                current-step={currentStep}
+                type="path"
                 variant="base">
-                <lightning-progress-step 
-                    label="Personal Information" 
+                <lightning-progress-step
+                    label="Personal Information"
                     value="personal">
                 </lightning-progress-step>
-                <lightning-progress-step 
-                    label="Military Service" 
+                <lightning-progress-step
+                    label="Military Service"
                     value="military">
                 </lightning-progress-step>
-                <lightning-progress-step 
-                    label="Emergency Contact" 
+                <lightning-progress-step
+                    label="Emergency Contact"
                     value="emergency">
                 </lightning-progress-step>
-                <lightning-progress-step 
-                    label="Documents & Review" 
+                <lightning-progress-step
+                    label="Documents & Review"
                     value="documents">
                 </lightning-progress-step>
             </lightning-progress-indicator>
@@ -45,8 +45,8 @@
             <template if:true={isPersonalStep}>
                 <div class="slds-grid slds-wrap slds-gutters">
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="First Name" 
+                        <lightning-input
+                            label="First Name"
                             value={application.firstName}
                             onchange={handleInputChange}
                             data-field="firstName"
@@ -54,8 +54,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Last Name" 
+                        <lightning-input
+                            label="Last Name"
                             value={application.lastName}
                             onchange={handleInputChange}
                             data-field="lastName"
@@ -63,8 +63,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Email Address" 
+                        <lightning-input
+                            label="Email Address"
                             type="email"
                             value={application.email}
                             onchange={handleInputChange}
@@ -73,8 +73,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Phone Number" 
+                        <lightning-input
+                            label="Phone Number"
                             type="tel"
                             value={application.phone}
                             onchange={handleInputChange}
@@ -83,8 +83,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-1">
-                        <lightning-textarea 
-                            label="Mailing Address" 
+                        <lightning-textarea
+                            label="Mailing Address"
                             value={application.mailingAddress}
                             onchange={handleInputChange}
                             data-field="mailingAddress"
@@ -92,8 +92,8 @@
                         </lightning-textarea>
                     </div>
                     <div class="slds-col slds-size_1-of-3">
-                        <lightning-input 
-                            label="City" 
+                        <lightning-input
+                            label="City"
                             value={application.city}
                             onchange={handleInputChange}
                             data-field="city"
@@ -101,8 +101,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-3">
-                        <lightning-combobox 
-                            label="State/Province" 
+                        <lightning-combobox
+                            label="State/Province"
                             value={application.state}
                             options={stateOptions}
                             onchange={handleInputChange}
@@ -111,8 +111,8 @@
                         </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-3">
-                        <lightning-input 
-                            label="ZIP/Postal Code" 
+                        <lightning-input
+                            label="ZIP/Postal Code"
                             value={application.postalCode}
                             onchange={handleInputChange}
                             data-field="postalCode"
@@ -120,8 +120,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Date of Birth" 
+                        <lightning-input
+                            label="Date of Birth"
                             type="date"
                             value={application.dateOfBirth}
                             onchange={handleInputChange}
@@ -130,8 +130,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Desired Road Name (Optional)" 
+                        <lightning-input
+                            label="Desired Road Name (Optional)"
                             value={application.roadName}
                             onchange={handleInputChange}
                             data-field="roadName">
@@ -150,7 +150,7 @@
                                 Military Service Status
                             </label>
                             <div class="slds-form-element__control">
-                                <lightning-radio-group 
+                                <lightning-radio-group
                                     name="serviceStatus"
                                     value={application.serviceStatus}
                                     options={serviceStatusOptions}
@@ -162,8 +162,8 @@
                         </div>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-combobox 
-                            label="Branch of Service" 
+                        <lightning-combobox
+                            label="Branch of Service"
                             value={application.serviceBranch}
                             options={serviceBranchOptions}
                             onchange={handleInputChange}
@@ -172,16 +172,16 @@
                         </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Military Occupation/MOS" 
+                        <lightning-input
+                            label="Military Occupation/MOS"
                             value={application.militaryOccupation}
                             onchange={handleInputChange}
                             data-field="militaryOccupation">
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Service Start Date" 
+                        <lightning-input
+                            label="Service Start Date"
                             type="date"
                             value={application.serviceStartDate}
                             onchange={handleInputChange}
@@ -190,8 +190,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Service End Date" 
+                        <lightning-input
+                            label="Service End Date"
                             type="date"
                             value={application.serviceEndDate}
                             onchange={handleInputChange}
@@ -199,16 +199,16 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-1">
-                        <lightning-textarea 
-                            label="Deployments/Combat Zones (Include dates and locations)" 
+                        <lightning-textarea
+                            label="Deployments/Combat Zones (Include dates and locations)"
                             value={application.deployments}
                             onchange={handleInputChange}
                             data-field="deployments">
                         </lightning-textarea>
                     </div>
                     <div class="slds-col slds-size_1-of-1">
-                        <lightning-textarea 
-                            label="Awards and Decorations" 
+                        <lightning-textarea
+                            label="Awards and Decorations"
                             value={application.awards}
                             onchange={handleInputChange}
                             data-field="awards">
@@ -218,8 +218,8 @@
                         <div class="slds-form-element">
                             <div class="slds-form-element__control">
                                 <span class="slds-checkbox">
-                                    <input 
-                                        type="checkbox" 
+                                    <input
+                                        type="checkbox"
                                         id="combatVeteran"
                                         checked={application.isCombatVeteran}
                                         onchange={handleCheckboxChange}
@@ -239,8 +239,8 @@
             <template if:true={isEmergencyStep}>
                 <div class="slds-grid slds-wrap slds-gutters">
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Emergency Contact Name" 
+                        <lightning-input
+                            label="Emergency Contact Name"
                             value={application.emergencyContactName}
                             onchange={handleInputChange}
                             data-field="emergencyContactName"
@@ -248,8 +248,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Relationship" 
+                        <lightning-input
+                            label="Relationship"
                             value={application.emergencyContactRelationship}
                             onchange={handleInputChange}
                             data-field="emergencyContactRelationship"
@@ -257,8 +257,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Emergency Contact Phone" 
+                        <lightning-input
+                            label="Emergency Contact Phone"
                             type="tel"
                             value={application.emergencyContactPhone}
                             onchange={handleInputChange}
@@ -267,8 +267,8 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input 
-                            label="Emergency Contact Email" 
+                        <lightning-input
+                            label="Emergency Contact Email"
                             type="email"
                             value={application.emergencyContactEmail}
                             onchange={handleInputChange}
@@ -282,7 +282,7 @@
                                 Desired Membership Level
                             </label>
                             <div class="slds-form-element__control">
-                                <lightning-radio-group 
+                                <lightning-radio-group
                                     name="membershipLevel"
                                     value={application.membershipLevel}
                                     options={membershipLevelOptions}
@@ -304,7 +304,7 @@
                         <div class="slds-box slds-theme_shade slds-m-bottom_medium">
                             <h3 class="slds-text-heading_small slds-m-bottom_small">Required Documents</h3>
                             <p class="slds-m-bottom_medium">Please upload the following documents to complete your application:</p>
-                            
+
                             <lightning-file-upload
                                 label="DD-214 or Service Record"
                                 name="dd214Upload"
@@ -313,7 +313,7 @@
                                 onuploadfinished={handleDD214Upload}
                                 multiple="false">
                             </lightning-file-upload>
-                            
+
                             <template if:true={application.dd214Uploaded}>
                                 <div class="slds-m-top_x-small">
                                     <lightning-icon icon-name="utility:success" size="x-small" variant="success"></lightning-icon>
@@ -327,7 +327,7 @@
                     <div class="slds-col slds-size_1-of-1">
                         <div class="slds-box">
                             <h3 class="slds-text-heading_small slds-m-bottom_medium">Application Review</h3>
-                            
+
                             <dl class="slds-list_horizontal slds-wrap">
                                 <dt class="slds-item_label slds-text-color_weak slds-truncate">Name:</dt>
                                 <dd class="slds-item_detail slds-truncate">{application.firstName} {application.lastName}</dd>
@@ -349,8 +349,8 @@
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <span class="slds-checkbox">
-                                        <input 
-                                            type="checkbox" 
+                                        <input
+                                            type="checkbox"
                                             id="termsAccepted"
                                             checked={application.termsAccepted}
                                             onchange={handleCheckboxChange}
@@ -374,27 +374,27 @@
             <div class="slds-m-top_large">
                 <div class="slds-grid">
                     <template if:false={isFirstStep}>
-                        <lightning-button 
-                            label="Previous" 
+                        <lightning-button
+                            label="Previous"
                             onclick={handlePrevious}
                             class="slds-m-right_small">
                         </lightning-button>
                     </template>
-                    
+
                     <div class="slds-col_bump-left">
                         <template if:false={isLastStep}>
-                            <lightning-button 
-                                variant="brand" 
-                                label="Next" 
+                            <lightning-button
+                                variant="brand"
+                                label="Next"
                                 onclick={handleNext}
                                 disabled={isProcessing}>
                             </lightning-button>
                         </template>
-                        
+
                         <template if:true={isLastStep}>
-                            <lightning-button 
-                                variant="brand" 
-                                label="Submit Application" 
+                            <lightning-button
+                                variant="brand"
+                                label="Submit Application"
                                 onclick={handleSubmit}
                                 disabled={submitDisabled}
                                 class="slds-m-right_small">

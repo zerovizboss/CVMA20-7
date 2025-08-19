@@ -33,28 +33,28 @@ repos:
     hooks:
       - id: apex-pmd-check
         name: Apex PMD Analysis
-        entry: scripts/pre-commit-pmd.sh
-        language: script
+        entry: bash scripts/pre-commit-pmd.sh
+        language: system
         files: \.cls$
         pass_filenames: false
         
       - id: apex-test-validation
         name: Validate Apex Test Classes
-        entry: scripts/validate-apex-tests.sh
-        language: script
+        entry: bash scripts/validate-apex-tests.sh
+        language: system
         files: \.cls$
         pass_filenames: false
         
       - id: security-scan
         name: Security Pattern Validation
-        entry: scripts/security-scan.sh
-        language: script
+        entry: bash scripts/security-scan.sh
+        language: system
         files: \.(cls|trigger)$
         pass_filenames: false
         
       - id: cvma-naming-validation
         name: CVMA Naming Convention Check
-        entry: scripts/cvma-naming-check.sh
-        language: script
+        entry: bash scripts/cvma-naming-check.sh
+        language: system
         files: \.(cls|trigger)$
         pass_filenames: false

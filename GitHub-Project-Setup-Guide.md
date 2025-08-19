@@ -171,7 +171,7 @@ Configure these status options:
 - **Items**: All requirement gathering tasks, stakeholder interviews, technical assessment
 
 ### Milestone 2: Design & Architecture Complete
-- **Due Date**: 7 weeks from project start  
+- **Due Date**: 7 weeks from project start
 - **Items**: UX design, technical architecture, database schema, security design
 
 ### Milestone 3: Sprint 1 Complete - Core Member Management

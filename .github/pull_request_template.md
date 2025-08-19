@@ -13,8 +13,8 @@ Brief description of the changes made.
 - [ ] 🔧 Build/CI configuration changes
 
 ## 🎯 Epic & User Story
-- **Epic:** 
-- **User Story:** 
+- **Epic:**
+- **User Story:**
 - **GitHub Issue:** Closes #
 
 ## ✅ Pre-Submission Checklist
@@ -82,5 +82,5 @@ Brief description of the changes made.
 <!-- Special considerations for deployment -->
 
 ---
-**Combat Veterans Motorcycle Association - Chapter 20-7**  
+**Combat Veterans Motorcycle Association - Chapter 20-7**
 *Vets Serving Vets* 🏍️

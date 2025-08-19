@@ -56,7 +56,11 @@
       "Bash(echo $PATH)",
       "Bash(./scripts/pre-commit-pmd.sh:*)",
       "Bash(chmod:*)",
-      "Bash(./scripts/run-pmd-analysis.sh:*)"
+      "Bash(./scripts/run-pmd-analysis.sh:*)",
+      "Bash(pip --version)",
+      "Bash(pip install:*)",
+      "Bash(pre-commit:*)",
+      "Bash(bash:*)"
     ],
     "deny": []
   }

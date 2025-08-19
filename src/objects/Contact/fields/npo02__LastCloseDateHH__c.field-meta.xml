@@ -3,7 +3,7 @@
     <fullName>npo02__LastCloseDateHH__c</fullName>
     <deprecated>false</deprecated>
     <description>Formula: Last Close Date field of the related Household.</description>
-    <formula>IF(npe01__Organization_Type__c == &apos;Household Account&apos;, 
+    <formula>IF(npe01__Organization_Type__c == &apos;Household Account&apos;,
 Account.npo02__LastCloseDate__c,
 npo02__Household__r.npo02__LastCloseDate__c)</formula>
     <label>Last Household Gift Date</label>

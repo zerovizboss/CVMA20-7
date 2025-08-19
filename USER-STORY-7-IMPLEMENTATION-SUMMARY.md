@@ -3,7 +3,7 @@
 ## User Story
 **As a CVMA member, I want to update my profile information online so that I can keep my contact details current without calling the office**
 
-**GitHub Issue**: https://github.com/zerovizboss/CVMA20-7/issues/7  
+**GitHub Issue**: https://github.com/zerovizboss/CVMA20-7/issues/7
 **Parent Epic**: https://github.com/zerovizboss/CVMA20-7/issues/1
 
 ---

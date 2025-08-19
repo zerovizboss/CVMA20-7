@@ -1,7 +1,7 @@
 <!-- CVMA Member Profile Management Component -->
 <template>
     <lightning-card title="Member Profile" icon-name="utility:user">
-        
+
         <!-- Loading Spinner -->
         <div if:true={isLoading} class="slds-is-relative">
             <lightning-spinner alternative-text="Saving profile..." size="medium"></lightning-spinner>
@@ -21,9 +21,9 @@
                 </div>
                 <div class="slds-media__figure slds-media__figure_reverse">
                     <template if:false={isEditing}>
-                        <lightning-button 
-                            label="Edit Profile" 
-                            variant="brand" 
+                        <lightning-button
+                            label="Edit Profile"
+                            variant="brand"
                             onclick={handleEdit}
                             icon-name="utility:edit">
                         </lightning-button>
@@ -34,7 +34,7 @@
 
         <!-- Profile Content -->
         <div class="slds-card__body slds-card__body_inner slds-p-around_medium">
-            
+
             <!-- Personal Information Section -->
             <div class="slds-section slds-is-open">
                 <h3 class="slds-section__title slds-theme_shade">
@@ -43,15 +43,15 @@
                         Personal Information
                     </span>
                 </h3>
-                
+
                 <div class="slds-section__content slds-p-top_medium">
                     <div class="slds-grid slds-gutters slds-wrap">
                         <!-- First Name -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="text" 
-                                    label="First Name" 
+                                <lightning-input
+                                    type="text"
+                                    label="First Name"
                                     value={userRecord.FirstName}
                                     data-field="FirstName"
                                     data-record-type="user"
@@ -72,9 +72,9 @@
                         <!-- Last Name -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="text" 
-                                    label="Last Name" 
+                                <lightning-input
+                                    type="text"
+                                    label="Last Name"
                                     value={userRecord.LastName}
                                     data-field="LastName"
                                     data-record-type="user"
@@ -103,15 +103,15 @@
                         Contact Information
                     </span>
                 </h3>
-                
+
                 <div class="slds-section__content slds-p-top_medium">
                     <div class="slds-grid slds-gutters slds-wrap">
                         <!-- Email -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="email" 
-                                    label="Email" 
+                                <lightning-input
+                                    type="email"
+                                    label="Email"
                                     value={userRecord.Email}
                                     data-field="Email"
                                     data-record-type="user"
@@ -132,9 +132,9 @@
                         <!-- Phone -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="tel" 
-                                    label="Phone" 
+                                <lightning-input
+                                    type="tel"
+                                    label="Phone"
                                     value={contactRecord.Phone}
                                     data-field="Phone"
                                     data-record-type="contact"
@@ -154,9 +154,9 @@
                         <!-- Mobile Phone -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="tel" 
-                                    label="Mobile Phone" 
+                                <lightning-input
+                                    type="tel"
+                                    label="Mobile Phone"
                                     value={contactRecord.MobilePhone}
                                     data-field="MobilePhone"
                                     data-record-type="contact"
@@ -184,14 +184,14 @@
                         Mailing Address
                     </span>
                 </h3>
-                
+
                 <div class="slds-section__content slds-p-top_medium">
                     <div class="slds-grid slds-gutters slds-wrap">
                         <!-- Street Address -->
                         <div class="slds-col slds-size_1-of-1">
                             <template if:true={isEditing}>
-                                <lightning-textarea 
-                                    label="Street Address" 
+                                <lightning-textarea
+                                    label="Street Address"
                                     value={contactRecord.MailingStreet}
                                     data-field="MailingStreet"
                                     data-record-type="contact"
@@ -212,9 +212,9 @@
                         <!-- City -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="text" 
-                                    label="City" 
+                                <lightning-input
+                                    type="text"
+                                    label="City"
                                     value={contactRecord.MailingCity}
                                     data-field="MailingCity"
                                     data-record-type="contact"
@@ -234,9 +234,9 @@
                         <!-- State -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="text" 
-                                    label="State/Province" 
+                                <lightning-input
+                                    type="text"
+                                    label="State/Province"
                                     value={contactRecord.MailingState}
                                     data-field="MailingState"
                                     data-record-type="contact"
@@ -256,9 +256,9 @@
                         <!-- Postal Code -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="text" 
-                                    label="Postal Code" 
+                                <lightning-input
+                                    type="text"
+                                    label="Postal Code"
                                     value={contactRecord.MailingPostalCode}
                                     data-field="MailingPostalCode"
                                     data-record-type="contact"
@@ -278,9 +278,9 @@
                         <!-- Country -->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                             <template if:true={isEditing}>
-                                <lightning-input 
-                                    type="text" 
-                                    label="Country" 
+                                <lightning-input
+                                    type="text"
+                                    label="Country"
                                     value={contactRecord.MailingCountry}
                                     data-field="MailingCountry"
                                     data-record-type="contact"
@@ -308,7 +308,7 @@
                         CVMA Information
                     </span>
                 </h3>
-                
+
                 <div class="slds-section__content slds-p-top_medium">
                     <div class="slds-grid slds-gutters slds-wrap">
                         <!-- Membership ID (Read-only) -->
@@ -331,11 +331,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="slds-box slds-box_x-small slds-theme_info slds-m-top_medium">
                         <p class="slds-text-body_small">
                             <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
-                            Membership ID and Road Name are managed by chapter officers. 
+                            Membership ID and Road Name are managed by chapter officers.
                             Contact your chapter administration if these need to be updated.
                         </p>
                     </div>
@@ -345,14 +345,14 @@
             <!-- Action Buttons -->
             <template if:true={isEditing}>
                 <div class="slds-m-top_large slds-text-align_right">
-                    <lightning-button 
-                        label="Cancel" 
+                    <lightning-button
+                        label="Cancel"
                         onclick={handleCancel}
                         class="slds-m-right_small">
                     </lightning-button>
-                    <lightning-button 
-                        label="Save Profile" 
-                        variant="brand" 
+                    <lightning-button
+                        label="Save Profile"
+                        variant="brand"
                         onclick={handleSave}
                         disabled={isLoading}>
                     </lightning-button>

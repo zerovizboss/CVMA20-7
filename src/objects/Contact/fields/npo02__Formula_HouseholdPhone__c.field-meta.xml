@@ -4,7 +4,7 @@
     <deprecated>false</deprecated>
     <description>Formula: Simple formula of Household Phone field.</description>
     <externalId>false</externalId>
-    <formula>IF(npe01__Organization_Type__c == &apos;Household Account&apos;, 
+    <formula>IF(npe01__Organization_Type__c == &apos;Household Account&apos;,
 Account.npo02__HouseholdPhone__c,
 npo02__Household__r.npo02__HouseholdPhone__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

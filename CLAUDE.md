@@ -21,7 +21,7 @@ The project uses Salesforce CLI (`sf` command) for development:
 # Deploy metadata to org
 sf project deploy start
 
-# Retrieve metadata from org  
+# Retrieve metadata from org
 sf project retrieve start
 
 # Run Apex tests
@@ -58,7 +58,7 @@ sf org display
 
 ### Key Namespaces
 - **DNBI__**: Dun & Bradstreet integration package
-- **Extentia_SIM__**: Map plotting functionality 
+- **Extentia_SIM__**: Map plotting functionality
 - **npsp__**: Nonprofit Success Pack for donor management
 - **trailheadapp__**: Trailhead integration for learning management
 - **V2_Gdrive__**: Google Drive connector
@@ -120,7 +120,7 @@ The codebase follows enterprise-grade Salesforce best practices:
 ### Communities Setup
 The org has multiple Experience Cloud communities configured:
 - Internal Zone (internal users)
-- CEB community 
+- CEB community
 - Combat Veterans Motorcycle Association main community
 - Default Help Center for support
 

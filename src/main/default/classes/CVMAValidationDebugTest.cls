@@ -1,11 +1,11 @@
 @IsTest
 public class CVMAValidationDebugTest {
-    
+
     @IsTest
     static void debugValidationError() {
         Account testAccount = new Account(Name = 'Test Account');
         insert testAccount;
-        
+
         Contact invalidContact = new Contact(
             FirstName = 'Test',
             LastName = 'Invalid',
@@ -14,7 +14,7 @@ public class CVMAValidationDebugTest {
             Level__c = 'Full Member',
             Membership_Id__c = 'SUP1234' // Wrong prefix
         );
-        
+
         try {
             insert invalidContact;
             System.assert(false, 'Should have failed');

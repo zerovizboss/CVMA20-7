@@ -81,7 +81,7 @@
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
-    
+
     <!-- Custom Fields -->
     <fields>
         <fullName>Class_Name__c</fullName>
@@ -95,7 +95,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Method_Name__c</fullName>
         <description>Name of the method where the error occurred</description>
@@ -108,7 +108,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Error_Message__c</fullName>
         <description>The error message from the exception</description>
@@ -121,7 +121,7 @@
         <type>LongTextArea</type>
         <visibleLines>5</visibleLines>
     </fields>
-    
+
     <fields>
         <fullName>Stack_Trace__c</fullName>
         <description>Full stack trace of the error</description>
@@ -134,7 +134,7 @@
         <type>LongTextArea</type>
         <visibleLines>10</visibleLines>
     </fields>
-    
+
     <fields>
         <fullName>Error_Type__c</fullName>
         <description>Type of exception (e.g., DmlException, QueryException)</description>
@@ -147,7 +147,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Severity__c</fullName>
         <description>Severity level of the error</description>
@@ -183,7 +183,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <fields>
         <fullName>Category__c</fullName>
         <description>Category of error for classification</description>
@@ -229,7 +229,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <fields>
         <fullName>User__c</fullName>
         <description>User who experienced the error</description>
@@ -242,7 +242,7 @@
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
-    
+
     <fields>
         <fullName>Timestamp__c</fullName>
         <description>When the error occurred</description>
@@ -253,7 +253,7 @@
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
-    
+
     <fields>
         <fullName>Org_Id__c</fullName>
         <description>Organization ID where error occurred</description>
@@ -266,7 +266,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>User_Profile__c</fullName>
         <description>Profile of the user who experienced the error</description>
@@ -279,7 +279,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Session_Id__c</fullName>
         <description>Session ID when the error occurred</description>
@@ -292,7 +292,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Context_Data__c</fullName>
         <description>Additional context data as JSON</description>
@@ -305,7 +305,7 @@
         <type>LongTextArea</type>
         <visibleLines>10</visibleLines>
     </fields>
-    
+
     <fields>
         <fullName>Resolution_Notes__c</fullName>
         <description>Notes about how the error was resolved</description>
@@ -318,7 +318,7 @@
         <type>LongTextArea</type>
         <visibleLines>5</visibleLines>
     </fields>
-    
+
     <fields>
         <fullName>Status__c</fullName>
         <description>Status of the error log</description>

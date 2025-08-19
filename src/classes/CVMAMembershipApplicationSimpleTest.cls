@@ -4,21 +4,21 @@
  */
 @IsTest
 public class CVMAMembershipApplicationSimpleTest {
-    
+
     @IsTest
     static void testSubmitMembershipApplication_Success() {
         Map<String, Object> applicationData = createTestApplicationData();
         String jsonData = JSON.serialize(applicationData);
-        
+
         Test.startTest();
-        CVMAMembershipApplicationController.ApplicationResponse response = 
+        CVMAMembershipApplicationController.ApplicationResponse response =
             CVMAMembershipApplicationController.submitMembershipApplication(jsonData);
         Test.stopTest();
-        
+
         // Verify response
         System.assert(response.success, 'Application submission should succeed');
         System.assertNotEquals(null, response.applicationId, 'Application ID should be set');
-        
+
         // Verify application record created
         List<Membership_Application__c> applications = [
             SELECT Id, Status__c, First_Name__c, Last_Name__c, Applicant_Email__c,
@@ -26,7 +26,7 @@ public class CVMAMembershipApplicationSimpleTest {
             FROM Membership_Application__c
             WHERE Id = :response.applicationId
         ];
-        
+
         System.assertEquals(1, applications.size(), 'Should create one application');
         System.assertEquals('Pending Review', applications[0].Status__c, 'Status should be Pending Review');
         System.assertEquals('John', applications[0].First_Name__c, 'First name should match');
@@ -34,18 +34,18 @@ public class CVMAMembershipApplicationSimpleTest {
         System.assertEquals('john.test@cvma.com', applications[0].Applicant_Email__c, 'Email should match');
         System.assertEquals('Army', applications[0].Service_Branch__c, 'Service branch should match');
         System.assertEquals(true, applications[0].Combat_Veteran__c, 'Combat veteran flag should match');
-        
+
         // Verify contact created
         List<Contact> contacts = [
             SELECT Id, FirstName, LastName, Email, Level__c
             FROM Contact
             WHERE Email = 'john.test@cvma.com'
         ];
-        
+
         System.assertEquals(1, contacts.size(), 'Should create applicant contact');
         System.assertEquals('Applicant', contacts[0].Level__c, 'Contact level should be Applicant');
     }
-    
+
     @IsTest
     static void testSubmitMembershipApplication_DuplicateEmail() {
         // Create existing contact with membership
@@ -57,47 +57,47 @@ public class CVMAMembershipApplicationSimpleTest {
             Level__c = 'Full Member'
         );
         insert existingContact;
-        
+
         Map<String, Object> applicationData = createTestApplicationData();
         String jsonData = JSON.serialize(applicationData);
-        
+
         Test.startTest();
-        CVMAMembershipApplicationController.ApplicationResponse response = 
+        CVMAMembershipApplicationController.ApplicationResponse response =
             CVMAMembershipApplicationController.submitMembershipApplication(jsonData);
         Test.stopTest();
-        
+
         // Verify duplicate rejection
         System.assertEquals(false, response.success, 'Application should be rejected for duplicate email');
         System.assert(response.message.contains('already exists'), 'Message should indicate duplicate');
     }
-    
+
     @IsTest
     static void testSubmitMembershipApplication_ValidationFailure() {
         Map<String, Object> applicationData = createTestApplicationData();
         applicationData.remove('firstName'); // Remove required field
         String jsonData = JSON.serialize(applicationData);
-        
+
         Test.startTest();
-        CVMAMembershipApplicationController.ApplicationResponse response = 
+        CVMAMembershipApplicationController.ApplicationResponse response =
             CVMAMembershipApplicationController.submitMembershipApplication(jsonData);
         Test.stopTest();
-        
+
         // Verify validation failure
         System.assertEquals(false, response.success, 'Application should fail validation');
         System.assert(response.message.contains('required fields'), 'Message should indicate validation error');
     }
-    
+
     @IsTest
     static void testCheckApplicationStatus_Found() {
         // Create test application
         Membership_Application__c testApp = createTestApplication();
         insert testApp;
-        
+
         Test.startTest();
-        CVMAMembershipApplicationController.ApplicationStatusResponse response = 
+        CVMAMembershipApplicationController.ApplicationStatusResponse response =
             CVMAMembershipApplicationController.checkApplicationStatus('john.test@cvma.com');
         Test.stopTest();
-        
+
         // Verify response
         System.assert(response.hasApplication, 'Should find application');
         System.assertNotEquals(null, response.application, 'Application data should be populated');
@@ -105,26 +105,26 @@ public class CVMAMembershipApplicationSimpleTest {
         System.assertEquals('TestApplicant', response.application.lastName, 'Last name should match');
         System.assertEquals('Pending Review', response.application.status, 'Status should match');
     }
-    
+
     @IsTest
     static void testCheckApplicationStatus_NotFound() {
         Test.startTest();
-        CVMAMembershipApplicationController.ApplicationStatusResponse response = 
+        CVMAMembershipApplicationController.ApplicationStatusResponse response =
             CVMAMembershipApplicationController.checkApplicationStatus('nonexistent@cvma.com');
         Test.stopTest();
-        
+
         // Verify response
         System.assertEquals(false, response.hasApplication, 'Should not find application');
         System.assertEquals(null, response.application, 'Application data should be null');
         System.assert(response.message.contains('No application found'), 'Message should indicate not found');
     }
-    
+
     /**
      * Helper method to create test application data
      */
     private static Map<String, Object> createTestApplicationData() {
         Map<String, Object> appData = new Map<String, Object>();
-        
+
         // Personal Information
         appData.put('firstName', 'John');
         appData.put('lastName', 'TestApplicant');
@@ -136,7 +136,7 @@ public class CVMAMembershipApplicationSimpleTest {
         appData.put('postalCode', '32207');
         appData.put('dateOfBirth', '1985-01-01');
         appData.put('roadName', 'Test Rider');
-        
+
         // Military Service
         appData.put('serviceStatus', 'Veteran');
         appData.put('servicesBranch', 'Army');
@@ -146,17 +146,17 @@ public class CVMAMembershipApplicationSimpleTest {
         appData.put('deployments', 'Iraq 2004-2005, Afghanistan 2007-2008');
         appData.put('awards', 'Purple Heart, Combat Infantry Badge');
         appData.put('isCombatVeteran', true);
-        
+
         // Emergency Contact
         appData.put('emergencyContactName', 'Jane TestApplicant');
         appData.put('emergencyContactRelationship', 'Spouse');
         appData.put('emergencyContactPhone', '555-234-5678');
         appData.put('emergencyContactEmail', 'jane.test@cvma.com');
         appData.put('membershipLevel', 'Full Member');
-        
+
         return appData;
     }
-    
+
     /**
      * Helper method to create test application record
      */
@@ -187,7 +187,7 @@ public class CVMAMembershipApplicationSimpleTest {
         app.Membership_Level__c = 'Full Member';
         app.Status__c = 'Pending Review';
         app.Submission_Date__c = DateTime.now();
-        
+
         return app;
     }
 }

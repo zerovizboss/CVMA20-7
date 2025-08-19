@@ -4,54 +4,54 @@
  * Version 2.0 - Enhanced with pagination, caching, and comprehensive security
  */
 public with sharing class CVMAOfficerDashboardControllerOptimized {
-    
+
     // Class constants
     private static final String CLASS_NAME = 'CVMAOfficerDashboardControllerOptimized';
     private static final Integer DEFAULT_PAGE_SIZE = 50;
     private static final Integer MAX_PAGE_SIZE = 200;
     private static final Integer EMAIL_BATCH_SIZE = 10; // Salesforce email limit per transaction
-    
+
     // Cache for permission checks to avoid repeated SOQL
     private static Boolean cachedOfficerPermission = null;
-    
+
     /**
      * Get member dashboard data with pagination and optimized queries
      */
     @AuraEnabled
     public static DashboardResponse getMemberDashboardData(Integer pageSize, Integer offset) {
         final String METHOD_NAME = 'getMemberDashboardData';
-        
+
         try {
             // Validate officer permissions
             if (!hasOfficerPermissions()) {
                 throw new CVMAErrorHandler.SecurityException('Insufficient permissions to access officer dashboard');
             }
-            
+
             // Validate and sanitize pagination parameters
             pageSize = (pageSize == null || pageSize <= 0) ? DEFAULT_PAGE_SIZE : Math.min(pageSize, MAX_PAGE_SIZE);
             offset = (offset == null || offset < 0) ? 0 : offset;
-            
+
             // Validate CRUD permissions
             List<String> contactFields = new List<String>{
                 'FirstName', 'LastName', 'Email', 'Phone', 'MobilePhone',
                 'Membership_Id__c', 'Level__c', 'Road_Name__c'
             };
             CVMAErrorHandler.validateCRUDPermissions(Contact.SObjectType, contactFields, 'read');
-            
+
             DashboardResponse response = new DashboardResponse();
-            
+
             // Get dashboard statistics (optimized with aggregate queries)
             response.dashboardStats = getDashboardStatistics();
-            
+
             // Get paginated member data with security enforcement
             response.members = getPaginatedMembers(pageSize, offset);
             response.totalRecords = getTotalMemberCount();
             response.pageSize = pageSize;
             response.offset = offset;
             response.hasMore = (offset + pageSize) < response.totalRecords;
-            
+
             return response;
-            
+
         } catch (Exception ex) {
             Map<String, Object> context = new Map<String, Object>{
                 'pageSize' => pageSize,
@@ -65,79 +65,79 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
             throw new AuraHandledException(errorMessage);
         }
     }
-    
+
     /**
      * Get dashboard statistics using optimized aggregate queries
      */
     private static DashboardStats getDashboardStatistics() {
         DashboardStats stats = new DashboardStats();
-        
+
         try {
             // Get total members count
             List<AggregateResult> totalResults = [
                 SELECT COUNT(Id) totalCount
-                FROM Contact 
-                WHERE Membership_Id__c != null 
+                FROM Contact
+                WHERE Membership_Id__c != null
                 AND Level__c != null
                 WITH SECURITY_ENFORCED
             ];
             stats.totalMembers = totalResults.isEmpty() ? 0 : (Integer) totalResults[0].get('totalCount');
-            
+
             // Get members due for renewal in 30 days
             List<AggregateResult> dueResults = [
                 SELECT COUNT(Id) dueCount
-                FROM Contact 
-                WHERE Membership_Id__c != null 
+                FROM Contact
+                WHERE Membership_Id__c != null
                 AND Level__c != null
                 AND npo02__MembershipEndDate__c >= :Date.today()
                 AND npo02__MembershipEndDate__c <= :Date.today().addDays(30)
                 WITH SECURITY_ENFORCED
             ];
             stats.due30Days = dueResults.isEmpty() ? 0 : (Integer) dueResults[0].get('dueCount');
-            
+
             // Get expired members
             List<AggregateResult> expiredResults = [
                 SELECT COUNT(Id) expiredCount
-                FROM Contact 
-                WHERE Membership_Id__c != null 
+                FROM Contact
+                WHERE Membership_Id__c != null
                 AND Level__c != null
                 AND npo02__MembershipEndDate__c < :Date.today()
                 WITH SECURITY_ENFORCED
             ];
             stats.expiredMembers = expiredResults.isEmpty() ? 0 : (Integer) expiredResults[0].get('expiredCount');
-            
+
             // Get new members from last 30 days
             List<AggregateResult> newResults = [
                 SELECT COUNT(Id) newCount
-                FROM Contact 
-                WHERE Membership_Id__c != null 
+                FROM Contact
+                WHERE Membership_Id__c != null
                 AND Level__c != null
                 AND npo02__MembershipJoinDate__c >= :Date.today().addDays(-30)
                 WITH SECURITY_ENFORCED
             ];
             stats.newMembers = newResults.isEmpty() ? 0 : (Integer) newResults[0].get('newCount');
-            
+
         } catch (Exception ex) {
             // Log error but don't fail the entire operation
-            CVMAErrorHandler.logError(ex, CLASS_NAME, 'getDashboardStatistics', 
+            CVMAErrorHandler.logError(ex, CLASS_NAME, 'getDashboardStatistics',
                 CVMAErrorHandler.Severity.LOW, CVMAErrorHandler.Category.PERFORMANCE);
-            
+
             // Return default stats if query fails
             stats.totalMembers = 0;
             stats.due30Days = 0;
             stats.expiredMembers = 0;
             stats.newMembers = 0;
         }
-        
+
         return stats;
     }
-    
+
     /**
      * Get paginated member data with optimized query
      */
     private static List<MemberData> getPaginatedMembers(Integer pageSize, Integer offset) {
         List<MemberData> memberList = new List<MemberData>();
-        
+
         try {
             List<Contact> members = [
                 SELECT Id, FirstName, LastName, Email, Phone, MobilePhone,
@@ -145,15 +145,15 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
                        npo02__MembershipJoinDate__c, npo02__MembershipEndDate__c,
                        npo02__LastMembershipAmount__c, npo02__LastMembershipDate__c,
                        CreatedDate, LastModifiedDate
-                FROM Contact 
-                WHERE Membership_Id__c != null 
+                FROM Contact
+                WHERE Membership_Id__c != null
                 AND Level__c != null
                 WITH SECURITY_ENFORCED
                 ORDER BY LastName, FirstName
                 LIMIT :pageSize
                 OFFSET :offset
             ];
-            
+
             for (Contact member : members) {
                 MemberData memberData = new MemberData();
                 memberData.contactId = member.Id;
@@ -169,23 +169,23 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
                 memberData.expirationDate = member.npo02__MembershipEndDate__c;
                 memberData.lastPaymentAmount = member.npo02__LastMembershipAmount__c;
                 memberData.lastPaymentDate = member.npo02__LastMembershipDate__c;
-                
+
                 // Calculate status efficiently
                 memberData.status = calculateMemberStatus(member.npo02__MembershipEndDate__c);
                 memberData.daysTillExpiration = calculateDaysTillExpiration(member.npo02__MembershipEndDate__c);
-                
+
                 memberList.add(memberData);
             }
-            
+
         } catch (Exception ex) {
-            CVMAErrorHandler.logError(ex, CLASS_NAME, 'getPaginatedMembers', 
+            CVMAErrorHandler.logError(ex, CLASS_NAME, 'getPaginatedMembers',
                 CVMAErrorHandler.Severity.MEDIUM, CVMAErrorHandler.Category.PERFORMANCE);
             throw ex;
         }
-        
+
         return memberList;
     }
-    
+
     /**
      * Get total member count for pagination
      */
@@ -193,70 +193,70 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         try {
             List<AggregateResult> results = [
                 SELECT COUNT(Id) totalCount
-                FROM Contact 
-                WHERE Membership_Id__c != null 
+                FROM Contact
+                WHERE Membership_Id__c != null
                 AND Level__c != null
                 WITH SECURITY_ENFORCED
             ];
-            
+
             return results.isEmpty() ? 0 : (Integer) results[0].get('totalCount');
-            
+
         } catch (Exception ex) {
-            CVMAErrorHandler.logError(ex, CLASS_NAME, 'getTotalMemberCount', 
+            CVMAErrorHandler.logError(ex, CLASS_NAME, 'getTotalMemberCount',
                 CVMAErrorHandler.Severity.LOW, CVMAErrorHandler.Category.PERFORMANCE);
             return 0;
         }
     }
-    
+
     /**
      * Export member data with improved CSV handling and bulk operations
      */
     @AuraEnabled
     public static String exportMemberData(List<Id> memberIds, String exportFormat) {
         final String METHOD_NAME = 'exportMemberData';
-        
+
         try {
             // Validate officer permissions
             if (!hasOfficerPermissions()) {
                 throw new CVMAErrorHandler.SecurityException('Insufficient permissions to export member data');
             }
-            
+
             // Validate input parameters
             if (memberIds == null || memberIds.isEmpty()) {
                 throw new CVMAErrorHandler.ValidationException('No members selected for export');
             }
-            
+
             if (memberIds.size() > 10000) {
                 throw new CVMAErrorHandler.ValidationException('Export limited to 10,000 records');
             }
-            
+
             // Sanitize export format
             exportFormat = String.isBlank(exportFormat) ? 'CSV' : exportFormat.toUpperCase();
             if (exportFormat != 'CSV') {
                 throw new CVMAErrorHandler.ValidationException('Only CSV export format is currently supported');
             }
-            
+
             // Validate CRUD permissions
             List<String> exportFields = new List<String>{
                 'FirstName', 'LastName', 'Email', 'Phone', 'MobilePhone',
                 'Membership_Id__c', 'Level__c', 'Road_Name__c'
             };
             CVMAErrorHandler.validateCRUDPermissions(Contact.SObjectType, exportFields, 'read');
-            
+
             // Query member data with security enforcement
             List<Contact> members = [
                 SELECT FirstName, LastName, Email, Phone, MobilePhone,
                        Membership_Id__c, Level__c, Road_Name__c,
                        npo02__MembershipJoinDate__c, npo02__MembershipEndDate__c,
                        MailingStreet, MailingCity, MailingState, MailingPostalCode
-                FROM Contact 
-                WHERE Id IN :memberIds 
+                FROM Contact
+                WHERE Id IN :memberIds
                 WITH SECURITY_ENFORCED
                 ORDER BY LastName, FirstName
             ];
-            
+
             return generateCSVData(members);
-            
+
         } catch (Exception ex) {
             Map<String, Object> context = new Map<String, Object>{
                 'memberIdsCount' => memberIds?.size(),
@@ -269,48 +269,48 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
             throw new AuraHandledException(errorMessage);
         }
     }
-    
+
     /**
      * Send renewal reminders with bulk email handling and governor limit protection
      */
     @AuraEnabled
     public static Integer sendRenewalReminders(List<Id> memberIds) {
         final String METHOD_NAME = 'sendRenewalReminders';
-        
+
         try {
             // Validate officer permissions
             if (!hasOfficerPermissions()) {
                 throw new CVMAErrorHandler.SecurityException('Insufficient permissions to send renewal reminders');
             }
-            
+
             if (memberIds == null || memberIds.isEmpty()) {
                 throw new CVMAErrorHandler.ValidationException('No members selected for renewal reminders');
             }
-            
+
             // Protect against email governor limits
             if (memberIds.size() > EMAIL_BATCH_SIZE) {
                 throw new CVMAErrorHandler.ValidationException(
                     'Cannot send more than ' + EMAIL_BATCH_SIZE + ' emails in a single request. Please process in smaller batches.'
                 );
             }
-            
+
             // Get member data for email
             List<Contact> members = [
                 SELECT Id, FirstName, LastName, Email, Membership_Id__c, Level__c,
                        npo02__MembershipEndDate__c
-                FROM Contact 
-                WHERE Id IN :memberIds 
+                FROM Contact
+                WHERE Id IN :memberIds
                 AND Email != null
                 AND npo02__MembershipEndDate__c != null
                 WITH SECURITY_ENFORCED
             ];
-            
+
             if (members.isEmpty()) {
                 throw new CVMAErrorHandler.ValidationException('No valid members found with email addresses');
             }
-            
+
             return sendBulkRenewalEmails(members);
-            
+
         } catch (Exception ex) {
             Map<String, Object> context = new Map<String, Object>{
                 'memberIdsCount' => memberIds?.size()
@@ -322,7 +322,7 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
             throw new AuraHandledException(errorMessage);
         }
     }
-    
+
     /**
      * Enhanced permission checking with caching
      */
@@ -330,28 +330,28 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         if (cachedOfficerPermission != null) {
             return cachedOfficerPermission;
         }
-        
+
         try {
             // Check for custom permission first
             if (FeatureManagement.checkPermission('CVMA_Officer_Access')) {
                 cachedOfficerPermission = true;
                 return true;
             }
-            
+
             // Check for officer profiles
             List<User> currentUser = [
-                SELECT Profile.Name 
-                FROM User 
-                WHERE Id = :UserInfo.getUserId() 
+                SELECT Profile.Name
+                FROM User
+                WHERE Id = :UserInfo.getUserId()
                 WITH SECURITY_ENFORCED
                 LIMIT 1
             ];
-            
+
             if (currentUser.isEmpty()) {
                 cachedOfficerPermission = false;
                 return false;
             }
-            
+
             Set<String> officerProfiles = new Set<String>{
                 'System Administrator',
                 'CVMA Officer',
@@ -360,18 +360,18 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
                 'Chapter Secretary',
                 'Chapter Treasurer'
             };
-            
+
             cachedOfficerPermission = officerProfiles.contains(currentUser[0].Profile.Name);
             return cachedOfficerPermission;
-            
+
         } catch (Exception ex) {
-            CVMAErrorHandler.logError(ex, CLASS_NAME, 'hasOfficerPermissions', 
+            CVMAErrorHandler.logError(ex, CLASS_NAME, 'hasOfficerPermissions',
                 CVMAErrorHandler.Severity.HIGH, CVMAErrorHandler.Category.SECURITY);
             cachedOfficerPermission = false;
             return false;
         }
     }
-    
+
     /**
      * Helper method to calculate member status efficiently
      */
@@ -379,7 +379,7 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         if (expirationDate == null) {
             return 'Unknown';
         }
-        
+
         Date today = Date.today();
         if (expirationDate < today) {
             return 'Expired';
@@ -389,7 +389,7 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
             return 'Active';
         }
     }
-    
+
     /**
      * Helper method to calculate days till expiration
      */
@@ -397,19 +397,19 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         if (expirationDate == null) {
             return null;
         }
-        
+
         return Date.today().daysBetween(expirationDate);
     }
-    
+
     /**
      * Generate CSV data with proper escaping and formatting
      */
     private static String generateCSVData(List<Contact> members) {
         List<String> csvLines = new List<String>();
-        
+
         // CSV Header
         csvLines.add('First Name,Last Name,Email,Phone,Mobile Phone,Membership ID,Level,Road Name,Join Date,Expiration Date,Mailing Address');
-        
+
         // CSV Data with proper escaping
         for (Contact member : members) {
             List<String> fields = new List<String>{
@@ -425,13 +425,13 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
                 member.npo02__MembershipEndDate__c != null ? member.npo02__MembershipEndDate__c.format() : '',
                 buildMailingAddress(member)
             };
-            
+
             csvLines.add(String.join(fields, ','));
         }
-        
+
         return String.join(csvLines, '\n');
     }
-    
+
     /**
      * Escape CSV field values properly
      */
@@ -439,27 +439,27 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         if (String.isBlank(field)) {
             return '';
         }
-        
+
         // Sanitize the field first
         String sanitized = CVMAErrorHandler.sanitizeInput(field);
-        
+
         // Escape quotes by doubling them
         sanitized = sanitized.replace('"', '""');
-        
+
         // Wrap in quotes if contains comma, quote, or newline
         if (sanitized.contains(',') || sanitized.contains('"') || sanitized.contains('\n')) {
             sanitized = '"' + sanitized + '"';
         }
-        
+
         return sanitized;
     }
-    
+
     /**
      * Build formatted mailing address
      */
     private static String buildMailingAddress(Contact member) {
         List<String> addressParts = new List<String>();
-        
+
         if (String.isNotBlank(member.MailingStreet)) {
             addressParts.add(CVMAErrorHandler.sanitizeInput(member.MailingStreet));
         }
@@ -472,17 +472,17 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         if (String.isNotBlank(member.MailingPostalCode)) {
             addressParts.add(member.MailingPostalCode);
         }
-        
+
         return escapeCsvField(String.join(addressParts, ', '));
     }
-    
+
     /**
      * Send bulk renewal emails with proper error handling
      */
     private static Integer sendBulkRenewalEmails(List<Contact> members) {
         List<Messaging.SingleEmailMessage> emails = new List<Messaging.SingleEmailMessage>();
         Integer emailsSent = 0;
-        
+
         try {
             for (Contact member : members) {
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
@@ -492,10 +492,10 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
                 email.setSenderDisplayName('CVMA Chapter 20-7');
                 emails.add(email);
             }
-            
+
             if (!emails.isEmpty()) {
                 List<Messaging.SendEmailResult> results = Messaging.sendEmail(emails, false);
-                
+
                 // Count successful sends and log any failures
                 for (Integer i = 0; i < results.size(); i++) {
                     if (results[i].isSuccess()) {
@@ -503,21 +503,21 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
                     } else {
                         CVMAErrorHandler.logError(
                             new System.EmailException('Email send failed: ' + results[i].getErrors()[0].getMessage()),
-                            CLASS_NAME, 'sendBulkRenewalEmails', 
+                            CLASS_NAME, 'sendBulkRenewalEmails',
                             CVMAErrorHandler.Severity.MEDIUM, CVMAErrorHandler.Category.INTEGRATION
                         );
                     }
                 }
             }
-            
+
         } catch (Exception ex) {
-            CVMAErrorHandler.logError(ex, CLASS_NAME, 'sendBulkRenewalEmails', 
+            CVMAErrorHandler.logError(ex, CLASS_NAME, 'sendBulkRenewalEmails',
                 CVMAErrorHandler.Severity.HIGH, CVMAErrorHandler.Category.INTEGRATION);
         }
-        
+
         return emailsSent;
     }
-    
+
     /**
      * Build renewal email HTML body
      */
@@ -531,19 +531,19 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         emailBody += '<strong>Membership Details:</strong><br>';
         emailBody += 'Membership ID: ' + member.Membership_Id__c + '<br>';
         emailBody += 'Current Level: ' + CVMAErrorHandler.sanitizeInput(member.Level__c) + '<br>';
-        
+
         if (member.npo02__MembershipEndDate__c != null) {
             emailBody += 'Expiration Date: ' + member.npo02__MembershipEndDate__c.format() + '</div>';
         }
-        
+
         emailBody += '<p>Please contact us to renew your membership and continue supporting our mission of Vets Serving Vets.</p>';
         emailBody += '<p>Contact us at chapter20-7@cvma.org or (904) 555-CVMA.</p>';
         emailBody += '<p>Vets Serving Vets,<br><strong>CVMA Chapter 20-7</strong></p>';
         emailBody += '</div></body></html>';
-        
+
         return emailBody;
     }
-    
+
     /**
      * Data wrapper classes
      */
@@ -554,7 +554,7 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
         @AuraEnabled public Integer pageSize { get; set; }
         @AuraEnabled public Integer offset { get; set; }
         @AuraEnabled public Boolean hasMore { get; set; }
-        
+
         public DashboardResponse() {
             this.members = new List<MemberData>();
             this.totalRecords = 0;
@@ -563,13 +563,13 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
             this.hasMore = false;
         }
     }
-    
+
     public class DashboardStats {
         @AuraEnabled public Integer totalMembers { get; set; }
         @AuraEnabled public Integer due30Days { get; set; }
         @AuraEnabled public Integer expiredMembers { get; set; }
         @AuraEnabled public Integer newMembers { get; set; }
-        
+
         public DashboardStats() {
             this.totalMembers = 0;
             this.due30Days = 0;
@@ -577,7 +577,7 @@ public with sharing class CVMAOfficerDashboardControllerOptimized {
             this.newMembers = 0;
         }
     }
-    
+
     public class MemberData {
         @AuraEnabled public Id contactId { get; set; }
         @AuraEnabled public String firstName { get; set; }

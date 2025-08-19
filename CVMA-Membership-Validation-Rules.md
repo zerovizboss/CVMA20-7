@@ -17,9 +17,9 @@ The CVMA organization needed a way to validate membership data without creating 
 
 **Purpose**: Ensures the Membership ID prefix matches the selected membership level.
 
-**Logic**: 
+**Logic**:
 - Full Member → Must start with "FM"
-- Support Member → Must start with "SUP"  
+- Support Member → Must start with "SUP"
 - Auxiliary Member → Must start with "AUX"
 
 **Formula**:
@@ -44,7 +44,7 @@ AND(
 )
 ```
 
-**Error Message**: 
+**Error Message**:
 ```
 Membership ID prefix must match level: Full Member=FM, Support Member=SUP, Auxiliary Member=AUX (e.g., FM1, SUP123, AUX12345)
 ```
@@ -53,7 +53,7 @@ Membership ID prefix must match level: Full Member=FM, Support Member=SUP, Auxil
 
 **Purpose**: Ensures the Membership ID follows the correct format with flexible length based on membership level.
 
-**Logic**: 
+**Logic**:
 - **Full Member**: FM + 1-5 digits (3-8 characters total)
 - **Support Member**: SUP + 1-5 digits (4-8 characters total)
 - **Auxiliary Member**: AUX + 1-5 digits (4-8 characters total)
@@ -91,7 +91,7 @@ AND(
 )
 ```
 
-**Error Message**: 
+**Error Message**:
 ```
 Invalid format. Use: FM+1-5 digits (3-8 chars), SUP+1-5 digits (4-8 chars), or AUX+1-5 digits (4-8 chars)
 ```
@@ -194,6 +194,6 @@ For questions or modifications to these validation rules, contact the CVMA Sales
 
 ---
 
-**Last Updated**: December 2024  
-**Version**: 1.2  
+**Last Updated**: December 2024
+**Version**: 1.2
 **Author**: CVMA Development Team

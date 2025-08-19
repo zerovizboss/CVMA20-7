@@ -28,9 +28,9 @@ export default class CvmaOfficerDashboard extends LightningElement {
 
     // Columns for member data table
     columns = [
-        { 
-            label: 'Member Name', 
-            fieldName: 'memberUrl', 
+        {
+            label: 'Member Name',
+            fieldName: 'memberUrl',
             type: 'url',
             typeAttributes: {
                 label: { fieldName: 'fullName' },
@@ -97,7 +97,7 @@ export default class CvmaOfficerDashboard extends LightningElement {
 
         // Apply search filter
         if (this.searchTerm) {
-            filtered = filtered.filter(member => 
+            filtered = filtered.filter(member =>
                 member.fullName.toLowerCase().includes(this.searchTerm) ||
                 member.membershipId.toLowerCase().includes(this.searchTerm) ||
                 member.email.toLowerCase().includes(this.searchTerm)
@@ -144,7 +144,7 @@ export default class CvmaOfficerDashboard extends LightningElement {
     handleExportConfirm() {
         this.isLoading = true;
         const memberIds = this.filteredMembers.map(member => member.contactId);
-        
+
         exportMemberData({ memberIds: memberIds })
             .then(result => {
                 // Create and download CSV file
@@ -156,7 +156,7 @@ export default class CvmaOfficerDashboard extends LightningElement {
                 document.body.appendChild(element);
                 element.click();
                 document.body.removeChild(element);
-                
+
                 this.showToast('Success', 'Member data exported successfully', 'success');
                 this.showExportModal = false;
             })
@@ -169,10 +169,10 @@ export default class CvmaOfficerDashboard extends LightningElement {
     }
 
     handleSendReminders() {
-        const renewalDueMembers = this.members.filter(member => 
+        const renewalDueMembers = this.members.filter(member =>
             member.daysToRenewal <= 90 && member.daysToRenewal > 0
         );
-        
+
         if (renewalDueMembers.length === 0) {
             this.showToast('Warning', 'No members found with upcoming renewals', 'warning');
             return;

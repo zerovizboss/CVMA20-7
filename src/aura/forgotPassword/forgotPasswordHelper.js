@@ -2,7 +2,7 @@
     qsToEventMap: {
         'expid'  : 'e.c:setExpId'
     },
-    
+
     handleForgotPassword: function (component, event, helpler) {
         var username = component.find("username").get("v.value");
         var checkEmailUrl = component.get("v.checkEmailUrl");

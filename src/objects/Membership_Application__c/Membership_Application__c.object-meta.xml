@@ -61,7 +61,7 @@
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
-    
+
     <fields>
         <fullName>First_Name__c</fullName>
         <externalId>false</externalId>
@@ -74,7 +74,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Last_Name__c</fullName>
         <externalId>false</externalId>
@@ -87,7 +87,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Applicant_Email__c</fullName>
         <externalId>false</externalId>
@@ -99,7 +99,7 @@
         <type>Email</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Phone__c</fullName>
         <externalId>false</externalId>
@@ -110,7 +110,7 @@
         <trackTrending>false</trackTrending>
         <type>Phone</type>
     </fields>
-    
+
     <fields>
         <fullName>Mailing_Address__c</fullName>
         <externalId>false</externalId>
@@ -123,7 +123,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>City__c</fullName>
         <externalId>false</externalId>
@@ -136,7 +136,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>State__c</fullName>
         <externalId>false</externalId>
@@ -149,7 +149,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Postal_Code__c</fullName>
         <externalId>false</externalId>
@@ -162,7 +162,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Date_of_Birth__c</fullName>
         <externalId>false</externalId>
@@ -173,7 +173,7 @@
         <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
-    
+
     <fields>
         <fullName>Road_Name__c</fullName>
         <externalId>false</externalId>
@@ -186,7 +186,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Service_Status__c</fullName>
         <externalId>false</externalId>
@@ -223,7 +223,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <fields>
         <fullName>Service_Branch__c</fullName>
         <externalId>false</externalId>
@@ -270,7 +270,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <fields>
         <fullName>Military_Occupation__c</fullName>
         <externalId>false</externalId>
@@ -283,7 +283,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Service_Start_Date__c</fullName>
         <externalId>false</externalId>
@@ -294,7 +294,7 @@
         <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
-    
+
     <fields>
         <fullName>Service_End_Date__c</fullName>
         <externalId>false</externalId>
@@ -305,7 +305,7 @@
         <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
-    
+
     <fields>
         <fullName>Deployments__c</fullName>
         <externalId>false</externalId>
@@ -317,7 +317,7 @@
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
-    
+
     <fields>
         <fullName>Awards__c</fullName>
         <externalId>false</externalId>
@@ -329,7 +329,7 @@
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
-    
+
     <fields>
         <fullName>Combat_Veteran__c</fullName>
         <defaultValue>false</defaultValue>
@@ -340,7 +340,7 @@
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
-    
+
     <fields>
         <fullName>Emergency_Contact_Name__c</fullName>
         <externalId>false</externalId>
@@ -353,7 +353,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Emergency_Contact_Relationship__c</fullName>
         <externalId>false</externalId>
@@ -366,7 +366,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Emergency_Contact_Phone__c</fullName>
         <externalId>false</externalId>
@@ -377,7 +377,7 @@
         <trackTrending>false</trackTrending>
         <type>Phone</type>
     </fields>
-    
+
     <fields>
         <fullName>Emergency_Contact_Email__c</fullName>
         <externalId>false</externalId>
@@ -389,7 +389,7 @@
         <type>Email</type>
         <unique>false</unique>
     </fields>
-    
+
     <fields>
         <fullName>Membership_Level__c</fullName>
         <externalId>false</externalId>
@@ -421,7 +421,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <fields>
         <fullName>Status__c</fullName>
         <externalId>false</externalId>
@@ -463,7 +463,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <fields>
         <fullName>Submission_Date__c</fullName>
         <externalId>false</externalId>
@@ -474,7 +474,7 @@
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
-    
+
     <fields>
         <fullName>Review_Date__c</fullName>
         <externalId>false</externalId>
@@ -485,7 +485,7 @@
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
-    
+
     <fields>
         <fullName>Reviewed_By__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -499,7 +499,7 @@
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
-    
+
     <fields>
         <fullName>Review_Notes__c</fullName>
         <externalId>false</externalId>
@@ -511,7 +511,7 @@
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
-    
+
     <fields>
         <fullName>Applicant_Contact__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>

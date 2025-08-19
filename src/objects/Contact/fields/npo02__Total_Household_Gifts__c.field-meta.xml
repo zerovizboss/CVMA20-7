@@ -3,7 +3,7 @@
     <fullName>npo02__Total_Household_Gifts__c</fullName>
     <deprecated>false</deprecated>
     <description>Formula:  Total Gifts on related Household.</description>
-    <formula>IF(npe01__Organization_Type__c == &apos;Household Account&apos;, 
+    <formula>IF(npe01__Organization_Type__c == &apos;Household Account&apos;,
 Account.npo02__TotalOppAmount__c,
 npo02__Household__r.npo02__TotalOppAmount__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

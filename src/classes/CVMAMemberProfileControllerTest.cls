@@ -4,30 +4,30 @@
  */
 @IsTest
 public class CVMAMemberProfileControllerTest {
-    
+
     @TestSetup
     static void setupTestData() {
         // Use CVMATestDataFactory for consistent test data creation
         CVMATestDataFactory.TestDataBundle testData = CVMATestDataFactory.setupBasicTestData();
     }
-    
+
     @IsTest
     static void testGetMemberProfile_Success() {
         // Get test user created by CVMATestDataFactory
         List<User> testUsers = [SELECT Id, FirstName, LastName, Email, ContactId FROM User WHERE Email LIKE '%cvma-test.org' LIMIT 1];
         System.assert(!testUsers.isEmpty(), 'Test user should exist');
         User testUser = testUsers[0];
-        
+
         Test.startTest();
         System.runAs(testUser) {
             CVMAMemberProfileController.MemberProfileData profileData = CVMAMemberProfileController.getMemberProfile();
-            
+
             // Verify user data
             System.assertEquals(testUser.Id, profileData.userId, 'User ID should match');
             System.assertNotEquals(null, profileData.firstName, 'First name should not be null');
             System.assertNotEquals(null, profileData.lastName, 'Last name should not be null');
             System.assertNotEquals(null, profileData.email, 'Email should not be null');
-            
+
             // Verify contact data
             System.assertEquals(testUser.ContactId, profileData.contactId, 'Contact ID should match');
             System.assertNotEquals(null, profileData.membershipId, 'Membership ID should not be null');
@@ -37,12 +37,12 @@ public class CVMAMemberProfileControllerTest {
         }
         Test.stopTest();
     }
-    
+
     @IsTest
     static void testUpdateMemberProfile_Success() {
         // Get test user
         User testUser = [SELECT Id, ContactId FROM User WHERE Username = 'john.rider.test@cvma.com.test' LIMIT 1];
-        
+
         // Create updated profile data
         CVMAMemberProfileController.MemberProfileData updatedData = new CVMAMemberProfileController.MemberProfileData();
         updatedData.userId = testUser.Id;
@@ -60,16 +60,16 @@ public class CVMAMemberProfileControllerTest {
         updatedData.mailingState = 'FL';
         updatedData.mailingPostalCode = '33101';
         updatedData.mailingCountry = 'USA';
-        
+
         String profileDataJson = JSON.serialize(updatedData);
-        
+
         Test.startTest();
         System.runAs(testUser) {
             String result = CVMAMemberProfileController.updateMemberProfile(profileDataJson);
             System.assertEquals('Profile updated successfully', result, 'Update should be successful');
         }
         Test.stopTest();
-        
+
         // Verify updates
         User updatedUser = [SELECT FirstName, LastName, Email, Phone, MobilePhone FROM User WHERE Id = :testUser.Id];
         System.assertEquals('Jonathan', updatedUser.FirstName, 'User first name should be updated');
@@ -77,7 +77,7 @@ public class CVMAMemberProfileControllerTest {
         System.assertEquals('jonathan.rider@cvma.com', updatedUser.Email, 'User email should be updated');
         System.assertEquals('555-111-2222', updatedUser.Phone, 'User phone should be updated');
         System.assertEquals('555-333-4444', updatedUser.MobilePhone, 'User mobile phone should be updated');
-        
+
         Contact updatedContact = [SELECT Phone, MobilePhone, Email, MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry FROM Contact WHERE Id = :testUser.ContactId];
         System.assertEquals('555-111-2222', updatedContact.Phone, 'Contact phone should be updated');
         System.assertEquals('555-333-4444', updatedContact.MobilePhone, 'Contact mobile phone should be updated');
@@ -88,12 +88,12 @@ public class CVMAMemberProfileControllerTest {
         System.assertEquals('33101', updatedContact.MailingPostalCode, 'Contact mailing postal code should be updated');
         System.assertEquals('USA', updatedContact.MailingCountry, 'Contact mailing country should be updated');
     }
-    
+
     @IsTest
     static void testUpdateMemberProfile_ValidationError_RequiredFields() {
         // Get test user
         User testUser = [SELECT Id, ContactId FROM User WHERE Username = 'john.rider.test@cvma.com.test' LIMIT 1];
-        
+
         // Create profile data with missing required fields
         CVMAMemberProfileController.MemberProfileData invalidData = new CVMAMemberProfileController.MemberProfileData();
         invalidData.userId = testUser.Id;
@@ -101,9 +101,9 @@ public class CVMAMemberProfileControllerTest {
         invalidData.firstName = ''; // Missing required field
         invalidData.lastName = 'Rider';
         invalidData.email = 'jonathan.rider@cvma.com';
-        
+
         String profileDataJson = JSON.serialize(invalidData);
-        
+
         Test.startTest();
         System.runAs(testUser) {
             try {
@@ -115,12 +115,12 @@ public class CVMAMemberProfileControllerTest {
         }
         Test.stopTest();
     }
-    
+
     @IsTest
     static void testUpdateMemberProfile_ValidationError_InvalidEmail() {
         // Get test user
         User testUser = [SELECT Id, ContactId FROM User WHERE Username = 'john.rider.test@cvma.com.test' LIMIT 1];
-        
+
         // Create profile data with invalid email
         CVMAMemberProfileController.MemberProfileData invalidData = new CVMAMemberProfileController.MemberProfileData();
         invalidData.userId = testUser.Id;
@@ -128,9 +128,9 @@ public class CVMAMemberProfileControllerTest {
         invalidData.firstName = 'Jonathan';
         invalidData.lastName = 'Rider';
         invalidData.email = 'invalid-email'; // Invalid email format
-        
+
         String profileDataJson = JSON.serialize(invalidData);
-        
+
         Test.startTest();
         System.runAs(testUser) {
             try {
@@ -142,12 +142,12 @@ public class CVMAMemberProfileControllerTest {
         }
         Test.stopTest();
     }
-    
+
     @IsTest
     static void testUpdateMemberProfile_SecurityError_WrongUser() {
         // Get test users
         User testUser = [SELECT Id, ContactId FROM User WHERE Username = 'john.rider.test@cvma.com.test' LIMIT 1];
-        
+
         // Create another test user
         Contact anotherContact = new Contact(
             FirstName = 'Jane',
@@ -155,7 +155,7 @@ public class CVMAMemberProfileControllerTest {
             Email = 'jane.smith@cvma.com'
         );
         insert anotherContact;
-        
+
         Profile testProfile = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
         User anotherUser = new User(
             FirstName = 'Jane',
@@ -171,16 +171,16 @@ public class CVMAMemberProfileControllerTest {
             ContactId = anotherContact.Id
         );
         insert anotherUser;
-        
+
         // Try to update another user's profile
         CVMAMemberProfileController.MemberProfileData profileData = new CVMAMemberProfileController.MemberProfileData();
         profileData.userId = testUser.Id; // Different user's ID
         profileData.firstName = 'Hacker';
         profileData.lastName = 'Attempt';
         profileData.email = 'hacker@test.com';
-        
+
         String profileDataJson = JSON.serialize(profileData);
-        
+
         Test.startTest();
         System.runAs(anotherUser) {
             try {
@@ -192,16 +192,16 @@ public class CVMAMemberProfileControllerTest {
         }
         Test.stopTest();
     }
-    
+
     @IsTest
     static void testGetProfilePermissions() {
         // Get test user
         User testUser = [SELECT Id FROM User WHERE Username = 'john.rider.test@cvma.com.test' LIMIT 1];
-        
+
         Test.startTest();
         System.runAs(testUser) {
             CVMAMemberProfileController.ProfilePermissions permissions = CVMAMemberProfileController.getProfilePermissions();
-            
+
             // Verify permissions are returned (exact values depend on profile settings)
             System.assertNotEquals(null, permissions, 'Permissions should not be null');
             System.assertNotEquals(null, permissions.canEditProfile, 'canEditProfile should not be null');
@@ -210,14 +210,14 @@ public class CVMAMemberProfileControllerTest {
         }
         Test.stopTest();
     }
-    
+
     @IsTest
     static void testInvalidJsonHandling() {
         // Get test user
         User testUser = [SELECT Id FROM User WHERE Username = 'john.rider.test@cvma.com.test' LIMIT 1];
-        
+
         String invalidJson = '{"invalid": "json", "structure"}'; // Invalid JSON structure
-        
+
         Test.startTest();
         System.runAs(testUser) {
             try {
@@ -229,7 +229,7 @@ public class CVMAMemberProfileControllerTest {
         }
         Test.stopTest();
     }
-    
+
     @IsTest
     static void testUserWithoutContact() {
         // Create user without contact
@@ -248,16 +248,16 @@ public class CVMAMemberProfileControllerTest {
             // No ContactId assigned
         );
         insert userWithoutContact;
-        
+
         Test.startTest();
         System.runAs(userWithoutContact) {
             CVMAMemberProfileController.MemberProfileData profileData = CVMAMemberProfileController.getMemberProfile();
-            
+
             // Verify user data is still accessible
             System.assertEquals('No', profileData.firstName, 'First name should be accessible');
             System.assertEquals('Contact', profileData.lastName, 'Last name should be accessible');
             System.assertEquals('nocontact@cvma.com', profileData.email, 'Email should be accessible');
-            
+
             // Verify contact fields are null/empty
             System.assertEquals(null, profileData.contactId, 'Contact ID should be null');
             System.assertEquals(null, profileData.membershipId, 'Membership ID should be null');

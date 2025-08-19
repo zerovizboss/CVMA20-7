@@ -594,11 +594,11 @@ export default class QueryExecutorMVP extends LightningElement {
                 const wrappedScript = `
                 "use strict";
                 ${sanitizedScript}
-                
+
                 if (typeof processData !== 'function') {
                     throw new Error('processData function is required');
                 }
-                
+
                 return processData(${paramNames.join(', ')});
                 `;
 
@@ -735,15 +735,15 @@ export default class QueryExecutorMVP extends LightningElement {
         const sampleQueries = [
             `SELECT Id, Name, Industry, BillingState, AnnualRevenue, NumberOfEmployees
              FROM Account
-             WHERE Industry != null 
+             WHERE Industry != null
 LIMIT 100`,
             `SELECT Id, Name, Title, AccountId, Account.Name, Account.Industry
              FROM Contact
-             WHERE AccountId != null 
+             WHERE AccountId != null
 LIMIT 200`,
             `SELECT Id, Name, Amount, StageName, AccountId, Account.Industry
              FROM Opportunity
-             WHERE Amount != null 
+             WHERE Amount != null
 LIMIT 150`,
             `SELECT Id, Subject, Status, WhoId, WhatId, CreatedDate
              FROM Task
@@ -764,13 +764,13 @@ LIMIT 150`,
         if (this.queryInputCount === 2) {
             this.processingScript = `function processData(query1Results, query2Results) {
     // Simple 2-query analysis: Accounts and Contacts
-    
+
     // Create account map for lookups
     const accountMap = new Map();
     query1Results.forEach(account => {
         accountMap.set(account.Id, account);
     });
-    
+
     // Industry analysis from accounts
     const industryStats = {};
     query1Results.forEach(account => {
@@ -786,30 +786,30 @@ LIMIT 150`,
         industryStats[industry].totalRevenue += account.AnnualRevenue || 0;
         industryStats[industry].totalEmployees += account.NumberOfEmployees || 0;
     });
-    
+
     // Contact analysis with account enrichment
     const contactsByIndustry = {};
     query2Results.forEach(contact => {
         const account = accountMap.get(contact.AccountId);
         const industry = account?.Industry || 'Unknown';
-        
+
         if (!contactsByIndustry[industry]) {
             contactsByIndustry[industry] = 0;
         }
         contactsByIndustry[industry]++;
     });
-    
+
     // Final summary
     const industryAnalysis = Object.keys(industryStats).map(industry => ({
         industry: industry,
         accounts: industryStats[industry].accountCount,
         contacts: contactsByIndustry[industry] || 0,
         totalRevenue: industryStats[industry].totalRevenue,
-        avgRevenue: industryStats[industry].accountCount > 0 ? 
+        avgRevenue: industryStats[industry].accountCount > 0 ?
             industryStats[industry].totalRevenue / industryStats[industry].accountCount : 0,
         totalEmployees: industryStats[industry].totalEmployees
     }));
-    
+
     return {
         summary: {
             totalAccounts: query1Results.length,
@@ -822,13 +822,13 @@ LIMIT 150`,
         } else {
             this.processingScript = `function processData(query1Results, query2Results, query3Results, query4Results) {
     // Multi-query analysis: Accounts, Contacts, Opportunities, and Tasks
-    
+
     // Create maps for cross-referencing
     const accountMap = new Map();
     query1Results.forEach(account => {
         accountMap.set(account.Id, account);
     });
-    
+
     // Industry analysis from accounts
     const industryStats = {};
     query1Results.forEach(account => {
@@ -844,26 +844,26 @@ LIMIT 150`,
         industryStats[industry].totalRevenue += account.AnnualRevenue || 0;
         industryStats[industry].totalEmployees += account.NumberOfEmployees || 0;
     });
-    
+
     // Contact analysis with account enrichment
     const contactsByIndustry = {};
     query2Results.forEach(contact => {
         const account = accountMap.get(contact.AccountId);
         const industry = account?.Industry || 'Unknown';
-        
+
         if (!contactsByIndustry[industry]) {
             contactsByIndustry[industry] = 0;
         }
         contactsByIndustry[industry]++;
     });
-    
+
     // Opportunity analysis
     const opportunityStats = {};
     let totalOpportunityValue = 0;
     query3Results.forEach(opp => {
         const account = accountMap.get(opp.AccountId);
         const industry = account?.Industry || 'Unknown';
-        
+
         if (!opportunityStats[industry]) {
             opportunityStats[industry] = {
                 count: 0,
@@ -875,19 +875,19 @@ LIMIT 150`,
         opportunityStats[industry].totalValue += opp.Amount || 0;
         totalOpportunityValue += opp.Amount || 0;
     });
-    
+
     // Calculate averages
     Object.values(opportunityStats).forEach(stat => {
         stat.avgValue = stat.count > 0 ? stat.totalValue / stat.count : 0;
     });
-    
+
     // Task activity analysis
     const taskActivity = {
         totalTasks: query4Results.length,
         completedTasks: query4Results.filter(task => task.Status === 'Completed').length,
         pendingTasks: query4Results.filter(task => task.Status !== 'Completed').length
     };
-    
+
     // Final summary
     const industryAnalysis = Object.keys(industryStats).map(industry => ({
         industry: industry,
@@ -895,12 +895,12 @@ LIMIT 150`,
         contacts: contactsByIndustry[industry] || 0,
         opportunities: opportunityStats[industry]?.count || 0,
         totalRevenue: industryStats[industry].totalRevenue,
-        avgRevenue: industryStats[industry].accountCount > 0 ? 
+        avgRevenue: industryStats[industry].accountCount > 0 ?
             industryStats[industry].totalRevenue / industryStats[industry].accountCount : 0,
         totalEmployees: industryStats[industry].totalEmployees,
         opportunityValue: opportunityStats[industry]?.totalValue || 0
     }));
-    
+
     return {
         summary: {
             totalAccounts: query1Results.length,

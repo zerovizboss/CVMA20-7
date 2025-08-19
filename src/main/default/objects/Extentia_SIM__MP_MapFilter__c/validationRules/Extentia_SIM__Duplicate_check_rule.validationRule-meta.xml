@@ -3,7 +3,7 @@
     <fullName>Extentia_SIM__Duplicate_check_rule</fullName>
     <active>false</active>
     <description>Duplicate_check_rule</description>
-    <errorConditionFormula>IF(ISNEW(), IF(VLOOKUP($ObjectType.Extentia_SIM__MP_MapFilter__c.Fields.Name , $ObjectType.Extentia_SIM__MP_MapFilter__c.Fields.Name , 
+    <errorConditionFormula>IF(ISNEW(), IF(VLOOKUP($ObjectType.Extentia_SIM__MP_MapFilter__c.Fields.Name , $ObjectType.Extentia_SIM__MP_MapFilter__c.Fields.Name ,
 Name) != &apos;&apos;, true, false), false)</errorConditionFormula>
     <errorDisplayField>Name</errorDisplayField>
     <errorMessage>Filter Name Already exists.</errorMessage>

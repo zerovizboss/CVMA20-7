@@ -59,10 +59,10 @@ Save as `scripts/github-jwt-auth.ps1`:
 param(
     [Parameter(Mandatory=$true)]
     [string]$AppId,
-    
+
     [Parameter(Mandatory=$true)]
     [string]$PrivateKeyPath,
-    
+
     [Parameter(Mandatory=$true)]
     [string]$InstallationId
 )
@@ -70,17 +70,17 @@ param(
 # Function to create JWT
 function New-GitHubAppJWT {
     param($AppId, $PrivateKeyPath)
-    
+
     # JWT payload
     $now = [System.DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
     $exp = $now + 600  # 10 minutes
-    
+
     $payload = @{
         iat = $now
         exp = $exp
         iss = $AppId
     } | ConvertTo-Json -Compress
-    
+
     # Note: This is a simplified example
     # In production, you'd use a proper JWT library
     Write-Host "JWT creation requires additional setup with PowerShell JWT libraries"
@@ -90,12 +90,12 @@ function New-GitHubAppJWT {
 # Function to get installation access token
 function Get-InstallationToken {
     param($JWT, $InstallationId)
-    
+
     $headers = @{
         Authorization = "Bearer $JWT"
         Accept = "application/vnd.github.v3+json"
     }
-    
+
     $response = Invoke-RestMethod -Uri "https://api.github.com/app/installations/$InstallationId/access_tokens" -Method Post -Headers $headers
     return $response.token
 }
