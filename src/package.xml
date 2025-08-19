@@ -2285,19 +2285,14 @@
         <name>DigitalExperienceConfig</name>
     </types>
     <types>
-        <members>Experiences_Shared_Document_Folder</members>
         <members>Experiences_Shared_Document_Folder/logo_1_png</members>
-        <members>Extentia_SIM__MapPlotter_Documents</members>
         <members>Extentia_SIM__MapPlotter_Documents/Extentia_SIM__Map_plotter_Application_logo</members>
         <members>Extentia_SIM__MapPlotter_Documents/Extentia_SIM__MP_Premium_Version_logo</members>
         <members>Extentia_SIM__MapPlotter_Documents/Extentia_SIM__MPPLogoNew_175_65</members>
-        <members>Extentia_SIM__Salesforce1_Branding_Resources</members>
         <members>Extentia_SIM__Salesforce1_Branding_Resources/Extentia_SIM__MPV2logoS1_jpg</members>
         <members>Extentia_SIM__Salesforce1_Branding_Resources/Extentia_SIM__servlet_png</members>
-        <members>npsp__NPSP_Documents</members>
         <members>npsp__NPSP_Documents/npsp__NPSP_Data_Import_Template_csv</members>
         <members>npsp__NPSP_Documents/npsp__Sample_Letterhead_Logo</members>
-        <members>trailheadapp__Trailhead</members>
         <members>trailheadapp__Trailhead/trailheadapp__Trailhead_Flogo</members>
         <members>trailheadapp__Trailhead/trailheadapp__trailheadLogo_png</members>
         <name>Document</name>
