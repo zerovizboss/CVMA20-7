@@ -1,6 +1,6 @@
 /**
  * @description Streamlined Event Controller for LDS integration
- * @author Claude AI - CVMA Development Team  
+ * @author Claude AI - CVMA Development Team
  * @date January 2025
  *
  * Minimal server-side controller that handles:
@@ -47,7 +47,7 @@ public with sharing class CVMAEventControllerLDS {
             Date currentDate = baseEvent.StartDate;
 
             for (Integer i = 1; i <= recurrenceCount && (endRecurrenceDate == null || currentDate <= endRecurrenceDate); i++) {
-                
+
                 // Calculate next occurrence date
                 if (recurrenceType == 'weekly') {
                     currentDate = currentDate.addDays(7);
@@ -64,7 +64,7 @@ public with sharing class CVMAEventControllerLDS {
                 Campaign recurringEvent = baseEvent.clone(false, false, false, false);
                 recurringEvent.Name = baseEvent.Name + ' (' + currentDate.format() + ')';
                 recurringEvent.StartDate = currentDate;
-                
+
                 if (baseEvent.EndDate != null) {
                     Integer daysDifference = baseEvent.StartDate.daysBetween(baseEvent.EndDate);
                     recurringEvent.EndDate = currentDate.addDays(daysDifference);
@@ -100,8 +100,8 @@ public with sharing class CVMAEventControllerLDS {
         try {
             Campaign event = [
                 SELECT Id, Name, NumberSent,
-                       (SELECT Id, Status, ContactId, Contact.Name 
-                        FROM CampaignMembers 
+                       (SELECT Id, Status, ContactId, Contact.Name
+                        FROM CampaignMembers
                         WHERE Status IN ('Responded', 'Sent'))
                 FROM Campaign
                 WHERE Id = :eventId
@@ -115,10 +115,10 @@ public with sharing class CVMAEventControllerLDS {
             stats.eventName = event.Name;
             stats.capacity = event.NumberSent != null ? Integer.valueOf(event.NumberSent) : -1;
             stats.totalMembers = event.CampaignMembers != null ? event.CampaignMembers.size() : 0;
-            
+
             stats.respondedCount = 0;
             stats.sentCount = 0;
-            
+
             if (event.CampaignMembers != null) {
                 for (CampaignMember member : event.CampaignMembers) {
                     if (member.Status == 'Responded') {
@@ -129,7 +129,7 @@ public with sharing class CVMAEventControllerLDS {
                 }
             }
 
-            stats.availableSpots = stats.capacity > 0 ? 
+            stats.availableSpots = stats.capacity > 0 ?
                 Math.max(0, stats.capacity - stats.respondedCount) : -1;
 
             return stats;
@@ -173,11 +173,11 @@ public with sharing class CVMAEventControllerLDS {
                 summary.startDate = event.StartDate;
                 summary.endDate = event.EndDate;
                 summary.status = event.Status;
-                
+
                 // Calculate counts manually
                 summary.respondedCount = 0;
                 summary.totalMembers = event.CampaignMembers != null ? event.CampaignMembers.size() : 0;
-                
+
                 if (event.CampaignMembers != null) {
                     for (CampaignMember member : event.CampaignMembers) {
                         if (member.Status == 'Responded') {
@@ -185,7 +185,7 @@ public with sharing class CVMAEventControllerLDS {
                         }
                     }
                 }
-                
+
                 summaries.add(summary);
             }
 
@@ -206,7 +206,7 @@ public with sharing class CVMAEventControllerLDS {
         return new List<String>{
             'Chapter Meeting',
             'Ride',
-            'Social Event', 
+            'Social Event',
             'Charity Event',
             'Training',
             'Memorial Service',

@@ -13,7 +13,7 @@
 public with sharing class CVMAEventManagementController {
 
     public class EventManagementException extends Exception {}
-    
+
     private static final String CVMA_EVENT_RECORD_TYPE = 'CVMA_Event';
     private static final String EVENT_STATUS_PLANNED = 'Planned';
     private static final String EVENT_STATUS_IN_PROGRESS = 'In Progress';
@@ -111,7 +111,7 @@ public with sharing class CVMAEventManagementController {
             if (eventData.containsKey('location') && !String.isBlank((String)eventData.get('location'))) {
                 // Note: Campaign doesn't have location field by default, would need custom field
                 // For now, include in description
-                newEvent.Description = (newEvent.Description != null ? newEvent.Description + '\n\n' : '') + 
+                newEvent.Description = (newEvent.Description != null ? newEvent.Description + '\n\n' : '') +
                                      'Location: ' + CVMAErrorHandler.sanitizeInput((String)eventData.get('location'));
             }
 
@@ -245,9 +245,9 @@ public with sharing class CVMAEventManagementController {
             Campaign event = [
                 SELECT Id, Name, Description, StartDate, EndDate, Status, Type, IsActive,
                        NumberSent, NumberOfContacts, NumberOfResponses,
-                       (SELECT Id, Member__c, Member__r.Name, Response__c, RSVP_Date__c, 
+                       (SELECT Id, Member__c, Member__r.Name, Response__c, RSVP_Date__c,
                                Plus_One__c, Plus_One_Name__c, Notes__c
-                        FROM CVMA_Event_RSVPs__r 
+                        FROM CVMA_Event_RSVPs__r
                         ORDER BY RSVP_Date__c DESC)
                 FROM Campaign
                 WHERE Id = :eventId
@@ -259,18 +259,18 @@ public with sharing class CVMAEventManagementController {
             EventWrapper wrapper = new EventWrapper();
             wrapper.event = event;
             wrapper.rsvpList = event.CVMA_Event_RSVPs__r;
-            
+
             // Calculate RSVP counts
             wrapper.yesCount = 0;
             wrapper.noCount = 0;
             wrapper.maybeCount = 0;
-            
+
             for (CVMA_Event_RSVP__c rsvp : event.CVMA_Event_RSVPs__r) {
                 if (rsvp.Response__c == 'Yes') wrapper.yesCount++;
                 else if (rsvp.Response__c == 'No') wrapper.noCount++;
                 else if (rsvp.Response__c == 'Maybe') wrapper.maybeCount++;
             }
-            
+
             wrapper.totalRSVPs = event.CVMA_Event_RSVPs__r.size();
             wrapper.availableSpots = calculateAvailableSpots(event);
 
@@ -291,7 +291,7 @@ public with sharing class CVMAEventManagementController {
         try {
             String recurrenceType = (String)eventData.get('recurrenceType'); // weekly, monthly, yearly
             Integer recurrenceCount = (Integer)eventData.get('recurrenceCount');
-            Date endRecurrenceDate = eventData.containsKey('endRecurrenceDate') ? 
+            Date endRecurrenceDate = eventData.containsKey('endRecurrenceDate') ?
                                    Date.valueOf((String)eventData.get('endRecurrenceDate')) : null;
 
             if (String.isBlank(recurrenceType) || recurrenceCount == null || recurrenceCount <= 0) {
@@ -302,7 +302,7 @@ public with sharing class CVMAEventManagementController {
             Date currentDate = baseEvent.StartDate;
 
             for (Integer i = 1; i <= recurrenceCount && (endRecurrenceDate == null || currentDate <= endRecurrenceDate); i++) {
-                
+
                 // Calculate next occurrence date
                 if (recurrenceType == 'weekly') {
                     currentDate = currentDate.addDays(7);
@@ -319,7 +319,7 @@ public with sharing class CVMAEventManagementController {
                 Campaign recurringEvent = baseEvent.clone(false, false, false, false);
                 recurringEvent.Name = baseEvent.Name + ' (' + currentDate.format() + ')';
                 recurringEvent.StartDate = currentDate;
-                
+
                 if (baseEvent.EndDate != null) {
                     Integer daysDifference = baseEvent.StartDate.daysBetween(baseEvent.EndDate);
                     recurringEvent.EndDate = currentDate.addDays(daysDifference);
@@ -365,7 +365,7 @@ public with sharing class CVMAEventManagementController {
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setToAddresses(new List<String>{rsvp.Member__r.Email});
                 email.setSubject('CVMA Event Cancelled: ' + rsvp.Event__r.Name);
-                
+
                 String emailBody = 'Dear ' + rsvp.Member__r.Name + ',\n\n' +
                                  'We regret to inform you that the following CVMA event has been cancelled:\n\n' +
                                  'Event: ' + rsvp.Event__r.Name + '\n' +
@@ -374,7 +374,7 @@ public with sharing class CVMAEventManagementController {
                                  'Thank you for your understanding.\n\n' +
                                  'Combat Veterans Motorcycle Association\n' +
                                  'Chapter 20-7 - Vets Serving Vets';
-                
+
                 email.setPlainTextBody(emailBody);
                 emails.add(email);
             }

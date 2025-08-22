@@ -60,7 +60,7 @@ export default class CvmaEventManagementLDS extends LightningElement {
     wiredEventsList({ error, data }) {
         if (data) {
             // Filter for CVMA Events only
-            this.events = data.records.records.filter(record => 
+            this.events = data.records.records.filter(record =>
                 getFieldValue(record, 'Type') === 'CVMA Event'
             ).map(record => ({
                 Id: record.id,
@@ -175,7 +175,7 @@ export default class CvmaEventManagementLDS extends LightningElement {
     handleFieldChange(event) {
         const field = event.target.dataset.field;
         let value = event.target.value;
-        
+
         if (event.target.type === 'checkbox') {
             value = event.target.checked;
         }
@@ -291,7 +291,7 @@ export default class CvmaEventManagementLDS extends LightningElement {
                         recurrenceCount: parseInt(this.formData.recurrenceCount),
                         endRecurrenceDate: this.formData.endRecurrenceDate || null
                     });
-                    
+
                     if (recurringIds && recurringIds.length > 0) {
                         this.showToast('Success', `Created ${recurringIds.length} recurring events`, 'success');
                     }

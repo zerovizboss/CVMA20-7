@@ -46,13 +46,13 @@ public class CVMAEventControllerLDSTest {
 
         // Create CampaignMembers (RSVPs)
         List<CampaignMember> campaignMembers = new List<CampaignMember>();
-        
+
         campaignMembers.add(new CampaignMember(
             CampaignId = testEvent.Id,
             ContactId = testMember1.Id,
             Status = 'Responded'
         ));
-        
+
         campaignMembers.add(new CampaignMember(
             CampaignId = testEvent.Id,
             ContactId = testMember2.Id,
@@ -75,14 +75,14 @@ public class CVMAEventControllerLDSTest {
         ];
 
         Test.startTest();
-        
+
         List<Id> recurringEventIds = CVMAEventControllerLDS.createRecurringEvents(
-            testEvent.Id, 
-            'weekly', 
-            3, 
+            testEvent.Id,
+            'weekly',
+            3,
             null
         );
-        
+
         Test.stopTest();
 
         System.assertEquals(3, recurringEventIds.size(), 'Should create 3 recurring events');
@@ -96,7 +96,7 @@ public class CVMAEventControllerLDSTest {
         ];
 
         System.assertEquals(4, allEvents.size(), 'Should have 4 total events (1 original + 3 recurring)');
-        
+
         // Verify dates are 7 days apart
         for (Integer i = 1; i < allEvents.size(); i++) {
             Integer daysBetween = allEvents[i-1].StartDate.daysBetween(allEvents[i].StartDate);
@@ -117,14 +117,14 @@ public class CVMAEventControllerLDSTest {
         ];
 
         Test.startTest();
-        
+
         List<Id> recurringEventIds = CVMAEventControllerLDS.createRecurringEvents(
-            testEvent.Id, 
-            'monthly', 
-            2, 
+            testEvent.Id,
+            'monthly',
+            2,
             null
         );
-        
+
         Test.stopTest();
 
         System.assertEquals(2, recurringEventIds.size(), 'Should create 2 recurring events');
@@ -153,9 +153,9 @@ public class CVMAEventControllerLDSTest {
         ];
 
         Test.startTest();
-        
+
         CVMAEventControllerLDS.EventStats stats = CVMAEventControllerLDS.getEventStats(testEvent.Id);
-        
+
         Test.stopTest();
 
         System.assertNotEquals(null, stats, 'Stats should be returned');
@@ -194,16 +194,16 @@ public class CVMAEventControllerLDSTest {
         insert pastEvent;
 
         Test.startTest();
-        
-        List<CVMAEventControllerLDS.EventSummary> summaries = 
+
+        List<CVMAEventControllerLDS.EventSummary> summaries =
             CVMAEventControllerLDS.getUpcomingEventsSummary(10);
-        
+
         Test.stopTest();
 
         System.assertEquals(2, summaries.size(), 'Should return 2 upcoming events');
-        
+
         // Verify events are sorted by start date
-        System.assert(summaries[0].startDate <= summaries[1].startDate, 
+        System.assert(summaries[0].startDate <= summaries[1].startDate,
                      'Events should be sorted by start date');
     }
 
@@ -228,13 +228,13 @@ public class CVMAEventControllerLDSTest {
             .create();
 
         Test.startTest();
-        
+
         Id campaignMemberId = CVMAEventControllerLDS.addMemberToEvent(
-            testEvent.Id, 
-            newMember.Id, 
+            testEvent.Id,
+            newMember.Id,
             'Responded'
         );
-        
+
         Test.stopTest();
 
         System.assertNotEquals(null, campaignMemberId, 'CampaignMember ID should be returned');
@@ -270,18 +270,18 @@ public class CVMAEventControllerLDSTest {
         ];
 
         Test.startTest();
-        
+
         try {
             CVMAEventControllerLDS.addMemberToEvent(
-                testEvent.Id, 
-                existingMember.Id, 
+                testEvent.Id,
+                existingMember.Id,
                 'Responded'
             );
             System.assert(false, 'Should throw exception for duplicate member');
         } catch (CVMAEventControllerLDS.EventException e) {
             System.assert(e.getMessage().contains('already added'), 'Should indicate member already exists');
         }
-        
+
         Test.stopTest();
     }
 
@@ -291,9 +291,9 @@ public class CVMAEventControllerLDSTest {
     @IsTest
     static void testGetEventTypes() {
         Test.startTest();
-        
+
         List<String> eventTypes = CVMAEventControllerLDS.getEventTypes();
-        
+
         Test.stopTest();
 
         System.assert(!eventTypes.isEmpty(), 'Should return event types');
@@ -315,10 +315,10 @@ public class CVMAEventControllerLDSTest {
         ];
 
         Test.startTest();
-        
+
         try {
             CVMAEventControllerLDS.createRecurringEvents(
-                testEvent.Id, 
+                testEvent.Id,
                 '', // Empty recurrence type
                 0,  // Invalid count
                 null
@@ -327,7 +327,7 @@ public class CVMAEventControllerLDSTest {
         } catch (CVMAEventControllerLDS.EventException e) {
             System.assert(e.getMessage().contains('Invalid recurrence'), 'Should indicate invalid parameters');
         }
-        
+
         Test.stopTest();
     }
 
@@ -347,9 +347,9 @@ public class CVMAEventControllerLDSTest {
         insert unlimitedEvent;
 
         Test.startTest();
-        
+
         CVMAEventControllerLDS.EventStats stats = CVMAEventControllerLDS.getEventStats(unlimitedEvent.Id);
-        
+
         Test.stopTest();
 
         System.assertEquals(-1, stats.capacity, 'Should indicate unlimited capacity');
@@ -362,14 +362,14 @@ public class CVMAEventControllerLDSTest {
     @IsTest
     static void testErrorHandling() {
         Test.startTest();
-        
+
         try {
             CVMAEventControllerLDS.getEventStats('invalidId');
             System.assert(false, 'Should throw exception for invalid ID');
         } catch (Exception e) {
             System.assert(true, 'Expected exception for invalid ID');
         }
-        
+
         Test.stopTest();
 
         // Verify error was logged
@@ -396,14 +396,14 @@ public class CVMAEventControllerLDSTest {
 
         // Create multiple recurring events
         Test.startTest();
-        
+
         List<Id> recurringIds = CVMAEventControllerLDS.createRecurringEvents(
-            testEvent.Id, 
-            'weekly', 
-            10, 
+            testEvent.Id,
+            'weekly',
+            10,
             null
         );
-        
+
         Test.stopTest();
 
         System.assertEquals(10, recurringIds.size(), 'Should create 10 recurring events');

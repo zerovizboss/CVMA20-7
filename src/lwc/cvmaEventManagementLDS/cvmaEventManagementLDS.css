@@ -98,12 +98,12 @@
         margin: 0.5rem;
         max-width: calc(100vw - 1rem);
     }
-    
+
     .rsvp-summary {
         flex-direction: column;
         gap: 0.5rem;
     }
-    
+
     .event-actions {
         justify-content: center;
     }

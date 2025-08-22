@@ -138,7 +138,7 @@ export default class CvmaEventManagement extends LightningElement {
 
     // Wire methods
     wiredEventsResult;
-    
+
     @wire(getAllEvents)
     wiredEvents(result) {
         this.wiredEventsResult = result;
@@ -235,7 +235,7 @@ export default class CvmaEventManagement extends LightningElement {
     handleFieldChange(event) {
         const field = event.target.dataset.field;
         let value = event.target.value;
-        
+
         if (event.target.type === 'checkbox') {
             value = event.target.checked;
         }
@@ -315,8 +315,8 @@ export default class CvmaEventManagement extends LightningElement {
 
         try {
             this.isLoading = true;
-            await updateEvent({ 
-                eventId: eventId, 
+            await updateEvent({
+                eventId: eventId,
                 eventData: { status: 'Aborted', description: 'CANCELLED: ' + reason }
             });
             this.showToast('Success', 'Event cancelled successfully', 'success');
@@ -356,9 +356,9 @@ export default class CvmaEventManagement extends LightningElement {
             }
 
             if (this.isEditing) {
-                await updateEvent({ 
-                    eventId: this.formData.id, 
-                    eventData: this.formData 
+                await updateEvent({
+                    eventId: this.formData.id,
+                    eventData: this.formData
                 });
                 this.showToast('Success', 'Event updated successfully', 'success');
             } else {

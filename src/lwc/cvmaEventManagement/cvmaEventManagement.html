@@ -1,21 +1,21 @@
 <template>
     <lightning-card title="CVMA Event Management" icon-name="standard:event">
         <div class="slds-card__body slds-card__body_inner">
-            
+
             <!-- Action Buttons -->
             <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
                 <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
-                    <lightning-button 
-                        label="Create New Event" 
-                        variant="brand" 
+                    <lightning-button
+                        label="Create New Event"
+                        variant="brand"
                         onclick={openCreateModal}
                         class="slds-m-right_small">
                     </lightning-button>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
-                    <lightning-button 
-                        label="Refresh Events" 
-                        variant="neutral" 
+                    <lightning-button
+                        label="Refresh Events"
+                        variant="neutral"
                         onclick={refreshEvents}
                         class="slds-m-right_small">
                     </lightning-button>
@@ -55,63 +55,63 @@
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
-                    <lightning-button-icon 
-                        icon-name="utility:close" 
-                        onclick={closeModal} 
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        onclick={closeModal}
                         alternative-text="Close"
-                        variant="bare-inverse" 
+                        variant="bare-inverse"
                         class="slds-modal__close">
                     </lightning-button-icon>
                     <h2 class="slds-text-heading_medium slds-hyphenate">
                         {modalTitle}
                     </h2>
                 </header>
-                
+
                 <div class="slds-modal__content slds-p-around_medium">
-                    <lightning-record-edit-form 
-                        object-api-name="Campaign" 
+                    <lightning-record-edit-form
+                        object-api-name="Campaign"
                         onsubmit={handleSubmit}
                         onsuccess={handleSuccess}
                         onerror={handleError}>
-                        
+
                         <!-- Basic Event Information -->
                         <div class="slds-grid slds-gutters slds-wrap">
                             <div class="slds-col slds-size_1-of-1">
-                                <lightning-input-field 
-                                    field-name="Name" 
+                                <lightning-input-field
+                                    field-name="Name"
                                     required="true"
                                     value={formData.name}>
                                 </lightning-input-field>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-1">
-                                <lightning-input-field 
+                                <lightning-input-field
                                     field-name="Description"
                                     value={formData.description}>
                                 </lightning-input-field>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-2">
-                                <lightning-input 
-                                    type="date" 
-                                    label="Start Date" 
+                                <lightning-input
+                                    type="date"
+                                    label="Start Date"
                                     value={formData.startDate}
                                     onchange={handleFieldChange}
                                     data-field="startDate"
                                     required="true">
                                 </lightning-input>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-2">
-                                <lightning-input 
-                                    type="date" 
-                                    label="End Date" 
+                                <lightning-input
+                                    type="date"
+                                    label="End Date"
                                     value={formData.endDate}
                                     onchange={handleFieldChange}
                                     data-field="endDate">
                                 </lightning-input>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-2">
                                 <lightning-combobox
                                     label="Event Type"
@@ -121,7 +121,7 @@
                                     data-field="eventType">
                                 </lightning-combobox>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-2">
                                 <lightning-combobox
                                     label="Status"
@@ -131,21 +131,21 @@
                                     data-field="status">
                                 </lightning-combobox>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-2">
-                                <lightning-input 
-                                    type="text" 
-                                    label="Location" 
+                                <lightning-input
+                                    type="text"
+                                    label="Location"
                                     value={formData.location}
                                     onchange={handleFieldChange}
                                     data-field="location">
                                 </lightning-input>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-2">
-                                <lightning-input 
-                                    type="number" 
-                                    label="Capacity (Optional)" 
+                                <lightning-input
+                                    type="number"
+                                    label="Capacity (Optional)"
                                     value={formData.capacity}
                                     onchange={handleFieldChange}
                                     data-field="capacity"
@@ -156,9 +156,9 @@
 
                         <!-- Recurring Event Options -->
                         <div class="slds-m-top_medium">
-                            <lightning-input 
-                                type="checkbox" 
-                                label="Create Recurring Event Series" 
+                            <lightning-input
+                                type="checkbox"
+                                label="Create Recurring Event Series"
                                 checked={formData.isRecurring}
                                 onchange={handleFieldChange}
                                 data-field="isRecurring">
@@ -177,11 +177,11 @@
                                         required="true">
                                     </lightning-combobox>
                                 </div>
-                                
+
                                 <div class="slds-col slds-size_1-of-3">
-                                    <lightning-input 
-                                        type="number" 
-                                        label="Number of Occurrences" 
+                                    <lightning-input
+                                        type="number"
+                                        label="Number of Occurrences"
                                         value={formData.recurrenceCount}
                                         onchange={handleFieldChange}
                                         data-field="recurrenceCount"
@@ -190,11 +190,11 @@
                                         required="true">
                                     </lightning-input>
                                 </div>
-                                
+
                                 <div class="slds-col slds-size_1-of-3">
-                                    <lightning-input 
-                                        type="date" 
-                                        label="End Recurrence Date (Optional)" 
+                                    <lightning-input
+                                        type="date"
+                                        label="End Recurrence Date (Optional)"
                                         value={formData.endRecurrenceDate}
                                         onchange={handleFieldChange}
                                         data-field="endRecurrenceDate">
@@ -204,15 +204,15 @@
                         </template>
                     </lightning-record-edit-form>
                 </div>
-                
+
                 <footer class="slds-modal__footer">
-                    <lightning-button 
-                        label="Cancel" 
+                    <lightning-button
+                        label="Cancel"
                         onclick={closeModal}>
                     </lightning-button>
-                    <lightning-button 
-                        label={submitButtonLabel} 
-                        variant="brand" 
+                    <lightning-button
+                        label={submitButtonLabel}
+                        variant="brand"
                         onclick={submitForm}
                         disabled={isSubmitting}>
                     </lightning-button>
@@ -227,18 +227,18 @@
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
-                    <lightning-button-icon 
-                        icon-name="utility:close" 
-                        onclick={closeDetailsModal} 
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        onclick={closeDetailsModal}
                         alternative-text="Close"
-                        variant="bare-inverse" 
+                        variant="bare-inverse"
                         class="slds-modal__close">
                     </lightning-button-icon>
                     <h2 class="slds-text-heading_medium">
                         Event Details: {selectedEvent.event.Name}
                     </h2>
                 </header>
-                
+
                 <div class="slds-modal__content slds-p-around_medium">
                     <template if:true={selectedEvent}>
                         <div class="slds-grid slds-gutters slds-wrap">
@@ -251,7 +251,7 @@
                                 <p><strong>End Date:</strong> {selectedEvent.event.EndDate}</p>
                                 <p><strong>Status:</strong> {selectedEvent.event.Status}</p>
                             </div>
-                            
+
                             <!-- RSVP Summary -->
                             <div class="slds-col slds-size_1-of-2">
                                 <h3 class="slds-text-heading_small slds-m-bottom_small">RSVP Summary</h3>
@@ -277,15 +277,15 @@
                         </template>
                     </template>
                 </div>
-                
+
                 <footer class="slds-modal__footer">
-                    <lightning-button 
-                        label="Close" 
+                    <lightning-button
+                        label="Close"
                         onclick={closeDetailsModal}>
                     </lightning-button>
-                    <lightning-button 
-                        label="Edit Event" 
-                        variant="brand" 
+                    <lightning-button
+                        label="Edit Event"
+                        variant="brand"
                         onclick={editEventFromDetails}>
                     </lightning-button>
                 </footer>

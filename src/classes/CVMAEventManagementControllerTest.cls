@@ -59,14 +59,14 @@ public class CVMAEventManagementControllerTest {
     @IsTest
     static void testGetAllEvents() {
         Test.startTest();
-        
-        List<CVMAEventManagementController.EventWrapper> events = 
+
+        List<CVMAEventManagementController.EventWrapper> events =
             CVMAEventManagementController.getAllEvents();
-        
+
         Test.stopTest();
 
         System.assertEquals(1, events.size(), 'Should return 1 test event');
-        
+
         CVMAEventManagementController.EventWrapper eventWrapper = events[0];
         System.assertEquals(TEST_EVENT_NAME, eventWrapper.event.Name, 'Event name should match');
         System.assertEquals(TEST_EVENT_TYPE, eventWrapper.event.Type, 'Event type should match');
@@ -90,9 +90,9 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         String eventId = CVMAEventManagementController.createEvent(eventData);
-        
+
         Test.stopTest();
 
         System.assertNotEquals(null, eventId, 'Event ID should be returned');
@@ -126,9 +126,9 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         String eventId = CVMAEventManagementController.createEvent(eventData);
-        
+
         Test.stopTest();
 
         System.assertNotEquals(null, eventId, 'Event ID should be returned');
@@ -143,7 +143,7 @@ public class CVMAEventManagementControllerTest {
         ];
 
         System.assertEquals(5, allEvents.size(), 'Should have 5 total events (1 setup + 1 base + 3 recurring)');
-        
+
         // Verify recurring event names include dates
         Boolean foundRecurringEvent = false;
         for (Campaign event : allEvents) {
@@ -175,9 +175,9 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         Boolean result = CVMAEventManagementController.updateEvent(testEvent.Id, updateData);
-        
+
         Test.stopTest();
 
         System.assertEquals(true, result, 'Update should succeed');
@@ -210,9 +210,9 @@ public class CVMAEventManagementControllerTest {
         String cancellationReason = 'Weather conditions';
 
         Test.startTest();
-        
+
         Boolean result = CVMAEventManagementController.cancelEvent(testEvent.Id, cancellationReason);
-        
+
         Test.stopTest();
 
         System.assertEquals(true, result, 'Cancellation should succeed');
@@ -243,10 +243,10 @@ public class CVMAEventManagementControllerTest {
         ];
 
         Test.startTest();
-        
-        CVMAEventManagementController.EventWrapper eventDetails = 
+
+        CVMAEventManagementController.EventWrapper eventDetails =
             CVMAEventManagementController.getEventDetails(testEvent.Id);
-        
+
         Test.stopTest();
 
         System.assertNotEquals(null, eventDetails, 'Event details should be returned');
@@ -279,9 +279,9 @@ public class CVMAEventManagementControllerTest {
         System.assertEquals(1, rsvpsBefore.size(), 'Should have 1 RSVP before deletion');
 
         Test.startTest();
-        
+
         Boolean result = CVMAEventManagementController.deleteEvent(testEvent.Id);
-        
+
         Test.stopTest();
 
         System.assertEquals(true, result, 'Deletion should succeed');
@@ -331,16 +331,16 @@ public class CVMAEventManagementControllerTest {
         insert pastEvent;
 
         Test.startTest();
-        
-        List<CVMAEventManagementController.EventWrapper> upcomingEvents = 
+
+        List<CVMAEventManagementController.EventWrapper> upcomingEvents =
             CVMAEventManagementController.getUpcomingEvents();
-        
+
         Test.stopTest();
 
         System.assertEquals(2, upcomingEvents.size(), 'Should return 2 upcoming events');
-        
+
         // Verify events are sorted by start date
-        System.assert(upcomingEvents[0].event.StartDate <= upcomingEvents[1].event.StartDate, 
+        System.assert(upcomingEvents[0].event.StartDate <= upcomingEvents[1].event.StartDate,
                      'Events should be sorted by start date');
     }
 
@@ -355,7 +355,7 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         try {
             CVMAEventManagementController.createEvent(invalidData1);
             System.assert(false, 'Should throw exception for missing name');
@@ -374,7 +374,7 @@ public class CVMAEventManagementControllerTest {
         } catch (CVMAEventManagementController.EventManagementException e) {
             System.assert(e.getMessage().contains('start date is required'), 'Should indicate start date is required');
         }
-        
+
         Test.stopTest();
     }
 
@@ -384,9 +384,9 @@ public class CVMAEventManagementControllerTest {
     @IsTest
     static void testGetEventTypes() {
         Test.startTest();
-        
+
         List<String> eventTypes = CVMAEventManagementController.getEventTypes();
-        
+
         Test.stopTest();
 
         System.assert(!eventTypes.isEmpty(), 'Should return event types');
@@ -401,9 +401,9 @@ public class CVMAEventManagementControllerTest {
     @IsTest
     static void testGetEventStatuses() {
         Test.startTest();
-        
+
         List<String> statuses = CVMAEventManagementController.getEventStatuses();
-        
+
         Test.stopTest();
 
         System.assert(!statuses.isEmpty(), 'Should return event statuses');
@@ -440,7 +440,7 @@ public class CVMAEventManagementControllerTest {
 
         // Add more RSVPs with plus ones
         List<CVMA_Event_RSVP__c> additionalRSVPs = new List<CVMA_Event_RSVP__c>();
-        
+
         additionalRSVPs.add(new CVMA_Event_RSVP__c(
             Event__c = testEvent.Id,
             Member__c = member1.Id,
@@ -462,10 +462,10 @@ public class CVMAEventManagementControllerTest {
         insert additionalRSVPs;
 
         Test.startTest();
-        
-        CVMAEventManagementController.EventWrapper eventDetails = 
+
+        CVMAEventManagementController.EventWrapper eventDetails =
             CVMAEventManagementController.getEventDetails(testEvent.Id);
-        
+
         Test.stopTest();
 
         System.assertEquals(3, eventDetails.yesCount, 'Should have 3 Yes RSVPs');
@@ -489,9 +489,9 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         String eventId = CVMAEventManagementController.createEvent(eventData);
-        
+
         Test.stopTest();
 
         System.assertNotEquals(null, eventId, 'Event ID should be returned');
@@ -506,7 +506,7 @@ public class CVMAEventManagementControllerTest {
         ];
 
         System.assertEquals(5, weeklyEvents.size(), 'Should create base event plus 4 recurring events');
-        
+
         // Verify dates are 7 days apart
         for (Integer i = 1; i < weeklyEvents.size(); i++) {
             Integer daysBetween = weeklyEvents[i-1].StartDate.daysBetween(weeklyEvents[i].StartDate);
@@ -529,9 +529,9 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         String eventId = CVMAEventManagementController.createEvent(eventData);
-        
+
         Test.stopTest();
 
         List<Campaign> monthlyEvents = [
@@ -555,14 +555,14 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         try {
             CVMAEventManagementController.createEvent(incompleteData);
             System.assert(false, 'Should throw exception for missing required fields');
         } catch (CVMAEventManagementController.EventManagementException e) {
             System.assert(e.getMessage().contains('required'), 'Error message should mention required fields');
         }
-        
+
         Test.stopTest();
     }
 
@@ -578,9 +578,9 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         String eventId = CVMAEventManagementController.createEvent(eventData);
-        
+
         Test.stopTest();
 
         Campaign createdEvent = [
@@ -608,12 +608,12 @@ public class CVMAEventManagementControllerTest {
         };
 
         Test.startTest();
-        
+
         String eventId = CVMAEventManagementController.createEvent(eventData);
-        
+
         Test.stopTest();
 
-        CVMAEventManagementController.EventWrapper eventDetails = 
+        CVMAEventManagementController.EventWrapper eventDetails =
             CVMAEventManagementController.getEventDetails(eventId);
 
         System.assertEquals(-1, eventDetails.availableSpots, 'Should indicate unlimited capacity');
@@ -626,7 +626,7 @@ public class CVMAEventManagementControllerTest {
     static void testGuestUserSecurityRestrictions() {
         // Get guest user
         Profile guestProfile = [SELECT Id FROM Profile WHERE Name = 'Guest License User' LIMIT 1];
-        
+
         User guestUser = new User(
             FirstName = 'Test',
             LastName = 'Guest',
@@ -643,21 +643,21 @@ public class CVMAEventManagementControllerTest {
 
         System.runAs(guestUser) {
             Test.startTest();
-            
+
             try {
                 // Guest users should not be able to create events
                 Map<String, Object> eventData = new Map<String, Object>{
                     'name' => 'Guest Event',
                     'startDate' => String.valueOf(Date.today().addDays(7))
                 };
-                
+
                 CVMAEventManagementController.createEvent(eventData);
                 System.assert(false, 'Guest user should not be able to create events');
-                
+
             } catch (Exception e) {
                 System.assert(true, 'Expected: Guest user cannot create events');
             }
-            
+
             Test.stopTest();
         }
     }
@@ -669,14 +669,14 @@ public class CVMAEventManagementControllerTest {
     static void testErrorHandling() {
         // Test with invalid event ID
         Test.startTest();
-        
+
         try {
             CVMAEventManagementController.getEventDetails('invalidId');
             System.assert(false, 'Should throw exception for invalid ID');
         } catch (Exception e) {
             System.assert(true, 'Expected exception for invalid ID');
         }
-        
+
         Test.stopTest();
 
         // Verify error was logged
@@ -696,7 +696,7 @@ public class CVMAEventManagementControllerTest {
     @IsTest
     static void testBulkOperations() {
         List<Map<String, Object>> bulkEventData = new List<Map<String, Object>>();
-        
+
         for (Integer i = 1; i <= 10; i++) {
             bulkEventData.add(new Map<String, Object>{
                 'name' => 'Bulk Event ' + i,
@@ -706,13 +706,13 @@ public class CVMAEventManagementControllerTest {
         }
 
         Test.startTest();
-        
+
         List<String> createdEventIds = new List<String>();
         for (Map<String, Object> data : bulkEventData) {
             String eventId = CVMAEventManagementController.createEvent(data);
             createdEventIds.add(eventId);
         }
-        
+
         Test.stopTest();
 
         System.assertEquals(10, createdEventIds.size(), 'Should create 10 events');

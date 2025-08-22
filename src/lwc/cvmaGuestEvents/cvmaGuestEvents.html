@@ -1,0 +1,336 @@
+<!--
+  @description Lightning Web Component template for Guest Event Access
+  @author Claude AI - CVMA Development Team
+  @date January 2025
+-->
+
+<template>
+    <lightning-card title="CVMA Public Events" icon-name="standard:event">
+        <div class="slds-card__header-actions" slot="actions">
+            <lightning-button
+                label="Refresh"
+                onclick={handleRefreshEvents}
+                variant="neutral"
+                icon-name="utility:refresh"
+                class="slds-m-left_x-small">
+            </lightning-button>
+            <template if:true={guestRequestId}>
+                <lightning-button
+                    label="Check Status"
+                    onclick={handleCheckStatus}
+                    variant="brand"
+                    icon-name="utility:search"
+                    class="slds-m-left_x-small">
+                </lightning-button>
+            </template>
+        </div>
+
+        <div class="slds-card__body_inner">
+            <!-- Header Information -->
+            <div class="cvma-header slds-m-bottom_medium">
+                <h2 class="slds-text-heading_medium slds-text-color_inverse">
+                    Combat Veterans Motorcycle Association - Chapter 20-7
+                </h2>
+                <p class="slds-text-body_regular slds-text-color_inverse">
+                    Welcome! Browse our public events and request to attend those that interest you.
+                </p>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-m-vertical_large">
+                    <lightning-spinner alternative-text="Loading events..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Events List -->
+            <template if:true={hasEvents}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <template for:each={formattedEvents} for:item="event">
+                        <div key={event.eventId} class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <article class="slds-card slds-m-bottom_medium event-card">
+                                <div class="slds-card__header">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="standard:event" size="small"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                <span class="slds-text-heading_small">{event.eventName}</span>
+                                            </h2>
+                                        </div>
+                                    </header>
+                                </div>
+
+                                <div class="slds-card__body slds-card__body_inner">
+                                    <div class="slds-m-bottom_small">
+                                        <lightning-formatted-date-time
+                                            value={event.startDate}
+                                            year="numeric"
+                                            month="long"
+                                            day="numeric"
+                                            weekday="long">
+                                        </lightning-formatted-date-time>
+                                        <template if:true={event.endDate}>
+                                            <span> - </span>
+                                            <lightning-formatted-date-time
+                                                value={event.endDate}
+                                                year="numeric"
+                                                month="long"
+                                                day="numeric">
+                                            </lightning-formatted-date-time>
+                                        </template>
+                                    </div>
+
+                                    <template if:true={event.eventDescription}>
+                                        <div class="slds-m-bottom_small">
+                                            <p class="slds-text-body_regular">{event.eventDescription}</p>
+                                        </div>
+                                    </template>
+
+                                    <div class="slds-m-bottom_small">
+                                        <lightning-badge
+                                            label={event.status}
+                                            class="event-status">
+                                        </lightning-badge>
+                                        <template if:true={event.allowsGuests}>
+                                            <lightning-badge
+                                                label="Guests Welcome"
+                                                class="slds-m-left_small guests-welcome">
+                                            </lightning-badge>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <footer class="slds-card__footer">
+                                    <template if:true={event.canRequest}>
+                                        <lightning-button
+                                            label="Request to Attend"
+                                            variant="brand"
+                                            onclick={handleRequestAttendance}
+                                            data-event-id={event.eventId}
+                                            class="slds-m-left_x-small">
+                                        </lightning-button>
+                                    </template>
+                                    <template if:false={event.canRequest}>
+                                        <p class="slds-text-body_small slds-text-color_weak">
+                                            This event is not open to guest attendance.
+                                        </p>
+                                    </template>
+                                </footer>
+                            </article>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- No Events Message -->
+            <template if:false={hasEvents}>
+                <div class="slds-illustration slds-illustration_small">
+                    <div class="slds-text-longform">
+                        <h3 class="slds-text-heading_medium">No Public Events Available</h3>
+                        <p class="slds-text-body_regular">
+                            There are currently no public events that accept guest attendance.
+                            Please check back later or contact the chapter directly for more information.
+                        </p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Guest Request Modal -->
+    <template if:true={showRequestModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-id_modal slds-text-heading_medium">
+                        Request to Attend: {selectedEvent.eventName}
+                    </h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-form slds-form_stacked">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    label="First Name *"
+                                    value={guestInfo.firstName}
+                                    data-field="firstName"
+                                    onchange={handleInputChange}
+                                    required>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    label="Last Name *"
+                                    value={guestInfo.lastName}
+                                    data-field="lastName"
+                                    onchange={handleInputChange}
+                                    required>
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-m-top_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    label="Email *"
+                                    type="email"
+                                    value={guestInfo.email}
+                                    data-field="email"
+                                    onchange={handleInputChange}
+                                    required>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    label="Phone *"
+                                    type="tel"
+                                    value={guestInfo.phone}
+                                    data-field="phone"
+                                    onchange={handleInputChange}
+                                    required>
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="slds-m-top_small">
+                            <lightning-input
+                                type="checkbox"
+                                label="I am a veteran"
+                                checked={guestInfo.veteranStatus}
+                                data-field="veteranStatus"
+                                onchange={handleInputChange}>
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-m-top_small">
+                            <lightning-input
+                                label="Emergency Contact"
+                                value={guestInfo.emergencyContact}
+                                data-field="emergencyContact"
+                                onchange={handleInputChange}
+                                placeholder="Name and phone number">
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-m-top_small">
+                            <lightning-textarea
+                                label="Additional Information"
+                                value={guestInfo.additionalInfo}
+                                data-field="additionalInfo"
+                                onchange={handleInputChange}
+                                placeholder="Any additional information you'd like to share..."
+                                rows="3">
+                            </lightning-textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        variant="neutral"
+                        onclick={handleCloseModal}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Submit Request"
+                        variant="brand"
+                        onclick={handleSubmitRequest}
+                        disabled={isSubmitting}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Request Status Modal -->
+    <template if:true={showStatusModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-id_modal slds-text-heading_medium">
+                        Request Status
+                    </h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={guestRequestStatus}>
+                        <div class="slds-form slds-form_stacked">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Event</label>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">{guestRequestStatus.eventName}</span>
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-m-top_small">
+                                <label class="slds-form-element__label">Guest Name</label>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">{guestRequestStatus.guestName}</span>
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-m-top_small">
+                                <label class="slds-form-element__label">Status</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-badge
+                                        label={guestRequestStatus.status}
+                                        class={statusBadgeClass}>
+                                    </lightning-badge>
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-m-top_small">
+                                <label class="slds-form-element__label">Request Submitted</label>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">{formattedRequestDate}</span>
+                                </div>
+                            </div>
+
+                            <template if:true={guestRequestStatus.responseDate}>
+                                <div class="slds-form-element slds-m-top_small">
+                                    <label class="slds-form-element__label">Response Date</label>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{formattedResponseDate}</span>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template if:true={guestRequestStatus.responseNotes}>
+                                <div class="slds-form-element slds-m-top_small">
+                                    <label class="slds-form-element__label">Response Notes</label>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{guestRequestStatus.responseNotes}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Close"
+                        variant="brand"
+                        onclick={handleCloseModal}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

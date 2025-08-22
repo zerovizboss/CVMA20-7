@@ -60,7 +60,8 @@
       "Bash(pip --version)",
       "Bash(pip install:*)",
       "Bash(pre-commit:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(git reset:*)"
     ],
     "deny": []
   }

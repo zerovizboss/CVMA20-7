@@ -1,0 +1,113 @@
+/* Guest Request Review Component Styling */
+
+.request-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: 1px solid #dddbda;
+}
+
+.request-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pending-badge {
+    background-color: #fe9339;
+    color: white;
+}
+
+.additional-info {
+    font-style: italic;
+    background-color: #f8f9fb;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border-left: 3px solid #0176d3;
+}
+
+.additional-info-box {
+    background-color: #f8f9fb;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    padding: 1rem;
+    border-left: 3px solid #0176d3;
+}
+
+/* Modal Styling */
+.slds-modal_large .slds-modal__container {
+    max-width: 50rem;
+}
+
+/* List Styling */
+.slds-list_vertical .slds-item_label {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.slds-list_vertical .slds-item_detail {
+    font-size: 0.875rem;
+    line-height: 1.25;
+}
+
+.slds-list_horizontal .slds-item_label {
+    width: 40%;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.slds-list_horizontal .slds-item_detail {
+    width: 60%;
+    font-size: 0.875rem;
+}
+
+/* Button Group */
+.slds-button-group {
+    justify-content: flex-end;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .slds-modal__container {
+        margin: 0.5rem;
+        max-width: calc(100vw - 1rem);
+    }
+
+    .slds-list_horizontal {
+        flex-direction: column;
+    }
+
+    .slds-list_horizontal .slds-item_label,
+    .slds-list_horizontal .slds-item_detail {
+        width: 100%;
+    }
+}
+
+/* Loading State */
+.slds-is-relative {
+    min-height: 100px;
+}
+
+/* Empty State */
+.slds-illustration {
+    text-align: center;
+    padding: 2rem;
+}
+
+.slds-illustration h3 {
+    margin-bottom: 1rem;
+    color: #706e6b;
+}
+
+.slds-illustration p {
+    color: #706e6b;
+    max-width: 30rem;
+    margin: 0 auto;
+}
+
+/* Status Indicators */
+.veteran-status-yes {
+    color: #04844b;
+    font-weight: 600;
+}
+
+.veteran-status-no {
+    color: #706e6b;
+}
