@@ -47,6 +47,11 @@
     </types>
     <types>
         <members>SiteSamples</members>
+        <members>ApexCharts</members>
+        <members>ChartJS</members>
+        <members>Lodash</members>
+        <members>Momentjs</members>
+        <members>SweetAlert2</members>
         <name>StaticResource</name>
     </types>
     <types>
