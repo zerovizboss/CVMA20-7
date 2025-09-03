@@ -1,0 +1,465 @@
+<template>
+    <!-- Main Container -->
+    <div class="slds-card">
+        <!-- Header -->
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="standard:announcement" alternative-text="Announcements" size="medium"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-truncate" title="CVMA Chapter Announcements">CVMA Chapter Announcements</span>
+                    </h2>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <lightning-button variant="brand" label="Create Announcement" icon-name="utility:add" onclick={handleCreateClick}></lightning-button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-tabs_default">
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class={publishedActive} title="Published Announcements" role="presentation">
+                        <a class="slds-tabs_default__link" href="#" role="tab" data-view="published" onclick={handleViewChange}>Published</a>
+                    </li>
+                    <li class={draftActive} title="Draft Announcements" role="presentation">
+                        <a class="slds-tabs_default__link" href="#" role="tab" data-view="draft" onclick={handleViewChange}>Drafts</a>
+                    </li>
+                    <li class={archivedActive} title="Archived Announcements" role="presentation">
+                        <a class="slds-tabs_default__link" href="#" role="tab" data-view="archived" onclick={handleViewChange}>Archived</a>
+                    </li>
+                    <li class={allActive} title="All Announcements" role="presentation">
+                        <a class="slds-tabs_default__link" href="#" role="tab" data-view="all" onclick={handleViewChange}>All</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-spinner_container">
+                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>{error}</h2>
+                </div>
+            </template>
+
+            <!-- Announcements Table -->
+            <template if:true={hasAnnouncements}>
+                <div class="announcements-table">
+                    <lightning-datatable
+                        data={announcements}
+                        columns={columns}
+                        key-field="Id"
+                        hide-checkbox-column="true"
+                        onrowselection={handleRowSelection}
+                        onrowaction={handleRowAction}>
+                    </lightning-datatable>
+                </div>
+
+                <!-- Pagination -->
+                <div class="slds-grid slds-grid_align-spread slds-p-top_small">
+                    <div class="slds-col">
+                        <span class="slds-text-body_small">{pageInfo}</span>
+                    </div>
+                    <div class="slds-col slds-no-flex">
+                        <div class="slds-button-group" role="group">
+                            <lightning-button 
+                                variant="neutral" 
+                                label="Previous" 
+                                icon-name="utility:chevronleft" 
+                                onclick={handlePreviousPage}
+                                disabled={isFirstPage}>
+                            </lightning-button>
+                            <lightning-button 
+                                variant="neutral" 
+                                label="Next" 
+                                icon-name="utility:chevronright" 
+                                icon-position="right"
+                                onclick={handleNextPage}
+                                disabled={isLastPage}>
+                            </lightning-button>
+                            <lightning-button 
+                                variant="neutral" 
+                                label="Refresh" 
+                                icon-name="utility:refresh" 
+                                onclick={handleRefresh}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- No Announcements Message -->
+            <template if:false={hasAnnouncements}>
+                <template if:false={isLoading}>
+                    <div class="slds-align_absolute-center slds-p-around_large">
+                        <div class="slds-text-align_center">
+                            <lightning-icon icon-name="standard:announcement" size="large" alternative-text="No announcements"></lightning-icon>
+                            <h3 class="slds-text-heading_medium slds-p-top_medium">No announcements found</h3>
+                            <p class="slds-text-body_regular slds-p-top_small">
+                                <template if:true={publishedActive}>
+                                    There are no published announcements at this time.
+                                </template>
+                                <template if:true={draftActive}>
+                                    You don't have any draft announcements.
+                                </template>
+                                <template if:true={archivedActive}>
+                                    There are no archived announcements.
+                                </template>
+                                <template if:true={allActive}>
+                                    There are no announcements in the system.
+                                </template>
+                            </p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+
+    <!-- Create/Edit Announcement Modal -->
+    <template if:true={showAnnouncementModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container announcement-modal">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                            title="Close" onclick={handleModalCancel}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">{modalTitle}</h2>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-form slds-form_stacked">
+                        <!-- Title -->
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="title">
+                                <abbr class="slds-required" title="required">*</abbr>Title
+                            </label>
+                            <div class="slds-form-element__control">
+                                <lightning-input
+                                    id="title"
+                                    type="text"
+                                    value={announcement.title}
+                                    data-field="title"
+                                    onchange={handleInputChange}
+                                    max-length="255"
+                                    required>
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="content">
+                                <abbr class="slds-required" title="required">*</abbr>Content
+                            </label>
+                            <div class="slds-form-element__control">
+                                <lightning-textarea
+                                    id="content"
+                                    value={announcement.content}
+                                    data-field="content"
+                                    onchange={handleInputChange}
+                                    max-length="32768"
+                                    rows="6"
+                                    required>
+                                </lightning-textarea>
+                            </div>
+                        </div>
+
+                        <!-- Category and Priority Row -->
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="category">Category</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox
+                                            id="category"
+                                            value={announcement.category}
+                                            options={categoryOptions}
+                                            data-field="category"
+                                            onchange={handleInputChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="priority">Priority</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox
+                                            id="priority"
+                                            value={announcement.priority}
+                                            options={priorityOptions}
+                                            data-field="priority"
+                                            onchange={handleInputChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Target Audience -->
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="targetAudience">Target Audience</label>
+                            <div class="slds-form-element__control">
+                                <lightning-combobox
+                                    id="targetAudience"
+                                    value={announcement.targetAudience}
+                                    options={targetAudienceOptions}
+                                    data-field="targetAudience"
+                                    onchange={handleInputChange}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+
+                        <!-- Status and Dates Row -->
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="status">Status</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox
+                                            id="status"
+                                            value={announcement.status}
+                                            options={statusOptions}
+                                            data-field="status"
+                                            onchange={handleInputChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="publishDate">Publish Date</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input
+                                            id="publishDate"
+                                            type="datetime-local"
+                                            value={announcement.publishDate}
+                                            data-field="publishDate"
+                                            onchange={handleInputChange}
+                                            min={publishDateMin}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="expirationDate">Expiration Date</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input
+                                            id="expirationDate"
+                                            type="date"
+                                            value={announcement.expirationDate}
+                                            data-field="expirationDate"
+                                            onchange={handleInputChange}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banner Image URL -->
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="bannerImageUrl">Banner Image URL</label>
+                            <div class="slds-form-element__control">
+                                <lightning-input
+                                    id="bannerImageUrl"
+                                    type="url"
+                                    value={announcement.bannerImageUrl}
+                                    data-field="bannerImageUrl"
+                                    onchange={handleInputChange}
+                                    placeholder="https://example.com/image.jpg">
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <!-- Checkboxes -->
+                        <div class="slds-form-element">
+                            <fieldset class="slds-form-element">
+                                <legend class="slds-form-element__legend slds-form-element__label">Options</legend>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-checkbox_button-group">
+                                        <span class="slds-button slds-checkbox_button">
+                                            <lightning-input
+                                                type="checkbox"
+                                                label="Emergency Announcement"
+                                                checked={announcement.isEmergency}
+                                                data-field="isEmergency"
+                                                onchange={handleInputChange}>
+                                            </lightning-input>
+                                        </span>
+                                        <span class="slds-button slds-checkbox_button">
+                                            <lightning-input
+                                                type="checkbox"
+                                                label="Send Email Notification"
+                                                checked={announcement.sendEmailNotification}
+                                                data-field="sendEmailNotification"
+                                                onchange={handleInputChange}>
+                                            </lightning-input>
+                                        </span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleModalCancel}></lightning-button>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Save" 
+                        onclick={handleSaveAnnouncement}
+                        disabled={isComposing}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- View Announcement Modal -->
+    <template if:true={showViewModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container announcement-view-modal">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                            title="Close" onclick={handleViewModalClose}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">{selectedAnnouncementFormatted.Title__c}</h2>
+                    <template if:true={selectedAnnouncementFormatted.Is_Emergency__c}>
+                        <span class="slds-badge slds-badge_inverse slds-theme_error emergency-badge">🚨 EMERGENCY</span>
+                    </template>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={selectedAnnouncementFormatted}>
+                        <!-- Banner Image -->
+                        <template if:true={selectedAnnouncementFormatted.Banner_Image_URL__c}>
+                            <div class="slds-p-bottom_medium">
+                                <img src={selectedAnnouncementFormatted.Banner_Image_URL__c} 
+                                     alt="Announcement Banner" 
+                                     class="announcement-banner-image"/>
+                            </div>
+                        </template>
+
+                        <!-- Announcement Details -->
+                        <div class="slds-grid slds-gutters slds-p-bottom_medium">
+                            <div class="slds-col slds-size_1-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Category">Category:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.Category__c}>
+                                        <span class={selectedAnnouncementFormatted.categoryClass}>
+                                            {selectedAnnouncementFormatted.Category__c}
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Priority">Priority:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.Priority__c}>
+                                        <span class={selectedAnnouncementFormatted.priorityClass}>
+                                            {selectedAnnouncementFormatted.Priority__c}
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Status">Status:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.Status__c}>
+                                        <span class={selectedAnnouncementFormatted.statusClass}>
+                                            {selectedAnnouncementFormatted.Status__c}
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <!-- Author and Dates -->
+                        <div class="slds-grid slds-gutters slds-p-bottom_medium">
+                            <div class="slds-col slds-size_1-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Author">Author:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.authorName}>
+                                        {selectedAnnouncementFormatted.authorName}
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Published">Published:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.formattedPublishDate}>
+                                        {selectedAnnouncementFormatted.formattedPublishDate}
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Expires">Expires:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.formattedExpirationDate}>
+                                        {selectedAnnouncementFormatted.formattedExpirationDate}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <!-- Target Audience and View Count -->
+                        <div class="slds-grid slds-gutters slds-p-bottom_medium">
+                            <div class="slds-col slds-size_2-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Target Audience">Target Audience:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.Target_Audience__c}>
+                                        {selectedAnnouncementFormatted.Target_Audience__c}
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Views">Views:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedAnnouncementFormatted.View_Count__c}>
+                                        {selectedAnnouncementFormatted.View_Count__c}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="slds-box slds-theme_shade announcement-content">
+                            <h3 class="slds-text-heading_small slds-p-bottom_small">Announcement Content</h3>
+                            <div class="slds-text-longform announcement-text">
+                                <lightning-formatted-rich-text value={selectedAnnouncementFormatted.Content__c}>
+                                </lightning-formatted-rich-text>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Close" onclick={handleViewModalClose}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
