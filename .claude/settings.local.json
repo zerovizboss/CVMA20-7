@@ -62,7 +62,8 @@
       "Bash(pre-commit:*)",
       "Bash(bash:*)",
       "Bash(git reset:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "WebSearch"
     ],
     "deny": []
   }
