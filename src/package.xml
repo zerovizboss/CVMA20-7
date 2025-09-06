@@ -2201,6 +2201,8 @@
         <members>CVMA_Error_Log__c</members>
         <members>CVMA_Event_RSVP__c</members>
         <members>CVMA_Guest_Request__c</members>
+        <members>CVMA_Announcement__c</members>
+        <members>CVMA_Message__c</members>
         <name>CustomObject</name>
     </types>
     <types>

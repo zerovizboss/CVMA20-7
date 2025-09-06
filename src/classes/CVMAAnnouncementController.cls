@@ -11,16 +11,16 @@
  * - Audience targeting and permission controls
  */
 public with sharing class CVMAAnnouncementController {
-    
+
     // Constants
     private static final Integer DEFAULT_PAGE_SIZE = 10;
     private static final Integer MAX_PAGE_SIZE = 50;
     private static final Integer TITLE_MAX_LENGTH = 255;
     private static final Integer CONTENT_MAX_LENGTH = 32768;
-    
+
     // Custom exception for announcement-specific errors
     public class CVMAAnnouncementException extends Exception {}
-    
+
     // Wrapper classes for data transfer
     public class AnnouncementResponse {
         @AuraEnabled public Boolean success { get; set; }
@@ -32,12 +32,12 @@ public with sharing class CVMAAnnouncementController {
         @AuraEnabled public Integer pageNumber { get; set; }
         @AuraEnabled public Boolean hasMore { get; set; }
     }
-    
+
     public class AnnouncementOption {
         @AuraEnabled public String value { get; set; }
         @AuraEnabled public String label { get; set; }
     }
-    
+
     /**
      * @description Get announcements with pagination and filtering
      * @param pageSize Number of records per page (default: 10, max: 50)
@@ -58,18 +58,18 @@ public with sharing class CVMAAnnouncementController {
             if (String.isBlank(announcementType)) {
                 announcementType = 'published';
             }
-            
+
             // Get current user's Contact Id for permission checking
             Id currentUserContactId = getCurrentUserContactId();
             if (currentUserContactId == null) {
                 throw new CVMAAnnouncementException('User contact record not found. Please contact administrator.');
             }
-            
+
             // Use static SOQL queries based on announcement type to avoid security scanner flags
             List<CVMA_Announcement__c> announcements;
             Integer totalCount;
             Integer offsetValue = pageSize * pageNumber;
-            
+
             switch on announcementType.toLowerCase() {
                 when 'published' {
                     announcements = [
@@ -162,7 +162,7 @@ public with sharing class CVMAAnnouncementController {
                     ];
                 }
             }
-            
+
             // Build response
             AnnouncementResponse response = new AnnouncementResponse();
             response.announcements = announcements;
@@ -171,9 +171,9 @@ public with sharing class CVMAAnnouncementController {
             response.pageNumber = pageNumber;
             response.hasMore = (totalCount > (pageSize * (pageNumber + 1)));
             response.success = true;
-            
+
             return response;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMAAnnouncementController', 'getAnnouncements',
                                                                   CVMAErrorHandler.Category.DATA_VALIDATION);
@@ -183,7 +183,7 @@ public with sharing class CVMAAnnouncementController {
             return errorResponse;
         }
     }
-    
+
     /**
      * @description Create a new announcement
      * @param title Announcement title
@@ -199,8 +199,8 @@ public with sharing class CVMAAnnouncementController {
      * @return Success/failure response
      */
     @AuraEnabled
-    public static AnnouncementResponse createAnnouncement(String title, String content, String priority, 
-                                                         String category, String targetAudience, 
+    public static AnnouncementResponse createAnnouncement(String title, String content, String priority,
+                                                         String category, String targetAudience,
                                                          DateTime publishDate, Date expirationDate,
                                                          Boolean isEmergency, Boolean sendEmailNotification,
                                                          String bannerImageUrl) {
@@ -209,7 +209,7 @@ public with sharing class CVMAAnnouncementController {
             if (!isCurrentUserOfficer()) {
                 throw new CVMAAnnouncementException('Insufficient permissions to create announcements.');
             }
-            
+
             // Validate and sanitize inputs
             title = CVMAErrorHandler.sanitizeInput(title);
             content = CVMAErrorHandler.sanitizeInput(content);
@@ -217,7 +217,7 @@ public with sharing class CVMAAnnouncementController {
             category = CVMAErrorHandler.sanitizeInput(category);
             targetAudience = CVMAErrorHandler.sanitizeInput(targetAudience);
             bannerImageUrl = CVMAErrorHandler.sanitizeInput(bannerImageUrl);
-            
+
             if (String.isBlank(title)) {
                 throw new CVMAAnnouncementException('Title is required.');
             }
@@ -233,7 +233,7 @@ public with sharing class CVMAAnnouncementController {
             if (String.isBlank(targetAudience)) {
                 targetAudience = 'All Members';
             }
-            
+
             // Validate field lengths
             if (title.length() > TITLE_MAX_LENGTH) {
                 throw new CVMAAnnouncementException('Title cannot exceed ' + TITLE_MAX_LENGTH + ' characters.');
@@ -241,13 +241,13 @@ public with sharing class CVMAAnnouncementController {
             if (content.length() > CONTENT_MAX_LENGTH) {
                 throw new CVMAAnnouncementException('Content cannot exceed ' + CONTENT_MAX_LENGTH + ' characters.');
             }
-            
+
             // Get current user's Contact Id
             Id currentUserContactId = getCurrentUserContactId();
             if (currentUserContactId == null) {
                 throw new CVMAAnnouncementException('User contact record not found. Please contact administrator.');
             }
-            
+
             // Create announcement record
             CVMA_Announcement__c announcement = new CVMA_Announcement__c();
             announcement.Title__c = title;
@@ -263,20 +263,20 @@ public with sharing class CVMAAnnouncementController {
             announcement.Send_Email_Notification__c = sendEmailNotification != null ? sendEmailNotification : false;
             announcement.Banner_Image_URL__c = bannerImageUrl;
             announcement.View_Count__c = 0;
-            
+
             insert announcement;
-            
+
             // Send email notifications if requested and announcement is published
             if (announcement.Send_Email_Notification__c && announcement.Status__c == 'Published') {
                 sendAnnouncementNotifications(announcement);
             }
-            
+
             AnnouncementResponse response = new AnnouncementResponse();
             response.success = true;
             response.successMessage = 'Announcement created successfully';
-            
+
             return response;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMAAnnouncementController', 'createAnnouncement',
                                                                   CVMAErrorHandler.Category.DATA_VALIDATION);
@@ -286,7 +286,7 @@ public with sharing class CVMAAnnouncementController {
             return errorResponse;
         }
     }
-    
+
     /**
      * @description Update an existing announcement
      * @param announcementId ID of announcement to update
@@ -314,11 +314,11 @@ public with sharing class CVMAAnnouncementController {
             if (!isCurrentUserOfficer()) {
                 throw new CVMAAnnouncementException('Insufficient permissions to update announcements.');
             }
-            
+
             if (announcementId == null) {
                 throw new CVMAAnnouncementException('Announcement ID is required.');
             }
-            
+
             // Get existing announcement
             List<CVMA_Announcement__c> announcements = [
                 SELECT Id, Status__c, Send_Email_Notification__c
@@ -327,13 +327,13 @@ public with sharing class CVMAAnnouncementController {
                 WITH SECURITY_ENFORCED
                 LIMIT 1
             ];
-            
+
             if (announcements.isEmpty()) {
                 throw new CVMAAnnouncementException('Announcement not found or access denied.');
             }
-            
+
             CVMA_Announcement__c announcement = announcements[0];
-            
+
             // Validate and sanitize inputs
             title = CVMAErrorHandler.sanitizeInput(title);
             content = CVMAErrorHandler.sanitizeInput(content);
@@ -342,7 +342,7 @@ public with sharing class CVMAAnnouncementController {
             targetAudience = CVMAErrorHandler.sanitizeInput(targetAudience);
             status = CVMAErrorHandler.sanitizeInput(status);
             bannerImageUrl = CVMAErrorHandler.sanitizeInput(bannerImageUrl);
-            
+
             // Validate required fields
             if (String.isBlank(title)) {
                 throw new CVMAAnnouncementException('Title is required.');
@@ -350,7 +350,7 @@ public with sharing class CVMAAnnouncementController {
             if (String.isBlank(content)) {
                 throw new CVMAAnnouncementException('Content is required.');
             }
-            
+
             // Validate field lengths
             if (title.length() > TITLE_MAX_LENGTH) {
                 throw new CVMAAnnouncementException('Title cannot exceed ' + TITLE_MAX_LENGTH + ' characters.');
@@ -358,7 +358,7 @@ public with sharing class CVMAAnnouncementController {
             if (content.length() > CONTENT_MAX_LENGTH) {
                 throw new CVMAAnnouncementException('Content cannot exceed ' + CONTENT_MAX_LENGTH + ' characters.');
             }
-            
+
             // Update fields
             announcement.Title__c = title;
             announcement.Content__c = content;
@@ -371,22 +371,22 @@ public with sharing class CVMAAnnouncementController {
             announcement.Is_Emergency__c = isEmergency != null ? isEmergency : false;
             announcement.Send_Email_Notification__c = sendEmailNotification != null ? sendEmailNotification : false;
             announcement.Banner_Image_URL__c = bannerImageUrl;
-            
+
             update announcement;
-            
+
             // Send email notifications if requested and status changed to Published
-            if (announcement.Send_Email_Notification__c && 
-                announcement.Status__c == 'Published' && 
+            if (announcement.Send_Email_Notification__c &&
+                announcement.Status__c == 'Published' &&
                 announcements[0].Status__c != 'Published') {
                 sendAnnouncementNotifications(announcement);
             }
-            
+
             AnnouncementResponse response = new AnnouncementResponse();
             response.success = true;
             response.successMessage = 'Announcement updated successfully';
-            
+
             return response;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMAAnnouncementController', 'updateAnnouncement',
                                                                   CVMAErrorHandler.Category.DATA_VALIDATION);
@@ -396,7 +396,7 @@ public with sharing class CVMAAnnouncementController {
             return errorResponse;
         }
     }
-    
+
     /**
      * @description Archive an announcement
      * @param announcementId ID of announcement to archive
@@ -409,11 +409,11 @@ public with sharing class CVMAAnnouncementController {
             if (!isCurrentUserOfficer()) {
                 throw new CVMAAnnouncementException('Insufficient permissions to archive announcements.');
             }
-            
+
             if (announcementId == null) {
                 throw new CVMAAnnouncementException('Announcement ID is required.');
             }
-            
+
             // Get and update announcement
             List<CVMA_Announcement__c> announcements = [
                 SELECT Id, Status__c
@@ -422,22 +422,22 @@ public with sharing class CVMAAnnouncementController {
                 WITH SECURITY_ENFORCED
                 LIMIT 1
             ];
-            
+
             if (announcements.isEmpty()) {
                 throw new CVMAAnnouncementException('Announcement not found or access denied.');
             }
-            
+
             CVMA_Announcement__c announcement = announcements[0];
             announcement.Status__c = 'Archived';
-            
+
             update announcement;
-            
+
             AnnouncementResponse response = new AnnouncementResponse();
             response.success = true;
             response.successMessage = 'Announcement archived successfully';
-            
+
             return response;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMAAnnouncementController', 'archiveAnnouncement',
                                                                   CVMAErrorHandler.Category.DATA_VALIDATION);
@@ -447,7 +447,7 @@ public with sharing class CVMAAnnouncementController {
             return errorResponse;
         }
     }
-    
+
     /**
      * @description Increment view count for an announcement
      * @param announcementId ID of announcement being viewed
@@ -459,7 +459,7 @@ public with sharing class CVMAAnnouncementController {
             if (announcementId == null) {
                 throw new CVMAAnnouncementException('Announcement ID is required.');
             }
-            
+
             // Get and update view count
             List<CVMA_Announcement__c> announcements = [
                 SELECT Id, View_Count__c
@@ -468,22 +468,22 @@ public with sharing class CVMAAnnouncementController {
                 WITH SECURITY_ENFORCED
                 LIMIT 1
             ];
-            
+
             if (announcements.isEmpty()) {
                 throw new CVMAAnnouncementException('Announcement not found or access denied.');
             }
-            
+
             CVMA_Announcement__c announcement = announcements[0];
             announcement.View_Count__c = (announcement.View_Count__c != null ? announcement.View_Count__c : 0) + 1;
-            
+
             update announcement;
-            
+
             AnnouncementResponse response = new AnnouncementResponse();
             response.success = true;
             response.successMessage = 'View count updated';
-            
+
             return response;
-            
+
         } catch (Exception e) {
             // Don't log view count failures as errors - they're not critical
             AnnouncementResponse errorResponse = new AnnouncementResponse();
@@ -492,7 +492,7 @@ public with sharing class CVMAAnnouncementController {
             return errorResponse;
         }
     }
-    
+
     /**
      * @description Get announcement category options
      * @return List of category options
@@ -500,34 +500,34 @@ public with sharing class CVMAAnnouncementController {
     @AuraEnabled(cacheable=true)
     public static List<AnnouncementOption> getCategoryOptions() {
         List<AnnouncementOption> options = new List<AnnouncementOption>();
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'General';
         options[options.size()-1].label = 'General';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Events';
         options[options.size()-1].label = 'Events';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Membership';
         options[options.size()-1].label = 'Membership';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Safety';
         options[options.size()-1].label = 'Safety';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Rides';
         options[options.size()-1].label = 'Rides';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Brotherhood';
         options[options.size()-1].label = 'Brotherhood';
-        
+
         return options;
     }
-    
+
     /**
      * @description Get priority options
      * @return List of priority options
@@ -535,22 +535,22 @@ public with sharing class CVMAAnnouncementController {
     @AuraEnabled(cacheable=true)
     public static List<AnnouncementOption> getPriorityOptions() {
         List<AnnouncementOption> options = new List<AnnouncementOption>();
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Normal';
         options[options.size()-1].label = 'Normal';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'High';
         options[options.size()-1].label = 'High';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Urgent';
         options[options.size()-1].label = 'Urgent';
-        
+
         return options;
     }
-    
+
     /**
      * @description Get target audience options
      * @return List of target audience options
@@ -558,32 +558,32 @@ public with sharing class CVMAAnnouncementController {
     @AuraEnabled(cacheable=true)
     public static List<AnnouncementOption> getTargetAudienceOptions() {
         List<AnnouncementOption> options = new List<AnnouncementOption>();
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'All Members';
         options[options.size()-1].label = 'All Members';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Officers Only';
         options[options.size()-1].label = 'Officers Only';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Full Members';
         options[options.size()-1].label = 'Full Members';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Associate Members';
         options[options.size()-1].label = 'Associate Members';
-        
+
         options.add(new AnnouncementOption());
         options[options.size()-1].value = 'Prospects';
         options[options.size()-1].label = 'Prospects';
-        
+
         return options;
     }
-    
+
     // Private helper methods
-    
+
     /**
      * @description Get current user's contact ID
      * @return Contact ID or null if not found
@@ -605,7 +605,7 @@ public with sharing class CVMAAnnouncementController {
             return null;
         }
     }
-    
+
     /**
      * @description Check if current user has officer permissions
      * @return True if user is an officer
@@ -625,7 +625,7 @@ public with sharing class CVMAAnnouncementController {
             return false; // Default to non-officer if error
         }
     }
-    
+
     /**
      * @description Send email notifications for announcement
      * @param announcement The announcement to notify about
@@ -634,38 +634,38 @@ public with sharing class CVMAAnnouncementController {
         try {
             // Get recipients based on target audience
             List<Contact> recipients = getAnnouncementRecipients(announcement.Target_Audience__c);
-            
+
             if (recipients.isEmpty()) {
                 return; // No recipients to notify
             }
-            
+
             List<Messaging.SingleEmailMessage> emails = new List<Messaging.SingleEmailMessage>();
-            
+
             for (Contact recipient : recipients) {
                 if (String.isBlank(recipient.Email)) {
                     continue; // Skip contacts without email
                 }
-                
+
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setToAddresses(new List<String>{recipient.Email});
                 email.setSubject(getEmailSubject(announcement));
                 email.setHtmlBody(getEmailBody(announcement, recipient));
                 email.setSaveAsActivity(false); // Don't create activities for bulk notifications
-                
+
                 emails.add(email);
             }
-            
+
             if (!emails.isEmpty()) {
                 Messaging.sendEmail(emails);
             }
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.handleException(e, 'CVMAAnnouncementController', 'sendAnnouncementNotifications',
                                            CVMAErrorHandler.Category.INTEGRATION);
             // Don't fail the whole operation if email fails
         }
     }
-    
+
     /**
      * @description Get recipients for announcement based on target audience
      * @param targetAudience Multi-select picklist value
@@ -675,14 +675,14 @@ public with sharing class CVMAAnnouncementController {
         if (String.isBlank(targetAudience)) {
             return new List<Contact>();
         }
-        
+
         // Parse multi-select picklist values
         List<String> audiences = targetAudience.split(';');
         Set<String> audienceSet = new Set<String>(audiences);
-        
+
         // Build WHERE clause conditions
         List<String> conditions = new List<String>();
-        
+
         if (audienceSet.contains('All Members')) {
             conditions.add('Level__c != null');
         } else {
@@ -696,36 +696,36 @@ public with sharing class CVMAAnnouncementController {
                 conditions.add('Level__c = \'Prospect\'');
             }
         }
-        
+
         // Officers Only is handled separately with permission set check
         if (audienceSet.contains('Officers Only')) {
             // Get officer user IDs first
             List<PermissionSetAssignment> assignments = [
-                SELECT AssigneeId 
-                FROM PermissionSetAssignment 
+                SELECT AssigneeId
+                FROM PermissionSetAssignment
                 WHERE PermissionSet.Name = 'CVMA_Officer_Permissions'
                 WITH SECURITY_ENFORCED
             ];
-            
+
             Set<Id> officerUserIds = new Set<Id>();
             for (PermissionSetAssignment assignment : assignments) {
                 officerUserIds.add(assignment.AssigneeId);
             }
-            
+
             // Get contact IDs from officer users
             List<User> officerUsers = [
-                SELECT ContactId 
-                FROM User 
-                WHERE Id IN :officerUserIds 
+                SELECT ContactId
+                FROM User
+                WHERE Id IN :officerUserIds
                 AND ContactId != null
                 WITH SECURITY_ENFORCED
             ];
-            
+
             Set<Id> officerContactIds = new Set<Id>();
             for (User user : officerUsers) {
                 officerContactIds.add(user.ContactId);
             }
-            
+
             // Get officer contacts
             List<Contact> officers = [
                 SELECT Id, Name, Email, Level__c
@@ -737,16 +737,16 @@ public with sharing class CVMAAnnouncementController {
             ];
             return officers;
         }
-        
+
         if (conditions.isEmpty()) {
             return new List<Contact>();
         }
-        
+
         String whereClause = String.join(conditions, ' OR ');
-        
+
         // Use static SOQL to avoid security scanner flags
         List<Contact> recipients = new List<Contact>();
-        
+
         if (audienceSet.contains('All Members')) {
             recipients = [
                 SELECT Id, Name, Email, Level__c
@@ -798,23 +798,23 @@ public with sharing class CVMAAnnouncementController {
                 LIMIT 500
             ];
         }
-        
+
         return recipients;
     }
-    
+
     /**
      * @description Generate email subject for announcement
      * @param announcement The announcement
      * @return Email subject line
      */
     private static String getEmailSubject(CVMA_Announcement__c announcement) {
-        String prefix = announcement.Is_Emergency__c ? '🚨 EMERGENCY: ' : 
+        String prefix = announcement.Is_Emergency__c ? '🚨 EMERGENCY: ' :
                        announcement.Priority__c == 'Urgent' ? '⚠️ URGENT: ' :
                        announcement.Priority__c == 'High' ? '📢 IMPORTANT: ' : '';
-                       
+
         return prefix + 'CVMA Chapter Announcement: ' + announcement.Title__c;
     }
-    
+
     /**
      * @description Generate email body for announcement
      * @param announcement The announcement
@@ -825,10 +825,10 @@ public with sharing class CVMAAnnouncementController {
         String priorityStyle = announcement.Priority__c == 'Urgent' ? 'color: #d63031; font-weight: bold;' :
                               announcement.Priority__c == 'High' ? 'color: #e17055; font-weight: bold;' :
                               'color: #2d3436;';
-                              
-        String emergencyBanner = announcement.Is_Emergency__c ? 
+
+        String emergencyBanner = announcement.Is_Emergency__c ?
             '<div style="background-color: #d63031; color: white; padding: 15px; margin-bottom: 20px; text-align: center; font-weight: bold; font-size: 18px;">⚠️ EMERGENCY ANNOUNCEMENT ⚠️</div>' : '';
-        
+
         return '<html><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2d3436;">' +
                '<div style="max-width: 600px; margin: 0 auto; padding: 20px;">' +
                emergencyBanner +

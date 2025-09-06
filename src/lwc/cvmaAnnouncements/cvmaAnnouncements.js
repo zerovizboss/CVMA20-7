@@ -111,10 +111,10 @@ export default class CvmaAnnouncements extends LightningElement {
     // Wired methods
     wiredAnnouncementsResult;
 
-    @wire(getAnnouncements, { 
-        pageSize: '$pageSize', 
-        pageNumber: '$pageNumber', 
-        announcementType: '$currentView' 
+    @wire(getAnnouncements, {
+        pageSize: '$pageSize',
+        pageNumber: '$pageNumber',
+        announcementType: '$currentView'
     })
     wiredAnnouncements(result) {
         this.wiredAnnouncementsResult = result;
@@ -206,10 +206,10 @@ export default class CvmaAnnouncements extends LightningElement {
 
     get selectedAnnouncementFormatted() {
         if (!this.selectedAnnouncement) return null;
-        
+
         return {
             ...this.selectedAnnouncement,
-            formattedPublishDate: this.selectedAnnouncement.Publish_Date__c ? 
+            formattedPublishDate: this.selectedAnnouncement.Publish_Date__c ?
                 new Intl.DateTimeFormat('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -293,7 +293,7 @@ export default class CvmaAnnouncements extends LightningElement {
 
         try {
             let result;
-            
+
             if (this.editMode) {
                 result = await updateAnnouncement({
                     announcementId: this.announcement.id,

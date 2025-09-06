@@ -64,7 +64,7 @@
     <searchLayouts/>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
-    
+
     <!-- Title Field -->
     <fields>
         <fullName>Title__c</fullName>
@@ -78,7 +78,7 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    
+
     <!-- Content Field -->
     <fields>
         <fullName>Content__c</fullName>
@@ -91,7 +91,7 @@
         <type>LongTextArea</type>
         <visibleLines>10</visibleLines>
     </fields>
-    
+
     <!-- Priority Field -->
     <fields>
         <fullName>Priority__c</fullName>
@@ -124,7 +124,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <!-- Category Field -->
     <fields>
         <fullName>Category__c</fullName>
@@ -172,7 +172,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <!-- Author Field -->
     <fields>
         <fullName>Author__c</fullName>
@@ -188,7 +188,7 @@
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
-    
+
     <!-- Target Audience Field -->
     <fields>
         <fullName>Target_Audience__c</fullName>
@@ -232,7 +232,7 @@
         </valueSet>
         <visibleLines>5</visibleLines>
     </fields>
-    
+
     <!-- Status Field -->
     <fields>
         <fullName>Status__c</fullName>
@@ -265,7 +265,7 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    
+
     <!-- Publish Date Field -->
     <fields>
         <fullName>Publish_Date__c</fullName>
@@ -277,7 +277,7 @@
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
-    
+
     <!-- Expiration Date Field -->
     <fields>
         <fullName>Expiration_Date__c</fullName>
@@ -289,7 +289,7 @@
         <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
-    
+
     <!-- Emergency Flag Field -->
     <fields>
         <fullName>Is_Emergency__c</fullName>
@@ -301,7 +301,7 @@
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
-    
+
     <!-- Email Notification Field -->
     <fields>
         <fullName>Send_Email_Notification__c</fullName>
@@ -313,7 +313,7 @@
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
-    
+
     <!-- View Count Field -->
     <fields>
         <fullName>View_Count__c</fullName>
@@ -329,7 +329,7 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
-    
+
     <!-- Banner Image URL Field -->
     <fields>
         <fullName>Banner_Image_URL__c</fullName>
@@ -341,5 +341,5 @@
         <trackTrending>false</trackTrending>
         <type>Url</type>
     </fields>
-    
+
 </CustomObject>
