@@ -1,0 +1,310 @@
+<template>
+    <div class="slds-card payment-tracking-container">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-utility-payment_gateway" title="Payment Tracking">
+                        <lightning-icon icon-name="utility:payment_gateway" alternative-text="Payment Tracking" size="medium"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Member Payment Tracking</span>
+                    </h2>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <lightning-button-group>
+                    <lightning-button 
+                        variant="neutral" 
+                        label="Refresh" 
+                        icon-name="utility:refresh" 
+                        onclick={loadData}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </lightning-button-group>
+            </div>
+        </div>
+        
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="loading-container">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </template>
+            
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_medium">
+                    <span class="slds-assistive-text">error</span>
+                    <lightning-icon icon-name="utility:error" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                    <h2>Error loading payment data: {error.body.message}</h2>
+                </div>
+            </template>
+            
+            <!-- Quick Stats -->
+            <template if:true={hasRecords}>
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="slds-box slds-theme_shade stats-card">
+                            <div class="stats-label">Total Records</div>
+                            <div class="stats-value">{pagination.totalCount}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="slds-box slds-theme_shade stats-card">
+                            <div class="stats-label">Overdue Payments</div>
+                            <div class="stats-value overdue-text">{overdueRecords.length}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="slds-box slds-theme_shade stats-card">
+                            <div class="stats-label">Total Outstanding</div>
+                            <div class="stats-value">
+                                <lightning-formatted-number 
+                                    value={totalOutstanding} 
+                                    format-style="currency" 
+                                    currency-code="USD">
+                                </lightning-formatted-number>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            
+            <!-- Overdue Alert -->
+            <template if:true={hasOverdueRecords}>
+                <div class="slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_medium">
+                    <span class="slds-assistive-text">warning</span>
+                    <lightning-icon icon-name="utility:warning" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                    <h2>
+                        <strong>{overdueRecords.length}</strong> member(s) have overdue payments requiring attention.
+                    </h2>
+                </div>
+            </template>
+            
+            <!-- Filters -->
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-combobox
+                        label="Year"
+                        value={filters.year}
+                        options={yearOptions}
+                        onchange={handleYearChange}
+                        variant="label-inline">
+                    </lightning-combobox>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-combobox
+                        label="Status"
+                        value={filters.status}
+                        options={statusOptions}
+                        onchange={handleStatusChange}
+                        variant="label-inline">
+                    </lightning-combobox>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Records</label>
+                        <div class="slds-form-element__control">
+                            <span class="slds-form-element__static">{recordRangeDisplay}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Table -->
+            <template if:true={hasRecords}>
+                <lightning-datatable
+                    key-field="id"
+                    data={paymentRecords}
+                    columns={columns}
+                    onrowaction={handleRowAction}
+                    show-row-number-column
+                    hide-checkbox-column
+                    resize-column-disabled>
+                </lightning-datatable>
+                
+                <!-- Pagination -->
+                <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
+                    <lightning-button
+                        label="Previous"
+                        icon-name="utility:chevronleft"
+                        icon-position="left"
+                        onclick={handlePrevious}
+                        disabled={cannotGoBack}>
+                    </lightning-button>
+                    
+                    <span class="slds-text-body_small slds-align_absolute-center">
+                        Page {currentPageDisplay}
+                    </span>
+                    
+                    <lightning-button
+                        label="Next"
+                        icon-name="utility:chevronright"
+                        icon-position="right"
+                        onclick={handleNext}
+                        disabled={cannotGoForward}>
+                    </lightning-button>
+                </div>
+            </template>
+            
+            <!-- No Records Message -->
+            <template if:false={hasRecords}>
+                <template if:false={isLoading}>
+                    <div class="slds-text-align_center slds-m-vertical_large">
+                        <lightning-icon icon-name="utility:info" size="large" class="slds-m-bottom_small"></lightning-icon>
+                        <p class="slds-text-heading_small">No payment records found</p>
+                        <p class="slds-text-body_regular">Try adjusting your filters or check back later.</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+    
+    <!-- Payment Processing Modal -->
+    <template if:true={showPaymentModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                            title="Close" 
+                            onclick={closePaymentModal}
+                            disabled={isLoading}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Process Payment</h2>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="payment-form">
+                        <!-- Member Information -->
+                        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Member</label>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{selectedRecord.memberName}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Membership Level</label>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">{selectedRecord.memberLevel}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Information -->
+                        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Amount Due</label>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static">
+                                            <lightning-formatted-number 
+                                                value={selectedRecord.amountDue} 
+                                                format-style="currency" 
+                                                currency-code="USD">
+                                            </lightning-formatted-number>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Outstanding Balance</label>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-form-element__static balance-amount">
+                                            <lightning-formatted-number 
+                                                value={selectedRecord.balance} 
+                                                format-style="currency" 
+                                                currency-code="USD">
+                                            </lightning-formatted-number>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Form Fields -->
+                        <div class="slds-form slds-form_stacked">
+                            <lightning-input
+                                type="number"
+                                name="amount"
+                                label="Payment Amount"
+                                value={paymentData.amount}
+                                data-field="amount"
+                                onchange={handlePaymentInputChange}
+                                step="0.01"
+                                min="0.01"
+                                max={selectedRecord.balance}
+                                required
+                                disabled={isLoading}>
+                            </lightning-input>
+                            
+                            <lightning-combobox
+                                name="paymentMethod"
+                                label="Payment Method"
+                                value={paymentData.paymentMethod}
+                                options={paymentMethods}
+                                data-field="paymentMethod"
+                                onchange={handlePaymentInputChange}
+                                required
+                                disabled={isLoading}>
+                            </lightning-combobox>
+                            
+                            <lightning-input
+                                type="text"
+                                name="referenceNumber"
+                                label="Reference Number"
+                                value={paymentData.referenceNumber}
+                                data-field="referenceNumber"
+                                onchange={handlePaymentInputChange}
+                                placeholder="Check number, transaction ID, etc."
+                                disabled={isLoading}>
+                            </lightning-input>
+                            
+                            <lightning-textarea
+                                name="notes"
+                                label="Payment Notes"
+                                value={paymentData.notes}
+                                data-field="notes"
+                                onchange={handlePaymentInputChange}
+                                placeholder="Additional notes about this payment"
+                                disabled={isLoading}>
+                            </lightning-textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <lightning-button 
+                        variant="neutral" 
+                        label="Cancel" 
+                        onclick={closePaymentModal}
+                        disabled={isLoading}>
+                    </lightning-button>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Process Payment" 
+                        onclick={handleProcessPayment} 
+                        disabled={isLoading}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
