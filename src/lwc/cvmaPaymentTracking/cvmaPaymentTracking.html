@@ -15,17 +15,17 @@
             </header>
             <div class="slds-no-flex">
                 <lightning-button-group>
-                    <lightning-button 
-                        variant="neutral" 
-                        label="Refresh" 
-                        icon-name="utility:refresh" 
+                    <lightning-button
+                        variant="neutral"
+                        label="Refresh"
+                        icon-name="utility:refresh"
                         onclick={loadData}
                         disabled={isLoading}>
                     </lightning-button>
                 </lightning-button-group>
             </div>
         </div>
-        
+
         <div class="slds-card__body slds-card__body_inner">
             <!-- Loading Spinner -->
             <template if:true={isLoading}>
@@ -33,7 +33,7 @@
                     <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
                 </div>
             </template>
-            
+
             <!-- Error Message -->
             <template if:true={error}>
                 <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_medium">
@@ -42,7 +42,7 @@
                     <h2>Error loading payment data: {error.body.message}</h2>
                 </div>
             </template>
-            
+
             <!-- Quick Stats -->
             <template if:true={hasRecords}>
                 <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
@@ -52,21 +52,21 @@
                             <div class="stats-value">{pagination.totalCount}</div>
                         </div>
                     </div>
-                    
+
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                         <div class="slds-box slds-theme_shade stats-card">
                             <div class="stats-label">Overdue Payments</div>
                             <div class="stats-value overdue-text">{overdueRecords.length}</div>
                         </div>
                     </div>
-                    
+
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                         <div class="slds-box slds-theme_shade stats-card">
                             <div class="stats-label">Total Outstanding</div>
                             <div class="stats-value">
-                                <lightning-formatted-number 
-                                    value={totalOutstanding} 
-                                    format-style="currency" 
+                                <lightning-formatted-number
+                                    value={totalOutstanding}
+                                    format-style="currency"
                                     currency-code="USD">
                                 </lightning-formatted-number>
                             </div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </template>
-            
+
             <!-- Overdue Alert -->
             <template if:true={hasOverdueRecords}>
                 <div class="slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_medium">
@@ -85,7 +85,7 @@
                     </h2>
                 </div>
             </template>
-            
+
             <!-- Filters -->
             <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
@@ -97,7 +97,7 @@
                         variant="label-inline">
                     </lightning-combobox>
                 </div>
-                
+
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                     <lightning-combobox
                         label="Status"
@@ -107,7 +107,7 @@
                         variant="label-inline">
                     </lightning-combobox>
                 </div>
-                
+
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                     <div class="slds-form-element">
                         <label class="slds-form-element__label">Records</label>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Data Table -->
             <template if:true={hasRecords}>
                 <lightning-datatable
@@ -129,7 +129,7 @@
                     hide-checkbox-column
                     resize-column-disabled>
                 </lightning-datatable>
-                
+
                 <!-- Pagination -->
                 <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
                     <lightning-button
@@ -139,11 +139,11 @@
                         onclick={handlePrevious}
                         disabled={cannotGoBack}>
                     </lightning-button>
-                    
+
                     <span class="slds-text-body_small slds-align_absolute-center">
                         Page {currentPageDisplay}
                     </span>
-                    
+
                     <lightning-button
                         label="Next"
                         icon-name="utility:chevronright"
@@ -153,7 +153,7 @@
                     </lightning-button>
                 </div>
             </template>
-            
+
             <!-- No Records Message -->
             <template if:false={hasRecords}>
                 <template if:false={isLoading}>
@@ -166,14 +166,14 @@
             </template>
         </div>
     </div>
-    
+
     <!-- Payment Processing Modal -->
     <template if:true={showPaymentModal}>
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
-                            title="Close" 
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close"
                             onclick={closePaymentModal}
                             disabled={isLoading}>
                         <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
@@ -181,7 +181,7 @@
                     </button>
                     <h2 class="slds-text-heading_medium slds-hyphenate">Process Payment</h2>
                 </header>
-                
+
                 <div class="slds-modal__content slds-p-around_medium">
                     <div class="payment-form">
                         <!-- Member Information -->
@@ -194,7 +194,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Membership Level</label>
@@ -204,7 +204,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Payment Information -->
                         <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
@@ -212,24 +212,24 @@
                                     <label class="slds-form-element__label">Amount Due</label>
                                     <div class="slds-form-element__control">
                                         <span class="slds-form-element__static">
-                                            <lightning-formatted-number 
-                                                value={selectedRecord.amountDue} 
-                                                format-style="currency" 
+                                            <lightning-formatted-number
+                                                value={selectedRecord.amountDue}
+                                                format-style="currency"
                                                 currency-code="USD">
                                             </lightning-formatted-number>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Outstanding Balance</label>
                                     <div class="slds-form-element__control">
                                         <span class="slds-form-element__static balance-amount">
-                                            <lightning-formatted-number 
-                                                value={selectedRecord.balance} 
-                                                format-style="currency" 
+                                            <lightning-formatted-number
+                                                value={selectedRecord.balance}
+                                                format-style="currency"
                                                 currency-code="USD">
                                             </lightning-formatted-number>
                                         </span>
@@ -237,7 +237,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Payment Form Fields -->
                         <div class="slds-form slds-form_stacked">
                             <lightning-input
@@ -253,7 +253,7 @@
                                 required
                                 disabled={isLoading}>
                             </lightning-input>
-                            
+
                             <lightning-combobox
                                 name="paymentMethod"
                                 label="Payment Method"
@@ -264,7 +264,7 @@
                                 required
                                 disabled={isLoading}>
                             </lightning-combobox>
-                            
+
                             <lightning-input
                                 type="text"
                                 name="referenceNumber"
@@ -275,7 +275,7 @@
                                 placeholder="Check number, transaction ID, etc."
                                 disabled={isLoading}>
                             </lightning-input>
-                            
+
                             <lightning-textarea
                                 name="notes"
                                 label="Payment Notes"
@@ -288,18 +288,18 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <footer class="slds-modal__footer">
-                    <lightning-button 
-                        variant="neutral" 
-                        label="Cancel" 
+                    <lightning-button
+                        variant="neutral"
+                        label="Cancel"
                         onclick={closePaymentModal}
                         disabled={isLoading}>
                     </lightning-button>
-                    <lightning-button 
-                        variant="brand" 
-                        label="Process Payment" 
-                        onclick={handleProcessPayment} 
+                    <lightning-button
+                        variant="brand"
+                        label="Process Payment"
+                        onclick={handleProcessPayment}
                         disabled={isLoading}>
                     </lightning-button>
                 </footer>

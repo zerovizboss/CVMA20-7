@@ -8,7 +8,7 @@ import getPaymentMethods from '@salesforce/apex/CVMAFinancialController.getPayme
 export default class CvmaPaymentTracking extends LightningElement {
     @api recordId;
     @api objectApiName;
-    
+
     @track isLoading = false;
     @track error;
     @track paymentRecords = [];
@@ -21,7 +21,7 @@ export default class CvmaPaymentTracking extends LightningElement {
         notes: ''
     };
     @track paymentMethods = [];
-    
+
     // Filters
     @track filters = {
         year: new Date().getFullYear(),
@@ -29,18 +29,18 @@ export default class CvmaPaymentTracking extends LightningElement {
         pageSize: 10,
         pageNumber: 0
     };
-    
+
     @track pagination = {
         totalCount: 0,
         hasMore: false
     };
-    
+
     _paymentRecordsResult;
-    
+
     connectedCallback() {
         this.loadData();
     }
-    
+
     @wire(getPaymentRecords, {
         year: '$filters.year',
         status: '$filters.status',
@@ -61,29 +61,29 @@ export default class CvmaPaymentTracking extends LightningElement {
             this.showToast('Error', 'Failed to load payment records', 'error');
         }
     }
-    
+
     @wire(getPaymentMethods)
     wiredPaymentMethods(result) {
         if (result.data) {
             this.paymentMethods = result.data;
         }
     }
-    
+
     // Event Handlers
     handleYearChange(event) {
         this.filters.year = parseInt(event.detail.value);
         this.filters.pageNumber = 0;
     }
-    
+
     handleStatusChange(event) {
         this.filters.status = event.detail.value;
         this.filters.pageNumber = 0;
     }
-    
+
     handleRowAction(event) {
         const action = event.detail.action;
         const row = event.detail.row;
-        
+
         switch (action.name) {
             case 'process_payment':
                 this.openPaymentModal(row);
@@ -95,7 +95,7 @@ export default class CvmaPaymentTracking extends LightningElement {
                 break;
         }
     }
-    
+
     openPaymentModal(record) {
         this.selectedRecord = { ...record };
         this.paymentData = {
@@ -106,7 +106,7 @@ export default class CvmaPaymentTracking extends LightningElement {
         };
         this.showPaymentModal = true;
     }
-    
+
     closePaymentModal() {
         this.showPaymentModal = false;
         this.selectedRecord = {};
@@ -117,20 +117,20 @@ export default class CvmaPaymentTracking extends LightningElement {
             notes: ''
         };
     }
-    
+
     handlePaymentInputChange(event) {
         const field = event.target.dataset.field || event.target.name;
         this.paymentData[field] = event.target.value;
     }
-    
+
     async handleProcessPayment() {
         if (!this.validatePaymentData()) {
             return;
         }
-        
+
         try {
             this.isLoading = true;
-            
+
             const result = await processPayment({
                 opportunityId: this.selectedRecord.id,
                 amount: parseFloat(this.paymentData.amount),
@@ -138,7 +138,7 @@ export default class CvmaPaymentTracking extends LightningElement {
                 referenceNumber: this.paymentData.referenceNumber,
                 notes: this.paymentData.notes
             });
-            
+
             if (result.success) {
                 this.showToast('Success', result.message, 'success');
                 this.closePaymentModal();
@@ -153,42 +153,42 @@ export default class CvmaPaymentTracking extends LightningElement {
             this.isLoading = false;
         }
     }
-    
+
     validatePaymentData() {
         const amount = parseFloat(this.paymentData.amount);
         const balance = parseFloat(this.selectedRecord.balance);
-        
+
         if (!amount || amount <= 0) {
             this.showToast('Validation Error', 'Please enter a valid payment amount', 'error');
             return false;
         }
-        
+
         if (amount > balance) {
             this.showToast('Validation Error', 'Payment amount cannot exceed outstanding balance', 'error');
             return false;
         }
-        
+
         if (!this.paymentData.paymentMethod) {
             this.showToast('Validation Error', 'Please select a payment method', 'error');
             return false;
         }
-        
+
         return true;
     }
-    
+
     // Navigation
     handlePrevious() {
         if (this.filters.pageNumber > 0) {
             this.filters.pageNumber--;
         }
     }
-    
+
     handleNext() {
         if (this.pagination.hasMore) {
             this.filters.pageNumber++;
         }
     }
-    
+
     // Quick Actions
     handleQuickPayment(event) {
         const recordId = event.target.dataset.recordId;
@@ -197,7 +197,7 @@ export default class CvmaPaymentTracking extends LightningElement {
             this.openPaymentModal(record);
         }
     }
-    
+
     handleMarkAsPaid(event) {
         const recordId = event.target.dataset.recordId;
         const record = this.paymentRecords.find(r => r.id === recordId);
@@ -212,12 +212,12 @@ export default class CvmaPaymentTracking extends LightningElement {
             this.handleProcessPayment();
         }
     }
-    
+
     // Utility Methods
     async refreshData() {
         await refreshApex(this._paymentRecordsResult);
     }
-    
+
     async loadData() {
         this.isLoading = true;
         try {
@@ -228,7 +228,7 @@ export default class CvmaPaymentTracking extends LightningElement {
             this.isLoading = false;
         }
     }
-    
+
     showToast(title, message, variant) {
         const event = new ShowToastEvent({
             title: title,
@@ -237,7 +237,7 @@ export default class CvmaPaymentTracking extends LightningElement {
         });
         this.dispatchEvent(event);
     }
-    
+
     // Getters
     get yearOptions() {
         const currentYear = new Date().getFullYear();
@@ -247,7 +247,7 @@ export default class CvmaPaymentTracking extends LightningElement {
         }
         return years;
     }
-    
+
     get statusOptions() {
         return [
             { label: 'All', value: '' },
@@ -256,51 +256,51 @@ export default class CvmaPaymentTracking extends LightningElement {
             { label: 'Paid', value: 'Paid' }
         ];
     }
-    
+
     get columns() {
         return [
-            { 
-                label: 'Member', 
-                fieldName: 'memberName', 
+            {
+                label: 'Member',
+                fieldName: 'memberName',
                 type: 'text',
                 cellAttributes: { alignment: 'left' }
             },
-            { 
-                label: 'Level', 
-                fieldName: 'memberLevel', 
+            {
+                label: 'Level',
+                fieldName: 'memberLevel',
                 type: 'text',
                 cellAttributes: { alignment: 'center' }
             },
-            { 
-                label: 'Due', 
-                fieldName: 'amountDue', 
+            {
+                label: 'Due',
+                fieldName: 'amountDue',
                 type: 'currency',
                 cellAttributes: { alignment: 'right' }
             },
-            { 
-                label: 'Paid', 
-                fieldName: 'amountPaid', 
+            {
+                label: 'Paid',
+                fieldName: 'amountPaid',
                 type: 'currency',
                 cellAttributes: { alignment: 'right' }
             },
-            { 
-                label: 'Balance', 
-                fieldName: 'balance', 
+            {
+                label: 'Balance',
+                fieldName: 'balance',
                 type: 'currency',
                 cellAttributes: { alignment: 'right' }
             },
-            { 
-                label: 'Status', 
-                fieldName: 'status', 
+            {
+                label: 'Status',
+                fieldName: 'status',
                 type: 'text',
-                cellAttributes: { 
+                cellAttributes: {
                     alignment: 'center',
                     class: { fieldName: 'statusClass' }
                 }
             },
-            { 
-                label: 'Due Date', 
-                fieldName: 'dueDate', 
+            {
+                label: 'Due Date',
+                fieldName: 'dueDate',
                 type: 'date',
                 cellAttributes: { alignment: 'center' }
             },
@@ -316,35 +316,35 @@ export default class CvmaPaymentTracking extends LightningElement {
             }
         ];
     }
-    
+
     get hasRecords() {
         return this.paymentRecords && this.paymentRecords.length > 0;
     }
-    
+
     get overdueRecords() {
         return this.paymentRecords.filter(record => record.status === 'Overdue');
     }
-    
+
     get hasOverdueRecords() {
         return this.overdueRecords.length > 0;
     }
-    
+
     get totalOutstanding() {
         return this.paymentRecords.reduce((total, record) => total + (record.balance || 0), 0);
     }
-    
+
     get cannotGoBack() {
         return this.filters.pageNumber <= 0;
     }
-    
+
     get cannotGoForward() {
         return !this.pagination.hasMore;
     }
-    
+
     get currentPageDisplay() {
         return this.filters.pageNumber + 1;
     }
-    
+
     get recordRangeDisplay() {
         const startRecord = (this.filters.pageNumber * this.filters.pageSize) + 1;
         const endRecord = Math.min(startRecord + this.paymentRecords.length - 1, this.pagination.totalCount);

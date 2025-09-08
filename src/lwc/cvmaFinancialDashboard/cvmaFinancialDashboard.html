@@ -14,23 +14,23 @@
                 </div>
             </header>
         </div>
-        
+
         <div class="slds-card__body slds-card__body_inner">
             <!-- Loading Spinner -->
             <template if:true={isLoading}>
                 <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
             </template>
-            
+
             <!-- Error Message -->
             <template if:true={error}>
                 <div class="slds-notify slds-notify_alert slds-alert_error">
                     <h2>Error loading financial data: {error.body.message}</h2>
                 </div>
             </template>
-            
+
             <!-- Tab Navigation -->
             <lightning-tabset variant="standard" active-tab-value={selectedTab} onactive={handleTabChange}>
-                
+
                 <!-- Financial Summary Tab -->
                 <lightning-tab label="Financial Summary" value="summary">
                     <div class="slds-grid slds-wrap slds-gutters">
@@ -39,55 +39,55 @@
                             <div class="slds-box slds-theme_shade summary-card">
                                 <div class="summary-label">Total Revenue</div>
                                 <div class="summary-value positive">
-                                    <lightning-formatted-number 
-                                        value={financialSummary.totalRevenue} 
-                                        format-style="currency" 
+                                    <lightning-formatted-number
+                                        value={financialSummary.totalRevenue}
+                                        format-style="currency"
                                         currency-code="USD">
                                     </lightning-formatted-number>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <div class="slds-box slds-theme_shade summary-card">
                                 <div class="summary-label">Total Expenses</div>
                                 <div class="summary-value negative">
-                                    <lightning-formatted-number 
-                                        value={financialSummary.totalExpenses} 
-                                        format-style="currency" 
+                                    <lightning-formatted-number
+                                        value={financialSummary.totalExpenses}
+                                        format-style="currency"
                                         currency-code="USD">
                                     </lightning-formatted-number>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <div class="slds-box slds-theme_shade summary-card">
                                 <div class="summary-label">Net Income</div>
                                 <div class="summary-value">
-                                    <lightning-formatted-number 
-                                        value={financialSummary.netIncome} 
-                                        format-style="currency" 
+                                    <lightning-formatted-number
+                                        value={financialSummary.netIncome}
+                                        format-style="currency"
                                         currency-code="USD">
                                     </lightning-formatted-number>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <div class="slds-box slds-theme_shade summary-card">
                                 <div class="summary-label">Outstanding Dues</div>
                                 <div class="summary-value warning">
-                                    <lightning-formatted-number 
-                                        value={financialSummary.outstandingDues} 
-                                        format-style="currency" 
+                                    <lightning-formatted-number
+                                        value={financialSummary.outstandingDues}
+                                        format-style="currency"
                                         currency-code="USD">
                                     </lightning-formatted-number>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Member Statistics -->
                     <div class="slds-grid slds-wrap slds-gutters slds-m-top_large">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
@@ -96,14 +96,14 @@
                                 <div class="summary-value">{financialSummary.totalMembers}</div>
                             </div>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                             <div class="slds-box slds-theme_shade summary-card">
                                 <div class="summary-label">Paid Members</div>
                                 <div class="summary-value positive">{financialSummary.paidMembers}</div>
                             </div>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                             <div class="slds-box slds-theme_shade summary-card">
                                 <div class="summary-label">Overdue Members</div>
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Reporting Period -->
                     <div class="slds-m-top_large">
                         <p class="slds-text-body_small slds-text-color_weak">
@@ -119,7 +119,7 @@
                         </p>
                     </div>
                 </lightning-tab>
-                
+
                 <!-- Payment Records Tab -->
                 <lightning-tab label="Payment Records" value="payments">
                     <!-- Filters -->
@@ -132,7 +132,7 @@
                                 onchange={handleYearChange}>
                             </lightning-combobox>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                             <lightning-combobox
                                 label="Status"
@@ -141,7 +141,7 @@
                                 onchange={handleStatusFilterChange}>
                             </lightning-combobox>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                             <div class="slds-m-top_large">
                                 <p class="slds-text-body_small">
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Payment Records Table -->
                     <lightning-datatable
                         key-field="id"
@@ -160,7 +160,7 @@
                         show-row-number-column
                         hide-checkbox-column>
                     </lightning-datatable>
-                    
+
                     <!-- Pagination -->
                     <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
                         <lightning-button
@@ -168,11 +168,11 @@
                             onclick={handlePaymentPrevious}
                             disabled={isFirstPaymentPage}>
                         </lightning-button>
-                        
+
                         <span class="slds-text-body_small slds-align_absolute-center">
                             Page {currentPaymentPage}
                         </span>
-                        
+
                         <lightning-button
                             label="Next"
                             onclick={handlePaymentNext}
@@ -180,7 +180,7 @@
                         </lightning-button>
                     </div>
                 </lightning-tab>
-                
+
                 <!-- Transactions Tab -->
                 <lightning-tab label="Transactions" value="transactions">
                     <!-- Transaction Filters -->
@@ -194,7 +194,7 @@
                                 onchange={handleDateFilterChange}>
                             </lightning-input>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <lightning-input
                                 type="date"
@@ -204,7 +204,7 @@
                                 onchange={handleDateFilterChange}>
                             </lightning-input>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <lightning-combobox
                                 label="Transaction Type"
@@ -213,7 +213,7 @@
                                 onchange={handleTransactionTypeChange}>
                             </lightning-combobox>
                         </div>
-                        
+
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
                             <div class="slds-m-top_large">
                                 <p class="slds-text-body_small">
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Transactions Table -->
                     <lightning-datatable
                         key-field="id"
@@ -231,7 +231,7 @@
                         show-row-number-column
                         hide-checkbox-column>
                     </lightning-datatable>
-                    
+
                     <!-- Pagination -->
                     <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
                         <lightning-button
@@ -239,11 +239,11 @@
                             onclick={handleTransactionPrevious}
                             disabled={isFirstTransactionPage}>
                         </lightning-button>
-                        
+
                         <span class="slds-text-body_small slds-align_absolute-center">
                             Page {currentTransactionPage}
                         </span>
-                        
+
                         <lightning-button
                             label="Next"
                             onclick={handleTransactionNext}
@@ -254,7 +254,7 @@
             </lightning-tabset>
         </div>
     </div>
-    
+
     <!-- Payment Processing Modal -->
     <template if:true={showPaymentModal}>
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
@@ -274,20 +274,20 @@
                                 <span class="slds-form-element__static">{selectedPaymentRecord.memberName}</span>
                             </div>
                         </div>
-                        
+
                         <div class="slds-form-element">
                             <label class="slds-form-element__label">Outstanding Balance</label>
                             <div class="slds-form-element__control">
                                 <span class="slds-form-element__static">
-                                    <lightning-formatted-number 
-                                        value={selectedPaymentRecord.balance} 
-                                        format-style="currency" 
+                                    <lightning-formatted-number
+                                        value={selectedPaymentRecord.balance}
+                                        format-style="currency"
                                         currency-code="USD">
                                     </lightning-formatted-number>
                                 </span>
                             </div>
                         </div>
-                        
+
                         <lightning-input
                             type="number"
                             label="Payment Amount"
@@ -298,7 +298,7 @@
                             min="0.01"
                             required>
                         </lightning-input>
-                        
+
                         <lightning-combobox
                             label="Payment Method"
                             value={paymentData.paymentMethod}
@@ -307,7 +307,7 @@
                             onchange={handlePaymentInputChange}
                             required>
                         </lightning-combobox>
-                        
+
                         <lightning-input
                             type="text"
                             label="Reference Number"
@@ -316,7 +316,7 @@
                             onchange={handlePaymentInputChange}
                             placeholder="Check number, transaction ID, etc.">
                         </lightning-input>
-                        
+
                         <lightning-textarea
                             label="Notes"
                             value={paymentData.notes}

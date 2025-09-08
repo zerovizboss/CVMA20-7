@@ -11,13 +11,13 @@ export default class CvmaFinancialDashboard extends LightningElement {
     @track selectedTab = 'summary';
     @track isLoading = false;
     @track error;
-    
+
     // Financial Summary Data
     @track financialSummary = {};
     @track chartData = [];
     @track revenueChartData = [];
     @track expenseChartData = [];
-    
+
     // Payment Records Data
     @track paymentRecords = [];
     @track paymentFilters = {
@@ -27,7 +27,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
         pageNumber: 0
     };
     @track paymentPagination = {};
-    
+
     // Transaction Data
     @track transactions = [];
     @track transactionFilters = {
@@ -38,7 +38,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
         pageNumber: 0
     };
     @track transactionPagination = {};
-    
+
     // Payment Processing
     @track showPaymentModal = false;
     @track selectedPaymentRecord = {};
@@ -49,29 +49,29 @@ export default class CvmaFinancialDashboard extends LightningElement {
         notes: ''
     };
     @track paymentMethods = [];
-    
+
     // Wired Data
     _financialSummaryResult;
     _paymentRecordsResult;
     _transactionsResult;
-    
+
     connectedCallback() {
         this.setDefaultDates();
         this.loadData();
     }
-    
+
     setDefaultDates() {
         const today = new Date();
         const startOfYear = new Date(today.getFullYear(), 0, 1);
-        
+
         this.transactionFilters.startDate = this.formatDate(startOfYear);
         this.transactionFilters.endDate = this.formatDate(today);
     }
-    
+
     formatDate(date) {
         return date.toISOString().split('T')[0];
     }
-    
+
     @wire(getFinancialSummary, {
         startDate: '$transactionFilters.startDate',
         endDate: '$transactionFilters.endDate'
@@ -87,7 +87,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             this.showToast('Error', 'Failed to load financial summary', 'error');
         }
     }
-    
+
     @wire(getPaymentRecords, {
         year: '$paymentFilters.year',
         status: '$paymentFilters.status',
@@ -110,7 +110,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             this.showToast('Error', 'Failed to load payment records', 'error');
         }
     }
-    
+
     @wire(getFinancialTransactions, {
         startDate: '$transactionFilters.startDate',
         endDate: '$transactionFilters.endDate',
@@ -134,23 +134,23 @@ export default class CvmaFinancialDashboard extends LightningElement {
             this.showToast('Error', 'Failed to load transactions', 'error');
         }
     }
-    
+
     @wire(getPaymentMethods)
     wiredPaymentMethods(result) {
         if (result.data) {
             this.paymentMethods = result.data;
         }
     }
-    
+
     processChartData() {
         if (!this.financialSummary.revenueByCategory) return;
-        
+
         // Revenue chart data
         this.revenueChartData = Object.keys(this.financialSummary.revenueByCategory).map(category => ({
             name: category,
             value: this.financialSummary.revenueByCategory[category]
         }));
-        
+
         // Expense chart data
         if (this.financialSummary.expensesByCategory) {
             this.expenseChartData = Object.keys(this.financialSummary.expensesByCategory).map(category => ({
@@ -159,33 +159,33 @@ export default class CvmaFinancialDashboard extends LightningElement {
             }));
         }
     }
-    
+
     // Event Handlers
     handleTabChange(event) {
         this.selectedTab = event.target.value;
     }
-    
+
     handleYearChange(event) {
         this.paymentFilters.year = parseInt(event.target.value);
         this.paymentFilters.pageNumber = 0;
     }
-    
+
     handleStatusFilterChange(event) {
         this.paymentFilters.status = event.target.value;
         this.paymentFilters.pageNumber = 0;
     }
-    
+
     handleDateFilterChange(event) {
         const field = event.target.dataset.field;
         this.transactionFilters[field] = event.target.value;
         this.transactionFilters.pageNumber = 0;
     }
-    
+
     handleTransactionTypeChange(event) {
         this.transactionFilters.transactionType = event.target.value;
         this.transactionFilters.pageNumber = 0;
     }
-    
+
     // Payment Processing
     handleProcessPayment(event) {
         const recordId = event.target.dataset.recordId;
@@ -193,16 +193,16 @@ export default class CvmaFinancialDashboard extends LightningElement {
         this.paymentData.amount = this.selectedPaymentRecord.balance;
         this.showPaymentModal = true;
     }
-    
+
     handlePaymentInputChange(event) {
         const field = event.target.dataset.field;
         this.paymentData[field] = event.target.value;
     }
-    
+
     async handleSavePayment() {
         try {
             this.isLoading = true;
-            
+
             const result = await processPayment({
                 opportunityId: this.selectedPaymentRecord.id,
                 amount: parseFloat(this.paymentData.amount),
@@ -210,7 +210,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
                 referenceNumber: this.paymentData.referenceNumber,
                 notes: this.paymentData.notes
             });
-            
+
             if (result.success) {
                 this.showToast('Success', result.message, 'success');
                 this.closePaymentModal();
@@ -224,7 +224,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             this.isLoading = false;
         }
     }
-    
+
     closePaymentModal() {
         this.showPaymentModal = false;
         this.selectedPaymentRecord = {};
@@ -235,32 +235,32 @@ export default class CvmaFinancialDashboard extends LightningElement {
             notes: ''
         };
     }
-    
+
     // Pagination
     handlePaymentPrevious() {
         if (this.paymentFilters.pageNumber > 0) {
             this.paymentFilters.pageNumber--;
         }
     }
-    
+
     handlePaymentNext() {
         if (this.paymentPagination.hasMore) {
             this.paymentFilters.pageNumber++;
         }
     }
-    
+
     handleTransactionPrevious() {
         if (this.transactionFilters.pageNumber > 0) {
             this.transactionFilters.pageNumber--;
         }
     }
-    
+
     handleTransactionNext() {
         if (this.transactionPagination.hasMore) {
             this.transactionFilters.pageNumber++;
         }
     }
-    
+
     // Utility Methods
     async refreshData() {
         await Promise.all([
@@ -269,7 +269,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             refreshApex(this._transactionsResult)
         ]);
     }
-    
+
     async loadData() {
         this.isLoading = true;
         try {
@@ -280,7 +280,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             this.isLoading = false;
         }
     }
-    
+
     showToast(title, message, variant) {
         const event = new ShowToastEvent({
             title: title,
@@ -289,7 +289,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
         });
         this.dispatchEvent(event);
     }
-    
+
     // Getters
     get tabOptions() {
         return [
@@ -298,7 +298,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             { label: 'Transactions', value: 'transactions' }
         ];
     }
-    
+
     get yearOptions() {
         const currentYear = new Date().getFullYear();
         const years = [];
@@ -307,7 +307,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
         }
         return years;
     }
-    
+
     get statusOptions() {
         return [
             { label: 'All', value: '' },
@@ -316,7 +316,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             { label: 'Overdue', value: 'Overdue' }
         ];
     }
-    
+
     get transactionTypeOptions() {
         return [
             { label: 'All', value: '' },
@@ -326,7 +326,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             { label: 'Fundraiser', value: 'Fundraiser' }
         ];
     }
-    
+
     get formattedCurrency() {
         return (value) => {
             return new Intl.NumberFormat('en-US', {
@@ -335,31 +335,31 @@ export default class CvmaFinancialDashboard extends LightningElement {
             }).format(value || 0);
         };
     }
-    
+
     get isFirstPaymentPage() {
         return this.paymentFilters.pageNumber <= 0;
     }
-    
+
     get isLastPaymentPage() {
         return !this.paymentPagination.hasMore;
     }
-    
+
     get isFirstTransactionPage() {
         return this.transactionFilters.pageNumber <= 0;
     }
-    
+
     get isLastTransactionPage() {
         return !this.transactionPagination.hasMore;
     }
-    
+
     get currentPaymentPage() {
         return this.paymentFilters.pageNumber + 1;
     }
-    
+
     get currentTransactionPage() {
         return this.transactionFilters.pageNumber + 1;
     }
-    
+
     get paymentRecordColumns() {
         return [
             { label: 'Member', fieldName: 'memberName', type: 'text' },
@@ -380,7 +380,7 @@ export default class CvmaFinancialDashboard extends LightningElement {
             }
         ];
     }
-    
+
     get transactionColumns() {
         return [
             { label: 'Date', fieldName: 'transactionDate', type: 'date' },

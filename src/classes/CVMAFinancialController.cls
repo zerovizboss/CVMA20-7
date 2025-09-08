@@ -95,16 +95,16 @@ public with sharing class CVMAFinancialController {
     public static Map<String, Object> getPaymentRecords(Integer year, String status, Integer pageSize, Integer pageNumber) {
         try {
             validateTreasurerPermissions();
-            
+
             // Set defaults
             if (year == null) year = Date.today().year();
             if (pageSize == null || pageSize <= 0) pageSize = 50;
             if (pageNumber == null || pageNumber < 0) pageNumber = 0;
-            
+
             Integer offset = pageNumber * pageSize;
             Date yearStart = Date.newInstance(year, 1, 1);
             Date yearEnd = Date.newInstance(year, 12, 31);
-            
+
             // Query opportunities (dues records) with related payments using NPSP
             String query = 'SELECT Id, Name, Amount, StageName, CloseDate, AccountId, Account.Name, ' +
                           'npsp__Primary_Contact__c, npsp__Primary_Contact__r.Name, npsp__Primary_Contact__r.Level__c, ' +
@@ -115,7 +115,7 @@ public with sharing class CVMAFinancialController {
                           'WHERE RecordType.DeveloperName = \'Donation\' ' +
                           'AND Campaign.Name = \'Annual Dues ' + year + '\' ' +
                           'AND CloseDate >= :yearStart AND CloseDate <= :yearEnd ';
-                          
+
             if (String.isNotBlank(status)) {
                 if (status == PAYMENT_STATUS_PAID) {
                     query += 'AND StageName = \'Closed Won\' ';
@@ -125,11 +125,11 @@ public with sharing class CVMAFinancialController {
                     query += 'AND StageName IN (\'Pledged\', \'Prospecting\') AND CloseDate < TODAY ';
                 }
             }
-            
+
             query += 'WITH SECURITY_ENFORCED ORDER BY Contact__r.Name LIMIT :pageSize OFFSET :offset';
-            
+
             List<Opportunity> opportunities = Database.query(query);
-            
+
             // Convert to PaymentRecord objects
             List<PaymentRecord> paymentRecords = new List<PaymentRecord>();
             for (Opportunity opp : opportunities) {
@@ -140,12 +140,12 @@ public with sharing class CVMAFinancialController {
                 record.memberLevel = opp.npsp__Primary_Contact__r.Level__c;
                 record.amountDue = opp.Amount;
                 record.dueDate = opp.CloseDate;
-                
+
                 // Calculate paid amount from NPSP payments
                 Decimal totalPaid = 0;
                 Date lastPaymentDate = null;
                 String paymentMethod = null;
-                
+
                 for (npe01__OppPayment__c payment : opp.npe01__OppPayment__r) {
                     if (payment.npe01__Paid__c) {
                         totalPaid += payment.npe01__Payment_Amount__c;
@@ -155,12 +155,12 @@ public with sharing class CVMAFinancialController {
                         }
                     }
                 }
-                
+
                 record.amountPaid = totalPaid;
                 record.lastPaymentDate = lastPaymentDate;
                 record.paymentMethod = paymentMethod;
                 record.balance = record.amountDue - record.amountPaid;
-                
+
                 // Determine status
                 if (opp.StageName == 'Closed Won') {
                     record.status = PAYMENT_STATUS_PAID;
@@ -172,28 +172,28 @@ public with sharing class CVMAFinancialController {
                     record.status = PAYMENT_STATUS_PENDING;
                     record.daysPastDue = 0;
                 }
-                
+
                 paymentRecords.add(record);
             }
-            
+
             // Get total count
             String countQuery = 'SELECT COUNT() FROM Opportunity ' +
                                'WHERE RecordType.DeveloperName = \'Donation\' ' +
                                'AND Campaign.Name = \'Annual Dues ' + year + '\' ' +
                                'AND CloseDate >= :yearStart AND CloseDate <= :yearEnd ' +
                                'WITH SECURITY_ENFORCED';
-                               
+
             Integer totalCount = Database.countQuery(countQuery);
-            
+
             Map<String, Object> result = new Map<String, Object>();
             result.put('records', paymentRecords);
             result.put('totalCount', totalCount);
             result.put('pageSize', pageSize);
             result.put('pageNumber', pageNumber);
             result.put('hasMore', (offset + pageSize) < totalCount);
-            
+
             return result;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.logError(e, 'CVMAFinancialController', 'getPaymentRecords',
                                     CVMAErrorHandler.Severity.HIGH, CVMAErrorHandler.Category.INTEGRATION);
@@ -211,11 +211,11 @@ public with sharing class CVMAFinancialController {
      * @return PaymentResponse with transaction details
      */
     @AuraEnabled
-    public static PaymentResponse processPayment(String opportunityId, Decimal amount, String paymentMethod, 
+    public static PaymentResponse processPayment(String opportunityId, Decimal amount, String paymentMethod,
                                                String referenceNumber, String notes) {
         try {
             validateTreasurerPermissions();
-            
+
             // Validate inputs
             if (String.isBlank(opportunityId)) {
                 throw new PaymentException('Opportunity ID is required');
@@ -226,7 +226,7 @@ public with sharing class CVMAFinancialController {
             if (String.isBlank(paymentMethod)) {
                 throw new PaymentException('Payment method is required');
             }
-            
+
             // Get opportunity information
             Opportunity dues = [
                 SELECT Id, Name, Amount, StageName, npsp__Primary_Contact__c, npsp__Primary_Contact__r.Name
@@ -235,7 +235,7 @@ public with sharing class CVMAFinancialController {
                 WITH SECURITY_ENFORCED
                 LIMIT 1
             ];
-            
+
             // Create NPSP Payment record
             npe01__OppPayment__c payment = new npe01__OppPayment__c();
             payment.npe01__Opportunity__c = opportunityId;
@@ -245,9 +245,9 @@ public with sharing class CVMAFinancialController {
             payment.npe01__Paid__c = true;
             payment.npe01__Check_Reference_Number__c = referenceNumber;
             // Note: npe01__Notes__c may not exist, storing notes in description if needed
-            
+
             insert payment;
-            
+
             // Check if opportunity is now fully paid
             List<AggregateResult> paymentTotals = [
                 SELECT SUM(npe01__Payment_Amount__c) totalPaid
@@ -256,27 +256,27 @@ public with sharing class CVMAFinancialController {
                 AND npe01__Paid__c = true
                 WITH SECURITY_ENFORCED
             ];
-            
+
             Decimal totalPaid = 0;
             if (!paymentTotals.isEmpty() && paymentTotals[0].get('totalPaid') != null) {
                 totalPaid = (Decimal)paymentTotals[0].get('totalPaid');
             }
-            
+
             // Update opportunity stage if fully paid
             if (totalPaid >= dues.Amount) {
                 dues.StageName = 'Closed Won';
                 update dues;
             }
-            
+
             PaymentResponse response = new PaymentResponse();
             response.success = true;
             response.message = 'Payment processed successfully';
             response.transactionId = payment.Id;
             response.amountProcessed = amount;
             response.paymentStatus = totalPaid >= dues.Amount ? PAYMENT_STATUS_PAID : PAYMENT_STATUS_PENDING;
-            
+
             return response;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.logError(e, 'CVMAFinancialController', 'processPayment',
                                     CVMAErrorHandler.Severity.HIGH, CVMAErrorHandler.Category.BUSINESS_LOGIC);
@@ -294,7 +294,7 @@ public with sharing class CVMAFinancialController {
     public static FinancialSummary getFinancialSummary(Date startDate, Date endDate) {
         try {
             validateTreasurerPermissions();
-            
+
             // Set defaults if dates not provided
             if (startDate == null) {
                 startDate = Date.newInstance(Date.today().year(), 1, 1);
@@ -302,10 +302,10 @@ public with sharing class CVMAFinancialController {
             if (endDate == null) {
                 endDate = Date.today();
             }
-            
+
             FinancialSummary summary = new FinancialSummary();
             summary.reportingPeriod = startDate.format() + ' to ' + endDate.format();
-            
+
             // Get all opportunities (including expenses) for the period
             List<Opportunity> opportunities = [
                 SELECT Id, Amount, RecordType.DeveloperName, Campaign.Name, StageName, CloseDate
@@ -316,13 +316,13 @@ public with sharing class CVMAFinancialController {
                 WITH SECURITY_ENFORCED
                 ORDER BY CloseDate DESC
             ];
-            
+
             // Calculate totals
             Decimal totalRevenue = 0;
             Decimal totalExpenses = 0;
             Map<String, Decimal> revenueByCategory = new Map<String, Decimal>();
             Map<String, Decimal> expensesByCategory = new Map<String, Decimal>();
-            
+
             for (Opportunity opp : opportunities) {
                 // Revenue opportunities (donations, dues, etc.)
                 if (opp.RecordType.DeveloperName == 'Donation') {
@@ -339,13 +339,13 @@ public with sharing class CVMAFinancialController {
                     expensesByCategory.put(category, (currentAmount != null ? currentAmount : 0) + Math.abs(opp.Amount));
                 }
             }
-            
+
             summary.totalRevenue = totalRevenue;
             summary.totalExpenses = totalExpenses;
             summary.netIncome = totalRevenue - totalExpenses;
             summary.revenueByCategory = revenueByCategory;
             summary.expensesByCategory = expensesByCategory;
-            
+
             // Get member dues payment statistics using NPSP
             Integer currentYear = Date.today().year();
             List<AggregateResult> duesStats = [
@@ -357,7 +357,7 @@ public with sharing class CVMAFinancialController {
                 AND CALENDAR_YEAR(CloseDate) = :currentYear
                 WITH SECURITY_ENFORCED
             ];
-            
+
             List<AggregateResult> paidStats = [
                 SELECT SUM(npe01__Payment_Amount__c) totalPaid
                 FROM npe01__OppPayment__c
@@ -367,20 +367,20 @@ public with sharing class CVMAFinancialController {
                 AND CALENDAR_YEAR(npe01__Payment_Date__c) = :currentYear
                 WITH SECURITY_ENFORCED
             ];
-            
+
             if (!duesStats.isEmpty()) {
                 AggregateResult stats = duesStats[0];
                 summary.totalMembers = (Integer)stats.get('totalMembers');
                 Decimal totalDues = (Decimal)stats.get('totalDues');
                 Decimal totalPaid = 0;
-                
+
                 if (!paidStats.isEmpty() && paidStats[0].get('totalPaid') != null) {
                     totalPaid = (Decimal)paidStats[0].get('totalPaid');
                 }
-                
+
                 summary.outstandingDues = (totalDues != null ? totalDues : 0) - totalPaid;
             }
-            
+
             // Get paid vs overdue member counts using NPSP
             List<AggregateResult> paymentStats = [
                 SELECT StageName status, COUNT(Id) recordCount
@@ -391,7 +391,7 @@ public with sharing class CVMAFinancialController {
                 WITH SECURITY_ENFORCED
                 GROUP BY StageName
             ];
-            
+
             for (AggregateResult stat : paymentStats) {
                 String stageName = (String)stat.get('status');
                 Integer count = (Integer)stat.get('recordCount');
@@ -401,12 +401,12 @@ public with sharing class CVMAFinancialController {
                     summary.overdueMembers = count;
                 }
             }
-            
+
             // Calculate treasury balance (simplified - would integrate with accounting system)
             summary.treasuryBalance = summary.totalRevenue - summary.totalExpenses;
-            
+
             return summary;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.logError(e, 'CVMAFinancialController', 'getFinancialSummary',
                                     CVMAErrorHandler.Severity.MEDIUM, CVMAErrorHandler.Category.BUSINESS_LOGIC);
@@ -424,19 +424,19 @@ public with sharing class CVMAFinancialController {
      * @return Map with transactions and pagination info
      */
     @AuraEnabled(cacheable=true)
-    public static Map<String, Object> getFinancialTransactions(Date startDate, Date endDate, 
+    public static Map<String, Object> getFinancialTransactions(Date startDate, Date endDate,
                                                              String transactionType, Integer pageSize, Integer pageNumber) {
         try {
             validateTreasurerPermissions();
-            
+
             // Set defaults
             if (startDate == null) startDate = Date.today().addMonths(-3);
             if (endDate == null) endDate = Date.today();
             if (pageSize == null || pageSize <= 0) pageSize = 50;
             if (pageNumber == null || pageNumber < 0) pageNumber = 0;
-            
+
             Integer offset = pageNumber * pageSize;
-            
+
             // Query NPSP Payment objects for transactions
             String query = 'SELECT Id, npe01__Payment_Date__c, npe01__Payment_Amount__c, ' +
                           'npe01__Payment_Method__c, npe01__Check_Reference_Number__c, ' +
@@ -449,7 +449,7 @@ public with sharing class CVMAFinancialController {
                           'FROM npe01__OppPayment__c ' +
                           'WHERE npe01__Payment_Date__c >= :startDate ' +
                           'AND npe01__Payment_Date__c <= :endDate ';
-            
+
             // Filter by transaction type if specified
             if (String.isNotBlank(transactionType)) {
                 if (transactionType == TRANSACTION_TYPE_DUES) {
@@ -461,12 +461,12 @@ public with sharing class CVMAFinancialController {
                     query += 'AND npe01__Opportunity__r.RecordType.DeveloperName = \'Expense\' ';
                 }
             }
-            
+
             query += 'WITH SECURITY_ENFORCED ORDER BY npe01__Payment_Date__c DESC ' +
                     'LIMIT :pageSize OFFSET :offset';
-            
+
             List<npe01__OppPayment__c> payments = Database.query(query);
-            
+
             // Convert to FinancialTransaction objects
             List<FinancialTransaction> transactionRecords = new List<FinancialTransaction>();
             for (npe01__OppPayment__c payment : payments) {
@@ -477,7 +477,7 @@ public with sharing class CVMAFinancialController {
                 record.paymentMethod = payment.npe01__Payment_Method__c;
                 record.referenceNumber = payment.npe01__Check_Reference_Number__c;
                 record.status = payment.npe01__Paid__c ? PAYMENT_STATUS_PAID : PAYMENT_STATUS_PENDING;
-                
+
                 // Determine transaction type based on opportunity
                 if (payment.npe01__Opportunity__r?.Campaign?.Name?.contains('Annual Dues')) {
                     record.transactionType = TRANSACTION_TYPE_DUES;
@@ -486,32 +486,32 @@ public with sharing class CVMAFinancialController {
                 } else if (payment.npe01__Opportunity__r?.RecordType?.DeveloperName == 'Donation') {
                     record.transactionType = TRANSACTION_TYPE_DONATION;
                     record.description = payment.npe01__Opportunity__r?.Name;
-                    record.category = payment.npe01__Opportunity__r?.Campaign?.Name != null ? 
+                    record.category = payment.npe01__Opportunity__r?.Campaign?.Name != null ?
                                     payment.npe01__Opportunity__r.Campaign.Name : 'General Donation';
                 } else if (payment.npe01__Opportunity__r?.RecordType?.DeveloperName == 'Expense') {
                     record.transactionType = TRANSACTION_TYPE_EXPENSE;
                     record.description = payment.npe01__Opportunity__r?.Name;
-                    record.category = payment.npe01__Opportunity__r?.Campaign?.Name != null ? 
+                    record.category = payment.npe01__Opportunity__r?.Campaign?.Name != null ?
                                     payment.npe01__Opportunity__r.Campaign.Name : 'General Expense';
                 } else {
                     record.transactionType = 'Other';
                     record.description = payment.npe01__Opportunity__r?.Name;
                     record.category = 'Other';
                 }
-                
+
                 record.memberId = payment.npe01__Opportunity__r?.npsp__Primary_Contact__c;
                 record.memberName = payment.npe01__Opportunity__r?.npsp__Primary_Contact__r?.Name;
-                
+
                 // Notes field may not be available in NPSP Payment object
-                
+
                 transactionRecords.add(record);
             }
-            
+
             // Get total count
             String countQuery = 'SELECT COUNT() FROM npe01__OppPayment__c ' +
                                'WHERE npe01__Payment_Date__c >= :startDate ' +
                                'AND npe01__Payment_Date__c <= :endDate ';
-            
+
             if (String.isNotBlank(transactionType)) {
                 if (transactionType == TRANSACTION_TYPE_DUES) {
                     countQuery += 'AND npe01__Opportunity__r.Campaign.Name LIKE \'%Annual Dues%\' ';
@@ -522,20 +522,20 @@ public with sharing class CVMAFinancialController {
                     countQuery += 'AND npe01__Opportunity__r.RecordType.DeveloperName = \'Expense\' ';
                 }
             }
-            
+
             countQuery += 'WITH SECURITY_ENFORCED';
-            
+
             Integer totalCount = Database.countQuery(countQuery);
-            
+
             Map<String, Object> result = new Map<String, Object>();
             result.put('transactions', transactionRecords);
             result.put('totalCount', totalCount);
             result.put('pageSize', pageSize);
             result.put('pageNumber', pageNumber);
             result.put('hasMore', (offset + pageSize) < totalCount);
-            
+
             return result;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.logError(e, 'CVMAFinancialController', 'getFinancialTransactions',
                                     CVMAErrorHandler.Severity.MEDIUM, CVMAErrorHandler.Category.BUSINESS_LOGIC);
@@ -565,7 +565,7 @@ public with sharing class CVMAFinancialController {
                 SELECT Id
                 FROM PermissionSetAssignment
                 WHERE AssigneeId = :UserInfo.getUserId()
-                AND (PermissionSet.Name = 'CVMA_Treasurer_Permissions' 
+                AND (PermissionSet.Name = 'CVMA_Treasurer_Permissions'
                      OR PermissionSet.Name = 'CVMA_Officer_Permissions')
                 WITH SECURITY_ENFORCED
                 LIMIT 1

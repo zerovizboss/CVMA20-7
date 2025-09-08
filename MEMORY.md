@@ -795,7 +795,7 @@ Opportunity duesRecord = new Opportunity(
     StageName = 'Pledged'
 );
 
-// NPSP Payments for payment records  
+// NPSP Payments for payment records
 npe01__OppPayment__c payment = new npe01__OppPayment__c(
     npe01__Opportunity__c = opportunityId,
     npe01__Payment_Amount__c = amount,
@@ -892,7 +892,7 @@ cvmaPaymentTracking LWC (4 files - 600+ total lines)
 #### NPSP Objects for Financial Management
 ```
 Opportunity (Donations/Dues)
-├── RecordTypes: 'Donation' for revenue, 'Expense' for expenditures  
+├── RecordTypes: 'Donation' for revenue, 'Expense' for expenditures
 ├── Stages: 'Pledged' → 'Closed Won' for payment lifecycle
 ├── Relationships: npsp__Primary_Contact__c for member association
 └── Campaigns: Organize by dues year, fundraising events, etc.
@@ -928,7 +928,7 @@ Campaign (Financial Categories)
 
 **Architecture Decision Impact**: This refactor from custom objects to NPSP standard objects represents a strategic architectural improvement that:
 - Reduces long-term maintenance overhead
-- Provides built-in nonprofit reporting capabilities  
+- Provides built-in nonprofit reporting capabilities
 - Ensures compatibility with Salesforce ecosystem updates
 - Follows nonprofit industry best practices
 - Eliminates custom object technical debt
