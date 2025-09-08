@@ -63,7 +63,9 @@
       "Bash(bash:*)",
       "Bash(git reset:*)",
       "Bash(cp:*)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:trailhead.salesforce.com)",
+      "WebFetch(domain:www.soapboxengage.com)"
     ],
     "deny": []
   }

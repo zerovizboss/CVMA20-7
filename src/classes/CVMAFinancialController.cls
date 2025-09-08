@@ -599,7 +599,7 @@ public with sharing class CVMAFinancialController {
      */
     private static List<Map<String, Object>> getMonthlyFinancialBreakdown(Date startDate, Date endDate) {
         List<AggregateResult> results = [
-            SELECT 
+            SELECT
                 CALENDAR_MONTH(npe01__Payment_Date__c) monthNumber,
                 CALENDAR_YEAR(npe01__Payment_Date__c) yearNumber,
                 SUM(npe01__Payment_Amount__c) totalAmount,
@@ -609,7 +609,7 @@ public with sharing class CVMAFinancialController {
             WHERE npe01__Payment_Date__c >= :startDate
             AND npe01__Payment_Date__c <= :endDate
             AND npe01__Paid__c = true
-            GROUP BY CALENDAR_MONTH(npe01__Payment_Date__c), 
+            GROUP BY CALENDAR_MONTH(npe01__Payment_Date__c),
                      CALENDAR_YEAR(npe01__Payment_Date__c),
                      npe01__Opportunity__r.RecordType.DeveloperName
             ORDER BY CALENDAR_YEAR(npe01__Payment_Date__c), CALENDAR_MONTH(npe01__Payment_Date__c)
@@ -621,7 +621,7 @@ public with sharing class CVMAFinancialController {
         for (AggregateResult result : results) {
             String key = result.get('yearNumber') + '-' + String.valueOf((Integer)result.get('monthNumber')).leftPad(2, '0');
             String recordType = (String)result.get('recordTypeName');
-            
+
             if (!monthlyMap.containsKey(key)) {
                 monthlyMap.put(key, new Map<String, Object>{
                     'period' => key,
@@ -642,7 +642,7 @@ public with sharing class CVMAFinancialController {
             } else if (recordType == 'Expense') {
                 monthData.put('expenses', (Decimal)monthData.get('expenses') + amount);
             }
-            
+
             monthData.put('paymentCount', (Integer)monthData.get('paymentCount') + count);
         }
 
@@ -654,7 +654,7 @@ public with sharing class CVMAFinancialController {
      */
     private static List<Map<String, Object>> getMemberPaymentAnalysis(Date startDate, Date endDate) {
         List<AggregateResult> results = [
-            SELECT 
+            SELECT
                 npe01__Opportunity__r.npsp__Primary_Contact__c contactId,
                 npe01__Opportunity__r.npsp__Primary_Contact__r.Name memberName,
                 npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c memberLevel,
@@ -684,7 +684,7 @@ public with sharing class CVMAFinancialController {
             member.put('totalPaid', result.get('totalPaid'));
             member.put('paymentCount', result.get('paymentCount'));
             member.put('lastPaymentDate', result.get('lastPaymentDate'));
-            
+
             memberAnalysis.add(member);
         }
 
@@ -696,7 +696,7 @@ public with sharing class CVMAFinancialController {
      */
     private static Map<String, Decimal> getPaymentMethodAnalysis(Date startDate, Date endDate) {
         List<AggregateResult> results = [
-            SELECT 
+            SELECT
                 npe01__Payment_Method__c paymentMethod,
                 SUM(npe01__Payment_Amount__c) totalAmount
             FROM npe01__OppPayment__c
@@ -736,7 +736,7 @@ public with sharing class CVMAFinancialController {
         // Calculate percentage changes
         Decimal currentRevenue = (Decimal)currentYear.get('totalRevenue');
         Decimal previousRevenue = (Decimal)previousYear.get('totalRevenue');
-        
+
         if (previousRevenue != null && previousRevenue > 0) {
             Decimal revenueChange = ((currentRevenue - previousRevenue) / previousRevenue) * 100;
             comparison.put('revenueChangePercent', revenueChange);
@@ -750,7 +750,7 @@ public with sharing class CVMAFinancialController {
      */
     private static Map<String, Decimal> getRevenueByCVMALevel(Date startDate, Date endDate) {
         List<AggregateResult> results = [
-            SELECT 
+            SELECT
                 npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c memberLevel,
                 SUM(npe01__Payment_Amount__c) totalAmount
             FROM npe01__OppPayment__c
@@ -791,7 +791,7 @@ public with sharing class CVMAFinancialController {
 
             if (reportType == 'payments') {
                 csvLines.add('Date,Member Name,Level,Amount,Payment Method,Reference,Campaign,Status');
-                
+
                 List<npe01__OppPayment__c> payments = [
                     SELECT Id, npe01__Payment_Date__c, npe01__Payment_Amount__c,
                            npe01__Payment_Method__c, npe01__Check_Reference_Number__c,
@@ -822,9 +822,9 @@ public with sharing class CVMAFinancialController {
             }
             else if (reportType == 'members') {
                 csvLines.add('Member Name,Level,Total Paid,Payment Count,Last Payment,Outstanding Balance');
-                
+
                 List<Map<String, Object>> memberAnalysis = getMemberPaymentAnalysis(startDate, endDate);
-                
+
                 for (Map<String, Object> member : memberAnalysis) {
                     List<String> fields = new List<String>{
                         (String)member.get('memberName'),
