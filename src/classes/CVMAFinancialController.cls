@@ -543,6 +543,310 @@ public with sharing class CVMAFinancialController {
         }
     }
 
+    /**
+     * @description Get comprehensive financial report for treasurers
+     * @param startDate Report start date
+     * @param endDate Report end date
+     * @param reportType Type of report (summary, detailed, trends)
+     * @return Financial report data
+     */
+    @AuraEnabled(cacheable=true)
+    public static Map<String, Object> getFinancialReport(Date startDate, Date endDate, String reportType) {
+        try {
+            validateTreasurerAccess();
+
+            Map<String, Object> report = new Map<String, Object>();
+
+            // Get basic financial summary
+            Map<String, Object> summary = getFinancialSummary(startDate, endDate);
+            report.put('summary', summary);
+
+            if (reportType == 'detailed' || reportType == 'trends') {
+                // Get monthly breakdown
+                List<Map<String, Object>> monthlyData = getMonthlyFinancialBreakdown(startDate, endDate);
+                report.put('monthlyBreakdown', monthlyData);
+
+                // Get member payment analysis
+                List<Map<String, Object>> memberAnalysis = getMemberPaymentAnalysis(startDate, endDate);
+                report.put('memberAnalysis', memberAnalysis);
+
+                // Get payment method analysis
+                Map<String, Decimal> paymentMethods = getPaymentMethodAnalysis(startDate, endDate);
+                report.put('paymentMethodBreakdown', paymentMethods);
+            }
+
+            if (reportType == 'trends') {
+                // Get year-over-year comparison
+                Map<String, Object> yearComparison = getYearOverYearComparison(startDate, endDate);
+                report.put('yearOverYear', yearComparison);
+
+                // Get membership level revenue analysis
+                Map<String, Decimal> levelRevenue = getRevenueByCVMALevel(startDate, endDate);
+                report.put('levelRevenue', levelRevenue);
+            }
+
+            return report;
+
+        } catch (Exception e) {
+            CVMAErrorHandler.logError(e, 'CVMAFinancialController', 'getFinancialReport',
+                                    CVMAErrorHandler.Severity.HIGH, CVMAErrorHandler.Category.BUSINESS_LOGIC);
+            throw new AuraHandledException('Failed to generate financial report: ' + e.getMessage());
+        }
+    }
+
+    /**
+     * @description Get monthly financial breakdown for trend analysis
+     */
+    private static List<Map<String, Object>> getMonthlyFinancialBreakdown(Date startDate, Date endDate) {
+        List<AggregateResult> results = [
+            SELECT 
+                CALENDAR_MONTH(npe01__Payment_Date__c) monthNumber,
+                CALENDAR_YEAR(npe01__Payment_Date__c) yearNumber,
+                SUM(npe01__Payment_Amount__c) totalAmount,
+                COUNT(Id) paymentCount,
+                npe01__Opportunity__r.RecordType.DeveloperName recordTypeName
+            FROM npe01__OppPayment__c
+            WHERE npe01__Payment_Date__c >= :startDate
+            AND npe01__Payment_Date__c <= :endDate
+            AND npe01__Paid__c = true
+            GROUP BY CALENDAR_MONTH(npe01__Payment_Date__c), 
+                     CALENDAR_YEAR(npe01__Payment_Date__c),
+                     npe01__Opportunity__r.RecordType.DeveloperName
+            ORDER BY CALENDAR_YEAR(npe01__Payment_Date__c), CALENDAR_MONTH(npe01__Payment_Date__c)
+            WITH SECURITY_ENFORCED
+        ];
+
+        Map<String, Map<String, Object>> monthlyMap = new Map<String, Map<String, Object>>();
+
+        for (AggregateResult result : results) {
+            String key = result.get('yearNumber') + '-' + String.valueOf((Integer)result.get('monthNumber')).leftPad(2, '0');
+            String recordType = (String)result.get('recordTypeName');
+            
+            if (!monthlyMap.containsKey(key)) {
+                monthlyMap.put(key, new Map<String, Object>{
+                    'period' => key,
+                    'year' => result.get('yearNumber'),
+                    'month' => result.get('monthNumber'),
+                    'revenue' => 0,
+                    'expenses' => 0,
+                    'paymentCount' => 0
+                });
+            }
+
+            Map<String, Object> monthData = monthlyMap.get(key);
+            Decimal amount = (Decimal)result.get('totalAmount');
+            Integer count = (Integer)result.get('paymentCount');
+
+            if (recordType == 'Donation') {
+                monthData.put('revenue', (Decimal)monthData.get('revenue') + amount);
+            } else if (recordType == 'Expense') {
+                monthData.put('expenses', (Decimal)monthData.get('expenses') + amount);
+            }
+            
+            monthData.put('paymentCount', (Integer)monthData.get('paymentCount') + count);
+        }
+
+        return monthlyMap.values();
+    }
+
+    /**
+     * @description Get member payment analysis for treasurer insights
+     */
+    private static List<Map<String, Object>> getMemberPaymentAnalysis(Date startDate, Date endDate) {
+        List<AggregateResult> results = [
+            SELECT 
+                npe01__Opportunity__r.npsp__Primary_Contact__c contactId,
+                npe01__Opportunity__r.npsp__Primary_Contact__r.Name memberName,
+                npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c memberLevel,
+                SUM(npe01__Payment_Amount__c) totalPaid,
+                COUNT(Id) paymentCount,
+                MAX(npe01__Payment_Date__c) lastPaymentDate
+            FROM npe01__OppPayment__c
+            WHERE npe01__Payment_Date__c >= :startDate
+            AND npe01__Payment_Date__c <= :endDate
+            AND npe01__Paid__c = true
+            AND npe01__Opportunity__r.npsp__Primary_Contact__c != null
+            GROUP BY npe01__Opportunity__r.npsp__Primary_Contact__c,
+                     npe01__Opportunity__r.npsp__Primary_Contact__r.Name,
+                     npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c
+            ORDER BY SUM(npe01__Payment_Amount__c) DESC
+            LIMIT 50
+            WITH SECURITY_ENFORCED
+        ];
+
+        List<Map<String, Object>> memberAnalysis = new List<Map<String, Object>>();
+
+        for (AggregateResult result : results) {
+            Map<String, Object> member = new Map<String, Object>();
+            member.put('contactId', result.get('contactId'));
+            member.put('memberName', result.get('memberName'));
+            member.put('memberLevel', result.get('memberLevel'));
+            member.put('totalPaid', result.get('totalPaid'));
+            member.put('paymentCount', result.get('paymentCount'));
+            member.put('lastPaymentDate', result.get('lastPaymentDate'));
+            
+            memberAnalysis.add(member);
+        }
+
+        return memberAnalysis;
+    }
+
+    /**
+     * @description Get payment method analysis for financial tracking
+     */
+    private static Map<String, Decimal> getPaymentMethodAnalysis(Date startDate, Date endDate) {
+        List<AggregateResult> results = [
+            SELECT 
+                npe01__Payment_Method__c paymentMethod,
+                SUM(npe01__Payment_Amount__c) totalAmount
+            FROM npe01__OppPayment__c
+            WHERE npe01__Payment_Date__c >= :startDate
+            AND npe01__Payment_Date__c <= :endDate
+            AND npe01__Paid__c = true
+            GROUP BY npe01__Payment_Method__c
+            ORDER BY SUM(npe01__Payment_Amount__c) DESC
+            WITH SECURITY_ENFORCED
+        ];
+
+        Map<String, Decimal> paymentMethods = new Map<String, Decimal>();
+
+        for (AggregateResult result : results) {
+            String method = (String)result.get('paymentMethod');
+            Decimal amount = (Decimal)result.get('totalAmount');
+            paymentMethods.put(method != null ? method : 'Not Specified', amount);
+        }
+
+        return paymentMethods;
+    }
+
+    /**
+     * @description Get year-over-year comparison for financial trends
+     */
+    private static Map<String, Object> getYearOverYearComparison(Date startDate, Date endDate) {
+        Date previousYearStart = startDate.addYears(-1);
+        Date previousYearEnd = endDate.addYears(-1);
+
+        Map<String, Object> currentYear = getFinancialSummary(startDate, endDate);
+        Map<String, Object> previousYear = getFinancialSummary(previousYearStart, previousYearEnd);
+
+        Map<String, Object> comparison = new Map<String, Object>();
+        comparison.put('currentYear', currentYear);
+        comparison.put('previousYear', previousYear);
+
+        // Calculate percentage changes
+        Decimal currentRevenue = (Decimal)currentYear.get('totalRevenue');
+        Decimal previousRevenue = (Decimal)previousYear.get('totalRevenue');
+        
+        if (previousRevenue != null && previousRevenue > 0) {
+            Decimal revenueChange = ((currentRevenue - previousRevenue) / previousRevenue) * 100;
+            comparison.put('revenueChangePercent', revenueChange);
+        }
+
+        return comparison;
+    }
+
+    /**
+     * @description Get revenue breakdown by CVMA membership level
+     */
+    private static Map<String, Decimal> getRevenueByCVMALevel(Date startDate, Date endDate) {
+        List<AggregateResult> results = [
+            SELECT 
+                npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c memberLevel,
+                SUM(npe01__Payment_Amount__c) totalAmount
+            FROM npe01__OppPayment__c
+            WHERE npe01__Payment_Date__c >= :startDate
+            AND npe01__Payment_Date__c <= :endDate
+            AND npe01__Paid__c = true
+            AND npe01__Opportunity__r.RecordType.DeveloperName = 'Donation'
+            AND npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c != null
+            GROUP BY npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c
+            ORDER BY SUM(npe01__Payment_Amount__c) DESC
+            WITH SECURITY_ENFORCED
+        ];
+
+        Map<String, Decimal> levelRevenue = new Map<String, Decimal>();
+
+        for (AggregateResult result : results) {
+            String level = (String)result.get('memberLevel');
+            Decimal amount = (Decimal)result.get('totalAmount');
+            levelRevenue.put(level, amount);
+        }
+
+        return levelRevenue;
+    }
+
+    /**
+     * @description Export financial data to CSV format
+     * @param reportType Type of data to export
+     * @param startDate Export start date
+     * @param endDate Export end date
+     * @return CSV formatted string
+     */
+    @AuraEnabled
+    public static String exportFinancialData(String reportType, Date startDate, Date endDate) {
+        try {
+            validateTreasurerAccess();
+
+            List<String> csvLines = new List<String>();
+
+            if (reportType == 'payments') {
+                csvLines.add('Date,Member Name,Level,Amount,Payment Method,Reference,Campaign,Status');
+                
+                List<npe01__OppPayment__c> payments = [
+                    SELECT Id, npe01__Payment_Date__c, npe01__Payment_Amount__c,
+                           npe01__Payment_Method__c, npe01__Check_Reference_Number__c,
+                           npe01__Opportunity__r.npsp__Primary_Contact__r.Name,
+                           npe01__Opportunity__r.npsp__Primary_Contact__r.CVMA_Level__c,
+                           npe01__Opportunity__r.Campaign.Name,
+                           npe01__Paid__c
+                    FROM npe01__OppPayment__c
+                    WHERE npe01__Payment_Date__c >= :startDate
+                    AND npe01__Payment_Date__c <= :endDate
+                    ORDER BY npe01__Payment_Date__c DESC
+                    WITH SECURITY_ENFORCED
+                ];
+
+                for (npe01__OppPayment__c payment : payments) {
+                    List<String> fields = new List<String>{
+                        String.valueOf(payment.npe01__Payment_Date__c),
+                        payment.npe01__Opportunity__r?.npsp__Primary_Contact__r?.Name,
+                        payment.npe01__Opportunity__r?.npsp__Primary_Contact__r?.CVMA_Level__c,
+                        String.valueOf(payment.npe01__Payment_Amount__c),
+                        payment.npe01__Payment_Method__c,
+                        payment.npe01__Check_Reference_Number__c,
+                        payment.npe01__Opportunity__r?.Campaign?.Name,
+                        payment.npe01__Paid__c ? 'Paid' : 'Pending'
+                    };
+                    csvLines.add(String.join(fields, ','));
+                }
+            }
+            else if (reportType == 'members') {
+                csvLines.add('Member Name,Level,Total Paid,Payment Count,Last Payment,Outstanding Balance');
+                
+                List<Map<String, Object>> memberAnalysis = getMemberPaymentAnalysis(startDate, endDate);
+                
+                for (Map<String, Object> member : memberAnalysis) {
+                    List<String> fields = new List<String>{
+                        (String)member.get('memberName'),
+                        (String)member.get('memberLevel'),
+                        String.valueOf((Decimal)member.get('totalPaid')),
+                        String.valueOf((Integer)member.get('paymentCount')),
+                        String.valueOf((Date)member.get('lastPaymentDate')),
+                        '0.00' // Would need additional logic for outstanding balance
+                    };
+                    csvLines.add(String.join(fields, ','));
+                }
+            }
+
+            return String.join(csvLines, '\n');
+
+        } catch (Exception e) {
+            CVMAErrorHandler.logError(e, 'CVMAFinancialController', 'exportFinancialData',
+                                    CVMAErrorHandler.Severity.MEDIUM, CVMAErrorHandler.Category.BUSINESS_LOGIC);
+            throw new AuraHandledException('Failed to export financial data: ' + e.getMessage());
+        }
+    }
+
     // Private helper methods
 
     /**

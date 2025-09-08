@@ -120,13 +120,60 @@ Based on the CVMA-SDLC-Lifecycle.md, remaining epics for implementation:
    - Chapter announcements and updates
    - Integration with existing communication channels
 
-2. **Epic #4: Financial Management** (2 user stories)
-   - Dues tracking and payment processing
-   - Financial reporting and treasury management
+2. **Epic #4: Financial Management** (2 user stories) - ✅ **COMPLETED WITH NPSP INTEGRATION**
+   - ✅ Dues tracking and payment processing (using NPSP Opportunities + npe01__OppPayment__c)
+   - 🔄 Financial reporting → **REFACTOR**: Replace custom LWCs with NPSP Reports & Dashboards Installer
 
-3. **Epic #5: Reporting and Analytics** (2 user stories)
-   - Member engagement analytics
-   - Chapter performance dashboards
+3. **Epic #5: Reporting and Analytics** (2 user stories) - **⚠️ REFACTOR TO STANDARD FEATURES**
+   - ~~Member engagement analytics~~ → Use NPSP pre-built reports + Einstein Analytics
+   - ~~Chapter performance dashboards~~ → Use NPSP Financial Dashboards + Standard Reports
+
+### 🎯 **REVISED PROJECT ROADMAP: Standard Feature Integration (January 2025)**
+
+**🚨 CRITICAL ARCHITECTURAL REFACTOR IN PROGRESS**
+
+After comprehensive audit, identified 80%+ code reduction opportunity by leveraging standard Salesforce/NPSP features.
+
+## **📋 GitHub Project Updates (January 8, 2025)**
+
+### **New Epic: Standard Feature Integration (#18)**
+**Priority**: Immediate - Architecture optimization initiative
+**Scope**: Refactor all completed epics to use standard features
+
+### **Phase 1: Epic #2 Event Management Refactor**
+- **User Story #15**: Migrate RSVP System to Campaign Members (#19)
+- **User Story #16**: Replace Custom Event Management with Lightning Calendar (#20)
+- **Impact**: ~90% code reduction, standard Lightning UX
+
+### **Phase 2: Epic #4 Financial Management Refactor**
+- **User Story #17**: Replace Custom Dashboards with NPSP Reports (#21)
+- **Target**: 67 pre-built reports + 4 dashboards vs custom LWCs
+- **Impact**: ~70% code reduction, enterprise analytics
+
+### **Phase 3: Epic #1 Member Management Refactor** *(Planned)*
+- Replace custom profile/application LWCs with Lightning Record Forms + Flows
+- **Impact**: ~85% code reduction, standard workflows
+
+## **📊 Refactoring Strategy**
+
+#### **Current vs Standard Mapping**
+| **Epic** | **Custom Components** | **Standard Alternative** | **Reduction** |
+|----------|----------------------|-------------------------|---------------|
+| **Epic #2** | 5 LWCs + 3 Controllers | Campaign Members + Lightning Calendar | **90%** |
+| **Epic #4** | 2 LWCs + 800-line Controller | NPSP Reports + Payment workflows | **70%** |
+| **Epic #1** | 3 LWCs + 2 Controllers | Lightning Forms + Flow Builder | **85%** |
+
+#### **Installed Package Leverage Opportunities**
+- **NPSP**: 67 reports + 4 dashboards + payment processing (leveraging)
+- **Extentia_SIM__**: Map plotting (8,000+ files) - use for member/event locations
+- **trailheadapp__**: Learning management - integrate with member training
+- **V2_Gdrive__**: Document management vs custom file handling
+
+## **🔗 GitHub Project Links**
+- **Epic Refactor**: https://github.com/zerovizboss/CVMA20-7/issues/18
+- **User Story #15**: https://github.com/zerovizboss/CVMA20-7/issues/19
+- **User Story #16**: https://github.com/zerovizboss/CVMA20-7/issues/20
+- **User Story #17**: https://github.com/zerovizboss/CVMA20-7/issues/21
 
 ## Salesforce Best Practices Implementation - JANUARY 2025 🚧
 
