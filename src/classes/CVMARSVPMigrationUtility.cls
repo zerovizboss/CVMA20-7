@@ -1,322 +1,212 @@
 /**
- * @description Utility class for migrating CVMA Event RSVP data from custom object to Campaign Members
+ * @description Utility class for migrating CVMA_Event_RSVP__c records to Campaign Members
  * @author Claude AI - CVMA Development Team
- * @date January 2025
- *
- * This utility handles the migration from CVMA_Event_RSVP__c custom object to standard Campaign Member
- * status values as part of the Standard Feature Integration initiative.
+ * @date 2025-09-10
+ * 
+ * Migration process:
+ * 1. Query all CVMA_Event_RSVP__c records
+ * 2. Create corresponding Campaign Members with appropriate status
+ * 3. Preserve original data in custom fields
+ * 4. Generate migration report
  */
 public with sharing class CVMARSVPMigrationUtility {
-
-    public class MigrationException extends Exception {}
-
-    // Campaign Member Status mapping for RSVP responses
-    private static final String STATUS_RESPONDED_YES = 'Responded - Yes';
-    private static final String STATUS_RESPONDED_NO = 'Responded - No';
-    private static final String STATUS_RESPONDED_MAYBE = 'Responded - Maybe';
-    private static final String STATUS_PLUS_ONE_YES = 'Plus One - Yes';
-    private static final String STATUS_SENT = 'Sent';
-
-    /**
-     * @description Migration wrapper class for tracking progress and results
-     */
+    
+    // Migration status tracking
     public class MigrationResult {
-        @AuraEnabled public Boolean success { get; set; }
-        @AuraEnabled public String message { get; set; }
-        @AuraEnabled public Integer totalRecords { get; set; }
-        @AuraEnabled public Integer successCount { get; set; }
-        @AuraEnabled public Integer errorCount { get; set; }
-        @AuraEnabled public List<String> errors { get; set; }
-
+        @AuraEnabled public Integer totalRSVPs { get; set; }
+        @AuraEnabled public Integer migratedRSVPs { get; set; }
+        @AuraEnabled public Integer failedRSVPs { get; set; }
+        @AuraEnabled public List<String> errorMessages { get; set; }
+        @AuraEnabled public String migrationDate { get; set; }
+        
         public MigrationResult() {
-            this.success = false;
-            this.totalRecords = 0;
-            this.successCount = 0;
-            this.errorCount = 0;
-            this.errors = new List<String>();
+            this.errorMessages = new List<String>();
+            this.migrationDate = Datetime.now().format();
         }
     }
-
+    
+    // RSVP to Campaign Member Status mapping
+    private static final Map<String, String> RSVP_STATUS_MAPPING = new Map<String, String>{
+        'Yes' => 'Responded - Yes',
+        'No' => 'Responded - No',
+        'Maybe' => 'Responded - Maybe'
+    };
+    
     /**
-     * @description Migrate all CVMA Event RSVP records to Campaign Members
-     * @param dryRun If true, only validate the migration without creating records
-     * @return MigrationResult Migration progress and results
+     * @description Execute RSVP migration from custom objects to Campaign Members
+     * @param dryRun If true, validate migration without making changes
+     * @return MigrationResult with migration statistics and any errors
      */
     @AuraEnabled
     public static MigrationResult migrateRSVPToCampaignMembers(Boolean dryRun) {
         MigrationResult result = new MigrationResult();
-
+        
         try {
-            // Validate permissions
-            CVMAErrorHandler.validateCRUDPermissions(
-                CVMA_Event_RSVP__c.getSObjectType(),
-                new List<String>{'Event__c', 'Member__c', 'Response__c'},
-                'read'
-            );
-
-            CVMAErrorHandler.validateCRUDPermissions(
-                CampaignMember.getSObjectType(),
-                new List<String>{'CampaignId', 'ContactId', 'Status'},
-                'create'
-            );
-
-            // Get all RSVP records
-            List<CVMA_Event_RSVP__c> rsvpRecords = [
-                SELECT Id, Event__c, Member__c, Response__c, RSVP_Date__c,
-                       Notes__c, Plus_One__c, Plus_One_Name__c,
-                       Event__r.Name, Member__r.Name
-                FROM CVMA_Event_RSVP__c
-                WHERE Event__c != null
-                AND Member__c != null
-                WITH SECURITY_ENFORCED
-            ];
-
-            result.totalRecords = rsvpRecords.size();
-
-            if (result.totalRecords == 0) {
-                result.success = true;
-                result.message = 'No RSVP records found to migrate.';
-                return result;
-            }
-
-            // Group RSVPs by Campaign to batch process
-            Map<Id, List<CVMA_Event_RSVP__c>> rsvpsByCampaign = groupRSVPsByCampaign(rsvpRecords);
-
+            // Validate user permissions
+            validateMigrationPermissions();
+            
+            // Get all RSVP records to migrate
+            List<CVMA_Event_RSVP__c> rsvpRecords = getAllRSVPRecords();
+            result.totalRSVPs = rsvpRecords.size();
+            
+            CVMAErrorHandler.log('Starting RSVP migration', 'CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers', 
+                                CVMAErrorHandler.LogLevel.INFO, null);
+            
+            // Process migration in batches
             List<CampaignMember> campaignMembersToInsert = new List<CampaignMember>();
-
-            for (Id campaignId : rsvpsByCampaign.keySet()) {
-                List<CVMA_Event_RSVP__c> campaignRSVPs = rsvpsByCampaign.get(campaignId);
-
-                // Create Campaign Members for this Campaign
-                List<CampaignMember> campaignMembers = createCampaignMembersFromRSVPs(campaignId, campaignRSVPs);
-                campaignMembersToInsert.addAll(campaignMembers);
+            
+            for (CVMA_Event_RSVP__c rsvp : rsvpRecords) {
+                try {
+                    CampaignMember cm = createCampaignMemberFromRSVP(rsvp);
+                    if (cm != null) {
+                        campaignMembersToInsert.add(cm);
+                    }
+                } catch (Exception e) {
+                    result.failedRSVPs++;
+                    result.errorMessages.add('RSVP ' + rsvp.Id + ': ' + e.getMessage());
+                    CVMAErrorHandler.handleException(e, 'CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers');
+                }
             }
-
+            
+            // Insert Campaign Members if not dry run
             if (!dryRun && !campaignMembersToInsert.isEmpty()) {
-                // Insert Campaign Members
-                List<Database.SaveResult> saveResults = Database.insert(campaignMembersToInsert, false);
-
-                // Process results
+                Database.SaveResult[] saveResults = Database.insert(campaignMembersToInsert, false);
+                
                 for (Integer i = 0; i < saveResults.size(); i++) {
                     if (saveResults[i].isSuccess()) {
-                        result.successCount++;
+                        result.migratedRSVPs++;
                     } else {
-                        result.errorCount++;
-                        String errorMsg = 'Record ' + i + ': ';
-                        for (Database.Error error : saveResults[i].getErrors()) {
-                            errorMsg += error.getMessage() + '; ';
+                        result.failedRSVPs++;
+                        String errorMsg = 'Campaign Member creation failed: ';
+                        for (Database.Error err : saveResults[i].getErrors()) {
+                            errorMsg += err.getMessage() + '; ';
                         }
-                        result.errors.add(errorMsg);
+                        result.errorMessages.add(errorMsg);
                     }
                 }
             } else if (dryRun) {
-                result.successCount = campaignMembersToInsert.size();
-                result.message = 'Dry run completed. ' + result.successCount + ' Campaign Members would be created.';
+                result.migratedRSVPs = campaignMembersToInsert.size();
+                result.errorMessages.add('DRY RUN: ' + campaignMembersToInsert.size() + ' Campaign Members would be created');
             }
-
-            result.success = (result.errorCount == 0);
-
-            if (result.success && !dryRun) {
-                result.message = 'Successfully migrated ' + result.successCount + ' RSVP records to Campaign Members.';
-            }
-
+            
+            CVMAErrorHandler.log('RSVP migration completed', 'CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers', 
+                                CVMAErrorHandler.LogLevel.INFO, null);
+            
         } catch (Exception e) {
-            CVMAErrorHandler.handleException(e, 'CVMARSVPMigrationUtility', 'migrateRSVPToCampaignMembers',
-                                           CVMAErrorHandler.Category.BUSINESS_LOGIC);
-            result.success = false;
-            result.message = 'Migration failed: ' + e.getMessage();
-            result.errors.add(e.getMessage());
+            CVMAErrorHandler.handleException(e, 'CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers');
+            result.errorMessages.add('Migration failed: ' + e.getMessage());
+            result.failedRSVPs = result.totalRSVPs;
         }
-
+        
         return result;
     }
-
+    
     /**
-     * @description Group RSVP records by Campaign for batch processing
+     * @description Create Campaign Member record from RSVP record
+     * @param rsvp The RSVP record to convert
+     * @return CampaignMember record ready for insertion
      */
-    private static Map<Id, List<CVMA_Event_RSVP__c>> groupRSVPsByCampaign(List<CVMA_Event_RSVP__c> rsvpRecords) {
-        Map<Id, List<CVMA_Event_RSVP__c>> rsvpsByCampaign = new Map<Id, List<CVMA_Event_RSVP__c>>();
-
-        for (CVMA_Event_RSVP__c rsvp : rsvpRecords) {
-            if (!rsvpsByCampaign.containsKey(rsvp.Event__c)) {
-                rsvpsByCampaign.put(rsvp.Event__c, new List<CVMA_Event_RSVP__c>());
-            }
-            rsvpsByCampaign.get(rsvp.Event__c).add(rsvp);
+    private static CampaignMember createCampaignMemberFromRSVP(CVMA_Event_RSVP__c rsvp) {
+        if (rsvp.Event__c == null || rsvp.Member__c == null) {
+            throw new CVMAErrorHandler.ValidationException('RSVP missing required Event or Member reference');
         }
-
-        return rsvpsByCampaign;
-    }
-
-    /**
-     * @description Create Campaign Members from RSVP records for a specific Campaign
-     */
-    private static List<CampaignMember> createCampaignMembersFromRSVPs(Id campaignId, List<CVMA_Event_RSVP__c> rsvps) {
-        List<CampaignMember> campaignMembers = new List<CampaignMember>();
-
-        for (CVMA_Event_RSVP__c rsvp : rsvps) {
-            // Create primary Campaign Member for the RSVP response
-            CampaignMember primaryMember = new CampaignMember();
-            primaryMember.CampaignId = campaignId;
-            primaryMember.ContactId = rsvp.Member__c;
-            primaryMember.Status = mapRSVPResponseToCampaignMemberStatus(rsvp.Response__c);
-
-            campaignMembers.add(primaryMember);
-
-            // If there's a plus one, create additional Campaign Member
-            if (rsvp.Plus_One__c && String.isNotBlank(rsvp.Plus_One_Name__c)) {
-                // For plus ones, we'll create a separate record with special status
-                // This maintains the plus one tracking capability
-                CampaignMember plusOneMember = new CampaignMember();
-                plusOneMember.CampaignId = campaignId;
-                plusOneMember.ContactId = rsvp.Member__c; // Same contact, different status
-                plusOneMember.Status = STATUS_PLUS_ONE_YES;
-
-                campaignMembers.add(plusOneMember);
-            }
+        
+        CampaignMember cm = new CampaignMember();
+        cm.CampaignId = rsvp.Event__c;
+        cm.ContactId = rsvp.Member__c;
+        
+        // Map RSVP response to Campaign Member status
+        String mappedStatus = RSVP_STATUS_MAPPING.get(rsvp.Response__c);
+        if (mappedStatus == null) {
+            throw new CVMAErrorHandler.ValidationException('Unknown RSVP response: ' + rsvp.Response__c);
         }
-
-        return campaignMembers;
-    }
-
-    /**
-     * @description Map RSVP Response values to Campaign Member Status values
-     */
-    private static String mapRSVPResponseToCampaignMemberStatus(String rsvpResponse) {
-        switch on rsvpResponse {
-            when 'Yes' {
-                return STATUS_RESPONDED_YES;
-            }
-            when 'No' {
-                return STATUS_RESPONDED_NO;
-            }
-            when 'Maybe' {
-                return STATUS_RESPONDED_MAYBE;
-            }
-            when else {
-                return STATUS_SENT; // Default status
-            }
+        
+        // Handle plus one responses
+        if (rsvp.Response__c == 'Yes' && rsvp.Plus_One__c == true) {
+            cm.Status = 'Plus One - Yes';
+        } else {
+            cm.Status = mappedStatus;
         }
+        
+        // Set custom fields
+        cm.put('CVMA_Plus_One__c', rsvp.Plus_One__c);
+        cm.put('CVMA_Plus_One_Name__c', rsvp.Plus_One_Name__c);
+        cm.put('CVMA_RSVP_Notes__c', rsvp.Notes__c);
+        cm.put('CVMA_Original_RSVP_Date__c', rsvp.RSVP_Date__c);
+        
+        return cm;
     }
-
+    
     /**
-     * @description Setup Campaign Member Status values for CVMA events
-     * This method creates the required status values for each Campaign marked as CVMA event
-     * @param campaignIds List of Campaign IDs to configure
+     * @description Get all RSVP records for migration
+     * @return List of RSVP records
      */
-    @AuraEnabled
-    public static void setupCampaignMemberStatuses(List<Id> campaignIds) {
-        try {
-            CVMAErrorHandler.validateCRUDPermissions(
-                CampaignMemberStatus.getSObjectType(),
-                new List<String>{'CampaignId', 'Label', 'IsDefault', 'HasResponded'},
-                'create'
-            );
-
-            List<CampaignMemberStatus> statusesToCreate = new List<CampaignMemberStatus>();
-
-            for (Id campaignId : campaignIds) {
-                // Create required status values
-                statusesToCreate.addAll(createCampaignMemberStatusesForCampaign(campaignId));
-            }
-
-            if (!statusesToCreate.isEmpty()) {
-                insert statusesToCreate;
-            }
-
-        } catch (Exception e) {
-            CVMAErrorHandler.handleException(e, 'CVMARSVPMigrationUtility', 'setupCampaignMemberStatuses',
-                                           CVMAErrorHandler.Category.BUSINESS_LOGIC);
-            throw new AuraHandledException('Failed to setup Campaign Member statuses: ' + e.getMessage());
-        }
+    private static List<CVMA_Event_RSVP__c> getAllRSVPRecords() {
+        return [
+            SELECT Id, Event__c, Member__c, Response__c, Plus_One__c, 
+                   Plus_One_Name__c, Notes__c, RSVP_Date__c, CreatedDate
+            FROM CVMA_Event_RSVP__c
+            WHERE Event__c != null AND Member__c != null
+            WITH SECURITY_ENFORCED
+            ORDER BY CreatedDate
+        ];
     }
-
+    
     /**
-     * @description Create Campaign Member Status records for a specific Campaign
+     * @description Validate user has required permissions for migration
      */
-    private static List<CampaignMemberStatus> createCampaignMemberStatusesForCampaign(Id campaignId) {
-        List<CampaignMemberStatus> statuses = new List<CampaignMemberStatus>();
-
-        // Sent (default, not responded)
-        statuses.add(new CampaignMemberStatus(
-            CampaignId = campaignId,
-            Label = 'Sent',
-            IsDefault = true,
-            HasResponded = false,
-            SortOrder = 1
-        ));
-
-        // Responded - Yes
-        statuses.add(new CampaignMemberStatus(
-            CampaignId = campaignId,
-            Label = 'Responded - Yes',
-            IsDefault = false,
-            HasResponded = true,
-            SortOrder = 2
-        ));
-
-        // Responded - No
-        statuses.add(new CampaignMemberStatus(
-            CampaignId = campaignId,
-            Label = 'Responded - No',
-            IsDefault = false,
-            HasResponded = true,
-            SortOrder = 3
-        ));
-
-        // Responded - Maybe
-        statuses.add(new CampaignMemberStatus(
-            CampaignId = campaignId,
-            Label = 'Responded - Maybe',
-            IsDefault = false,
-            HasResponded = true,
-            SortOrder = 4
-        ));
-
-        // Plus One - Yes
-        statuses.add(new CampaignMemberStatus(
-            CampaignId = campaignId,
-            Label = 'Plus One - Yes',
-            IsDefault = false,
-            HasResponded = true,
-            SortOrder = 5
-        ));
-
-        return statuses;
+    private static void validateMigrationPermissions() {
+        // Check RSVP object permissions
+        CVMAErrorHandler.validateCRUDPermissions(
+            CVMA_Event_RSVP__c.getSObjectType(),
+            new List<String>{'Event__c', 'Member__c', 'Response__c'},
+            'read'
+        );
+        
+        // Check Campaign Member permissions
+        CVMAErrorHandler.validateCRUDPermissions(
+            CampaignMember.getSObjectType(),
+            new List<String>{'CampaignId', 'ContactId', 'Status'},
+            'create'
+        );
     }
-
+    
     /**
-     * @description Validate migration readiness by checking existing data
-     * @return Map<String, Object> Validation results and recommendations
+     * @description Generate migration status report
+     * @return Map containing migration statistics
      */
     @AuraEnabled(cacheable=true)
-    public static Map<String, Object> validateMigrationReadiness() {
-        Map<String, Object> validationResult = new Map<String, Object>();
-
+    public static Map<String, Object> getMigrationStatus() {
+        Map<String, Object> status = new Map<String, Object>();
+        
         try {
-            // Count existing RSVP records
+            // Count existing RSVPs
             Integer rsvpCount = [SELECT COUNT() FROM CVMA_Event_RSVP__c WITH SECURITY_ENFORCED];
-
-            // Count campaigns that could be events
-            Integer campaignCount = [SELECT COUNT() FROM Campaign WHERE Type = 'CVMA Event' WITH SECURITY_ENFORCED];
-
-            // Check for existing Campaign Members
-            Integer existingCampaignMembers = [SELECT COUNT() FROM CampaignMember WITH SECURITY_ENFORCED];
-
-            validationResult.put('rsvpRecordCount', rsvpCount);
-            validationResult.put('cvmaEventCampaignCount', campaignCount);
-            validationResult.put('existingCampaignMembers', existingCampaignMembers);
-            validationResult.put('migrationRecommended', rsvpCount > 0);
-
-            if (rsvpCount > 0) {
-                validationResult.put('message', 'Migration ready: ' + rsvpCount + ' RSVP records can be migrated to Campaign Members.');
-            } else {
-                validationResult.put('message', 'No RSVP records found. Migration not needed.');
+            
+            // Count existing Campaign Members with CVMA fields
+            Integer campaignMemberCount = 0;
+            try {
+                campaignMemberCount = [
+                    SELECT COUNT() 
+                    FROM CampaignMember 
+                    WHERE CVMA_Original_RSVP_Date__c != null 
+                    WITH SECURITY_ENFORCED
+                ];
+            } catch (Exception e) {
+                // Custom fields may not exist yet
+                campaignMemberCount = 0;
             }
-
+            
+            status.put('totalRSVPs', rsvpCount);
+            status.put('migratedCampaignMembers', campaignMemberCount);
+            status.put('migrationNeeded', rsvpCount > campaignMemberCount);
+            status.put('lastChecked', Datetime.now().format());
+            
         } catch (Exception e) {
-            validationResult.put('error', e.getMessage());
+            CVMAErrorHandler.handleException(e, 'CVMARSVPMigrationUtility.getMigrationStatus');
+            status.put('error', e.getMessage());
         }
-
-        return validationResult;
+        
+        return status;
     }
 }

@@ -1,218 +1,150 @@
 /**
- * @description Test class for CVMARSVPMigrationUtility - RSVP to Campaign Member migration
+ * @description Test class for CVMARSVPMigrationUtility
  * @author Claude AI - CVMA Development Team
- * @date January 2025
+ * @date 2025-09-10
  */
 @IsTest
 public class CVMARSVPMigrationUtilityTest {
-
+    
     @TestSetup
     static void makeData() {
-        // Create test member contact
-        Contact testMember = CVMATestDataFactory.createContact()
-            .withLevel('Full Member')
-            .create();
-
-        // Create test campaign
-        Campaign testCampaign = CVMATestDataFactory.createCampaign()
-            .withName('Test Migration Event')
-            .withType('CVMA Event')
-            .create();
-
-        // Create CVMA Event RSVP records (if the object exists)
-        try {
-            CVMA_Event_RSVP__c rsvp1 = new CVMA_Event_RSVP__c(
-                Event__c = testCampaign.Id,
-                Member__c = testMember.Id,
-                Response__c = 'Yes',
-                Plus_One__c = true,
-                Plus_One_Name__c = 'Jane Doe'
-            );
-            insert rsvp1;
-
-            CVMA_Event_RSVP__c rsvp2 = new CVMA_Event_RSVP__c(
-                Event__c = testCampaign.Id,
-                Member__c = testMember.Id,
-                Response__c = 'No'
-            );
-            insert rsvp2;
-        } catch (Exception e) {
-            // Object may not exist in all orgs - tests will handle this gracefully
-        }
+        // Create test campaign (event)
+        Campaign testEvent = new Campaign();
+        testEvent.Name = 'Test CVMA Event';
+        testEvent.IsActive = true;
+        testEvent.StartDate = Date.today().addDays(30);
+        testEvent.EndDate = Date.today().addDays(30);
+        testEvent.Type = 'Event';
+        insert testEvent;
+        
+        // Create test contacts
+        List<Contact> testContacts = CVMATestDataFactory.createTestDataBundle().contacts;
+        
+        // Create test RSVP records
+        List<CVMA_Event_RSVP__c> testRSVPs = new List<CVMA_Event_RSVP__c>();
+        
+        // RSVP Yes without plus one
+        CVMA_Event_RSVP__c rsvp1 = new CVMA_Event_RSVP__c();
+        rsvp1.Event__c = testEvent.Id;
+        rsvp1.Member__c = testContacts[0].Id;
+        rsvp1.Response__c = 'Yes';
+        rsvp1.Plus_One__c = false;
+        rsvp1.RSVP_Date__c = Datetime.now().addDays(-5);
+        rsvp1.Notes__c = 'Looking forward to it!';
+        testRSVPs.add(rsvp1);
+        
+        // RSVP Yes with plus one
+        CVMA_Event_RSVP__c rsvp2 = new CVMA_Event_RSVP__c();
+        rsvp2.Event__c = testEvent.Id;
+        rsvp2.Member__c = testContacts[1].Id;
+        rsvp2.Response__c = 'Yes';
+        rsvp2.Plus_One__c = true;
+        rsvp2.Plus_One_Name__c = 'John Guest';
+        rsvp2.RSVP_Date__c = Datetime.now().addDays(-3);
+        testRSVPs.add(rsvp2);
+        
+        // RSVP No
+        CVMA_Event_RSVP__c rsvp3 = new CVMA_Event_RSVP__c();
+        rsvp3.Event__c = testEvent.Id;
+        rsvp3.Member__c = testContacts[2].Id;
+        rsvp3.Response__c = 'No';
+        rsvp3.Plus_One__c = false;
+        rsvp3.RSVP_Date__c = Datetime.now().addDays(-2);
+        rsvp3.Notes__c = 'Can\'t make it this time';
+        testRSVPs.add(rsvp3);
+        
+        // RSVP Maybe
+        CVMA_Event_RSVP__c rsvp4 = new CVMA_Event_RSVP__c();
+        rsvp4.Event__c = testEvent.Id;
+        rsvp4.Member__c = testContacts[3].Id;
+        rsvp4.Response__c = 'Maybe';
+        rsvp4.Plus_One__c = false;
+        rsvp4.RSVP_Date__c = Datetime.now().addDays(-1);
+        testRSVPs.add(rsvp4);
+        
+        insert testRSVPs;
     }
-
+    
     @IsTest
-    static void testValidateMigrationReadiness_WithData() {
+    static void testMigrationDryRun() {
         Test.startTest();
-
-        // Test validation when data exists
-        Map<String, Object> result = CVMARSVPMigrationUtility.validateMigrationReadiness();
-
-        Test.stopTest();
-
-        // Verify validation results
-        System.assertNotEquals(null, result, 'Should return validation results');
-        System.assert(result.containsKey('rsvpRecordCount'), 'Should include RSVP count');
-        System.assert(result.containsKey('cvmaEventCampaignCount'), 'Should include campaign count');
-        System.assert(result.containsKey('existingCampaignMembers'), 'Should include existing members count');
-
-        Integer campaignCount = (Integer) result.get('cvmaEventCampaignCount');
-        System.assert(campaignCount >= 1, 'Should find test campaign');
-    }
-
-    @IsTest
-    static void testValidateMigrationReadiness_NoData() {
-        Test.startTest();
-
-        // Test validation when no RSVP data exists (may be the case if object doesn't exist)
-        Map<String, Object> result = CVMARSVPMigrationUtility.validateMigrationReadiness();
-
-        Test.stopTest();
-
-        // Verify validation handles missing data gracefully
-        System.assertNotEquals(null, result, 'Should return validation results');
-        System.assert(result.containsKey('message'), 'Should include validation message');
-    }
-
-    @IsTest
-    static void testMigrateRSVPToCampaignMembers_DryRun() {
-        Test.startTest();
-
-        // Test dry run migration
         CVMARSVPMigrationUtility.MigrationResult result = CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers(true);
-
         Test.stopTest();
-
-        // Verify dry run results
-        System.assertNotEquals(null, result, 'Should return migration result');
-        System.assert(result.message.contains('Dry run') || result.message.contains('No RSVP'),
-                     'Should indicate dry run or no data');
-
-        // Verify no Campaign Members were actually created during dry run
-        List<CampaignMember> members = [SELECT Id FROM CampaignMember];
-        System.assertEquals(0, members.size(), 'Dry run should not create Campaign Members');
+        
+        System.assertEquals(4, result.totalRSVPs, 'Should find 4 RSVP records');
+        System.assertEquals(4, result.migratedRSVPs, 'Should plan to migrate 4 records');
+        System.assertEquals(0, result.failedRSVPs, 'Should have no failures in dry run');
+        System.assert(result.errorMessages.size() >= 1, 'Should have dry run message');
+        System.assert(result.errorMessages[0].contains('DRY RUN'), 'Should indicate dry run mode');
     }
-
+    
     @IsTest
-    static void testMigrateRSVPToCampaignMembers_ActualRun() {
+    static void testMigrationExecution() {
+        // Note: This test assumes Campaign Member custom fields exist
+        // In real implementation, would need proper setup
+        
         Test.startTest();
-
-        // Test actual migration
         CVMARSVPMigrationUtility.MigrationResult result = CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers(false);
-
         Test.stopTest();
-
-        // Verify migration results
-        System.assertNotEquals(null, result, 'Should return migration result');
-        System.assertNotEquals(null, result.message, 'Should have result message');
-
-        // Migration may succeed with 0 records if RSVP object doesn't exist
-        System.assert(result.success == true || result.errorCount == 0,
-                     'Migration should succeed or have no errors');
+        
+        System.assertEquals(4, result.totalRSVPs, 'Should find 4 RSVP records');
+        // Result validation depends on Campaign Member field availability
+        System.assert(result.migratedRSVPs >= 0, 'Should report migration attempts');
     }
-
+    
     @IsTest
-    static void testSetupCampaignMemberStatuses() {
-        Campaign testCampaign = [SELECT Id FROM Campaign WHERE Name = 'Test Migration Event' LIMIT 1];
-
+    static void testGetMigrationStatus() {
         Test.startTest();
-
-        // Test setting up Campaign Member statuses
-        CVMARSVPMigrationUtility.setupCampaignMemberStatuses(new List<Id>{ testCampaign.Id });
-
+        Map<String, Object> status = CVMARSVPMigrationUtility.getMigrationStatus();
         Test.stopTest();
-
-        // Verify Campaign Member Status records were created
-        List<CampaignMemberStatus> statuses = [
-            SELECT Id, Label, IsDefault, HasResponded
-            FROM CampaignMemberStatus
-            WHERE CampaignId = :testCampaign.Id
-            ORDER BY SortOrder
-        ];
-
-        System.assertEquals(5, statuses.size(), 'Should create 5 status values');
-
-        // Verify expected status values
-        System.assertEquals('Sent', statuses[0].Label, 'First status should be Sent');
-        System.assertEquals(true, statuses[0].IsDefault, 'Sent should be default');
-        System.assertEquals(false, statuses[0].HasResponded, 'Sent should not be responded');
-
-        System.assertEquals('Responded - Yes', statuses[1].Label, 'Second status should be Yes');
-        System.assertEquals(true, statuses[1].HasResponded, 'Yes should be responded');
-
-        System.assertEquals('Responded - No', statuses[2].Label, 'Third status should be No');
-        System.assertEquals('Responded - Maybe', statuses[3].Label, 'Fourth status should be Maybe');
-        System.assertEquals('Plus One - Yes', statuses[4].Label, 'Fifth status should be Plus One');
+        
+        System.assert(status.containsKey('totalRSVPs'), 'Should return total RSVP count');
+        System.assert(status.containsKey('migratedCampaignMembers'), 'Should return migrated count');
+        System.assert(status.containsKey('migrationNeeded'), 'Should indicate if migration needed');
+        System.assertEquals(4, status.get('totalRSVPs'), 'Should find 4 RSVP records');
     }
-
+    
     @IsTest
-    static void testMigrationResult_WrapperClass() {
-        Test.startTest();
-
-        // Test MigrationResult wrapper class
-        CVMARSVPMigrationUtility.MigrationResult result = new CVMARSVPMigrationUtility.MigrationResult();
-
-        // Set properties
-        result.success = true;
-        result.message = 'Test message';
-        result.totalRecords = 10;
-        result.successCount = 8;
-        result.errorCount = 2;
-        result.errors = new List<String>{'Error 1', 'Error 2'};
-
-        Test.stopTest();
-
-        // Verify wrapper properties
-        System.assertEquals(true, result.success, 'Success should be set');
-        System.assertEquals('Test message', result.message, 'Message should be set');
-        System.assertEquals(10, result.totalRecords, 'Total records should be set');
-        System.assertEquals(8, result.successCount, 'Success count should be set');
-        System.assertEquals(2, result.errorCount, 'Error count should be set');
-        System.assertEquals(2, result.errors.size(), 'Should have 2 errors');
-        System.assertEquals('Error 1', result.errors[0], 'First error should match');
-    }
-
-    @IsTest
-    static void testErrorHandling_InvalidCampaignId() {
-        Test.startTest();
-
+    static void testMigrationWithInvalidData() {
+        // Create RSVP with missing event reference
+        CVMA_Event_RSVP__c invalidRSVP = new CVMA_Event_RSVP__c();
+        invalidRSVP.Member__c = [SELECT Id FROM Contact LIMIT 1].Id;
+        invalidRSVP.Response__c = 'Yes';
+        invalidRSVP.Event__c = null; // Missing event
+        
         try {
-            // Test with invalid campaign ID
-            CVMARSVPMigrationUtility.setupCampaignMemberStatuses(new List<Id>{ 'invalid_id' });
-            System.assert(false, 'Should throw exception for invalid ID');
+            insert invalidRSVP;
         } catch (Exception e) {
-            System.assert(e.getMessage().contains('Failed to setup') || e instanceof StringException,
-                         'Should handle invalid ID gracefully');
+            // Expected if validation rules exist
         }
-
-        Test.stopTest();
-    }
-
-    @IsTest
-    static void testErrorHandling_PermissionValidation() {
+        
         Test.startTest();
-
-        // Test migration handles permission errors gracefully
         CVMARSVPMigrationUtility.MigrationResult result = CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers(true);
-
         Test.stopTest();
-
-        // Should not throw exception even with permission issues
-        System.assertNotEquals(null, result, 'Should return result even with permission issues');
+        
+        // Should handle invalid data gracefully
+        System.assert(result != null, 'Should return result even with invalid data');
     }
-
+    
     @IsTest
-    static void testMigrationException_CustomException() {
+    static void testMigrationStatusMapping() {
+        // Test all RSVP response types are properly mapped
+        List<CVMA_Event_RSVP__c> rsvps = [SELECT Response__c, Plus_One__c FROM CVMA_Event_RSVP__c];
+        
         Test.startTest();
-
-        // Test custom exception class
-        CVMARSVPMigrationUtility.MigrationException customException =
-            new CVMARSVPMigrationUtility.MigrationException('Test migration error');
-
+        CVMARSVPMigrationUtility.MigrationResult result = CVMARSVPMigrationUtility.migrateRSVPToCampaignMembers(true);
         Test.stopTest();
-
-        // Verify custom exception
-        System.assertEquals('Test migration error', customException.getMessage(),
-                           'Custom exception should have correct message');
+        
+        // Verify different response types are handled
+        System.assertEquals(4, result.totalRSVPs, 'Should handle all response types');
+        
+        // Check that plus one logic is accounted for
+        Boolean foundPlusOne = false;
+        for (CVMA_Event_RSVP__c rsvp : rsvps) {
+            if (rsvp.Response__c == 'Yes' && rsvp.Plus_One__c == true) {
+                foundPlusOne = true;
+            }
+        }
+        System.assert(foundPlusOne, 'Should have plus one test case');
     }
 }

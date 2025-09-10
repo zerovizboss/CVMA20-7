@@ -78,7 +78,9 @@
       "Bash(where sf)",
       "Bash(\"C:\\Program Files\\sf\\bin\\sf\" data query --query \"SELECT Id, Name, DeveloperName FROM Report WHERE (DeveloperName LIKE ''%npsp%'' OR DeveloperName LIKE ''%NPSP%'' OR Name LIKE ''%NPSP%'') ORDER BY Name LIMIT 10\")",
       "Bash(./scripts/npsp-financial-dashboard-migration.sh:*)",
-      "Bash(./scripts/github-npsp-migration-update.sh:*)"
+      "Bash(./scripts/github-npsp-migration-update.sh:*)",
+      "Bash(./scripts/rsvp-to-campaign-member-migration.sh:*)",
+      "Bash(./scripts/github-rsvp-migration-update.sh:*)"
     ],
     "deny": []
   }

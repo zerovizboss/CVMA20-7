@@ -2282,6 +2282,7 @@
         <members>Enablement_sfdcSESv60.dashboardFolder</members>
         <members>Enablement_sfdcSESv61.dashboardFolder</members>
         <members>prm_channel_dashboard_folder/Enablement_Root_Prm_sfdcSES/Enablement_Prm_sfdcSESv61.dashboardFolder</members>
+        <members>CVMA_NPSP_Treasury</members>
         <name>Dashboard</name>
     </types>
     <types>
