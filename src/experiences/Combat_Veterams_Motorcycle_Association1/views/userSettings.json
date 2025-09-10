@@ -24,15 +24,15 @@
         "emailSectionDescText" : "When email notifications are enabled, email me when someone:",
         "hideAccountDeleteSection" : true,
         "hideChatterNotificationSettings" : true,
-        "hideConnectedSources" : false,
+        "hideConnectedSources" : true,
         "hideEmailNotificationSettings" : false,
-        "hideProfileVisibilitySettings" : true,
+        "hideProfileVisibilitySettings" : false,
         "id" : "{!recordId}",
         "locationTitle" : "Location",
         "profileSectionDescText" : "Customize who is able to see what on your profile page",
         "profileSectionToolTipText" : "Restricted: Visible to the employees of the company that created the site. Members: Visible to logged-in members. Public: Visible to anyone viewing pages that don't require login.",
         "profileVisibilityTitle" : "Profile Visibility",
-        "settingsPageTitle" : "My Settings"
+        "settingsPageTitle" : "User Account Settings"
       },
       "componentName" : "forceCommunity:userSettingsCustomizable",
       "id" : "aeb6ea58-b669-4208-a428-ab571b02e758",

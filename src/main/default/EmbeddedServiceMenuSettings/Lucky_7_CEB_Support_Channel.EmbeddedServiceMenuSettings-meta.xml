@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmbeddedServiceMenuSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <branding>EmbeddedServiceChannelMenu_BrandingSet_198e2ca837e</branding>
+    <isEnabled>true</isEnabled>
+    <masterLabel>Lucky 7 CEB Support Channel</masterLabel>
+    <site>CEB</site>
+</EmbeddedServiceMenuSettings>

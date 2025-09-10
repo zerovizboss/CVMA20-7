@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Target_Audience__c</fullName>
+    <label>Target Audience</label>
+    <required>true</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>All Members</fullName>
+                <default>true</default>
+                <label>All Members</label>
+            </value>
+            <value>
+                <fullName>Officers Only</fullName>
+                <default>false</default>
+                <label>Officers Only</label>
+            </value>
+            <value>
+                <fullName>Full Members</fullName>
+                <default>false</default>
+                <label>Full Members</label>
+            </value>
+            <value>
+                <fullName>Associate Members</fullName>
+                <default>false</default>
+                <label>Associate Members</label>
+            </value>
+            <value>
+                <fullName>Prospects</fullName>
+                <default>false</default>
+                <label>Prospects</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

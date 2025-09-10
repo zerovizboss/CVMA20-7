@@ -1,0 +1,98 @@
+{
+  "appPageId" : "ff0c9c30-0230-4570-944f-d51f9dc80e8f",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "17f4aa09-110a-4230-a052-8b8a4b10dd01",
+  "label" : "CVMA Lucky 7 Guest Support",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0, 0, 0, 0.77)",
+        "contentAreaWidth" : 75,
+        "sectionConfig" : {
+          "UUID" : "09312920-6cda-4384-a3db-a4ce145dc8d1",
+          "columns" : [ {
+            "UUID" : "73dacd94-5718-4237-9996-4e90c95b99e3",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 236
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "09312920-6cda-4384-a3db-a4ce145dc8d1",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:cvmaMembershipApplication",
+          "id" : "b1dac955-ff92-4738-afeb-916248ff88d4",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "allowAttachments" : true,
+            "attachmentLabel" : "Upload File",
+            "buttonAlignment" : "center",
+            "buttonBgColor" : "",
+            "buttonBgHoverColor" : "",
+            "buttonBorderColor" : "",
+            "buttonMaxWidth" : "",
+            "buttonRadius" : 0,
+            "buttonTextColor" : "",
+            "buttonTextHoverColor" : "",
+            "callToAction" : false,
+            "callToActionButtonText" : "",
+            "callToActionText" : "",
+            "callToActionUrl" : "",
+            "confirmationSubtext" : "We’ll get back to you soon.",
+            "confirmationText" : "Your case was created successfully",
+            "guestQuickActionName" : "Select or configure a global action",
+            "headerSubtitle" : "Tell us how we can help.",
+            "headerTitle" : "Contact CVMA Lucky 7 Support",
+            "isMicrobatch" : false,
+            "quickActionName" : "NewCommunityCase",
+            "requestSummaryText" : "Case summary"
+          },
+          "componentName" : "forceCommunity:contactSupportForm",
+          "id" : "dc6bc29a-0e1a-4236-8609-ef59e89e8d92",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "73dacd94-5718-4237-9996-4e90c95b99e3",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f3fc6754-7f03-462f-bc88-536538dd51de",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "CVMA Lucky 7 Member Support"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "21eff9bd-4fc4-4c1a-b1a7-2c1e9ee53353",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "796917f8-d242-4a49-8dca-aa6fc2c17374",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-cvmasupport"
+}

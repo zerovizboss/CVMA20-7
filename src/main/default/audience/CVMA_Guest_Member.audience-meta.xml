@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>CVMA Guest Member</audienceName>
+    <container>Combat Veterams Motorcycle Association</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <entityField>Profile.UserType</entityField>
+                <entityType>User</entityType>
+                <fieldValue>Guest</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <entityField>Profile.UserType</entityField>
+                <entityType>User</entityType>
+                <fieldValue>PowerPartner</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AnyCriterionMatches</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>06100b76-7361-4ca8-8061-cc1657e6b6ea</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Contact_Us_Contact_Us_Page</targetValue>
+        </target>
+        <target>
+            <groupName>68d0d74d-f06b-4251-9cc9-4012f98b7234</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Report_Detail_Report_Detail_Page</targetValue>
+        </target>
+    </targets>
+</Audience>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NEILON1__Neilon_Job_Manager_Role__c</fullName>
+    <deprecated>false</deprecated>
+    <label>Neilon Job Manager Role</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+                <label>Auditor</label>
+            </value>
+            <value>
+                <fullName>Lead Auditor</fullName>
+                <default>false</default>
+                <label>Lead Auditor</label>
+            </value>
+            <value>
+                <fullName>CAP Manager</fullName>
+                <default>false</default>
+                <label>CAP Manager</label>
+            </value>
+            <value>
+                <fullName>OO Lead</fullName>
+                <default>false</default>
+                <label>OO Lead</label>
+            </value>
+            <value>
+                <fullName>Regional Manager</fullName>
+                <default>false</default>
+                <label>Regional Manager</label>
+            </value>
+            <value>
+                <fullName>Administrator</fullName>
+                <default>false</default>
+                <label>Administrator</label>
+            </value>
+            <value>
+                <fullName>Consultant</fullName>
+                <default>false</default>
+                <label>Consultant</label>
+            </value>
+            <value>
+                <fullName>Portal User</fullName>
+                <default>false</default>
+                <label>Portal User</label>
+            </value>
+            <value>
+                <fullName>Contractor</fullName>
+                <default>false</default>
+                <label>Contractor</label>
+            </value>
+            <value>
+                <fullName>Contractor Coordinator</fullName>
+                <default>false</default>
+                <label>Contractor Coordinator</label>
+            </value>
+            <value>
+                <fullName>Report Reviewer</fullName>
+                <default>false</default>
+                <label>Report Reviewer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

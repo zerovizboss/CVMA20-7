@@ -6,62 +6,44 @@
         <criterion>
             <criteriaNumber>1</criteriaNumber>
             <criterionValue>
-                <entityField>Profile.UserType</entityField>
-                <entityType>User</entityType>
-                <fieldValue>Guest</fieldValue>
+                <profile>lucky7 customer community plus user</profile>
             </criterionValue>
             <operator>Equal</operator>
-            <type>FieldBased</type>
+            <type>Profile</type>
         </criterion>
         <criterion>
             <criteriaNumber>1</criteriaNumber>
             <criterionValue>
-                <entityField>Profile.UserType</entityField>
-                <entityType>User</entityType>
-                <fieldValue>PowerCustomerSuccess</fieldValue>
+                <profile>lucky7 customer community user</profile>
             </criterionValue>
             <operator>Equal</operator>
-            <type>FieldBased</type>
+            <type>Profile</type>
         </criterion>
         <criterion>
             <criteriaNumber>1</criteriaNumber>
             <criterionValue>
-                <entityField>Profile.UserType</entityField>
-                <entityType>User</entityType>
-                <fieldValue>CustomerSuccess</fieldValue>
+                <profile>admin</profile>
             </criterionValue>
             <operator>Equal</operator>
-            <type>FieldBased</type>
+            <type>Profile</type>
         </criterion>
         <criterion>
             <criteriaNumber>1</criteriaNumber>
             <criterionValue>
-                <entityField>Profile.UserType</entityField>
-                <entityType>User</entityType>
-                <fieldValue>Standard</fieldValue>
+                <profile>standard</profile>
             </criterionValue>
             <operator>Equal</operator>
-            <type>FieldBased</type>
-        </criterion>
-        <criterion>
-            <criteriaNumber>1</criteriaNumber>
-            <criterionValue>
-                <entityField>Profile.UserType</entityField>
-                <entityType>User</entityType>
-                <fieldValue>PowerPartner</fieldValue>
-            </criterionValue>
-            <operator>Equal</operator>
-            <type>FieldBased</type>
+            <type>Profile</type>
         </criterion>
     </criteria>
     <formulaFilterType>AnyCriterionMatches</formulaFilterType>
     <isDefaultAudience>false</isDefaultAudience>
     <targets>
         <target>
-            <groupName>a46b5f0b-5c29-4889-82ce-23854685bc2a$#$970e3462-b352-412f-bb99-a6d758f76e38</groupName>
+            <groupName>31f5cce1-7870-4b40-9567-776b3f024b36</groupName>
             <priority>1</priority>
             <targetType>ExperienceVariation</targetType>
-            <targetValue>Event_Detail_Calendar_Component</targetValue>
+            <targetValue>CVMA_Support_Cvma_Support_Page</targetValue>
         </target>
     </targets>
 </Audience>

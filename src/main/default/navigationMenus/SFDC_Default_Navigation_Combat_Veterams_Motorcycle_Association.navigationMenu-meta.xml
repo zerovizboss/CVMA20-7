@@ -4,52 +4,14 @@
     <containerType>Network</containerType>
     <label>Default Navigation</label>
     <navigationMenuItem>
-        <label>Lucky 7 CEB</label>
+        <label>Vets for Vets Rides</label>
+        <menuItemBranding>
+            <tileImage>VHVSTENCIL3LOGOSAMERICANFLAG1</tileImage>
+        </menuItemBranding>
         <position>1</position>
-        <publiclyAvailable>false</publiclyAvailable>
-        <subMenu>
-            <navigationMenuItem>
-                <label>CC / XO Corner</label>
-                <menuItemBranding>
-                    <tileImage>VHVSTENCIL3LOGOSAMERICANFLAG</tileImage>
-                </menuItemBranding>
-                <position>0</position>
-                <publiclyAvailable>false</publiclyAvailable>
-                <target>/cc-xo-corner</target>
-                <type>InternalLink</type>
-            </navigationMenuItem>
-            <navigationMenuItem>
-                <label>Sergeant At Arms Corner</label>
-                <menuItemBranding>
-                    <tileImage>croppedflag_skull_FB_cover</tileImage>
-                </menuItemBranding>
-                <position>1</position>
-                <publiclyAvailable>false</publiclyAvailable>
-                <target>/saa-corner</target>
-                <type>InternalLink</type>
-            </navigationMenuItem>
-            <navigationMenuItem>
-                <label>Treasurer Corner</label>
-                <menuItemBranding>
-                    <tileImage>CVMA_All_Patches</tileImage>
-                </menuItemBranding>
-                <position>2</position>
-                <publiclyAvailable>false</publiclyAvailable>
-                <target>/treasurer-corner</target>
-                <type>InternalLink</type>
-            </navigationMenuItem>
-            <navigationMenuItem>
-                <label>Chaplains Corner</label>
-                <menuItemBranding>
-                    <tileImage>IMG_3604</tileImage>
-                </menuItemBranding>
-                <position>3</position>
-                <publiclyAvailable>false</publiclyAvailable>
-                <target>/chaplains-corner</target>
-                <type>InternalLink</type>
-            </navigationMenuItem>
-        </subMenu>
-        <type>MenuLabel</type>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>ServiceAppointment</target>
+        <type>SalesforceObject</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <defaultListViewId>MyOpportunities</defaultListViewId>
@@ -63,14 +25,66 @@
         <type>SalesforceObject</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Vets for Vets Rides</label>
-        <menuItemBranding>
-            <tileImage>croppedLucky7_512x512</tileImage>
-        </menuItemBranding>
+        <label>Lucky 7 CEB</label>
         <position>3</position>
-        <publiclyAvailable>true</publiclyAvailable>
-        <target>AccountSwitcher</target>
-        <type>Event</type>
+        <publiclyAvailable>false</publiclyAvailable>
+        <subMenu>
+            <navigationMenuItem>
+                <label>CC Corner</label>
+                <menuItemBranding>
+                    <tileImage>VHVSTENCIL3LOGOSAMERICANFLAG</tileImage>
+                </menuItemBranding>
+                <position>0</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>/cc-xo-corner</target>
+                <type>InternalLink</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <label>XO Corner</label>
+                <position>1</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>/account-management</target>
+                <type>InternalLink</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <label>Sergeant At Arms Corner</label>
+                <menuItemBranding>
+                    <tileImage>croppedflag_skull_FB_cover</tileImage>
+                </menuItemBranding>
+                <position>2</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>V2_Gdrive__File__c</target>
+                <type>SalesforceObject</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <label>Public Relations Officer</label>
+                <position>3</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>Login</target>
+                <type>Event</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <label>Treasurer Corner</label>
+                <menuItemBranding>
+                    <tileImage>CVMA_All_Patches</tileImage>
+                </menuItemBranding>
+                <position>4</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>Opportunity</target>
+                <type>SalesforceObject</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <label>Chaplains Corner</label>
+                <menuItemBranding>
+                    <tileImage>IMG_3604</tileImage>
+                </menuItemBranding>
+                <position>5</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>/chaplains-corner</target>
+                <type>InternalLink</type>
+            </navigationMenuItem>
+        </subMenu>
+        <type>MenuLabel</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Support</label>
@@ -81,5 +95,22 @@
         <publiclyAvailable>true</publiclyAvailable>
         <target>/contactsupport</target>
         <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Public Relations Officer Corner</label>
+        <position>5</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Login</target>
+        <type>Event</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Quartermaster</label>
+        <menuItemBranding>
+            <tileImage>croppedLucky7_512x5121</tileImage>
+        </menuItemBranding>
+        <position>6</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Product2</target>
+        <type>SalesforceObject</type>
     </navigationMenuItem>
 </NavigationMenu>

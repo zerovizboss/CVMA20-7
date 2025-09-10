@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>zerovizboss@gmail.com</email>
+    <name>CVMA Webmaster</name>
+    <queueMembers>
+        <users>
+            <user>detonator@cvma20-7.org</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Swarm</sobjectType>
+    </queueSobject>
+</Queue>

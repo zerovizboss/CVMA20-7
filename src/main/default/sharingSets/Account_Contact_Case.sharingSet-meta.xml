@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Account</object>
+        <objectField>Owner.Account</objectField>
+        <userField>Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Campaign</object>
+        <objectField>Owner.Account</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Case</object>
+        <objectField>Contact.Account</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Individual</object>
+        <objectField>Owner.Contact</objectField>
+        <userField>Contact</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>npo02__Household__c</object>
+        <objectField>Owner.Contact</objectField>
+        <userField>Contact</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>npsp__Level__c</object>
+        <objectField>Owner.Contact</objectField>
+        <userField>Contact</userField>
+    </accessMappings>
+    <name>Account&gt;Contact&gt;Case</name>
+    <profiles>lucky7 customer community plus user</profiles>
+    <profiles>lucky7 customer community user</profiles>
+</SharingSet>

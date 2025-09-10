@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "e6edc4b1-dce3-413e-8f9c-cf379bbb702c",
+    "propertyOverrides" : {
+      "activeViewId" : "f79f381b-0c9b-4310-8792-3bd1dae977e2"
+    },
+    "targetId" : "31f5cce1-7870-4b40-9567-776b3f024b36",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "CVMA_Support_Cvma_Support_Page",
+  "id" : "70b60ad2-5e53-488e-bab6-3b9ad8806db9",
+  "type" : "experienceVariation"
+}

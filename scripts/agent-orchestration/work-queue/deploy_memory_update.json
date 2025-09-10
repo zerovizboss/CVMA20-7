@@ -1,0 +1,15 @@
+{
+    "unit_id": "deploy_memory_update",
+    "created_at": "2025-09-09T16:16:17Z",
+    "assigned_agent": "copilot",
+    "task_type": "git_operations",
+    "description": "Deploy updated MEMORY.md documentation",
+    "priority": 1,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

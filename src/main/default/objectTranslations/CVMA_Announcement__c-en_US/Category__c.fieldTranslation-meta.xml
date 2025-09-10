@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Category --></label>
+    <name>Category__c</name>
+    <picklistValues>
+        <masterLabel>Brotherhood</masterLabel>
+        <translation><!-- Brotherhood --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Events</masterLabel>
+        <translation><!-- Events --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>General</masterLabel>
+        <translation><!-- General --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Membership</masterLabel>
+        <translation><!-- Membership --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rides</masterLabel>
+        <translation><!-- Rides --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Safety</masterLabel>
+        <translation><!-- Safety --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

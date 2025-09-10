@@ -10,11 +10,23 @@
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "recordId" : "{!recordId}"
-      },
-      "componentName" : "forceCommunity:reportPage",
-      "id" : "899d346c-b7aa-4edf-bded-001a6954102d",
+      "componentAttributes" : { },
+      "componentName" : "c:cvmaFinancialDashboard",
+      "id" : "1402868d-2e66-476e-bf84-22d0b12bb8dd",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:cvmaOfficerDashboard",
+      "id" : "5eeb8bfa-ff5f-44b6-ba00-c9c39e0d2951",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:cvmaUsageDashboard",
+      "id" : "f8f9da9d-d88a-460d-bdbc-e8a5a7f074be",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

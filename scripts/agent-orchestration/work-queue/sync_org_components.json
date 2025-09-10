@@ -1,0 +1,15 @@
+{
+    "unit_id": "sync_org_components",
+    "created_at": "2025-09-09T16:05:21Z",
+    "assigned_agent": "salesforce-monitor",
+    "task_type": "org_health_monitoring",
+    "description": "Sync CVMA components with target org",
+    "priority": 2,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

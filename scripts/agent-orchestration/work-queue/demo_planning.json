@@ -1,0 +1,15 @@
+{
+    "unit_id": "demo_planning",
+    "created_at": "2025-09-09T15:59:27Z",
+    "assigned_agent": "claude",
+    "task_type": "high_level_planning",
+    "description": "Plan next user story",
+    "priority": 1,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

@@ -204,4 +204,20 @@
         <name>pCloud</name>
         <type>ExternalClientApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>NEILON1__Neilon_Job_Management_Classic</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>NEILON1__Neilon_Job_Management</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>MemorySolution__Convert_Case_Email_messages</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>astrea_oct__Octopus</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

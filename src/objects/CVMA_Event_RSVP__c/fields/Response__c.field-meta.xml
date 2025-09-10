@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Response__c</fullName>
+    <description>Member&apos;s RSVP response to the event</description>
+    <label>Response</label>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes - I&apos;ll be there</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No - Can&apos;t make it</label>
+            </value>
+            <value>
+                <fullName>Maybe</fullName>
+                <default>false</default>
+                <label>Maybe - Not sure yet</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

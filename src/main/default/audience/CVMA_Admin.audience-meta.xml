@@ -6,7 +6,15 @@
         <criterion>
             <criteriaNumber>1</criteriaNumber>
             <criterionValue>
-                <profile>standard</profile>
+                <profile>admin</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <profile>lucky7 customer community plus user</profile>
             </criterionValue>
             <operator>Equal</operator>
             <type>Profile</type>
@@ -20,6 +28,12 @@
             <priority>1</priority>
             <targetType>ExperienceVariation</targetType>
             <targetValue>CC_XO_Corner_CC_XO_Corner_Page</targetValue>
+        </target>
+        <target>
+            <groupName>9ce8a6e0-4aeb-4cd5-8424-481df193a9fd$#$aeb6ea58-b669-4208-a428-ab571b02e758</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>User_Settings_Customizable_User_Settings_Component</targetValue>
         </target>
     </targets>
 </Audience>

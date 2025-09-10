@@ -21,30 +21,10 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "showCreateNewCalendar" : true,
-        "showOtherCalendars" : true,
-        "showSidebar" : true
+        "recordId" : "{!recordId}"
       },
-      "componentName" : "forceCommunity:calendar",
-      "id" : "970e3462-b352-412f-bb99-a6d758f76e38",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "detailsTabLabel" : "Ride Details",
-        "discussionsTabLabel" : "Feed",
-        "recordId" : "{!recordId}",
-        "relatedTabLabel" : "Related Rides",
-        "showLegacyActivityComposer" : false,
-        "tab1Type" : "details",
-        "tab2Type" : "related",
-        "tab3Type" : "chatter",
-        "tab4Type" : "none",
-        "timelineTabLabel" : "Activity"
-      },
-      "componentName" : "forceCommunity:recordHomeTabs",
-      "id" : "c95b907c-dea6-4f8f-b558-fce3453fb529",
+      "componentName" : "forceCommunity:recordDetail",
+      "id" : "01c42730-aacd-4f20-9844-c28e8052cd38",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

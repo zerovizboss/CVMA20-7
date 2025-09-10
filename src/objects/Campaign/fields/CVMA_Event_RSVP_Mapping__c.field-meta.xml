@@ -3,10 +3,6 @@
     <fullName>CVMA_Event_RSVP_Mapping__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates this Campaign is used as a CVMA event for RSVP tracking via Campaign Members</description>
-    <externalId>false</externalId>
     <label>CVMA Event RSVP Mapping</label>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NEILON1__Shipping_Address_as_Text__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>ShippingStreet + IF(ISBLANK(ShippingStreet), &apos;&apos;, &apos;, &apos;) + ShippingCity + IF(ISBLANK(ShippingCity), &apos;&apos;, &apos;, &apos;) + ShippingState + IF(ISBLANK(ShippingState), &apos;&apos;, &apos; &apos;)+ ShippingPostalCode + IF(ISBLANK(ShippingPostalCode), &apos;&apos;, &apos;, &apos;) + ShippingCountry</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Shipping Address as Text</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

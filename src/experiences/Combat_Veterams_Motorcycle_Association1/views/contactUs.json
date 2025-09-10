@@ -27,7 +27,7 @@
         "callToActionUrl" : "",
         "confirmationSubtext" : "We’ll get back to you soon.",
         "confirmationText" : "Your case was created.",
-        "guestQuickActionName" : "Select or configure a global action",
+        "guestQuickActionName" : "GuestCommunityCase",
         "headerSubtitle" : "Tell us how we can help.",
         "headerTitle" : "Contact Customer Support",
         "isMicrobatch" : false,
@@ -48,7 +48,7 @@
       "componentAttributes" : {
         "askConfirmationQuestion" : true,
         "confirmationMessageLabel" : "Got it!",
-        "deflectionSubtitle" : "Review Topics or Create a Case",
+        "deflectionSubtitle" : "Review FAQ Topics",
         "deflectionTitle" : "Need Answers Fast?",
         "firstQuestion" : "Did this content solve your issue?",
         "maxResults" : 6,

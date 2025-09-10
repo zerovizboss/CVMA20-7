@@ -2303,6 +2303,11 @@
         <members>npsp__NPSP_Documents/npsp__Sample_Letterhead_Logo</members>
         <members>trailheadapp__Trailhead/trailheadapp__Trailhead_Flogo</members>
         <members>trailheadapp__Trailhead/trailheadapp__trailheadLogo_png</members>
+        <members>Experiences_Shared_Document_Folder</members>
+        <members>Extentia_SIM__MapPlotter_Documents</members>
+        <members>Extentia_SIM__Salesforce1_Branding_Resources</members>
+        <members>npsp__NPSP_Documents</members>
+        <members>trailheadapp__Trailhead</members>
         <name>Document</name>
     </types>
     <types>

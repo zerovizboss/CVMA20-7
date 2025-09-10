@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NEILON1__Is_Field_Staff__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, system allows user to be assigned as as a field staff in a job.</description>
+    <inlineHelpText>If checked, system allows user to be assigned as as a field staff in a job.</inlineHelpText>
+    <label>Field Staff?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

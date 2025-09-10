@@ -4,9 +4,9 @@
     <enableDeleteMonitoringData>false</enableDeleteMonitoringData>
     <enableDynamicStreamingChannel>false</enableDynamicStreamingChannel>
     <enableEventLogGeneration>true</enableEventLogGeneration>
-    <enableLightningLoggerEvents>false</enableLightningLoggerEvents>
+    <enableLightningLoggerEvents>true</enableLightningLoggerEvents>
     <enableLoginForensics>false</enableLoginForensics>
     <enableStreamingApi>true</enableStreamingApi>
-    <enableTransactionSecurityPolicies>false</enableTransactionSecurityPolicies>
+    <enableTransactionSecurityPolicies>true</enableTransactionSecurityPolicies>
     <eventLogRetentionDuration>0</eventLogRetentionDuration>
 </EventSettings>

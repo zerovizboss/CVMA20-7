@@ -1,0 +1,15 @@
+{
+    "unit_id": "generate_deployment_report",
+    "created_at": "2025-09-09T16:16:18Z",
+    "assigned_agent": "claude",
+    "task_type": "documentation",
+    "description": "Generate comprehensive deployment report",
+    "priority": 4,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

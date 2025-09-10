@@ -60,28 +60,10 @@
     "regionName" : "content",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "healthcloud:myAppointmentsCommunity",
-      "id" : "d16359f3-044a-49d6-b58a-a0dc837ffa95",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "45ca79d0-5509-43be-839e-06a3321f97a6",
     "regionName" : "sidebar",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-size: 16px;\">Quick Links</strong></p><p style=\"text-align: center;\"><br></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 1</a></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 2</a></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 3</a></p><p><br></p><p><a href=\"http://www.salesforce.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Link 4</a></p>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "bfe37b71-7e38-4e62-998c-0c3b73689445",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "08c7d5ef-183b-43dc-862a-27f70343b2bd",
     "regionName" : "footer",
     "type" : "region"

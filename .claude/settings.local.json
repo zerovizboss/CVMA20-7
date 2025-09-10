@@ -65,7 +65,20 @@
       "Bash(cp:*)",
       "WebSearch",
       "WebFetch(domain:trailhead.salesforce.com)",
-      "WebFetch(domain:www.soapboxengage.com)"
+      "WebFetch(domain:www.soapboxengage.com)",
+      "Bash(git log:*)",
+      "Bash(./scripts/cvma-session-scheduler.sh:*)",
+      "Read(//c/Users/zerov/**)",
+      "Bash(./scripts/agent-orchestration/multi-agent-control-panel.sh:*)",
+      "Bash(./scripts/agent-orchestration/copilot-agent.sh:*)",
+      "Bash(./scripts/agent-orchestration/salesforce-monitoring-agent.sh:*)",
+      "Bash(./scripts/github-multi-agent-integration.sh:*)",
+      "Bash(./scripts/agent-orchestration/claude-copilot-orchestrator.sh:*)",
+      "WebFetch(domain:claude.ai)",
+      "Bash(where sf)",
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" data query --query \"SELECT Id, Name, DeveloperName FROM Report WHERE (DeveloperName LIKE ''%npsp%'' OR DeveloperName LIKE ''%NPSP%'' OR Name LIKE ''%NPSP%'') ORDER BY Name LIMIT 10\")",
+      "Bash(./scripts/npsp-financial-dashboard-migration.sh:*)",
+      "Bash(./scripts/github-npsp-migration-update.sh:*)"
     ],
     "deny": []
   }
