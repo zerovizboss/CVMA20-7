@@ -45,28 +45,28 @@ Template Details:
 <head>
     <meta charset="UTF-8">
     <style>
-        .cvma-header { 
-            background: #1f3a93; 
-            color: white; 
-            padding: 15px; 
-            text-align: center; 
+        .cvma-header {
+            background: #1f3a93;
+            color: white;
+            padding: 15px;
+            text-align: center;
         }
-        .financial-summary { 
-            background: #f8f9fa; 
-            padding: 15px; 
-            margin: 10px 0; 
-            border-left: 4px solid #1f3a93; 
+        .financial-summary {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #1f3a93;
         }
-        .metric-row { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 5px 0; 
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
         }
-        .footer { 
-            text-align: center; 
-            color: #666; 
-            font-size: 12px; 
-            margin-top: 20px; 
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -75,11 +75,11 @@ Template Details:
         <h2>🏍️ Combat Veterans Motorcycle Association</h2>
         <h3>Chapter 20-7 Monthly Budget Performance Report</h3>
     </div>
-    
+
     <div style="padding: 20px;">
         <h3>Executive Summary</h3>
         <p>This automated monthly budget performance report provides real-time financial analysis for Combat Veterans Motorcycle Association leadership oversight and compliance.</p>
-        
+
         <div class="financial-summary">
             <h4>📊 Key Financial Metrics</h4>
             <div class="metric-row">
@@ -99,10 +99,10 @@ Template Details:
                 <span style="color: {{Report.VarianceColor}};">${{Report.Variance}} ({{Report.VariancePercent}}%)</span>
             </div>
         </div>
-        
+
         <h4>💡 Budget Performance Analysis</h4>
         <p>{{Report.PerformanceAnalysis}}</p>
-        
+
         <h4>📋 Action Items</h4>
         <ul>
             <li>Review attached detailed budget performance report</li>
@@ -110,20 +110,20 @@ Template Details:
             <li>Address any budget variance exceeding ±10%</li>
             <li>Update quarterly budget projections if needed</li>
         </ul>
-        
+
         <h4>📎 Report Attachments</h4>
         <p>The following reports are attached to this email:</p>
         <ul>
             <li>Monthly Budget Performance Detail (Excel)</li>
             <li>Monthly Budget Performance Summary (PDF)</li>
         </ul>
-        
+
         <div style="background: #e8f4fd; padding: 15px; margin: 15px 0; border-radius: 5px;">
             <h4>🔔 Budget Alert Status</h4>
             <p><strong>{{Alert.Status}}</strong>: {{Alert.Message}}</p>
         </div>
     </div>
-    
+
     <div class="footer">
         <p><strong>Vets Serving Vets through Financial Excellence</strong> 🏍️</p>
         <p>Combat Veterans Motorcycle Association Chapter 20-7</p>
@@ -141,17 +141,17 @@ Template Details:
     <meta charset="UTF-8">
     <style>
         /* Same base styles as monthly template */
-        .quarterly-metrics { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 15px; 
-            margin: 15px 0; 
+        .quarterly-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
         }
-        .metric-card { 
-            background: #f8f9fa; 
-            padding: 15px; 
-            border-radius: 5px; 
-            border-left: 4px solid #1f3a93; 
+        .metric-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #1f3a93;
         }
     </style>
 </head>
@@ -161,11 +161,11 @@ Template Details:
         <h3>Chapter 20-7 Quarterly Financial Summary</h3>
         <h4>Q{{Quarter}} {{Year}} Performance Report</h4>
     </div>
-    
+
     <div style="padding: 20px;">
         <h3>Quarterly Executive Summary</h3>
         <p>This comprehensive quarterly summary provides strategic financial insights for CVMA leadership decision-making and compliance reporting.</p>
-        
+
         <div class="quarterly-metrics">
             <div class="metric-card">
                 <h4>📈 Revenue Performance</h4>
@@ -178,7 +178,7 @@ Template Details:
                     <span style="color: {{Revenue.GrowthColor}};">{{Revenue.GrowthPercent}}%</span>
                 </div>
             </div>
-            
+
             <div class="metric-card">
                 <h4>💰 Expense Management</h4>
                 <div class="metric-row">
@@ -190,7 +190,7 @@ Template Details:
                     <span style="color: {{Expenses.BudgetColor}};">{{Expenses.BudgetAdherence}}%</span>
                 </div>
             </div>
-            
+
             <div class="metric-card">
                 <h4>🎯 Profitability</h4>
                 <div class="metric-row">
@@ -202,7 +202,7 @@ Template Details:
                     <span style="color: {{NetIncome.MarginColor}};">{{NetIncome.Margin}}%</span>
                 </div>
             </div>
-            
+
             <div class="metric-card">
                 <h4>👥 Member Engagement</h4>
                 <div class="metric-row">
@@ -215,7 +215,7 @@ Template Details:
                 </div>
             </div>
         </div>
-        
+
         <h4>📊 Financial Health Indicators</h4>
         <ul>
             <li><strong>Cash Flow Status:</strong> {{CashFlow.Status}} - {{CashFlow.Analysis}}</li>
@@ -223,7 +223,7 @@ Template Details:
             <li><strong>Member Dues Collection:</strong> {{Dues.CollectionRate}}% - {{Dues.Analysis}}</li>
             <li><strong>Campaign ROI:</strong> Average {{Campaign.AverageROI}}% - {{Campaign.Analysis}}</li>
         </ul>
-        
+
         <h4>📋 Quarterly Action Items</h4>
         <ol>
             <li>Review campaign ROI performance and optimize underperforming events</li>
@@ -232,7 +232,7 @@ Template Details:
             <li>Prepare board presentation materials from attached reports</li>
         </ol>
     </div>
-    
+
     <div class="footer">
         <p><strong>Vets Serving Vets through Strategic Financial Management</strong> 🏍️</p>
         <p>Combat Veterans Motorcycle Association Chapter 20-7</p>
@@ -250,22 +250,22 @@ Template Details:
     <meta charset="UTF-8">
     <style>
         /* Enhanced styles for annual report */
-        .annual-summary { 
-            background: linear-gradient(135deg, #1f3a93 0%, #2c5aa0 100%); 
-            color: white; 
-            padding: 20px; 
-            text-align: center; 
-            margin-bottom: 20px; 
+        .annual-summary {
+            background: linear-gradient(135deg, #1f3a93 0%, #2c5aa0 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
         }
-        .financial-statement { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px; 
+        .financial-statement {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
-        .statement-section { 
-            background: #f8f9fa; 
-            padding: 15px; 
-            border-radius: 5px; 
+        .statement-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -275,11 +275,11 @@ Template Details:
         <h2>Annual Financial Statement {{Year}}</h2>
         <h3>Comprehensive Financial Performance Report</h3>
     </div>
-    
+
     <div style="padding: 20px;">
         <h3>Executive Summary</h3>
         <p>This comprehensive annual financial statement provides complete transparency and accountability for Combat Veterans Motorcycle Association Chapter 20-7 financial stewardship during {{Year}}.</p>
-        
+
         <div class="financial-statement">
             <div class="statement-section">
                 <h4>📈 REVENUE SUMMARY</h4>
@@ -309,7 +309,7 @@ Template Details:
                     <span>${{Revenue.Total}}</span>
                 </div>
             </div>
-            
+
             <div class="statement-section">
                 <h4>💰 EXPENSE SUMMARY</h4>
                 <div class="metric-row">
@@ -339,7 +339,7 @@ Template Details:
                 </div>
             </div>
         </div>
-        
+
         <div style="background: #e8f4fd; padding: 20px; margin: 20px 0; border-radius: 5px; text-align: center;">
             <h3>🎯 NET FINANCIAL POSITION</h3>
             <div style="font-size: 1.5em; font-weight: bold; color: {{NetIncome.Color}};">
@@ -347,7 +347,7 @@ Template Details:
             </div>
             <p>Operating Margin: {{NetIncome.Margin}}% | Financial Health: {{NetIncome.HealthStatus}}</p>
         </div>
-        
+
         <h4>📊 Year-Over-Year Analysis</h4>
         <ul>
             <li><strong>Revenue Growth:</strong> {{Growth.Revenue}}% compared to {{PreviousYear}}</li>
@@ -355,7 +355,7 @@ Template Details:
             <li><strong>Member Growth:</strong> {{Growth.Members}}% increase in active membership</li>
             <li><strong>Operational Efficiency:</strong> {{Efficiency.Score}}/100 efficiency score</li>
         </ul>
-        
+
         <h4>🏆 Annual Achievements</h4>
         <ol>
             <li>{{Achievement.Financial}}</li>
@@ -363,14 +363,14 @@ Template Details:
             <li>{{Achievement.Community}}</li>
             <li>{{Achievement.Operational}}</li>
         </ol>
-        
+
         <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin: 15px 0;">
             <h4>🔮 Strategic Outlook {{NextYear}}</h4>
             <p>{{Outlook.Strategic}}</p>
             <p><strong>Key Focus Areas:</strong> {{Outlook.FocusAreas}}</p>
         </div>
     </div>
-    
+
     <div class="footer">
         <p><strong>Vets Serving Vets through Financial Stewardship Excellence</strong> 🏍️</p>
         <p>Combat Veterans Motorcycle Association Chapter 20-7</p>

@@ -14,7 +14,7 @@
  * 5. Data Volume Impact: Measure performance degradation patterns
  */
 @IsTest
-public class CVMANPSPPerformanceTestSuite {
+public with sharing class CVMANPSPPerformanceTestSuite {
 
     private static final Integer PERFORMANCE_THRESHOLD_MS = 2000; // 2 second target
     private static final Integer LARGE_DATASET_SIZE = 2000; // Simulate enterprise scale

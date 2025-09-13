@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CVMA Annual Financial Statement</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+        .header { background-color: #003366; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .section { margin-bottom: 25px; }
+        .metrics { background-color: #f5f5f5; padding: 15px; border-left: 4px solid #003366; }
+        .highlight { color: #003366; font-weight: bold; }
+        .footer { background-color: #f0f0f0; padding: 15px; text-align: center; margin-top: 30px; }
+        .cvma-logo { color: #003366; font-weight: bold; font-size: 18px; }
+        .annual-summary { background-color: #e8f4fd; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .compliance-section { background-color: #f0f8ff; padding: 15px; border: 1px solid #003366; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏍️ Combat Veterans Motorcycle Association</h1>
+        <h2>Chapter 20-7 Annual Financial Statement</h2>
+        <p>Fiscal Year: {!YEAR(TODAY())}</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h3>Annual Financial Performance Summary</h3>
+            <p>This comprehensive annual financial statement provides complete fiscal year analysis for Combat Veterans Motorcycle Association Chapter 20-7, including all revenue categories, expense tracking, profit and loss analysis, and regulatory compliance documentation.</p>
+        </div>
+        
+        <div class="annual-summary">
+            <h3>Annual Revenue Analysis</h3>
+            <ul>
+                <li><span class="highlight">Total Annual Revenue:</span> Complete breakdown in attached financial statement</li>
+                <li><span class="highlight">Revenue by Category:</span> Member donations, dues, events, merchandise, sponsorship</li>
+                <li><span class="highlight">Transaction Volume:</span> Total financial activities for fiscal year</li>
+                <li><span class="highlight">Growth Metrics:</span> Year-over-year comparison and trend analysis</li>
+                <li><span class="highlight">Member Participation:</span> Financial engagement across membership base</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Comprehensive Financial Categories</h3>
+            <p>The attached annual statement includes detailed analysis of:</p>
+            <ul>
+                <li><strong>Member Donations:</strong> Individual and corporate contributions</li>
+                <li><strong>Membership Dues:</strong> Annual and quarterly membership revenue</li>
+                <li><strong>Events & Rallies:</strong> Event registration fees and fundraising revenue</li>
+                <li><strong>Merchandise & Apparel:</strong> Chapter merchandise and promotional sales</li>
+                <li><strong>Corporate Sponsorship:</strong> Business partnerships and sponsorship agreements</li>
+                <li><strong>Fundraising Activities:</strong> Special fundraising campaigns and initiatives</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Annual Performance Highlights</h3>
+            <ul>
+                <li>Complete profit and loss statement with monthly breakdowns</li>
+                <li>Campaign ROI analysis for all chapter initiatives</li>
+                <li>Budget variance analysis and compliance tracking</li>
+                <li>Member financial engagement metrics and trends</li>
+                <li>Seasonal revenue patterns and strategic insights</li>
+            </ul>
+        </div>
+        
+        <div class="compliance-section">
+            <h3>Regulatory Compliance & Audit Readiness</h3>
+            <p><span class="highlight">Compliance Status:</span> All financial activities maintain full compliance with organizational policies, IRS regulations, and nonprofit financial management requirements.</p>
+            <ul>
+                <li><strong>Complete Audit Trail:</strong> All transactions documented with full traceability</li>
+                <li><strong>Financial Controls:</strong> Proper authorization and approval processes maintained</li>
+                <li><strong>Documentation Standards:</strong> All required financial documentation properly maintained</li>
+                <li><strong>Transparency:</strong> Full financial disclosure available to membership</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Strategic Recommendations for Upcoming Year</h3>
+            <p>Based on annual performance analysis:</p>
+            <ul>
+                <li>Leverage high-performing revenue categories for growth</li>
+                <li>Optimize campaign strategies based on ROI analysis</li>
+                <li>Enhance member engagement through targeted financial initiatives</li>
+                <li>Implement strategic budget allocation based on performance trends</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p class="cvma-logo">🏍️ Combat Veterans Motorcycle Association - Chapter 20-7</p>
+        <p><strong>Vets Serving Vets through Annual Financial Excellence</strong></p>
+        <p><em>Annual financial statement automatically generated January 15th for complete fiscal year analysis</em></p>
+        <p><small>For detailed analysis or questions, contact the Chapter Treasurer or access the Financial Compliance Dashboard</small></p>
+    </div>
+</body>
+</html>

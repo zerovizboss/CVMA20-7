@@ -217,7 +217,7 @@ public with sharing class CVMANPSPFinancialController {
     public static List<Map<String, Object>> getCVMATreasuryFinancialOverview() {
         try {
             validateTreasurerAccess();
-            
+
             // Use NPSP Account fields identified in Health Check analysis
             List<AggregateResult> treasuryData = [
                 SELECT Account.npsp__Membership_Status__c membershipStatus,
@@ -234,7 +234,7 @@ public with sharing class CVMANPSPFinancialController {
                 GROUP BY Account.npsp__Membership_Status__c, Account.npsp__Sustainer__c
                 ORDER BY SUM(Amount) DESC
             ];
-            
+
             List<Map<String, Object>> overview = new List<Map<String, Object>>();
             for (AggregateResult ar : treasuryData) {
                 Map<String, Object> record = new Map<String, Object>();
@@ -246,9 +246,9 @@ public with sharing class CVMANPSPFinancialController {
                 record.put('lastContribution', (Date)ar.get('lastContribution'));
                 overview.add(record);
             }
-            
+
             return overview;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.handleException(e, 'CVMANPSPFinancialController', 'getCVMATreasuryFinancialOverview', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Treasury overview error: ' + e.getMessage());
@@ -264,7 +264,7 @@ public with sharing class CVMANPSPFinancialController {
     public static List<Map<String, Object>> getCVMAMemberFinancialContributions() {
         try {
             validateTreasurerAccess();
-            
+
             // Use available NPSP Contact soft credit fields for member financial analysis
             List<Contact> memberContributions = [
                 SELECT Name, Account.npsp__Membership_Status__c,
@@ -279,7 +279,7 @@ public with sharing class CVMANPSPFinancialController {
                 ORDER BY npsp__largest_soft_credit_amount__c DESC
                 LIMIT 50
             ];
-            
+
             List<Map<String, Object>> contributions = new List<Map<String, Object>>();
             for (Contact c : memberContributions) {
                 Map<String, Object> member = new Map<String, Object>();
@@ -295,9 +295,9 @@ public with sharing class CVMANPSPFinancialController {
                 member.put('largestSoftCreditDate', c.npsp__largest_soft_credit_date__c);
                 contributions.add(member);
             }
-            
+
             return contributions;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.handleException(e, 'CVMANPSPFinancialController', 'getCVMAMemberFinancialContributions', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Member contributions error: ' + e.getMessage());
@@ -313,7 +313,7 @@ public with sharing class CVMANPSPFinancialController {
     public static List<Map<String, Object>> getCVMACampaignFinancialPerformance() {
         try {
             validateTreasurerAccess();
-            
+
             // Use NPSP Opportunity fields for campaign analysis
             List<AggregateResult> campaignPerformance = [
                 SELECT Campaign.Name campaignName,
@@ -332,7 +332,7 @@ public with sharing class CVMANPSPFinancialController {
                 GROUP BY Campaign.Name, Campaign.Type, Campaign.BudgetedCost, Campaign.ActualCost
                 ORDER BY SUM(Amount) DESC
             ];
-            
+
             List<Map<String, Object>> performance = new List<Map<String, Object>>();
             for (AggregateResult ar : campaignPerformance) {
                 Map<String, Object> campaign = new Map<String, Object>();
@@ -345,18 +345,18 @@ public with sharing class CVMANPSPFinancialController {
                 campaign.put('averageContribution', (Decimal)ar.get('averageContribution'));
                 campaign.put('uniqueContributors', (Integer)ar.get('uniqueContributors'));
                 campaign.put('totalFairMarketValue', (Decimal)ar.get('totalFairMarketValue'));
-                
+
                 // Calculate ROI using NPSP data
                 Decimal revenue = (Decimal)ar.get('campaignRevenue');
                 Decimal cost = (Decimal)ar.get('actualCost');
                 Decimal roi = (cost != null && cost > 0) ? ((revenue - cost) / cost) * 100 : 0;
                 campaign.put('roiPercentage', roi);
-                
+
                 performance.add(campaign);
             }
-            
+
             return performance;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.handleException(e, 'CVMANPSPFinancialController', 'getCVMACampaignFinancialPerformance', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Campaign performance error: ' + e.getMessage());
@@ -371,43 +371,43 @@ public with sharing class CVMANPSPFinancialController {
     public static Map<String, Object> getNPSPHealthCheckStatus() {
         try {
             validateTreasurerAccess();
-            
+
             Map<String, Object> healthCheck = new Map<String, Object>();
-            
+
             // Check NPSP data quality using the 4 existing Health Check reports approach
             Integer totalOpportunities = [SELECT COUNT() FROM Opportunity WITH SECURITY_ENFORCED];
             Integer opportunitiesWithPrimaryContact = [
-                SELECT COUNT() FROM Opportunity 
-                WHERE npsp__Primary_Contact__c != null 
+                SELECT COUNT() FROM Opportunity
+                WHERE npsp__Primary_Contact__c != null
                 WITH SECURITY_ENFORCED
             ];
             Integer opportunitiesWithoutPayments = [
-                SELECT COUNT() FROM Opportunity 
+                SELECT COUNT() FROM Opportunity
                 WHERE Id NOT IN (SELECT npe01__Opportunity__c FROM npe01__OppPayment__c WHERE npe01__Opportunity__c != null)
                 WITH SECURITY_ENFORCED
             ];
-            
+
             // Calculate health metrics
-            Decimal primaryContactCoverage = totalOpportunities > 0 ? 
+            Decimal primaryContactCoverage = totalOpportunities > 0 ?
                 (Decimal.valueOf(opportunitiesWithPrimaryContact) / totalOpportunities) * 100 : 0;
-            Decimal paymentCoverage = totalOpportunities > 0 ? 
+            Decimal paymentCoverage = totalOpportunities > 0 ?
                 (Decimal.valueOf(totalOpportunities - opportunitiesWithoutPayments) / totalOpportunities) * 100 : 0;
-            
+
             healthCheck.put('totalOpportunities', totalOpportunities);
             healthCheck.put('opportunitiesWithPrimaryContact', opportunitiesWithPrimaryContact);
             healthCheck.put('opportunitiesWithoutPayments', opportunitiesWithoutPayments);
             healthCheck.put('primaryContactCoverage', primaryContactCoverage);
             healthCheck.put('paymentCoverage', paymentCoverage);
             healthCheck.put('dataHealthScore', (primaryContactCoverage + paymentCoverage) / 2);
-            
+
             // NPSP field utilization summary
             healthCheck.put('nspAccountFields', 21);
             healthCheck.put('nspContactFields', 27);
             healthCheck.put('nspOpportunityFields', 44);
             healthCheck.put('totalNPSPFields', 92);
-            
+
             return healthCheck;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.handleException(e, 'CVMANPSPFinancialController', 'getNPSPHealthCheckStatus', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Health check error: ' + e.getMessage());

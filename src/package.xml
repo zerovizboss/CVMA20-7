@@ -2283,6 +2283,9 @@
         <members>Enablement_sfdcSESv61.dashboardFolder</members>
         <members>prm_channel_dashboard_folder/Enablement_Root_Prm_sfdcSES/Enablement_Prm_sfdcSESv61.dashboardFolder</members>
         <members>CVMA_NPSP_Treasury</members>
+        <members>CVMA_Financial_Compliance</members>
+        <members>CVMA_Financial_Compliance/CVMA_Financial_Compliance_Monitor</members>
+        <members>CVMA_Financial_Compliance/CVMA_Treasurer_Executive_Dashboard</members>
         <name>Dashboard</name>
     </types>
     <types>
@@ -2376,6 +2379,10 @@
         <members>unfiled$public/Web_to_Case_Sample_1749737826330</members>
         <members>DNBI__DNBI_email_Templates.emailFolder</members>
         <members>npsp__NPSP_Email_Templates.emailFolder</members>
+        <members>CVMA_Financial_Compliance</members>
+        <members>CVMA_Financial_Compliance/Annual_Financial_Statement</members>
+        <members>CVMA_Financial_Compliance/Monthly_Budget_Performance_Report</members>
+        <members>CVMA_Financial_Compliance/Quarterly_Financial_Summary</members>
         <name>EmailTemplate</name>
     </types>
     <types>
@@ -3068,6 +3075,19 @@
         <members>CVMA_Email_Template.Renewal_Reminder</members>
         <members>CVMA_Email_Template.Welcome_New_Member</members>
         <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>CVMA_Financial_Analytics</members>
+        <members>CVMA_Financial_Analytics/CVMA_Monthly_Budget_Performance</members>
+        <members>CVMA_Financial_Analytics/CVMA_Annual_Financial_Statement</members>
+        <members>CVMA_Financial_Analytics/CVMA_Campaign_ROI_Analysis</members>
+        <members>CVMA_Financial_Analytics/CVMA_Financial_Audit_Trail</members>
+        <members>CVMA_Financial_Analytics/CVMA_Member_Financial_Status</members>
+        <members>CVMA_Financial_Analytics/CVMA_Monthly_Transaction_Detail</members>
+        <members>CVMA_Financial_Analytics/CVMA_Quarterly_Financial_Trends</members>
+        <members>CVMA_Financial_Analytics/CVMA_Simple_Budget_Report</members>
+        <members>CVMA_Financial_Analytics/CVMA_Simple_Revenue_Report</members>
+        <name>Report</name>
     </types>
     <version>63.0</version>
 </Package>

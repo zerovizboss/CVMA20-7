@@ -101,7 +101,7 @@ Navigate: **App Launcher → Reports → New Report**
 2. **Columns Configuration**:
    - Close Date (by Quarter)
    - Revenue (Closed Won Sum)
-   - Expenses (Closed Lost Sum) 
+   - Expenses (Closed Lost Sum)
    - Net Income (Revenue - Expenses)
    - Opportunity Count
 
@@ -122,7 +122,7 @@ Navigate: **App Launcher → Reports → New Report**
    - ROI (Formula: (Actual Revenue - BudgetedCost) / BudgetedCost * 100)
    - Member Responses
 
-3. **Filters**: 
+3. **Filters**:
    - Campaign Type: Fundraising, Event, Membership Drive
    - Status: In Progress OR Completed
 
@@ -306,7 +306,7 @@ Navigate: **App Launcher → Dashboards → New Dashboard**
 Time Block: 8:30 AM - 9:30 AM
 1. Create CVMA Financial Compliance folder (5 min)
 2. Monthly Budget Performance report (10 min)
-3. Monthly Transaction Detail report (8 min) 
+3. Monthly Transaction Detail report (8 min)
 4. Member Financial Status report (8 min)
 5. Quarterly Financial Trends report (10 min)
 6. Campaign ROI Analysis report (10 min)

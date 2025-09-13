@@ -1,6 +1,6 @@
 {
   "activeBrandingSetId" : "34e849fe-b3de-4139-b21c-648edeec15e2",
-  "customCSS" : "",
+  "customCSS" : ":root {\n  /* CVMA CEB Brand Colors - Professional Veteran Theme */\n  --cvma-primary-black: #000000;\n  --cvma-secondary-gold: #E3AB00;\n  --cvma-accent-red: #EF001B;\n  --cvma-text-primary: #080707;\n  --cvma-background-light: #f8f9fa;\n}\n\n/* CEB Experience Builder Native Enhancement */\n.siteContainer {\n  font-family: 'Salesforce Sans', Arial, sans-serif;\n  background: linear-gradient(135deg, var(--cvma-background-light) 0%, #ffffff 100%);\n}\n\n.header .branding {\n  background: linear-gradient(90deg, var(--cvma-primary-black) 0%, var(--cvma-secondary-gold) 100%);\n  box-shadow: 0 2px 8px rgba(0,0,0,0.1);\n}\n\n.slds-card {\n  border: 1px solid #dddbda;\n  box-shadow: 0 4px 12px rgba(0,0,0,0.08);\n  border-radius: 8px;\n  transition: all 0.3s ease;\n}\n\n.slds-button_brand {\n  background: linear-gradient(135deg, var(--cvma-secondary-gold) 0%, #d49900 100%);\n  color: var(--cvma-primary-black);\n  font-weight: 600;\n}\n\n@media (max-width: 768px) {\n  .siteContainer { padding: 0.5rem; }\n}",
   "developerName" : "service",
   "id" : "a9e6cd0a-c899-4be7-bf6b-46f33b350986",
   "label" : "Customer Service",

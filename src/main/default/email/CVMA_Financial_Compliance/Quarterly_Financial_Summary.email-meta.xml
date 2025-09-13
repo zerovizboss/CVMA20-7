@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Automated quarterly financial summary report for CVMA leadership and board oversight with comprehensive trend analysis.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Quarterly Financial Summary</name>
+    <style>none</style>
+    <subject>CVMA Chapter 20-7 Quarterly Financial Summary - Q{!TEXT(MONTH(TODAY()))} {!YEAR(TODAY())}</subject>
+    <textOnly>false</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
