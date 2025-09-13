@@ -1,0 +1,137 @@
+.guest-calendar-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.event-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.event-card:hover {
+    border-color: #0176d3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.event-card:focus {
+    outline: none;
+    border-color: #0176d3;
+    box-shadow: 0 0 0 1px #0176d3;
+}
+
+.event-description-preview {
+    max-height: 3rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+}
+
+/* Calendar navigation styling */
+.slds-button-group .slds-button {
+    margin-right: 0;
+}
+
+/* Modal styling enhancements */
+.slds-modal__container {
+    max-width: 40rem;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .guest-calendar-container .slds-col {
+        width: 100%;
+        flex: none;
+    }
+
+    .event-card {
+        margin-bottom: 0.5rem;
+    }
+
+    .slds-grid_align-spread {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .slds-grid_align-spread .slds-col:last-child {
+        margin-top: 0.5rem;
+    }
+}
+
+/* Badge styling */
+.slds-badge_success {
+    background-color: #4bca81;
+}
+
+.slds-badge_info {
+    background-color: #0176d3;
+}
+
+.slds-badge_warning {
+    background-color: #ffb75d;
+    color: #080707;
+}
+
+/* Accessibility improvements */
+.event-card[role="button"] {
+    cursor: pointer;
+}
+
+.event-card[role="button"]:focus {
+    outline: 2px solid #0176d3;
+    outline-offset: 2px;
+}
+
+/* Loading state */
+.slds-spinner_container {
+    position: relative;
+    min-height: 6rem;
+}
+
+/* Event type indicators */
+.event-card .slds-badge {
+    font-size: 0.6875rem;
+    line-height: 1.25rem;
+    padding: 0 0.5rem;
+}
+
+/* Empty state styling */
+.slds-box .slds-text-color_weak {
+    font-style: italic;
+}
+
+/* Theme consistency */
+.guest-calendar-container .slds-card__header {
+    background-color: #f3f2f2;
+    border-bottom: 1px solid #dddbda;
+}
+
+/* Icon adjustments */
+.slds-icon_container.slds-icon-utility-event {
+    background-color: #0176d3;
+}
+
+/* Form elements in modal */
+.slds-form-element__static {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.slds-form-element__static strong {
+    font-weight: 700;
+    color: #080707;
+}
+
+/* Badge container */
+.slds-grid.slds-wrap.slds-gutters_small .slds-col {
+    flex: 0 0 auto;
+}
+
+/* Info box styling */
+.slds-theme_info.slds-box {
+    background-color: #f2f9ff;
+    border-left: 3px solid #0176d3;
+}

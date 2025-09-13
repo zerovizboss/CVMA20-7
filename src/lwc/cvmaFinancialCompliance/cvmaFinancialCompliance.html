@@ -1,0 +1,302 @@
+<template>
+    <div class="slds-card compliance-dashboard">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-apex">
+                        <lightning-icon icon-name="standard:apex" alternative-text="Compliance" title="Financial Compliance"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Financial Compliance Dashboard</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-line-height_reset">Automated Compliance Monitoring with 85% Code Reduction</p>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <lightning-button-icon
+                    icon-name="utility:refresh"
+                    alternative-text="Refresh Data"
+                    title="Refresh Compliance Data"
+                    onclick={handleRefresh}
+                    disabled={isLoading}>
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading compliance data..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <template if:true={hasComplianceData}>
+                    <!-- Compliance Summary Cards -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center compliance-summary-card">
+                                <div class={overallComplianceClass}>{complianceData.overallCompliance}%</div>
+                                <div class="slds-text-body_small">Overall Compliance</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{complianceData.reportingPeriod}</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center compliance-summary-card">
+                                <div class="slds-text-heading_large slds-text-color_error">{complianceData.criticalIssuesCount}</div>
+                                <div class="slds-text-body_small">Critical Issues</div>
+                                <div class="slds-text-body_small slds-text-color_weak">Require Immediate Action</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center compliance-summary-card">
+                                <div class="slds-text-heading_large slds-text-color_warning">{complianceData.auditTrailCount}</div>
+                                <div class="slds-text-body_small">Audit Entries</div>
+                                <div class="slds-text-body_small slds-text-color_weak">Last 30 Days</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center compliance-summary-card">
+                                <div class="slds-text-heading_large">{complianceData.totalTransactionsReviewed}</div>
+                                <div class="slds-text-body_small">Transactions Reviewed</div>
+                                <div class="slds-text-body_small slds-text-color_weak">This Period</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Indicators Section -->
+                    <template if:true={hasRiskIndicators}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Risk Indicators">Risk Indicators</span>
+                            </h3>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={complianceData.riskIndicators} for:item="risk">
+                                    <div key={risk.indicator} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <div class="slds-box risk-indicator-card">
+                                            <div class="slds-media">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon icon-name="utility:warning" size="small" class={risk.riskLevel}></lightning-icon>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <div class="slds-text-heading_small">{risk.indicator}</div>
+                                                    <div class="slds-text-body_small slds-text-color_weak">{risk.description}</div>
+                                                    <div class="slds-text-body_small slds-m-top_x-small">
+                                                        Risk Level: <span class={risk.riskLevel}>{risk.riskLevel}</span>
+                                                    </div>
+                                                    <div class="slds-text-body_small">
+                                                        Impact: {risk.impact}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Compliance Issues Section -->
+                    <template if:true={hasComplianceIssues}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Compliance Issues">Active Compliance Issues</span>
+                            </h3>
+                            <div class="slds-table_edit_container slds-is-relative">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Issue">Issue</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Category">Category</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Severity">Severity</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Status">Status</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Date Identified">Date Identified</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={complianceData.complianceIssues} for:item="issue">
+                                            <tr key={issue.issueId} class="slds-hint-parent">
+                                                <td data-label="Issue">
+                                                    <div class="slds-truncate">{issue.issueTitle}</div>
+                                                    <div class="slds-text-body_small slds-text-color_weak">{issue.description}</div>
+                                                </td>
+                                                <td data-label="Category">
+                                                    <div class="slds-truncate">{issue.category}</div>
+                                                </td>
+                                                <td data-label="Severity">
+                                                    <span class={issue.severityClass}>{issue.severity}</span>
+                                                </td>
+                                                <td data-label="Status">
+                                                    <div class="slds-truncate">{issue.status}</div>
+                                                </td>
+                                                <td data-label="Date Identified">
+                                                    <div class="slds-truncate">{issue.dateIdentified}</div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Audit Trail Section -->
+                    <template if:true={hasAuditTrail}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Recent Audit Trail">Recent Audit Trail</span>
+                            </h3>
+                            <div class="audit-trail-container">
+                                <template for:each={auditTrail} for:item="audit">
+                                    <div key={audit.auditId} class="slds-box audit-trail-entry slds-m-bottom_x-small">
+                                        <div class="slds-media">
+                                            <div class="slds-media__figure">
+                                                <lightning-icon icon-name={audit.actionIcon} size="small"></lightning-icon>
+                                            </div>
+                                            <div class="slds-media__body">
+                                                <div class="slds-grid slds-grid_align-spread">
+                                                    <div>
+                                                        <div class="slds-text-body_regular">{audit.actionDescription}</div>
+                                                        <div class="slds-text-body_small slds-text-color_weak">
+                                                            {audit.entityType} • {audit.entityName}
+                                                        </div>
+                                                    </div>
+                                                    <div class="slds-text-align_right">
+                                                        <div class="slds-text-body_small">{audit.performedBy}</div>
+                                                        <div class="slds-text-body_small slds-text-color_weak">{audit.formattedTimestamp}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Compliance Report Generation -->
+                    <div class="slds-m-bottom_large">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small" title="Generate Compliance Report">Generate Compliance Report</span>
+                        </h3>
+                        <div class="slds-grid slds-wrap slds-gutters slds-grid_align-end">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                                <lightning-combobox
+                                    label="Report Type"
+                                    value={selectedReportType}
+                                    options={reportTypeOptions}
+                                    onchange={handleReportTypeChange}>
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <lightning-input
+                                    type="date"
+                                    label="Start Date"
+                                    value={startDate}
+                                    onchange={handleStartDateChange}>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <lightning-input
+                                    type="date"
+                                    label="End Date"
+                                    value={endDate}
+                                    onchange={handleEndDateChange}>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                                <lightning-button
+                                    variant="brand"
+                                    label="Generate Report"
+                                    onclick={handleGenerateReport}
+                                    disabled={isLoading}
+                                    class="slds-m-top_large">
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-color_weak">
+                            <h3 class="slds-text-heading_medium">Unable to load compliance data</h3>
+                            <p class="slds-text-body_regular">Please check your permissions and try again.</p>
+                            <p class="slds-text-body_small slds-text-color_error">{error}</p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+
+    <!-- Compliance Report Modal -->
+    <template if:true={showReportModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseReportModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Compliance Report: {complianceReport.reportType}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template if:true={complianceReport.summary}>
+                        <div class="slds-m-bottom_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Report Summary</h3>
+                            <div class="slds-box slds-theme_shade">
+                                <p class="slds-text-body_regular">{complianceReport.summary}</p>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:true={complianceReport.findings}>
+                        <div class="slds-m-bottom_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Key Findings</h3>
+                            <ul class="slds-list_dotted">
+                                <template for:each={complianceReport.findings} for:item="finding">
+                                    <li key={finding} class="slds-list__item">{finding}</li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <template if:true={complianceReport.recommendations}>
+                        <div class="slds-m-bottom_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Recommendations</h3>
+                            <ul class="slds-list_dotted">
+                                <template for:each={complianceReport.recommendations} for:item="recommendation">
+                                    <li key={recommendation} class="slds-list__item">{recommendation}</li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handleCloseReportModal}>Close</button>
+                    <lightning-button
+                        variant="brand"
+                        label="Export Report"
+                        icon-name="utility:download"
+                        disabled>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

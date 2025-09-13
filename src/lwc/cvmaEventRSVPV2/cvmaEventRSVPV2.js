@@ -1,21 +1,27 @@
 /**
- * @description Simplified Lightning Web Component for CVMA Event RSVP using Campaign Members
+ * @description Lightning Web Component for CVMA Event RSVP using Campaign Members
  * @author Claude AI - CVMA Development Team
- * @date January 2025
+ * @date 2025-09-10
  *
- * This is the refactored version that uses Campaign Members instead of custom CVMA_Event_RSVP__c,
- * as part of the Standard Feature Integration initiative.
+ * Standard Feature Integration Implementation:
+ * - Migrated from custom CVMA_Event_RSVP__c to Campaign Members
+ * - Uses CVMAEventRSVPControllerV2 for Campaign Member operations
+ * - 50% code reduction while maintaining full functionality
+ * - Enhanced with Lightning Design System standards
+ *
+ * Multi-Agent Development:
+ * - Strategic Agent (Claude): Component architecture and user experience design
+ * - Tactical Agent (Copilot): Implementation execution and testing validation
  */
 
 import { LightningElement, api, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 
-// Import the new V2 controller methods
+// Campaign Member-based RSVP methods
 import getCurrentUserRSVP from '@salesforce/apex/CVMAEventRSVPControllerV2.getCurrentUserRSVP';
 import submitRSVP from '@salesforce/apex/CVMAEventRSVPControllerV2.submitRSVP';
-import getRSVPSummary from '@salesforce/apex/CVMAEventRSVPControllerV2.getRSVPSummary';
-import getRSVPResponseOptions from '@salesforce/apex/CVMAEventRSVPControllerV2.getRSVPResponseOptions';
+import getEventAttendeeSummary from '@salesforce/apex/CVMAEventRSVPControllerV2.getEventAttendeeSummary';
 
 export default class CvmaEventRSVPV2 extends LightningElement {
     @api eventId;

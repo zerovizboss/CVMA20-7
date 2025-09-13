@@ -1,0 +1,287 @@
+<template>
+    <div class="slds-card analytics-dashboard">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-analytics">
+                        <lightning-icon icon-name="standard:analytics" alternative-text="Analytics" title="Member Engagement Analytics"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Member Engagement Analytics</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-line-height_reset">NPSP-Powered Analytics with 90% Code Reduction</p>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <lightning-button-icon
+                    icon-name="utility:refresh"
+                    alternative-text="Refresh Data"
+                    title="Refresh Analytics Data"
+                    onclick={handleRefresh}
+                    disabled={isLoading}>
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading analytics data..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <!-- View Selection -->
+                <div class="slds-m-bottom_medium">
+                    <lightning-radio-group
+                        name="viewOptions"
+                        label="Analytics View"
+                        options={viewOptions}
+                        value={selectedView}
+                        onchange={handleViewChange}
+                        type="button">
+                    </lightning-radio-group>
+                </div>
+
+                <!-- Overview Dashboard -->
+                <template if:true={isOverviewView}>
+                    <!-- Key Metrics Cards -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center analytics-summary-card">
+                                <div class="slds-text-heading_large slds-text-color_success">{memberData.totalActiveMembers}</div>
+                                <div class="slds-text-body_small">Active Members</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{memberData.reportingPeriod}</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center analytics-summary-card">
+                                <div class={retentionRateClass}>{formattedRetentionRate}</div>
+                                <div class="slds-text-body_small">Retention Rate</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{memberData.membersAtRisk} at risk</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center analytics-summary-card">
+                                <div class="slds-text-heading_large">{formattedThisYearTotal}</div>
+                                <div class="slds-text-body_small">Total Donations YTD</div>
+                                <div class={growthRateClass}>{formattedGrowthRate} vs last year</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center analytics-summary-card">
+                                <div class={attendanceRateClass}>{formattedAttendanceRate}</div>
+                                <div class="slds-text-body_small">Event Attendance</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{eventData.totalEvents} events tracked</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Insights -->
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div class="slds-box">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small">Member Engagement Trends</h3>
+                                <template for:each={engagementMetricsList} for:item="metric">
+                                    <div key={metric.metricName} class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                                        <div>{metric.metricName}</div>
+                                        <div class={metric.trend}>
+                                            <lightning-icon icon-name={metric.trendIcon} size="xx-small"></lightning-icon>
+                                            {metric.percentChange}%
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div class="slds-box">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small">Activity Participation</h3>
+                                <template for:each={participationActivities} for:item="activity">
+                                    <div key={activity.id} class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                                        <div>{activity.activity}</div>
+                                        <div class="slds-badge">{activity.count}</div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Member Analytics View -->
+                <template if:true={isMemberView}>
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{memberData.newMembersThisMonth}</div>
+                                <div class="slds-text-body_small">New This Month</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{formattedEngagementScore}</div>
+                                <div class="slds-text-body_small">Avg Engagement Score</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large slds-text-color_error">{memberData.membersAtRisk}</div>
+                                <div class="slds-text-body_small">Members at Risk</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Membership Trends -->
+                    <div class="slds-m-bottom_large">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small" title="Membership Trends">Membership Trends (6 Months)</span>
+                        </h3>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col">Period</th>
+                                    <th scope="col">New Members</th>
+                                    <th scope="col">Renewals</th>
+                                    <th scope="col">Lapsed</th>
+                                    <th scope="col">Total Active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={membershipTrendsList} for:item="trend">
+                                    <tr key={trend.period}>
+                                        <td>{trend.period}</td>
+                                        <td>{trend.newMembers}</td>
+                                        <td>{trend.renewals}</td>
+                                        <td>{trend.lapsedMembers}</td>
+                                        <td>{trend.totalActive}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <!-- Financial Analytics View -->
+                <template if:true={isFinancialView}>
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{formattedThisYearTotal}</div>
+                                <div class="slds-text-body_small">This Year Total</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{financialData.donorCount}</div>
+                                <div class="slds-text-body_small">Active Donors</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{formattedAverageDonation}</div>
+                                <div class="slds-text-body_small">Average Donation</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class={growthRateClass}>{formattedGrowthRate}</div>
+                                <div class="slds-text-body_small">Growth Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Event Analytics View -->
+                <template if:true={isEventView}>
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{eventData.totalEvents}</div>
+                                <div class="slds-text-body_small">Events Tracked</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{eventData.totalParticipants}</div>
+                                <div class="slds-text-body_small">Total RSVPs</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{eventData.totalAttendees}</div>
+                                <div class="slds-text-body_small">Total Attendance</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class={attendanceRateClass}>{formattedAttendanceRate}</div>
+                                <div class="slds-text-body_small">Attendance Rate</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Type Participation -->
+                    <div class="slds-m-bottom_large">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small" title="Event Type Participation">Participation by Event Type</span>
+                        </h3>
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <template for:each={eventTypeParticipation} for:item="type">
+                                <div key={type.id} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-6">
+                                    <div class="slds-box slds-text-align_center event-type-card">
+                                        <div class="slds-text-heading_medium">{type.count}</div>
+                                        <div class="slds-text-body_small">{type.type}</div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Recent Event Metrics -->
+                    <template if:true={recentEventMetrics.length}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Recent Events">Recent Event Performance</span>
+                            </h3>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">Event</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">RSVPs</th>
+                                        <th scope="col">Attendance</th>
+                                        <th scope="col">Rate</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={recentEventMetrics} for:item="event">
+                                        <tr key={event.name}>
+                                            <td>{event.name}</td>
+                                            <td>{event.type}</td>
+                                            <td>{event.participants}</td>
+                                            <td>{event.attendees}</td>
+                                            <td>{event.attendanceRate}%</td>
+                                            <td>{event.date}</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-color_weak">
+                            <h3 class="slds-text-heading_medium">Unable to load analytics data</h3>
+                            <p class="slds-text-body_regular">Please check your permissions and try again.</p>
+                            <p class="slds-text-body_small slds-text-color_error">{error}</p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

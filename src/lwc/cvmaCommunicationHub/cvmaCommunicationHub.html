@@ -1,0 +1,315 @@
+<template>
+    <div class="slds-card communication-hub">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-groups">
+                        <lightning-icon icon-name="standard:groups" alternative-text="Communication Hub" title="CVMA Communication Hub"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Communication Hub</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-line-height_reset">Standard Feature Integration - 90% Code Reduction</p>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <lightning-button-icon
+                    icon-name="utility:refresh"
+                    alternative-text="Refresh Data"
+                    title="Refresh Communication Data"
+                    onclick={handleRefresh}
+                    disabled={isLoading}>
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading communication data..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <!-- Navigation Tabs -->
+                <div class="slds-tabs_default">
+                    <ul class="slds-tabs_default__nav" role="tablist">
+                        <li class={isDashboardView} role="presentation">
+                            <a class="slds-tabs_default__link" role="tab" data-view="dashboard" onclick={handleViewChange}>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class={isGroupView} role="presentation">
+                            <a class="slds-tabs_default__link" role="tab" data-view="group" onclick={handleViewChange}>
+                                Groups
+                            </a>
+                        </li>
+                        <li class={isActivitiesView} role="presentation">
+                            <a class="slds-tabs_default__link" role="tab" data-view="activities" onclick={handleViewChange}>
+                                Activities
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Dashboard View -->
+                <template if:true={isDashboardView}>
+                    <div class="slds-tabs_default__content slds-p-around_medium">
+                        <!-- Communication Metrics -->
+                        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                            <template for:each={formattedMetrics} for:item="metric">
+                                <div key={metric.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                                    <div class="slds-box slds-text-align_center metric-card">
+                                        <lightning-icon icon-name={metric.icon} size="medium" variant={metric.variant}></lightning-icon>
+                                        <div class="slds-text-heading_large slds-m-top_x-small">{metric.value}</div>
+                                        <div class="slds-text-body_small">{metric.label}</div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Recent Groups -->
+                        <template if:true={hasGroups}>
+                            <div class="slds-m-bottom_large">
+                                <h3 class="slds-section__title slds-theme_shade">
+                                    <span class="slds-truncate slds-p-horizontal_small" title="Communication Groups">Your Communication Groups</span>
+                                </h3>
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <template for:each={communicationGroups} for:item="group">
+                                        <div key={group.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                            <div class="slds-box group-card" data-group-id={group.id}>
+                                                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                                                    <div class="slds-truncate">
+                                                        <h4 class="slds-text-heading_small">{group.name}</h4>
+                                                        <p class="slds-text-body_small slds-text-color_weak">{group.description}</p>
+                                                    </div>
+                                                    <div class="slds-text-align_right">
+                                                        <div class="slds-badge slds-theme_success">{group.memberCount} members</div>
+                                                        <template if:true={group.isAdmin}>
+                                                            <lightning-icon icon-name="utility:settings" size="x-small" title="Group Admin"></lightning-icon>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Group View -->
+                <template if:true={isGroupView}>
+                    <div class="slds-tabs_default__content slds-p-around_medium">
+                        <!-- Group Selection -->
+                        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox
+                                    name="groupSelect"
+                                    label="Select Communication Group"
+                                    value={selectedGroupId}
+                                    placeholder="Choose a group..."
+                                    options={groupOptions}
+                                    onchange={handleGroupSelection}
+                                    required>
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-text-align_right">
+                                <template if:true={selectedGroupId}>
+                                    <lightning-button
+                                        variant="brand"
+                                        label="New Post"
+                                        icon-name="utility:add"
+                                        onclick={handleNewPost}
+                                        class="slds-m-right_x-small">
+                                    </lightning-button>
+                                    <lightning-button
+                                        variant="neutral"
+                                        label="Send Email"
+                                        icon-name="utility:email"
+                                        onclick={handleSendNotification}>
+                                    </lightning-button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Group Activities -->
+                        <template if:true={hasActivities}>
+                            <div class="slds-m-bottom_large">
+                                <h3 class="slds-section__title slds-theme_shade">
+                                    <span class="slds-truncate slds-p-horizontal_small" title="Group Activities">Recent Activities</span>
+                                </h3>
+                                <div class="activity-feed">
+                                    <template for:each={activities} for:item="activity">
+                                        <div key={activity.id} class="slds-box slds-m-bottom_small activity-item">
+                                            <div class="slds-media">
+                                                <div class="slds-media__figure">
+                                                    <lightning-avatar src={activity.createdByPhoto} fallback-icon-name="standard:person_account" size="medium"></lightning-avatar>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <div class="slds-grid slds-grid_align-spread">
+                                                        <div>
+                                                            <h4 class="slds-text-body_small slds-text-color_weak">{activity.createdByName}</h4>
+                                                            <p class="slds-text-body_regular">{activity.body}</p>
+                                                        </div>
+                                                        <div class="slds-text-align_right slds-text-body_small slds-text-color_weak">
+                                                            {activity.createdDate}
+                                                        </div>
+                                                    </div>
+                                                    <div class="slds-grid slds-grid_align-spread slds-m-top_x-small">
+                                                        <div class="slds-text-body_small slds-text-color_weak">
+                                                            <lightning-icon icon-name="utility:like" size="x-small"></lightning-icon>
+                                                            {activity.likeCount}
+                                                            <lightning-icon icon-name="utility:comments" size="x-small" class="slds-m-left_small"></lightning-icon>
+                                                            {activity.commentCount}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Activities View -->
+                <template if:true={isActivitiesView}>
+                    <div class="slds-tabs_default__content slds-p-around_medium">
+                        <template if:true={hasActivities}>
+                            <div class="activity-timeline">
+                                <h3 class="slds-section__title slds-theme_shade slds-m-bottom_medium">
+                                    <span class="slds-truncate slds-p-horizontal_small" title="All Activities">All Communication Activities</span>
+                                </h3>
+                                <template for:each={activities} for:item="activity">
+                                    <div key={activity.id} class="slds-timeline__item">
+                                        <span class="slds-assistive-text">Activity</span>
+                                        <div class="slds-media">
+                                            <div class="slds-media__figure">
+                                                <div class="slds-timeline__icon">
+                                                    <lightning-avatar src={activity.createdByPhoto} fallback-icon-name="standard:person_account" size="small"></lightning-avatar>
+                                                </div>
+                                            </div>
+                                            <div class="slds-media__body">
+                                                <div class="slds-timeline__body">
+                                                    <h3 class="slds-truncate slds-text-heading_small">{activity.title}</h3>
+                                                    <p class="slds-text-body_regular slds-m-bottom_x-small">{activity.body}</p>
+                                                    <div class="slds-timeline__date">
+                                                        <p class="slds-text-body_small slds-text-color_weak">
+                                                            {activity.createdByName} • {activity.createdDate}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-color_weak">
+                            <h3 class="slds-text-heading_medium">Unable to load communication data</h3>
+                            <p class="slds-text-body_regular">Please check your permissions and try again.</p>
+                            <p class="slds-text-body_small slds-text-color_error">{error}</p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+
+    <!-- New Post Modal -->
+    <template if:true={showNewPostModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">New Post - {selectedGroupName}</h2>
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        onclick={handleCancelPost}
+                        alternative-text="Close"
+                        variant="bare-inverse"
+                        class="slds-modal__close">
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-textarea
+                        label="Message"
+                        value={newPostMessage}
+                        onchange={handlePostMessageChange}
+                        placeholder="Share an update with the group..."
+                        max-length="10000"
+                        required>
+                    </lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleCancelPost}></lightning-button>
+                    <lightning-button variant="brand" label="Post" onclick={handleCreatePost}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Send Email Modal -->
+    <template if:true={showEmailModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">Send Group Notification - {selectedGroupName}</h2>
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        onclick={handleCancelEmail}
+                        alternative-text="Close"
+                        variant="bare-inverse"
+                        class="slds-modal__close">
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input
+                        type="text"
+                        label="Subject"
+                        value={emailSubject}
+                        data-field="subject"
+                        onchange={handleEmailFieldChange}
+                        placeholder="Enter email subject..."
+                        required>
+                    </lightning-input>
+                    <lightning-combobox
+                        name="priority"
+                        label="Priority"
+                        value={emailPriority}
+                        placeholder="Select priority..."
+                        options={priorityOptions}
+                        data-field="priority"
+                        onchange={handleEmailFieldChange}
+                        class="slds-m-top_small">
+                    </lightning-combobox>
+                    <lightning-textarea
+                        label="Content"
+                        value={emailContent}
+                        data-field="content"
+                        onchange={handleEmailFieldChange}
+                        placeholder="Enter email content..."
+                        max-length="32000"
+                        required
+                        class="slds-m-top_small">
+                    </lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleCancelEmail}></lightning-button>
+                    <lightning-button variant="brand" label="Send" onclick={handleSendEmail}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

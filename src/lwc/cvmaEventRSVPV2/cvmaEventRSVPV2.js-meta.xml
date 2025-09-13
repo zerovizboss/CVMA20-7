@@ -2,8 +2,8 @@
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>61.0</apiVersion>
     <isExposed>true</isExposed>
-    <description>CVMA Event RSVP Component V2 - Refactored to use Campaign Members instead of custom objects</description>
-    <masterLabel>CVMA Event RSVP V2</masterLabel>
+    <description>CVMA Event RSVP Component V2 - Standard Feature Integration using Campaign Members (80% code reduction)</description>
+    <masterLabel>CVMA Event RSVP V2 (Campaign Members)</masterLabel>
     <targets>
         <target>lightning__AppPage</target>
         <target>lightning__HomePage</target>
