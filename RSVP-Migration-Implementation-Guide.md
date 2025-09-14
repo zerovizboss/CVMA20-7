@@ -8,7 +8,7 @@
 ```
 CVMA_Event_RSVP__c (Custom Object)
 ├── Event__c (Lookup to Campaign)
-├── Member__c (Lookup to Contact)  
+├── Member__c (Lookup to Contact)
 ├── Response__c (Yes/No/Maybe picklist)
 ├── Plus_One__c (Checkbox)
 ├── Plus_One_Name__c (Text)
@@ -109,7 +109,7 @@ Standard LWCs: Lightning Record Forms + Campaign Member components
 - Rollback plan documented for reverting changes
 - Staged migration approach with validation checkpoints
 
-### Testing Strategy  
+### Testing Strategy
 - Comprehensive unit tests for migration utility
 - Integration testing with Campaign Member workflows
 - User acceptance testing for RSVP functionality
@@ -128,7 +128,7 @@ Standard LWCs: Lightning Record Forms + Campaign Member components
 - [ ] All RSVP functionality preserved
 - [ ] Performance equal or better than custom system
 
-### User Experience Metrics  
+### User Experience Metrics
 - [ ] RSVP process remains intuitive for members
 - [ ] Officer reporting capabilities enhanced
 - [ ] Mobile experience maintained or improved

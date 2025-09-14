@@ -4,7 +4,7 @@
  * @date 2025-01-09
  */
 @IsTest
-private class CVMACommIntegrationControllerTest {
+private class CVMACommunicationIntegrationControllerTest {
 
     private static Contact testOfficer;
     private static Contact testMember1;
@@ -87,7 +87,7 @@ private class CVMACommIntegrationControllerTest {
     static void setupTestDataInMethod() {
         List<Contact> contacts = [SELECT Id, FirstName, LastName, Email, MobilePhone FROM Contact ORDER BY LastName];
         testOfficer = contacts[1]; // Officer
-        testMember1 = contacts[0]; // Member1 
+        testMember1 = contacts[0]; // Member1
         testMember2 = contacts[2]; // Member2
 
         List<User> users = [SELECT Id, ContactId FROM User WHERE ContactId != null ORDER BY LastName];
@@ -104,7 +104,7 @@ private class CVMACommIntegrationControllerTest {
     static void testSendMultiChannelCommunicationSuccess() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.messageType = 'ANNOUNCEMENT';
         request.subject = 'Test Communication';
@@ -147,7 +147,7 @@ private class CVMACommIntegrationControllerTest {
     static void testSendMultiChannelCommunicationMissingContent() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.contactIds = new List<String>{testMember1.Id};
         request.channels = new List<String>{'EMAIL'};
@@ -166,7 +166,7 @@ private class CVMACommIntegrationControllerTest {
     static void testSendMultiChannelCommunicationEmptyRecipients() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test message';
         request.contactIds = new List<String>();
@@ -186,7 +186,7 @@ private class CVMACommIntegrationControllerTest {
     static void testSendMultiChannelCommunicationEmptyChannels() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test message';
         request.contactIds = new List<String>{testMember1.Id};
@@ -206,7 +206,7 @@ private class CVMACommIntegrationControllerTest {
     static void testSendMultiChannelCommunicationNoPermissions() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test message';
         request.contactIds = new List<String>{testMember1.Id};
@@ -233,11 +233,11 @@ private class CVMACommIntegrationControllerTest {
             Test.stopTest();
 
             System.assert(integrations.size() >= 3, 'Should return at least 3 integrations (SMS, Email, Slack)');
-            
+
             Boolean hasSMS = false;
             Boolean hasEmail = false;
             Boolean hasSlack = false;
-            
+
             for (CVMACommunicationIntegrationController.IntegrationConfiguration config : integrations) {
                 if (config.providerId == 'twilio_sms') {
                     hasSMS = true;
@@ -254,7 +254,7 @@ private class CVMACommIntegrationControllerTest {
                     System.assert(!config.isActive, 'Slack integration should be inactive (placeholder)');
                 }
             }
-            
+
             System.assert(hasSMS, 'Should include SMS integration');
             System.assert(hasEmail, 'Should include Email integration');
             System.assert(hasSlack, 'Should include Slack integration placeholder');
@@ -356,21 +356,21 @@ private class CVMACommIntegrationControllerTest {
 
         // Create some test error log entries to simulate integration activity
         List<CVMA_Error_Log__c> testLogs = new List<CVMA_Error_Log__c>();
-        
+
         testLogs.add(new CVMA_Error_Log__c(
             Class_Name__c = 'COMM_INT_Test',
             Category__c = 'INTEGRATION',
             Context_Data__c = 'Integration: TEST123 | Channels: SMS | Recipients: 1 | Delivered: 1 | Failed: 0',
             Severity__c = 'LOW'
         ));
-        
+
         testLogs.add(new CVMA_Error_Log__c(
             Class_Name__c = 'COMM_INT_Test2',
             Category__c = 'INTEGRATION',
             Context_Data__c = 'Integration: TEST456 | Channels: EMAIL | Recipients: 1 | Delivered: 1 | Failed: 0',
             Severity__c = 'LOW'
         ));
-        
+
         insert testLogs;
 
         System.runAs(testOfficerUser) {
@@ -414,7 +414,7 @@ private class CVMACommIntegrationControllerTest {
             .withEmail('nophone@cvma.test')
             .create();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test SMS message';
         request.contactIds = new List<String>{contactNoPhone.Id};
@@ -429,7 +429,7 @@ private class CVMACommIntegrationControllerTest {
             System.assert(response.success, 'Overall operation should succeed');
             System.assertEquals(0, response.deliveredCount, 'Should have 0 delivered due to missing phone');
             System.assertEquals(1, response.failedCount, 'Should have 1 failed delivery');
-            
+
             Boolean foundPhoneError = false;
             for (CVMACommunicationIntegrationController.DeliveryResult result : response.results) {
                 if (result.error != null && result.error.contains('mobile phone')) {
@@ -453,7 +453,7 @@ private class CVMACommIntegrationControllerTest {
             .withPhone('555-0199')
             .create();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test email message';
         request.subject = 'Test Subject';
@@ -469,7 +469,7 @@ private class CVMACommIntegrationControllerTest {
             System.assert(response.success, 'Overall operation should succeed');
             System.assertEquals(0, response.deliveredCount, 'Should have 0 delivered due to missing email');
             System.assertEquals(1, response.failedCount, 'Should have 1 failed delivery');
-            
+
             Boolean foundEmailError = false;
             for (CVMACommunicationIntegrationController.DeliveryResult result : response.results) {
                 if (result.error != null && result.error.contains('email')) {
@@ -485,7 +485,7 @@ private class CVMACommIntegrationControllerTest {
     static void testUnsupportedChannel() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test message';
         request.contactIds = new List<String>{testMember1.Id};
@@ -500,7 +500,7 @@ private class CVMACommIntegrationControllerTest {
             System.assert(response.success, 'Overall operation should succeed');
             System.assertEquals(0, response.deliveredCount, 'Should have 0 delivered due to unsupported channel');
             System.assertEquals(1, response.failedCount, 'Should have 1 failed delivery');
-            
+
             Boolean foundChannelError = false;
             for (CVMACommunicationIntegrationController.DeliveryResult result : response.results) {
                 if (result.error != null && result.error.contains('Unsupported channel')) {
@@ -516,7 +516,7 @@ private class CVMACommIntegrationControllerTest {
     static void testMixedChannelDelivery() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test mixed channel message';
         request.subject = 'Test Subject';
@@ -532,7 +532,7 @@ private class CVMACommIntegrationControllerTest {
 
             System.assert(response.success, 'Mixed channel communication should succeed');
             System.assert(response.results.size() > 0, 'Should have delivery results for multiple channels');
-            
+
             // Should have results for each contact across each channel (2 contacts * 3 channels = 6 results)
             System.assertEquals(6, response.results.size(), 'Should have results for all contact-channel combinations');
         }
@@ -542,7 +542,7 @@ private class CVMACommIntegrationControllerTest {
     static void testInputSanitization() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = '<script>alert("xss")</script>Test message';
         request.subject = '<script>alert("xss")</script>Test Subject';
@@ -582,7 +582,7 @@ private class CVMACommIntegrationControllerTest {
             allContactIds.add(c.Id);
         }
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Bulk test message';
         request.subject = 'Bulk Test';
@@ -596,7 +596,7 @@ private class CVMACommIntegrationControllerTest {
             Test.stopTest();
 
             System.assert(response.success, 'Bulk communication should succeed');
-            System.assertEquals(allContactIds.size(), response.results.size(), 
+            System.assertEquals(allContactIds.size(), response.results.size(),
                 'Should have results for all recipients');
         }
     }
@@ -605,7 +605,7 @@ private class CVMACommIntegrationControllerTest {
     static void testIntegrationIdGeneration() {
         setupTestDataInMethod();
 
-        CVMACommunicationIntegrationController.CommunicationRequest request = 
+        CVMACommunicationIntegrationController.CommunicationRequest request =
             new CVMACommunicationIntegrationController.CommunicationRequest();
         request.content = 'Test message for ID generation';
         request.contactIds = new List<String>{testMember1.Id};
@@ -621,9 +621,9 @@ private class CVMACommIntegrationControllerTest {
 
             System.assertNotEquals(null, response1.integrationId, 'First response should have integration ID');
             System.assertNotEquals(null, response2.integrationId, 'Second response should have integration ID');
-            System.assertNotEquals(response1.integrationId, response2.integrationId, 
+            System.assertNotEquals(response1.integrationId, response2.integrationId,
                 'Integration IDs should be unique');
-            System.assert(response1.integrationId.startsWith('COMM_INT_'), 
+            System.assert(response1.integrationId.startsWith('COMM_INT_'),
                 'Integration ID should have correct prefix');
         }
     }

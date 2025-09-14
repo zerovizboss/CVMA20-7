@@ -101,8 +101,8 @@ export default class CvmaCommunicationIntegration extends LightningElement {
     }
 
     get canSendCommunication() {
-        return this.communicationForm.content && 
-               this.communicationForm.channels.length > 0 && 
+        return this.communicationForm.content &&
+               this.communicationForm.channels.length > 0 &&
                this.selectedContacts.length > 0 &&
                !this.sendingCommunication;
     }
@@ -127,7 +127,7 @@ export default class CvmaCommunicationIntegration extends LightningElement {
     }
 
     get hasStatisticsData() {
-        return this.deliveryStatistics && 
+        return this.deliveryStatistics &&
                this.deliveryStatistics.totalCommunications !== undefined;
     }
 
@@ -155,7 +155,7 @@ export default class CvmaCommunicationIntegration extends LightningElement {
     // Event handlers
     handleTabChange(event) {
         this.activeTab = event.target.value;
-        
+
         if (this.activeTab === 'statistics') {
             this.loadDeliveryStatistics();
         }
@@ -271,8 +271,8 @@ export default class CvmaCommunicationIntegration extends LightningElement {
 
             if (result.success) {
                 this.showToast(
-                    'Success', 
-                    `Communication sent successfully! ${result.message}`, 
+                    'Success',
+                    `Communication sent successfully! ${result.message}`,
                     'success'
                 );
                 this.handleCloseSendModal();

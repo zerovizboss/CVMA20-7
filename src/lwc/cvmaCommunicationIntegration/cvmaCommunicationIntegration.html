@@ -1,7 +1,7 @@
 <template>
     <lightning-card title="CVMA Communication Integration" icon-name="custom:custom63">
         <div class="slds-card__body slds-card__body_inner">
-            
+
             <!-- Loading Spinner -->
             <template if:true={isLoading}>
                 <lightning-spinner alternative-text="Loading integrations..."></lightning-spinner>
@@ -9,16 +9,16 @@
 
             <!-- Tab Navigation -->
             <lightning-tabset active-tab-value={activeTab} onactivechange={handleTabChange}>
-                
+
                 <!-- Integration Management Tab -->
                 <lightning-tab label="Integration Management" value="integrations">
                     <div class="slds-p-around_medium">
-                        
+
                         <!-- Action Buttons -->
                         <div class="slds-grid slds-gutters slds-m-bottom_medium">
                             <div class="slds-col">
-                                <lightning-button 
-                                    variant="brand" 
+                                <lightning-button
+                                    variant="brand"
                                     label="Send Communication"
                                     icon-name="utility:email"
                                     onclick={handleOpenSendModal}
@@ -26,8 +26,8 @@
                                 </lightning-button>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-text-align_right">
-                                <lightning-button 
-                                    variant="neutral" 
+                                <lightning-button
+                                    variant="neutral"
                                     label="View Statistics"
                                     icon-name="utility:chart"
                                     onclick={handleOpenStatisticsModal}
@@ -45,7 +45,7 @@
                                             <div class="slds-card__header slds-grid">
                                                 <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                                     <div class="slds-media__figure">
-                                                        <lightning-icon 
+                                                        <lightning-icon
                                                             icon-name={integration.statusIcon}
                                                             alternative-text={integration.providerName}
                                                             size="small"
@@ -59,11 +59,11 @@
                                                     </div>
                                                 </header>
                                                 <div class="slds-no-flex">
-                                                    <lightning-button-menu 
-                                                        alternative-text="Show menu" 
+                                                    <lightning-button-menu
+                                                        alternative-text="Show menu"
                                                         menu-alignment="right">
-                                                        <lightning-menu-item 
-                                                            value="test" 
+                                                        <lightning-menu-item
+                                                            value="test"
                                                             label="Test Integration"
                                                             data-integration={integration.providerId}
                                                             onclick={handleOpenTestModal}>
@@ -72,7 +72,7 @@
                                                 </div>
                                             </div>
                                             <div class="slds-card__body slds-card__body_inner">
-                                                
+
                                                 <!-- Status Badge -->
                                                 <div class="slds-m-bottom_small">
                                                     <template if:true={integration.isActive}>
@@ -108,7 +108,7 @@
 
                                                 <!-- API Endpoint -->
                                                 <div class="slds-text-body_small slds-text-color_weak">
-                                                    <strong>Endpoint:</strong> 
+                                                    <strong>Endpoint:</strong>
                                                     <span class="slds-truncate" title={integration.apiEndpoint}>
                                                         {integration.apiEndpoint}
                                                     </span>
@@ -153,12 +153,12 @@
                 <!-- Statistics Tab -->
                 <lightning-tab label="Analytics" value="statistics">
                     <div class="slds-p-around_medium">
-                        
+
                         <!-- Date Range Selection -->
                         <div class="slds-grid slds-gutters slds-m-bottom_medium">
                             <div class="slds-col slds-size_1-of-3">
-                                <lightning-input 
-                                    type="date" 
+                                <lightning-input
+                                    type="date"
                                     label="Start Date"
                                     value={statisticsStartDate}
                                     data-field="startDate"
@@ -166,8 +166,8 @@
                                 </lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-3">
-                                <lightning-input 
-                                    type="date" 
+                                <lightning-input
+                                    type="date"
                                     label="End Date"
                                     value={statisticsEndDate}
                                     data-field="endDate"
@@ -175,8 +175,8 @@
                                 </lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-3 slds-p-top_large">
-                                <lightning-button 
-                                    variant="brand" 
+                                <lightning-button
+                                    variant="brand"
                                     label="Refresh"
                                     icon-name="utility:refresh"
                                     onclick={handleRefreshStatistics}
@@ -193,7 +193,7 @@
                         <!-- Statistics Display -->
                         <template if:true={hasStatisticsData}>
                             <div class="slds-grid slds-wrap slds-gutters">
-                                
+
                                 <!-- Total Communications -->
                                 <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
                                     <article class="slds-card">
@@ -245,23 +245,23 @@
     <template if:true={showSendModal}>
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
-                
+
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                             title="Close" onclick={handleCloseSendModal}>
                         <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
                         <span class="slds-assistive-text">Close</span>
                     </button>
                     <h2 class="slds-text-heading_medium slds-hyphenate">Send Multi-Channel Communication</h2>
                 </header>
-                
+
                 <div class="slds-modal__content slds-p-around_medium">
-                    
+
                     <div class="slds-grid slds-gutters">
-                        
+
                         <!-- Left Column -->
                         <div class="slds-col slds-size_1-of-2">
-                            
+
                             <!-- Message Type -->
                             <lightning-combobox
                                 name="messageType"
@@ -303,10 +303,10 @@
                             </div>
 
                         </div>
-                        
+
                         <!-- Right Column -->
                         <div class="slds-col slds-size_1-of-2">
-                            
+
                             <!-- Subject -->
                             <lightning-input
                                 type="text"
@@ -329,12 +329,12 @@
                                         onclick={handleOpenContactSelector}
                                         class="slds-m-bottom_x-small">
                                     </lightning-button>
-                                    
+
                                     <!-- Selected Contacts Display -->
                                     <template if:true={selectedContactsCount}>
                                         <div class="slds-border slds-border_top slds-p-top_x-small">
                                             <template for:each={selectedContacts} for:item="contact">
-                                                <lightning-pill 
+                                                <lightning-pill
                                                     key={contact.Id}
                                                     label={contact.Name}
                                                     data-contact-id={contact.Id}
@@ -376,11 +376,11 @@
                     </div>
 
                 </div>
-                
+
                 <footer class="slds-modal__footer">
                     <lightning-button variant="neutral" label="Cancel" onclick={handleCloseSendModal}></lightning-button>
-                    <lightning-button 
-                        variant="brand" 
+                    <lightning-button
+                        variant="brand"
                         label="Send Communication"
                         onclick={handleSendCommunication}
                         disabled={sendingCommunication}
@@ -397,9 +397,9 @@
     <template if:true={showTestModal}>
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
-                
+
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                             title="Close" onclick={handleCloseTestModal}>
                         <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
                         <span class="slds-assistive-text">Close</span>
@@ -408,12 +408,12 @@
                         Test Integration: {selectedIntegration.providerName}
                     </h2>
                 </header>
-                
+
                 <div class="slds-modal__content slds-p-around_medium">
                     <p class="slds-text-body_regular slds-m-bottom_medium">
                         Test the connectivity and configuration of the {selectedIntegration.providerName} integration.
                     </p>
-                    
+
                     <div class="slds-box slds-theme_shade slds-m-bottom_medium">
                         <dl class="slds-list_horizontal slds-wrap">
                             <dt class="slds-item_label slds-text-color_weak slds-truncate">Provider:</dt>
@@ -432,11 +432,11 @@
                         </dl>
                     </div>
                 </div>
-                
+
                 <footer class="slds-modal__footer">
                     <lightning-button variant="neutral" label="Cancel" onclick={handleCloseTestModal}></lightning-button>
-                    <lightning-button 
-                        variant="brand" 
+                    <lightning-button
+                        variant="brand"
                         label="Run Test"
                         onclick={handleTestIntegration}
                         disabled={testingIntegration}
@@ -453,18 +453,18 @@
     <template if:true={showContactSelector}>
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large">
             <div class="slds-modal__container">
-                
+
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                             title="Close" onclick={handleCloseContactSelector}>
                         <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
                         <span class="slds-assistive-text">Close</span>
                     </button>
                     <h2 class="slds-text-heading_medium slds-hyphenate">Select Recipients</h2>
                 </header>
-                
+
                 <div class="slds-modal__content slds-p-around_medium" style="max-height: 400px;">
-                    
+
                     <!-- Search Box -->
                     <lightning-input
                         type="search"
@@ -495,7 +495,7 @@
                     </div>
 
                 </div>
-                
+
                 <footer class="slds-modal__footer">
                     <lightning-button variant="brand" label="Done" onclick={handleCloseContactSelector}></lightning-button>
                 </footer>

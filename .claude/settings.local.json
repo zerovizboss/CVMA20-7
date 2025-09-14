@@ -6,7 +6,8 @@
       "Bash('/c/Program Files/sf/bin/sf' project retrieve start --metadata \"Document:Experiences_Shared_Document_Folder\" --wait 10)",
       "Bash('/c/Program Files/sf/bin/sf' project retrieve start --metadata \"ExperienceBundle\" --wait 10)",
       "Bash('/c/Program Files/sf/bin/sf' project retrieve start --metadata \"DigitalExperience\" --wait 10)",
-      "Bash('/c/Program Files/sf/bin/sf' project retrieve start --metadata \"DigitalExperienceBundle\" --wait 10)"
+      "Bash('/c/Program Files/sf/bin/sf' project retrieve start --metadata \"DigitalExperienceBundle\" --wait 10)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []

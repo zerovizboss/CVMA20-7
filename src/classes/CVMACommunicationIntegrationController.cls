@@ -74,25 +74,25 @@ public with sharing class CVMACommunicationIntegrationController {
         try {
             // Validate officer permissions
             validateOfficerPermissions();
-            
+
             // Validate and sanitize inputs
             validateCommunicationRequest(request);
-            
+
             IntegrationResponse response = new IntegrationResponse();
             response.results = new List<DeliveryResult>();
             response.deliveredCount = 0;
             response.failedCount = 0;
-            
+
             // Get contact information for recipients
             Map<String, Contact> contactMap = getContactsForIntegration(request.contactIds);
-            
+
             // Process each communication channel
             for (String channel : request.channels) {
                 List<DeliveryResult> channelResults = processChannelDelivery(
                     channel, request, contactMap
                 );
                 response.results.addAll(channelResults);
-                
+
                 // Update counters
                 for (DeliveryResult result : channelResults) {
                     if (result.status == 'SUCCESS') {
@@ -102,25 +102,25 @@ public with sharing class CVMACommunicationIntegrationController {
                     }
                 }
             }
-            
+
             // Generate integration ID for tracking
             response.integrationId = generateIntegrationId();
-            
+
             // Log integration activity
             logIntegrationActivity(request, response);
-            
+
             response.success = true;
             response.message = String.format(
                 'Communication sent via {0} channels. Delivered: {1}, Failed: {2}',
                 new List<Object>{request.channels.size(), response.deliveredCount, response.failedCount}
             );
-            
+
             return response;
-            
+
         } catch (Exception e) {
             CVMAErrorHandler.logError(e, 'CVMACommunicationIntegrationController', 'sendMultiChannelCommunication',
                                     CVMAErrorHandler.Severity.HIGH, CVMAErrorHandler.Category.INTEGRATION);
-            
+
             IntegrationResponse errorResponse = new IntegrationResponse();
             errorResponse.success = false;
             errorResponse.message = 'Communication integration failed: ' + e.getMessage();
@@ -136,9 +136,9 @@ public with sharing class CVMACommunicationIntegrationController {
     public static List<IntegrationConfiguration> getAvailableIntegrations() {
         try {
             validateOfficerPermissions();
-            
+
             List<IntegrationConfiguration> integrations = new List<IntegrationConfiguration>();
-            
+
             // SMS Integration (Twilio simulation)
             IntegrationConfiguration smsConfig = new IntegrationConfiguration();
             smsConfig.providerId = 'twilio_sms';
@@ -149,7 +149,7 @@ public with sharing class CVMACommunicationIntegrationController {
             smsConfig.dailyUsage = getDailyUsageForProvider('SMS');
             smsConfig.supportedChannels = new List<String>{'SMS', 'MMS'};
             integrations.add(smsConfig);
-            
+
             // Email Integration (SendGrid simulation)
             IntegrationConfiguration emailConfig = new IntegrationConfiguration();
             emailConfig.providerId = 'sendgrid_email';
@@ -160,7 +160,7 @@ public with sharing class CVMACommunicationIntegrationController {
             emailConfig.dailyUsage = getDailyUsageForProvider('EMAIL');
             emailConfig.supportedChannels = new List<String>{'EMAIL', 'HTML_EMAIL'};
             integrations.add(emailConfig);
-            
+
             // Slack Integration (future enhancement)
             IntegrationConfiguration slackConfig = new IntegrationConfiguration();
             slackConfig.providerId = 'slack_webhook';
@@ -171,9 +171,9 @@ public with sharing class CVMACommunicationIntegrationController {
             slackConfig.dailyUsage = 0;
             slackConfig.supportedChannels = new List<String>{'SLACK_MESSAGE', 'SLACK_ALERT'};
             integrations.add(slackConfig);
-            
+
             return integrations;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMACommunicationIntegrationController', 'getAvailableIntegrations',
                                                                   CVMAErrorHandler.Category.INTEGRATION);
@@ -190,12 +190,12 @@ public with sharing class CVMACommunicationIntegrationController {
     public static IntegrationResponse testIntegration(String providerId) {
         try {
             validateOfficerPermissions();
-            
+
             String sanitizedProviderId = CVMAErrorHandler.sanitizeInput(providerId);
-            
+
             IntegrationResponse testResponse = new IntegrationResponse();
             testResponse.results = new List<DeliveryResult>();
-            
+
             if (sanitizedProviderId == 'twilio_sms') {
                 testResponse = testSMSIntegration();
             } else if (sanitizedProviderId == 'sendgrid_email') {
@@ -205,22 +205,22 @@ public with sharing class CVMACommunicationIntegrationController {
             } else {
                 throw new CommunicationIntegrationException('Unknown provider: ' + sanitizedProviderId);
             }
-            
+
             // Log test activity
             CVMAErrorHandler.logActivity(
                 'Integration Test',
-                String.format('Tested {0} integration. Success: {1}', 
+                String.format('Tested {0} integration. Success: {1}',
                     new List<Object>{sanitizedProviderId, testResponse.success}),
                 CVMAErrorHandler.ErrorSeverity.LOW,
                 CVMAErrorHandler.ErrorCategory.INTEGRATION
             );
-            
+
             return testResponse;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMACommunicationIntegrationController', 'testIntegration',
                                                                   CVMAErrorHandler.Category.INTEGRATION);
-            
+
             IntegrationResponse errorResponse = new IntegrationResponse();
             errorResponse.success = false;
             errorResponse.message = 'Integration test failed: ' + e.getMessage();
@@ -238,9 +238,9 @@ public with sharing class CVMACommunicationIntegrationController {
     public static Map<String, Object> getDeliveryStatistics(Date startDate, Date endDate) {
         try {
             validateOfficerPermissions();
-            
+
             Map<String, Object> statistics = new Map<String, Object>();
-            
+
             // Query CVMA_Error_Log__c for integration activity logs
             List<CVMA_Error_Log__c> logs = [
                 SELECT Id, Context_Data__c, Category__c, CreatedDate
@@ -253,26 +253,26 @@ public with sharing class CVMACommunicationIntegrationController {
                 ORDER BY CreatedDate DESC
                 LIMIT 1000
             ];
-            
+
             // Process logs and build statistics
             Map<String, Integer> channelCounts = new Map<String, Integer>();
             Map<String, Integer> successCounts = new Map<String, Integer>();
             Map<String, Integer> failureCounts = new Map<String, Integer>();
-            
+
             for (CVMA_Error_Log__c log : logs) {
                 // Parse log context for channel and status information
                 parseLogForStatistics(log, channelCounts, successCounts, failureCounts);
             }
-            
+
             statistics.put('totalCommunications', logs.size());
             statistics.put('channelBreakdown', channelCounts);
             statistics.put('successByChannel', successCounts);
             statistics.put('failuresByChannel', failureCounts);
-            statistics.put('reportingPeriod', String.format('{0} to {1}', 
+            statistics.put('reportingPeriod', String.format('{0} to {1}',
                 new List<Object>{startDate.format(), endDate.format()}));
-            
+
             return statistics;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMACommunicationIntegrationController', 'getDeliveryStatistics',
                                                                   CVMAErrorHandler.Category.INTEGRATION);
@@ -321,19 +321,19 @@ public with sharing class CVMACommunicationIntegrationController {
         if (request == null) {
             throw new CommunicationIntegrationException('Communication request cannot be null');
         }
-        
+
         if (String.isBlank(request.content)) {
             throw new CommunicationIntegrationException('Message content is required');
         }
-        
+
         if (request.contactIds == null || request.contactIds.isEmpty()) {
             throw new CommunicationIntegrationException('At least one recipient is required');
         }
-        
+
         if (request.channels == null || request.channels.isEmpty()) {
             throw new CommunicationIntegrationException('At least one communication channel is required');
         }
-        
+
         // Sanitize inputs
         request.content = CVMAErrorHandler.sanitizeInput(request.content);
         if (!String.isBlank(request.subject)) {
@@ -348,7 +348,7 @@ public with sharing class CVMACommunicationIntegrationController {
      */
     private static Map<String, Contact> getContactsForIntegration(List<String> contactIds) {
         Map<String, Contact> contactMap = new Map<String, Contact>();
-        
+
         List<Contact> contacts = [
             SELECT Id, FirstName, LastName, Email, MobilePhone, Phone,
                    Level__c, Membership_Id__c
@@ -357,11 +357,11 @@ public with sharing class CVMACommunicationIntegrationController {
             WITH SECURITY_ENFORCED
             LIMIT 200
         ];
-        
+
         for (Contact contact : contacts) {
             contactMap.put(contact.Id, contact);
         }
-        
+
         return contactMap;
     }
 
@@ -374,15 +374,15 @@ public with sharing class CVMACommunicationIntegrationController {
      */
     private static List<DeliveryResult> processChannelDelivery(String channel, CommunicationRequest request, Map<String, Contact> contactMap) {
         List<DeliveryResult> results = new List<DeliveryResult>();
-        
+
         for (String contactId : request.contactIds) {
             Contact contact = contactMap.get(contactId);
             if (contact == null) continue;
-            
+
             DeliveryResult result = new DeliveryResult();
             result.contactId = contactId;
             result.channel = channel;
-            
+
             try {
                 if (channel == 'SMS' || channel == 'MMS') {
                     result = processSMSDelivery(contact, request, channel);
@@ -394,20 +394,20 @@ public with sharing class CVMACommunicationIntegrationController {
                     result.status = 'FAILED';
                     result.error = 'Unsupported channel: ' + channel;
                 }
-                
+
                 results.add(result);
-                
+
             } catch (Exception e) {
                 result.status = 'FAILED';
                 result.error = e.getMessage();
                 results.add(result);
-                
-                String errorMessage = CVMAErrorHandler.handleException(e, 
+
+                String errorMessage = CVMAErrorHandler.handleException(e,
                     'CVMACommunicationIntegrationController', 'processChannelDelivery',
                     CVMAErrorHandler.Category.INTEGRATION);
             }
         }
-        
+
         return results;
     }
 
@@ -422,17 +422,17 @@ public with sharing class CVMACommunicationIntegrationController {
         DeliveryResult result = new DeliveryResult();
         result.contactId = contact.Id;
         result.channel = channel;
-        
+
         // Validate contact has mobile phone
         if (String.isBlank(contact.MobilePhone)) {
             result.status = 'FAILED';
             result.error = 'No mobile phone number available';
             return result;
         }
-        
+
         // Simulate SMS API call (in production, this would be actual Twilio API call)
         Boolean smsSuccess = simulateSMSDelivery(contact.MobilePhone, request.content);
-        
+
         if (smsSuccess) {
             result.status = 'SUCCESS';
             result.deliveredAt = DateTime.now();
@@ -440,7 +440,7 @@ public with sharing class CVMACommunicationIntegrationController {
             result.status = 'FAILED';
             result.error = 'SMS delivery failed - provider error';
         }
-        
+
         return result;
     }
 
@@ -455,17 +455,17 @@ public with sharing class CVMACommunicationIntegrationController {
         DeliveryResult result = new DeliveryResult();
         result.contactId = contact.Id;
         result.channel = channel;
-        
+
         // Validate contact has email address
         if (String.isBlank(contact.Email)) {
             result.status = 'FAILED';
             result.error = 'No email address available';
             return result;
         }
-        
+
         // Simulate Email API call (in production, this would be actual SendGrid API call)
         Boolean emailSuccess = simulateEmailDelivery(contact.Email, request.subject, request.content, channel == 'HTML_EMAIL');
-        
+
         if (emailSuccess) {
             result.status = 'SUCCESS';
             result.deliveredAt = DateTime.now();
@@ -473,7 +473,7 @@ public with sharing class CVMACommunicationIntegrationController {
             result.status = 'FAILED';
             result.error = 'Email delivery failed - provider error';
         }
-        
+
         return result;
     }
 
@@ -499,11 +499,11 @@ public with sharing class CVMACommunicationIntegrationController {
      */
     private static IntegrationResponse testSMSIntegration() {
         IntegrationResponse response = new IntegrationResponse();
-        
+
         try {
             // Simulate SMS provider connectivity test
             Boolean connectionSuccess = Math.random() > 0.1; // 90% success rate simulation
-            
+
             if (connectionSuccess) {
                 response.success = true;
                 response.message = 'SMS integration test successful. Provider: ' + SMS_PROVIDER;
@@ -511,12 +511,12 @@ public with sharing class CVMACommunicationIntegrationController {
                 response.success = false;
                 response.message = 'SMS integration test failed. Check provider configuration.';
             }
-            
+
         } catch (Exception e) {
             response.success = false;
             response.message = 'SMS integration test error: ' + e.getMessage();
         }
-        
+
         return response;
     }
 
@@ -526,11 +526,11 @@ public with sharing class CVMACommunicationIntegrationController {
      */
     private static IntegrationResponse testEmailIntegration() {
         IntegrationResponse response = new IntegrationResponse();
-        
+
         try {
             // Simulate Email provider connectivity test
             Boolean connectionSuccess = Math.random() > 0.05; // 95% success rate simulation
-            
+
             if (connectionSuccess) {
                 response.success = true;
                 response.message = 'Email integration test successful. Provider: ' + EMAIL_PROVIDER;
@@ -538,12 +538,12 @@ public with sharing class CVMACommunicationIntegrationController {
                 response.success = false;
                 response.message = 'Email integration test failed. Check API credentials.';
             }
-            
+
         } catch (Exception e) {
             response.success = false;
             response.message = 'Email integration test error: ' + e.getMessage();
         }
-        
+
         return response;
     }
 
@@ -566,7 +566,7 @@ public with sharing class CVMACommunicationIntegrationController {
     private static Integer getDailyUsageForProvider(String providerType) {
         try {
             Date today = Date.today();
-            
+
             Integer logCount = [
                 SELECT COUNT()
                 FROM CVMA_Error_Log__c
@@ -576,9 +576,9 @@ public with sharing class CVMACommunicationIntegrationController {
                 AND DAY_ONLY(CreatedDate) = :today
                 WITH SECURITY_ENFORCED
             ];
-            
+
             return logCount;
-            
+
         } catch (Exception e) {
             String errorMessage = CVMAErrorHandler.handleException(e, 'CVMACommunicationIntegrationController', 'getDailyUsageForProvider',
                                                                   CVMAErrorHandler.Category.INTEGRATION);
@@ -613,14 +613,14 @@ public with sharing class CVMACommunicationIntegrationController {
                     response.failedCount
                 }
             );
-            
+
             // Log integration activity using CVMAErrorHandler's existing pattern
             String logMessage = CVMAErrorHandler.handleException(
                 new CommunicationIntegrationException('Integration activity logged: ' + contextInfo),
                 'CVMACommunicationIntegrationController', 'logIntegrationActivity',
                 CVMAErrorHandler.Category.INTEGRATION
             );
-            
+
         } catch (Exception e) {
             // Don't let logging errors break the main integration flow
             System.debug('Warning: Could not log integration activity - ' + e.getMessage());
@@ -634,15 +634,15 @@ public with sharing class CVMACommunicationIntegrationController {
      * @param successCounts Success count map to update
      * @param failureCounts Failure count map to update
      */
-    private static void parseLogForStatistics(CVMA_Error_Log__c log, 
+    private static void parseLogForStatistics(CVMA_Error_Log__c log,
                                             Map<String, Integer> channelCounts,
                                             Map<String, Integer> successCounts,
                                             Map<String, Integer> failureCounts) {
         try {
             if (String.isBlank(log.Context_Data__c)) return;
-            
+
             String context = log.Context_Data__c;
-            
+
             // Extract channel information from context
             if (context.contains('SMS')) {
                 updateCountMap(channelCounts, 'SMS');
@@ -656,7 +656,7 @@ public with sharing class CVMACommunicationIntegrationController {
                 updateCountMap(channelCounts, 'SLACK');
                 updateCountMap(context.contains('SUCCESS') ? successCounts : failureCounts, 'SLACK');
             }
-            
+
         } catch (Exception e) {
             System.debug('Warning: Could not parse log for statistics - ' + e.getMessage());
         }
