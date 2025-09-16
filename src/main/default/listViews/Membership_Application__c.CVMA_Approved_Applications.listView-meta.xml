@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CVMA_Approved_Applications</fullName>
+    <columns>NAME</columns>
+    <columns>First_Name__c</columns>
+    <columns>Last_Name__c</columns>
+    <columns>Email__c</columns>
+    <columns>Status__c</columns>
+    <columns>Approval_Date__c</columns>
+    <columns>Assigned_Officer__c</columns>
+    <columns>Member_Level__c</columns>
+    <columns>LASTMODIFIEDDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Approved</value>
+    </filters>
+    <label>CVMA Approved Applications</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>CVMAOfficers</role>
+    </sharedTo>
+</ListView>

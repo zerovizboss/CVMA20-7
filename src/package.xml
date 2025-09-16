@@ -2286,6 +2286,7 @@
         <members>CVMA_Financial_Compliance</members>
         <members>CVMA_Financial_Compliance/CVMA_Financial_Compliance_Monitor</members>
         <members>CVMA_Financial_Compliance/CVMA_Treasurer_Executive_Dashboard</members>
+        <members>CVMA_Epic_7_Analytics</members>
         <name>Dashboard</name>
     </types>
     <types>
@@ -2723,6 +2724,8 @@
         <members>WorkType.My_WorkTypes</members>
         <members>WorkTypeGroup.All_WorkTypeGroups</members>
         <members>WorkTypeGroup.My_WorkTypeGroups</members>
+        <members>default.Membership_Application__c.CVMA_Approved_Applications</members>
+        <members>default.Membership_Application__c.CVMA_Pending_Applications</members>
         <name>ListView</name>
     </types>
     <types>
@@ -3074,6 +3077,9 @@
         <members>CVMA_Application_Config.Email_Batch_Size</members>
         <members>CVMA_Email_Template.Renewal_Reminder</members>
         <members>CVMA_Email_Template.Welcome_New_Member</members>
+        <members>CVMA_Application_Config.Mobile_Update_Profile</members>
+        <members>CVMA_Application_Config.Mobile_View_Events</members>
+        <members>CVMA_Application_Config.Epic_8_Analytics_Integration</members>
         <name>CustomMetadata</name>
     </types>
     <types>
@@ -3087,6 +3093,7 @@
         <members>CVMA_Financial_Analytics/CVMA_Quarterly_Financial_Trends</members>
         <members>CVMA_Financial_Analytics/CVMA_Simple_Budget_Report</members>
         <members>CVMA_Financial_Analytics/CVMA_Simple_Revenue_Report</members>
+        <members>CVMA_Application_Analytics</members>
         <name>Report</name>
     </types>
     <version>63.0</version>

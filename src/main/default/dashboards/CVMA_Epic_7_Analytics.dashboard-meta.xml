@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">
+    <backgroundEndColor>#FFFFFF</backgroundEndColor>
+    <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
+    <backgroundStartColor>#FFFFFF</backgroundStartColor>
+    <chartTheme>light</chartTheme>
+    <colorPalette>unity</colorPalette>
+    <dashboardChartTheme>light</dashboardChartTheme>
+    <dashboardColorPalette>unity</dashboardColorPalette>
+    <dashboardGridLayout>
+        <numberOfColumns>9</numberOfColumns>
+        <rowHeight>80</rowHeight>
+    </dashboardGridLayout>
+    <dashboardType>SpecifiedUser</dashboardType>
+    <description>Epic #7 Phase 3 Analytics Dashboard with Python Agent integration foundation</description>
+    <isGridLayout>true</isGridLayout>
+    <leftSection>
+        <columnSize>Medium</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <axisBinding>y</axisBinding>
+                <column>RowCount</column>
+            </chartSummary>
+            <componentType>Donut</componentType>
+            <dashboardGridComponent>
+                <colSpan>4</colSpan>
+                <columnIndex>0</columnIndex>
+                <dashboardComponent>
+                    <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                    <componentType>Donut</componentType>
+                    <displayUnits>Auto</displayUnits>
+                    <drillEnabled>false</drillEnabled>
+                    <drillToDetailEnabled>false</drillToDetailEnabled>
+                    <enableHover>false</enableHover>
+                    <expandOthers>false</expandOthers>
+                    <footer>Application Status Distribution</footer>
+                    <groupingColumn>Status_Groups</groupingColumn>
+                    <header>CVMA Applications by Status</header>
+                    <report>CVMA_Application_Analytics</report>
+                    <showPercentage>true</showPercentage>
+                    <showValues>true</showValues>
+                    <sortBy>RowLabelAscending</sortBy>
+                    <useReportChart>false</useReportChart>
+                </dashboardComponent>
+                <rowIndex>0</rowIndex>
+                <rowSpan>3</rowSpan>
+            </dashboardGridComponent>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>false</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Application Status Distribution</footer>
+            <groupingColumn>Status_Groups</groupingColumn>
+            <header>CVMA Applications by Status</header>
+            <report>CVMA_Application_Analytics</report>
+            <showPercentage>true</showPercentage>
+            <showValues>true</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>Application Status Overview</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Metric</componentType>
+            <dashboardGridComponent>
+                <colSpan>2</colSpan>
+                <columnIndex>4</columnIndex>
+                <dashboardComponent>
+                    <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                    <componentType>Metric</componentType>
+                    <displayUnits>Auto</displayUnits>
+                    <footer>This Month</footer>
+                    <header>Total Applications</header>
+                    <indicatorBreakpoint1>50.0</indicatorBreakpoint1>
+                    <indicatorBreakpoint2>100.0</indicatorBreakpoint2>
+                    <indicatorHighColor>#00716B</indicatorHighColor>
+                    <indicatorLowColor>#C23934</indicatorLowColor>
+                    <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                    <report>CVMA_Application_Analytics</report>
+                    <showRange>false</showRange>
+                </dashboardComponent>
+                <rowIndex>0</rowIndex>
+                <rowSpan>1</rowSpan>
+            </dashboardGridComponent>
+            <displayUnits>Auto</displayUnits>
+            <footer>This Month</footer>
+            <header>Total Applications</header>
+            <indicatorBreakpoint1>50.0</indicatorBreakpoint1>
+            <indicatorBreakpoint2>100.0</indicatorBreakpoint2>
+            <indicatorHighColor>#00716B</indicatorHighColor>
+            <indicatorLowColor>#C23934</indicatorLowColor>
+            <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+            <report>CVMA_Application_Analytics</report>
+            <showRange>false</showRange>
+            <title>Monthly Metrics</title>
+        </components>
+    </leftSection>
+    <masterLabel>CVMA Epic #7 Analytics Dashboard</masterLabel>
+    <middleSection>
+        <columnSize>Medium</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Table</componentType>
+            <dashboardGridComponent>
+                <colSpan>3</colSpan>
+                <columnIndex>6</columnIndex>
+                <dashboardComponent>
+                    <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                    <componentType>Table</componentType>
+                    <displayUnits>Auto</displayUnits>
+                    <drillEnabled>false</drillEnabled>
+                    <drillToDetailEnabled>false</drillToDetailEnabled>
+                    <header>Recent Applications</header>
+                    <maxValuesDisplayed>10</maxValuesDisplayed>
+                    <report>CVMA_Application_Analytics</report>
+                    <showPicturesOnTables>false</showPicturesOnTables>
+                    <sortBy>RowLabelAscending</sortBy>
+                    <useReportChart>false</useReportChart>
+                </dashboardComponent>
+                <rowIndex>0</rowIndex>
+                <rowSpan>3</rowSpan>
+            </dashboardGridComponent>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <header>Recent Applications</header>
+            <maxValuesDisplayed>10</maxValuesDisplayed>
+            <report>CVMA_Application_Analytics</report>
+            <showPicturesOnTables>false</showPicturesOnTables>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>Application Details</title>
+            <useReportChart>false</useReportChart>
+        </components>
+    </middleSection>
+    <rightSection>
+        <columnSize>Medium</columnSize>
+    </rightSection>
+    <runningUser>detonator@cvma20-7.org</runningUser>
+    <textColor>#000000</textColor>
+    <title>🏍️ CVMA Epic #7 Analytics - Member Experience Intelligence</title>
+    <titleColor>#000000</titleColor>
+    <titleSize>12</titleSize>
+</Dashboard>

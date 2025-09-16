@@ -31,7 +31,10 @@
       "WebFetch(domain:github.com)",
       "Bash(gh project list:*)",
       "Bash(gh issue list:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git push:*)",
+      "Bash(gh issue close:*)"
     ],
     "deny": [],
     "ask": []
