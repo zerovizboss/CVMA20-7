@@ -148,6 +148,7 @@ Each community has its own branding, navigation menus, and moderation rules conf
 - **Strategic Agent (Claude)**: Architecture analysis, business logic design, methodology planning
 - **Tactical Agent (Copilot)**: Implementation execution, testing, deployment, GitHub management
 - **Coordination Pattern**: Strategic analysis → TodoWrite planning → Tactical implementation → Quality validation
+- **External Authentication Protocol**: Prompt user for login when agents require external resource access (GitHub, etc.)
 
 ### Step 4: Autonomous Task Planning
 1. **Use TodoWrite immediately** to plan current session based on documented priorities
@@ -178,3 +179,4 @@ Each community has its own branding, navigation menus, and moderation rules conf
 - **Multi-Agent Architecture**: Strategic Agent (Claude) + Tactical Agent (Copilot) proven effective
 - **Standard Feature Integration**: Revolutionary approach achieving 80%+ code reduction
 - **Epic #2 Status**: 75% complete, User Story #17 ready for implementation (NPSP Financial Dashboard)
+- "Remind me to provide feedback for future Epic and related User Stories to provide the Roles of CO and XO authorization to edit Contacts when logged into the Combat Veterans Motorcycle Association"

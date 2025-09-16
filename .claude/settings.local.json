@@ -26,7 +26,12 @@
       "Bash(sf apex run:*)",
       "Bash(sf apex get test:*)",
       "Bash(sf org open:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" org open --path \"/lightning/setup/SetupOneHome/home\")",
+      "WebFetch(domain:github.com)",
+      "Bash(gh project list:*)",
+      "Bash(gh issue list:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
