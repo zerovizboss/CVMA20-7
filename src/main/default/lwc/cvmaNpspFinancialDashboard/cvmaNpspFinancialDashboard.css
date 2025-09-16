@@ -1,0 +1,26 @@
+/* User Story #19: NPSP Financial Reporting Enhancement - CSS */
+/* Epic #4: Financial Management - CVMA Branding with Standard Integration */
+
+.cvma-title {
+    color: #B8860B; /* CVMA Gold */
+    font-weight: bold;
+    font-family: 'Impact', sans-serif;
+    border-bottom: 2px solid #DC143C; /* CVMA Red border */
+    padding-bottom: 0.5rem;
+}
+
+/* Full width buttons */
+.full-width {
+    width: 100%;
+}
+
+/* CVMA Military-inspired button styling */
+lightning-button {
+    --slds-c-button-brand-color-background: #B8860B;
+    --slds-c-button-brand-color-border: #DC143C;
+}
+
+/* Success indicator styling */
+.slds-theme_shade {
+    border-left: 4px solid #00716B;
+}

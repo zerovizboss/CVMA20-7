@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Send_Approval_Email_to_Applicant</fullName>
+        <description>Send approval notification to applicant when membership is approved</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Applicant_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>CVMA_Email_Templates/CVMA_Membership_Approved_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Rejection_Email_to_Applicant</fullName>
+        <description>Send rejection notification to applicant when membership is rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Applicant_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>CVMA_Email_Templates/CVMA_Membership_Rejected_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Submission_Confirmation_Email</fullName>
+        <description>Send confirmation email to applicant when application is submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Applicant_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>CVMA_Email_Templates/CVMA_Membership_Application_Confirmation</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Officers_of_New_Application</fullName>
+        <description>Notify CVMA officers when new membership application is submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <type>permissionSet</type>
+            <recipient>CVMA_Officer_Permissions</recipient>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>CVMA_Email_Templates/CVMA_New_Application_Officer_Notification</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Approved</fullName>
+        <description>Update application status to Approved when final approval is granted</description>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Rejected</fullName>
+        <description>Update application status to Rejected when application is rejected</description>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Under_Review</fullName>
+        <description>Update application status to Under Review when submitted for approval</description>
+        <field>Status__c</field>
+        <literalValue>Under Review</literalValue>
+        <name>Update Status to Under Review</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

@@ -2282,7 +2282,6 @@
         <members>Enablement_sfdcSESv60.dashboardFolder</members>
         <members>Enablement_sfdcSESv61.dashboardFolder</members>
         <members>prm_channel_dashboard_folder/Enablement_Root_Prm_sfdcSES/Enablement_Prm_sfdcSESv61.dashboardFolder</members>
-        <members>CVMA_NPSP_Treasury</members>
         <members>CVMA_Financial_Compliance</members>
         <members>CVMA_Financial_Compliance/CVMA_Financial_Compliance_Monitor</members>
         <members>CVMA_Financial_Compliance/CVMA_Treasurer_Executive_Dashboard</members>
@@ -2307,11 +2306,6 @@
         <members>npsp__NPSP_Documents/npsp__Sample_Letterhead_Logo</members>
         <members>trailheadapp__Trailhead/trailheadapp__Trailhead_Flogo</members>
         <members>trailheadapp__Trailhead/trailheadapp__trailheadLogo_png</members>
-        <members>Experiences_Shared_Document_Folder</members>
-        <members>Extentia_SIM__MapPlotter_Documents</members>
-        <members>Extentia_SIM__Salesforce1_Branding_Resources</members>
-        <members>npsp__NPSP_Documents</members>
-        <members>trailheadapp__Trailhead</members>
         <name>Document</name>
     </types>
     <types>
@@ -2383,6 +2377,11 @@
         <members>CVMA_Financial_Compliance/Annual_Financial_Statement</members>
         <members>CVMA_Financial_Compliance/Monthly_Budget_Performance_Report</members>
         <members>CVMA_Financial_Compliance/Quarterly_Financial_Summary</members>
+        <members>CVMA_Email_Templates</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Application_Confirmation.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Approved_Notification.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Rejected_Notification.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_New_Application_Officer_Notification.email-meta.xml</members>
         <name>EmailTemplate</name>
     </types>
     <types>

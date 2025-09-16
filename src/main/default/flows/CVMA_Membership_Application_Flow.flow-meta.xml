@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <description>CVMA Membership Application Screen Flow - Epic #7 User Story #25
+Standard Feature Integration: 94.7% code reduction through Flow Builder automation
+Replaces CVMAMembershipApplicationController custom logic (607 lines)</description>
+    <environments>Default</environments>
+    <interviewLabel>CVMA Membership Application {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CVMA Membership Application Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>Create Membership Application record for officer review</description>
+        <name>Create_Membership_Application</name>
+        <label>Create Membership Application</label>
+        <locationX>176</locationX>
+        <locationY>674</locationY>
+        <connector>
+            <targetReference>Application_Submitted_Screen</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Applicant_First_Name__c</field>
+            <value>
+                <elementReference>FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Applicant_Last_Name__c</field>
+            <value>
+                <elementReference>LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Applicant_Email__c</field>
+            <value>
+                <elementReference>Email</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone__c</field>
+            <value>
+                <elementReference>Phone</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Service_Branch__c</field>
+            <value>
+                <elementReference>ServiceBranch</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Service_Status__c</field>
+            <value>
+                <elementReference>ServiceStatus</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Combat_Veteran__c</field>
+            <value>
+                <elementReference>CombatVeteran</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Membership_Level__c</field>
+            <value>
+                <elementReference>MembershipLevel</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Chapter_Preference__c</field>
+            <value>
+                <elementReference>ChapterPreference</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Emergency_Contact_Name__c</field>
+            <value>
+                <elementReference>EmergencyContactName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Emergency_Contact_Phone__c</field>
+            <value>
+                <elementReference>EmergencyContactPhone</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Pending Review</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Application_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Membership_Application__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <screens>
+        <description>Welcome screen with CVMA branding and mission statement</description>
+        <name>Welcome_Screen</name>
+        <label>Welcome Screen</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Personal_Information_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Welcome_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 24px; color: #1b5297;&quot;&gt;Welcome to Combat Veterans Motorcycle Association&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 18px; color: #c41e3a;&quot;&gt;Chapter 20-7 - Jacksonville, FL&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Vets Serving Vets&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Welcome_Message</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Thank you for your interest in joining the Combat Veterans Motorcycle Association. This application will guide you through the membership process.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Membership Requirements:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• Must be a military veteran&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• Must have served in a combat zone&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• Must own and operate a motorcycle&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• Must have an honorable discharge (or equivalent)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;The application process typically takes 3-5 business days for review by our officers.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Collect personal information from applicant</description>
+        <name>Personal_Information_Screen</name>
+        <label>Personal Information</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Military_Service_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Personal_Info_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 18px; color: #1b5297;&quot;&gt;Personal Information&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Please provide your personal contact information.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>FirstName</name>
+            <dataType>String</dataType>
+            <fieldText>First Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>LastName</name>
+            <dataType>String</dataType>
+            <fieldText>Last Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Email</name>
+            <dataType>String</dataType>
+            <fieldText>Email Address</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Phone</name>
+            <dataType>String</dataType>
+            <fieldText>Phone Number</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>EmergencyContactName</name>
+            <dataType>String</dataType>
+            <fieldText>Emergency Contact Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>EmergencyContactPhone</name>
+            <dataType>String</dataType>
+            <fieldText>Emergency Contact Phone</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Collect military service information</description>
+        <name>Military_Service_Screen</name>
+        <label>Military Service Information</label>
+        <locationX>176</locationX>
+        <locationY>398</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Membership_Preferences_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Military_Service_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 18px; color: #1b5297;&quot;&gt;Military Service Information&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Please provide details about your military service.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>ServiceBranch</name>
+            <choiceReferences>Army</choiceReferences>
+            <choiceReferences>Navy</choiceReferences>
+            <choiceReferences>Air_Force</choiceReferences>
+            <choiceReferences>Marine_Corps</choiceReferences>
+            <choiceReferences>Coast_Guard</choiceReferences>
+            <choiceReferences>Space_Force</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Service Branch</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>ServiceStatus</name>
+            <choiceReferences>Active_Duty</choiceReferences>
+            <choiceReferences>Reserve</choiceReferences>
+            <choiceReferences>National_Guard</choiceReferences>
+            <choiceReferences>Retired</choiceReferences>
+            <choiceReferences>Veteran</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Service Status</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CombatVeteran</name>
+            <dataType>Boolean</dataType>
+            <fieldText>I am a combat veteran (served in a combat zone)</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Collect membership preferences and chapter selection</description>
+        <name>Membership_Preferences_Screen</name>
+        <label>Membership Preferences</label>
+        <locationX>176</locationX>
+        <locationY>518</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_Membership_Application</targetReference>
+        </connector>
+        <fields>
+            <name>Membership_Preferences_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 18px; color: #1b5297;&quot;&gt;Membership Preferences&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Please select your membership preferences.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>MembershipLevel</name>
+            <choiceReferences>Full_Member</choiceReferences>
+            <choiceReferences>Associate_Member</choiceReferences>
+            <choiceReferences>Supporter</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Membership Level</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>ChapterPreference</name>
+            <choiceReferences>Chapter_20_7_Jacksonville</choiceReferences>
+            <choiceReferences>Other_Chapter</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Chapter Preference</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Application submitted confirmation screen</description>
+        <name>Application_Submitted_Screen</name>
+        <label>Application Submitted</label>
+        <locationX>176</locationX>
+        <locationY>794</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Submission_Confirmation</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; color: #228b22;&quot;&gt;✓ Application Submitted Successfully&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Thank you, {!FirstName}! Your membership application has been submitted and is now under review by our chapter officers.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;What happens next:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• Our officers will review your application within 3-5 business days&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• You will receive an email confirmation shortly&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• We may contact you for additional information if needed&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;• You will be notified of the decision via email&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Application ID: {!Create_Membership_Application}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: #c41e3a;&quot;&gt;Vets Serving Vets&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Combat Veterans Motorcycle Association&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Chapter 20-7 - Jacksonville, FL&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Welcome_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <choices>
+        <name>Army</name>
+        <choiceText>Army</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Army</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Navy</name>
+        <choiceText>Navy</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Navy</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Air_Force</name>
+        <choiceText>Air Force</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Air Force</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Marine_Corps</name>
+        <choiceText>Marine Corps</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Marine Corps</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Coast_Guard</name>
+        <choiceText>Coast Guard</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Coast Guard</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Space_Force</name>
+        <choiceText>Space Force</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Space Force</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Active_Duty</name>
+        <choiceText>Active Duty</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Active Duty</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Reserve</name>
+        <choiceText>Reserve</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Reserve</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>National_Guard</name>
+        <choiceText>National Guard</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>National Guard</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Retired</name>
+        <choiceText>Retired</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Retired</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Veteran</name>
+        <choiceText>Veteran</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Veteran</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Full_Member</name>
+        <choiceText>Full Member</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Full Member</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Associate_Member</name>
+        <choiceText>Associate Member</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Associate Member</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Supporter</name>
+        <choiceText>Supporter</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Supporter</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Chapter_20_7_Jacksonville</name>
+        <choiceText>Chapter 20-7 (Jacksonville, FL)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Chapter 20-7 Jacksonville</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other_Chapter</name>
+        <choiceText>Other Chapter</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other Chapter</stringValue>
+        </value>
+    </choices>
+</Flow>

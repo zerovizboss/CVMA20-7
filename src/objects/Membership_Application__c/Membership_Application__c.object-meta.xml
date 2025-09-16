@@ -165,4 +165,264 @@
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
+    <fields>
+        <fullName>Applicant_First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Applicant First Name</label>
+        <length>80</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Applicant_Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Applicant Last Name</label>
+        <length>80</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Applicant_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Applicant Email</label>
+        <length>100</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Service_Branch__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Branch</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Army</fullName>
+                    <default>false</default>
+                    <label>Army</label>
+                </value>
+                <value>
+                    <fullName>Navy</fullName>
+                    <default>false</default>
+                    <label>Navy</label>
+                </value>
+                <value>
+                    <fullName>Air Force</fullName>
+                    <default>false</default>
+                    <label>Air Force</label>
+                </value>
+                <value>
+                    <fullName>Marine Corps</fullName>
+                    <default>false</default>
+                    <label>Marine Corps</label>
+                </value>
+                <value>
+                    <fullName>Coast Guard</fullName>
+                    <default>false</default>
+                    <label>Coast Guard</label>
+                </value>
+                <value>
+                    <fullName>Space Force</fullName>
+                    <default>false</default>
+                    <label>Space Force</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Service_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Status</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Active Duty</fullName>
+                    <default>false</default>
+                    <label>Active Duty</label>
+                </value>
+                <value>
+                    <fullName>Reserve</fullName>
+                    <default>false</default>
+                    <label>Reserve</label>
+                </value>
+                <value>
+                    <fullName>National Guard</fullName>
+                    <default>false</default>
+                    <label>National Guard</label>
+                </value>
+                <value>
+                    <fullName>Retired</fullName>
+                    <default>false</default>
+                    <label>Retired</label>
+                </value>
+                <value>
+                    <fullName>Veteran</fullName>
+                    <default>false</default>
+                    <label>Veteran</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Combat_Veteran__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Combat Veteran</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Membership_Level__c</fullName>
+        <externalId>false</externalId>
+        <label>Membership Level</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Full Member</fullName>
+                    <default>false</default>
+                    <label>Full Member</label>
+                </value>
+                <value>
+                    <fullName>Associate Member</fullName>
+                    <default>false</default>
+                    <label>Associate Member</label>
+                </value>
+                <value>
+                    <fullName>Supporter</fullName>
+                    <default>false</default>
+                    <label>Supporter</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Chapter_Preference__c</fullName>
+        <externalId>false</externalId>
+        <label>Chapter Preference</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Chapter 20-7 Jacksonville</fullName>
+                    <default>true</default>
+                    <label>Chapter 20-7 (Jacksonville, FL)</label>
+                </value>
+                <value>
+                    <fullName>Other Chapter</fullName>
+                    <default>false</default>
+                    <label>Other Chapter</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Emergency_Contact_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Emergency Contact Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Emergency_Contact_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Emergency Contact Phone</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>true</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Pending Review</fullName>
+                    <default>true</default>
+                    <label>Pending Review</label>
+                </value>
+                <value>
+                    <fullName>Under Review</fullName>
+                    <default>false</default>
+                    <label>Under Review</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>Additional Information Required</fullName>
+                    <default>false</default>
+                    <label>Additional Information Required</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Application_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Application Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
 </CustomObject>
