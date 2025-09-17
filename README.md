@@ -7,7 +7,7 @@ I've been developing for over 10 years in several different arenas and now reach
 
 It's not that I couldn't have done this myself, it's that Claude was able to show me how much more goes into my job than I every gave myself credit for or ever realized I knew.  Furthermore, I learned about Comprehensive Coding and saw that I'm one of many developers who get so locked into code that you can forget to check on the basics, the Admin stuff, the things that we can easily take for granted.  Stuff that's put into another User Story for non-technical folks on the team.  Claude gave me a brand new appreciation for Admins and has already made me appreciate my entire team, not just my own abilities.
 
-This is in my ReadMe because I want you to understand the full value of the new coding era.  AI isn't taking our jobs away, it's merely giving us the tools to do it better with less tech debt and adhere to deployments that much better, faster and easier than we could have ever dreamed of.
+This is in my ReadMe because I want you to understand the full value of the new coding era.  AI isn't taking our jobs away, it's merely giving us the tools to do it better with less tech debt and adhere to deployment deadlines that much better, faster and easier than we could have ever dreamed of.
 
 Detonator Out
 PS, this first run doesn't include MCP Server(s) yet, more to come in that arena. Hint: Airtable

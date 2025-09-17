@@ -7,8 +7,9 @@
  */
 @IsTest
 public class CVMAGuestUserSchedulerAccessTest {
-
-    private static final String COMMUNITY_NAME = 'Combat Veterams Motorcycle Association';
+feature/epic-6-communication-hub-completion    
+    private static final String COMMUNITY_NAME = 'Combat Veterans Motorcycle Association';
+main
     private static final String GUEST_PROFILE_NAME = 'Guest License User';
 
     @TestSetup
@@ -196,8 +197,10 @@ public class CVMAGuestUserSchedulerAccessTest {
         System.runAs(guestUser) {
             // Test read access to Cases (excluding internal)
             List<Case> visibleCases = [
-                SELECT Id, Subject, Type, Description
-                FROM Case
+feature/epic-6-communication-hub-completion
+                SELECT Id, Subject, Type, Description 
+                FROM Case 
+main
                 WHERE Type != 'Internal' OR Type = NULL
             ];
 
@@ -234,8 +237,10 @@ public class CVMAGuestUserSchedulerAccessTest {
         System.runAs(guestUser) {
             // Test read access to Events (excluding private)
             List<Event> visibleEvents = [
-                SELECT Id, Subject, IsPrivate, Description
-                FROM Event
+feature/epic-6-communication-hub-completion
+                SELECT Id, Subject, IsPrivate, Description 
+                FROM Event 
+main
                 WHERE IsPrivate = FALSE
             ];
 
@@ -298,8 +303,10 @@ public class CVMAGuestUserSchedulerAccessTest {
 
             // Should NOT see private Events
             List<Event> privateEvents = [
-                SELECT Id, Subject, IsPrivate
-                FROM Event
+ feature/epic-6-communication-hub-completion
+                SELECT Id, Subject, IsPrivate 
+                FROM Event 
+ main
                 WHERE IsPrivate = TRUE
             ];
 
@@ -322,17 +329,22 @@ public class CVMAGuestUserSchedulerAccessTest {
         // Test object permissions through describe calls
         System.runAs(guestUser) {
             Schema.DescribeSObjectResult serviceAppointmentDescribe = ServiceAppointment.SObjectType.getDescribe();
-            System.assert(serviceAppointmentDescribe.createable,
+ feature/epic-6-communication-hub-completion
+            System.assert(serviceAppointmentDescribe.createable, 
+main
                 'ServiceAppointment should be createable for guest user');
             System.assert(serviceAppointmentDescribe.updateable,
                 'ServiceAppointment should be updateable for guest user');
+feature/epic-6-communication-hub-completion
 
+            
             Schema.DescribeSObjectResult caseDescribe = Case.SObjectType.getDescribe();
-            System.assert(caseDescribe.accessible,
+            System.assert(caseDescribe.accessible, 
                 'Case should be accessible for guest user');
-
+            
             Schema.DescribeSObjectResult eventDescribe = Event.SObjectType.getDescribe();
-            System.assert(eventDescribe.accessible,
+            System.assert(eventDescribe.accessible, 
+main
                 'Event should be accessible for guest user');
         }
     }
@@ -346,9 +358,11 @@ public class CVMAGuestUserSchedulerAccessTest {
 
         // Try to find existing guest user
         List<User> existingGuestUsers = [
-            SELECT Id, Username, ProfileId
-            FROM User
-            WHERE ProfileId = :guestProfile.Id
+ feature/epic-6-communication-hub-completion
+            SELECT Id, Username, ProfileId 
+            FROM User 
+            WHERE ProfileId = :guestProfile.Id 
+ main
             AND IsActive = TRUE
             LIMIT 1
         ];
@@ -377,7 +391,9 @@ public class CVMAGuestUserSchedulerAccessTest {
 
     /**
      * Helper method to get or create Operating Hours
-     * @return hours Id
+
+     * @return existingHours Id
+ main
      */
     private static Id getOperatingHours() {
         List<OperatingHours> existingHours = [SELECT Id FROM OperatingHours LIMIT 1];
