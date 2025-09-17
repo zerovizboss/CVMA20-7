@@ -40,7 +40,11 @@
       "Bash(wmic path win32_VideoController get:*)",
       "Bash(sf project retrieve start:*)",
       "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT Id, Name, DeveloperName FROM ReportType WHERE IsCustom = true\")",
-      "Bash(gh pr list:*)"
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr checkout:*)",
+      "Bash(git pull:*)"
     ],
     "deny": [],
     "ask": []
