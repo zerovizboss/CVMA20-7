@@ -2287,6 +2287,7 @@
         <members>CVMA_Financial_Compliance/CVMA_Financial_Compliance_Monitor</members>
         <members>CVMA_Financial_Compliance/CVMA_Treasurer_Executive_Dashboard</members>
         <members>CVMA_Epic_7_Analytics</members>
+        <members>CVMA_Executive_Analytics_Dashboard</members>
         <name>Dashboard</name>
     </types>
     <types>
@@ -3094,6 +3095,14 @@
         <members>CVMA_Financial_Analytics/CVMA_Simple_Budget_Report</members>
         <members>CVMA_Financial_Analytics/CVMA_Simple_Revenue_Report</members>
         <members>CVMA_Application_Analytics</members>
+        <members>CVMA_Executive_Analytics.reportFolder</members>
+        <members>CVMA_Executive_Analytics</members>
+        <members>CVMA_Executive_Analytics/CVMA_Member_Management_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Event_Management_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Financial_Performance_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Communication_Effectiveness_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Development_Excellence_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Member_Experience_KPIs</members>
         <name>Report</name>
     </types>
     <version>63.0</version>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">
+    <backgroundEndColor>#FFFFFF</backgroundEndColor>
+    <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
+    <backgroundStartColor>#A51C2A</backgroundStartColor>
+    <chartTheme>light</chartTheme>
+    <colorPalette>unity</colorPalette>
+    <dashboardChartTheme>light</dashboardChartTheme>
+    <dashboardColorPalette>unity</dashboardColorPalette>
+    <dashboardGridLayout>
+        <dashboardGridComponents>
+            <colSpan>4</colSpan>
+            <columnIndex>0</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>FORMULA1</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <decimalPrecision>0</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <footer>Active Members in Organization</footer>
+                <gaugeMax>1000.0</gaugeMax>
+                <gaugeMin>0.0</gaugeMin>
+                <header>Member Management</header>
+                <indicatorBreakpoint1>300.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>600.0</indicatorBreakpoint2>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>CVMA_Executive_Analytics/CVMA_Member_Management_KPIs</report>
+                <showRange>false</showRange>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>Total Active Members</title>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>4</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>4</colSpan>
+            <columnIndex>4</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>FORMULA3</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <decimalPrecision>1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <footer>RSVP Conversion Performance</footer>
+                <gaugeMax>100.0</gaugeMax>
+                <gaugeMin>0.0</gaugeMin>
+                <header>Event Management</header>
+                <indicatorBreakpoint1>50.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>75.0</indicatorBreakpoint2>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>CVMA_Executive_Analytics/CVMA_Event_Management_KPIs</report>
+                <showRange>false</showRange>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>RSVP Conversion Rate</title>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>4</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>4</colSpan>
+            <columnIndex>8</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>FORMULA1</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <decimalPrecision>2</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <footer>Monthly Revenue Performance</footer>
+                <gaugeMax>50000.0</gaugeMax>
+                <gaugeMin>0.0</gaugeMin>
+                <header>Financial Management</header>
+                <indicatorBreakpoint1>15000.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>30000.0</indicatorBreakpoint2>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>CVMA_Executive_Analytics/CVMA_Financial_Performance_KPIs</report>
+                <showRange>false</showRange>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>Total Revenue</title>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>4</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>6</colSpan>
+            <columnIndex>0</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>FORMULA2</column>
+                </chartSummary>
+                <componentType>Line</componentType>
+                <decimalPrecision>1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <drillEnabled>false</drillEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
+                <enableHover>false</enableHover>
+                <expandOthers>false</expandOthers>
+                <footer>Weekly Communication Performance</footer>
+                <header>Communication Hub Excellence</header>
+                <legendPosition>Bottom</legendPosition>
+                <report>CVMA_Executive_Analytics/CVMA_Communication_Effectiveness_KPIs</report>
+                <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
+                <showValues>false</showValues>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>Communication Delivery Trends</title>
+                <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>4</rowIndex>
+            <rowSpan>4</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>6</colSpan>
+            <columnIndex>6</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>FORMULA2</column>
+                </chartSummary>
+                <componentType>Column</componentType>
+                <decimalPrecision>1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <drillEnabled>false</drillEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
+                <enableHover>false</enableHover>
+                <expandOthers>false</expandOthers>
+                <footer>Monthly Application Performance</footer>
+                <header>Member Experience Revolution</header>
+                <legendPosition>Bottom</legendPosition>
+                <report>CVMA_Executive_Analytics/CVMA_Member_Experience_KPIs</report>
+                <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
+                <showValues>false</showValues>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>Application Approval Trends</title>
+                <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>4</rowIndex>
+            <rowSpan>4</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>12</colSpan>
+            <columnIndex>0</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange>
+                <chartSummary>
+                    <axisBinding>y</axisBinding>
+                    <column>FORMULA2</column>
+                </chartSummary>
+                <componentType>StackedColumn</componentType>
+                <decimalPrecision>0</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <drillEnabled>false</drillEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
+                <enableHover>false</enableHover>
+                <expandOthers>false</expandOthers>
+                <footer>Development Efficiency and Code Quality Metrics</footer>
+                <header>Technical Excellence Analytics</header>
+                <legendPosition>Bottom</legendPosition>
+                <report>CVMA_Executive_Analytics/CVMA_Development_Excellence_KPIs</report>
+                <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
+                <showValues>false</showValues>
+                <sortBy>RowLabelAscending</sortBy>
+                <title>Development Velocity and Code Efficiency</title>
+                <useReportChart>false</useReportChart>
+            </dashboardComponent>
+            <rowIndex>8</rowIndex>
+            <rowSpan>4</rowSpan>
+        </dashboardGridComponents>
+        <numberOfColumns>12</numberOfColumns>
+        <rowHeight>36</rowHeight>
+    </dashboardGridLayout>
+    <dashboardType>SpecifiedUser</dashboardType>
+    <description>Epic #8 Phase 2: Einstein Analytics Dashboard - AI-powered predictive insights with member retention forecasting, event success prediction, financial trend analysis, and MCP-enhanced intelligence for Combat Veterans Motorcycle Association Chapter 20-7</description>
+    <folderName>CVMA_Executive_Analytics</folderName>
+    <isGridLayout>true</isGridLayout>
+    <runningUser>detonator@cvma20-7.org</runningUser>
+    <textColor>#000000</textColor>
+    <title>CVMA Executive Analytics Dashboard - Einstein Enhanced</title>
+    <titleColor>#FFFFFF</titleColor>
+    <titleSize>18</titleSize>
+</Dashboard>
