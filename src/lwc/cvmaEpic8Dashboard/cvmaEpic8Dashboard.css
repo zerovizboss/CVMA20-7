@@ -1,0 +1,221 @@
+/* Epic #8 Dashboard Component Styles */
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+}
+
+.status-operational {
+    background-color: #04844b;
+    color: white;
+}
+
+.status-deploying {
+    background-color: #0176d3;
+    color: white;
+}
+
+.status-maintenance {
+    background-color: #fe9339;
+    color: white;
+}
+
+.status-unknown {
+    background-color: #706e6b;
+    color: white;
+}
+
+/* Health Status Classes */
+.health-excellent {
+    color: #04844b;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.health-good {
+    color: #2e844a;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.health-fair {
+    color: #fe9339;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.health-poor {
+    color: #ea001e;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Metric Display Values */
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0176d3;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+
+.metric-small {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #16325c;
+}
+
+/* Tab Navigation Enhancement */
+.slds-tabs_default__nav .slds-tabs_default__link[aria-selected="true"] {
+    background-color: #0176d3;
+    color: white;
+    border-color: #0176d3;
+}
+
+.slds-tabs_default__nav .slds-tabs_default__link:hover {
+    background-color: #f3f3f3;
+    transition: background-color 0.2s ease;
+}
+
+/* Card Enhancements */
+lightning-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+    transition: box-shadow 0.2s ease;
+}
+
+lightning-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Dashboard Grid Spacing */
+.slds-grid.slds-gutters .slds-col {
+    margin-bottom: 1rem;
+}
+
+/* Success Indicators List */
+.success-indicator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+}
+
+/* Loading States */
+.slds-spinner_container {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Message Overrides */
+lightning-message-service {
+    margin: 0.5rem 0;
+}
+
+/* Progress Bar Enhancements */
+lightning-progress-bar {
+    margin-top: 0.5rem;
+}
+
+/* Button Group Styling */
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    .slds-grid .slds-col {
+        margin-bottom: 0.75rem;
+    }
+
+    .slds-tabs_default__nav {
+        flex-wrap: wrap;
+    }
+
+    .slds-tabs_default__item {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Epic #8 Branding */
+.epic8-header {
+    background: linear-gradient(135deg, #0176d3 0%, #1589ee 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+/* Animation for metric updates */
+.metric-value {
+    transition: all 0.3s ease;
+}
+
+.metric-value:hover {
+    transform: scale(1.05);
+}
+
+/* Accessibility Enhancements */
+.slds-tabs_default__link:focus {
+    outline: 2px solid #0176d3;
+    outline-offset: 2px;
+}
+
+/* Dark Mode Support (if needed) */
+@media (prefers-color-scheme: dark) {
+    .status-badge {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .metric-value {
+        color: #1b96ff;
+    }
+
+    .epic8-header {
+        background: linear-gradient(135deg, #1b96ff 0%, #0176d3 100%);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .slds-tabs_default__nav {
+        display: none;
+    }
+
+    lightning-card {
+        break-inside: avoid;
+    }
+
+    .metric-value {
+        color: #000 !important;
+    }
+}
+
+/* Special styling for Epic #8 Phase 3 completion celebration */
+.phase3-complete {
+    background: linear-gradient(45deg, #04844b, #2e844a);
+    background-size: 400% 400%;
+    animation: gradient 3s ease infinite;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

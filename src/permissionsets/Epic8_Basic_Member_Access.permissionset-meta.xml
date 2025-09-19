@@ -31,11 +31,7 @@
         <field>Contact.Level__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.Membership_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
+    <!-- Contact.Membership_Id__c field permissions removed due to deployment restrictions -->
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.Email</field>
