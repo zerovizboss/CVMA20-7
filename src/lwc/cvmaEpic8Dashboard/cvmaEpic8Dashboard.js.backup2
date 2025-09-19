@@ -5,9 +5,9 @@ import getVeteranServicesIntegration from '@salesforce/apex/CVMAEpic8Phase3Contr
 import getCrossChapterAnalytics from '@salesforce/apex/CVMAEpic8Phase3Controller.getCrossChapterAnalytics';
 import getAdvancedAutomationEngine from '@salesforce/apex/CVMAEpic8Phase3Controller.getAdvancedAutomationEngine';
 import getEinsteinPredictiveAnalytics from '@salesforce/apex/CVMAEinsteinAnalyticsController.getEinsteinPredictiveAnalytics';
-import getVABenefitsSimple from '@salesforce/apex/CVMAMockGovIntegrationHelper.getVABenefitsSimple';
-import getDODRecordsSimple from '@salesforce/apex/CVMAMockGovIntegrationHelper.getDODRecordsSimple';
-import getBenefitRecommendations from '@salesforce/apex/CVMAMockGovIntegrationHelper.getBenefitRecommendations';
+import getVABenefits from '@salesforce/apex/CVMAMockVABenefitsController.getVABenefits';
+import getDODRecords from '@salesforce/apex/CVMAMockDODRecordsController.getDODRecords';
+import getBenefitOptimizationRecommendations from '@salesforce/apex/CVMAMockVABenefitsController.getBenefitOptimizationRecommendations';
 
 export default class CvmaEpic8Dashboard extends LightningElement {
     @api memberAccessLevel = 'Basic'; // Premium, Basic, Limited
@@ -63,16 +63,20 @@ export default class CvmaEpic8Dashboard extends LightningElement {
 
     async loadGovernmentServices() {
         try {
-            // Use memberId if available, otherwise use mock data
+            // Use memberId if available, otherwise get current user's contact
             const contactId = this.memberId || this.getCurrentUserContactId();
 
             if (contactId) {
-                // Load simplified government services data
-                this.vaBenefitsData = await getVABenefitsSimple({ contactId: contactId });
-                this.dodRecordsData = await getDODRecordsSimple({ contactId: contactId });
-                this.benefitRecommendations = await getBenefitRecommendations({ contactId: contactId });
+                // Load VA benefits data
+                this.vaBenefitsData = await getVABenefits({ contactId: contactId });
+
+                // Load DOD records data
+                this.dodRecordsData = await getDODRecords({ contactId: contactId });
+
+                // Load benefit optimization recommendations
+                this.benefitRecommendations = await getBenefitOptimizationRecommendations({ contactId: contactId });
             } else {
-                // Load mock data for demo
+                // Mock data for demo if no contact ID available
                 this.loadMockGovernmentData();
             }
 
@@ -87,23 +91,21 @@ export default class CvmaEpic8Dashboard extends LightningElement {
         // Fallback mock data for demonstration
         this.vaBenefitsData = {
             isEligible: true,
-            disabilityRating: 70,
-            monthlyCompensation: 1500,
-            healthcareStatus: 'Enrolled',
-            activeAlerts: ['Disability compensation: $1500', 'Healthcare enrollment active']
+            disability: { disabilityRating: 70, monthlyCompensation: 1500 },
+            healthcare: { enrollmentStatus: 'Enrolled' }
         };
         this.dodRecordsData = {
             isVerified: true,
-            serviceBranch: 'Army',
-            highestRank: 'SSG',
-            dischargeType: 'Honorable',
-            isCombatVeteran: true,
-            verificationAlerts: ['Service verified: Army', 'Combat veteran status confirmed']
+            serviceRecord: {
+                serviceBranch: 'Army',
+                highestRank: 'SSG',
+                dischargeType: 'Honorable',
+                isCombatVeteran: true
+            }
         };
         this.benefitRecommendations = [
-            'Consider using remaining education benefits',
-            'VA home loan benefit available',
-            'Healthcare enrollment optimization available'
+            'Consider using remaining GI Bill benefits',
+            'VA home loan benefit available'
         ];
     }
 
@@ -237,12 +239,17 @@ export default class CvmaEpic8Dashboard extends LightningElement {
 
     // Government Services getters
     get formattedCompensation() {
-        const compensation = this.vaBenefitsData?.monthlyCompensation;
+        const compensation = this.vaBenefitsData?.disability?.monthlyCompensation;
         return compensation ? `$${compensation.toLocaleString()}` : '$0';
     }
 
     get hasBenefitRecommendations() {
         return this.benefitRecommendations && this.benefitRecommendations.length > 0;
+    }
+
+    get isFirstThreeRecommendations() {
+        // Helper for template to show only first 3 recommendations
+        return true; // Simplified for template logic
     }
 
     get govServicesHealthClass() {

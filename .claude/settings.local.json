@@ -77,7 +77,9 @@
       "Bash(git stash push:*)",
       "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT QualifiedApiName, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = ''Contact'' AND IsCustom = true ORDER BY QualifiedApiName\")",
       "Bash(sf sobject describe:*)",
-      "Bash(\"C:\\Program Files\\sf\\bin\\sf.exe\" data query --query \"SELECT Name FROM ApexClass WHERE Name LIKE ''%Test%'' ORDER BY Name\" --target-org cvma)"
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf.exe\" data query --query \"SELECT Name FROM ApexClass WHERE Name LIKE ''%Test%'' ORDER BY Name\" --target-org cvma)",
+      "WebSearch",
+      "WebFetch(domain:developer.va.gov)"
     ],
     "deny": [],
     "ask": []

@@ -46,13 +46,6 @@
                                aria-selected={isVeteranServicesActive}
                                tabindex={isVeteranServicesActive}>Veteran Services</a>
                         </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link"
-                               data-view="governmentservices"
-                               onclick={handleViewChange}
-                               aria-selected={isGovernmentServicesActive}
-                               tabindex={isGovernmentServicesActive}>Government Services</a>
-                        </li>
                         <template if:true={hasPremiumAccess}>
                             <li class="slds-tabs_default__item" role="presentation">
                                 <a class="slds-tabs_default__link"
@@ -88,7 +81,7 @@
                                 <div class="slds-p-horizontal_medium slds-p-bottom_medium">
                                     <div class={phase3StatusClass}>{phase3Status}</div>
                                     <p class="slds-text-body_small slds-m-top_small">
-                                        Government Integration Excellence Status
+                                        External Integration Excellence Status
                                     </p>
                                 </div>
                             </lightning-card>
@@ -151,119 +144,6 @@
                                     <p class="slds-text-body_small">Available Support</p>
                                     <div class="slds-m-top_small">
                                         <lightning-button variant="brand" label="Access Crisis Support"></lightning-button>
-                                    </div>
-                                </div>
-                            </lightning-card>
-                        </div>
-                    </div>
-                </template>
-
-                <!-- Government Services Tab Content -->
-                <template if:true={isGovernmentServicesActive}>
-                    <div class="slds-grid slds-wrap slds-gutters">
-                        <!-- VA Benefits Overview -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-card title="VA Benefits Status" icon-name="standard:account">
-                                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
-                                    <template if:true={vaBenefitsData.isEligible}>
-                                        <div class="metric-value">{vaBenefitsData.disability.disabilityRating}%</div>
-                                        <p class="slds-text-body_small">Disability Rating</p>
-                                        <div class="slds-m-top_small">
-                                            <div class="metric-small">Monthly Compensation: {formattedCompensation}</div>
-                                            <div class="metric-small">Healthcare: {vaBenefitsData.healthcare.enrollmentStatus}</div>
-                                        </div>
-                                    </template>
-                                    <template if:false={vaBenefitsData.isEligible}>
-                                        <div class="slds-text-body_small">VA benefits verification pending</div>
-                                    </template>
-                                    <div class="slds-m-top_small">
-                                        <lightning-button variant="neutral" label="View Full Benefits" onclick={handleViewVABenefits}></lightning-button>
-                                    </div>
-                                </div>
-                            </lightning-card>
-                        </div>
-
-                        <!-- Military Service Verification -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-card title="Military Service Verification" icon-name="standard:portal">
-                                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
-                                    <template if:true={dodRecordsData.isVerified}>
-                                        <div class="metric-value">{dodRecordsData.serviceRecord.serviceBranch}</div>
-                                        <p class="slds-text-body_small">Service Branch</p>
-                                        <div class="slds-m-top_small">
-                                            <div class="metric-small">Rank: {dodRecordsData.serviceRecord.highestRank}</div>
-                                            <div class="metric-small">Status: {dodRecordsData.serviceRecord.dischargeType}</div>
-                                            <template if:true={dodRecordsData.serviceRecord.isCombatVeteran}>
-                                                <div class="slds-m-top_x-small">
-                                                    <lightning-icon icon-name="utility:success" alternative-text="Combat Veteran" size="x-small" variant="success" class="slds-m-right_x-small"></lightning-icon>
-                                                    <span class="slds-text-body_small">Combat Veteran Verified</span>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </template>
-                                    <template if:false={dodRecordsData.isVerified}>
-                                        <div class="slds-text-body_small">Military service verification pending</div>
-                                    </template>
-                                    <div class="slds-m-top_small">
-                                        <lightning-button variant="neutral" label="View Service Records" onclick={handleViewDODRecords}></lightning-button>
-                                    </div>
-                                </div>
-                            </lightning-card>
-                        </div>
-
-                        <!-- Benefits Optimization -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-card title="Benefits Optimization" icon-name="standard:coaching">
-                                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
-                                    <div class="metric-value">{benefitRecommendations.length}</div>
-                                    <p class="slds-text-body_small">Available Recommendations</p>
-                                    <div class="slds-m-top_small">
-                                        <template if:true={hasBenefitRecommendations}>
-                                            <template for:each={benefitRecommendations} for:item="recommendation" for:index="index">
-                                                <div key={recommendation} class="slds-m-bottom_x-small">
-                                                    <template if:true={isFirstThreeRecommendations}>
-                                                        <lightning-icon icon-name="utility:info" alternative-text="Recommendation" size="x-small" variant="info" class="slds-m-right_x-small"></lightning-icon>
-                                                        <span class="slds-text-body_small">{recommendation}</span>
-                                                    </template>
-                                                </div>
-                                            </template>
-                                        </template>
-                                        <template if:false={hasBenefitRecommendations}>
-                                            <div class="slds-text-body_small">No recommendations available</div>
-                                        </template>
-                                    </div>
-                                    <div class="slds-m-top_small">
-                                        <lightning-button variant="brand" label="Get Optimization Report" onclick={handleOptimizationReport}></lightning-button>
-                                    </div>
-                                </div>
-                            </lightning-card>
-                        </div>
-
-                        <!-- Government Resources -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-card title="Government Resources" icon-name="standard:resource_territory">
-                                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
-                                    <div class="slds-m-bottom_medium">
-                                        <h3 class="slds-text-heading_small slds-m-bottom_x-small">Quick Access</h3>
-                                        <div class="slds-grid slds-wrap slds-gutters_x-small">
-                                            <div class="slds-col slds-size_1-of-2">
-                                                <lightning-button variant="neutral" label="VA.gov" onclick={handleVAGovAccess} class="slds-size_1-of-1"></lightning-button>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-2">
-                                                <lightning-button variant="neutral" label="eBenefits" onclick={handleEBenefitsAccess} class="slds-size_1-of-1"></lightning-button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slds-m-top_small">
-                                        <h3 class="slds-text-heading_small slds-m-bottom_x-small">Status Indicators</h3>
-                                        <div class="slds-grid slds-wrap slds-gutters_x-small">
-                                            <div class="slds-col slds-size_1-of-1">
-                                                <div class={govServicesHealthClass}>Government Services: {govServicesHealth}% Available</div>
-                                                <div class="slds-m-top_x-small">
-                                                    <lightning-progress-bar value={govServicesHealth} size="small"></lightning-progress-bar>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </lightning-card>
