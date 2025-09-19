@@ -60,7 +60,21 @@
       "Bash(./bin/gh.exe:*)",
       "Bash(gh project:*)",
       "Bash(gh pr close:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT Id, Level__c FROM Contact WHERE Level__c != null LIMIT 10\")",
+      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT DeveloperName, MasterLabel FROM UserLicense WHERE Name LIKE ''%Community%'' OR Name LIKE ''%Portal%'' OR Name LIKE ''%Partner%''\")",
+      "Bash(wmic:*)",
+      "Bash(where:*)",
+      "Bash(tasklist)",
+      "Bash(ollama list:*)",
+      "Bash(tasklist:*)",
+      "Bash(top:*)",
+      "Read(//c/**)",
+      "Bash(ping:*)",
+      "Bash(nslookup:*)",
+      "Bash(taskkill:*)",
+      "Bash(git reset:*)",
+      "Bash(git stash push:*)"
     ],
     "deny": [],
     "ask": []

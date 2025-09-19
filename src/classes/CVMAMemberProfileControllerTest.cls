@@ -7,51 +7,24 @@ public class CVMAMemberProfileControllerTest {
 
     @TestSetup
     static void setupTestData() {
-        // Create test account
-        Account testAccount = new Account(
-            Name = 'CVMA Test Chapter'
-        );
-        insert testAccount;
+        // Use CVMATestDataFactory for proper portal user creation
+        Contact testContact = CVMATestDataFactory.createContact()
+            .withFirstName('John')
+            .withLastName('Rider')
+            .withEmail('john.rider@cvma.com')
+            .withLevel('Full Member')
+            .withMembershipId('FM001')
+            .withRoadName('Thunder Road')
+            .create();
 
-        // Create test contact
-        Contact testContact = new Contact(
-            FirstName = 'John',
-            LastName = 'Rider',
-            Email = 'john.rider@cvma.com',
-            Phone = '555-123-4567',
-            MobilePhone = '555-987-6543',
-            MailingStreet = '123 Main St',
-            MailingCity = 'Jacksonville',
-            MailingState = 'FL',
-            MailingPostalCode = '32256',
-            MailingCountry = 'USA',
-            Membership_Id__c = 'FM001',
-            Level__c = 'Full Member',
-            Road_Name__c = 'Thunder Road',
-            AccountId = testAccount.Id
-        );
-        insert testContact;
-
-        // Create test user profile
-        Profile testProfile = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
-
-        // Create test user
-        User testUser = new User(
-            FirstName = 'John',
-            LastName = 'Rider',
-            Email = 'john.rider@cvma.com',
-            Username = 'john.rider.test@cvma.com.test',
-            Alias = 'jrider',
-            TimeZoneSidKey = 'America/New_York',
-            LocaleSidKey = 'en_US',
-            EmailEncodingKey = 'UTF-8',
-            LanguageLocaleKey = 'en_US',
-            ProfileId = testProfile.Id,
-            ContactId = testContact.Id,
-            Phone = '555-123-4567',
-            MobilePhone = '555-987-6543'
-        );
-        insert testUser;
+        // Create test user with proper portal profile
+        User testUser = CVMATestDataFactory.createUser()
+            .asPortalUser()
+            .withFirstName('John')
+            .withLastName('Rider')
+            .withEmail('john.rider.test@cvma.com.test')
+            .withContact(testContact)
+            .create();
     }
 
     @IsTest

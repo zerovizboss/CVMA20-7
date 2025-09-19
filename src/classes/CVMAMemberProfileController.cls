@@ -11,6 +11,20 @@ public with sharing class CVMAMemberProfileController {
     @AuraEnabled(cacheable=true)
     public static MemberProfileData getMemberProfile() {
         try {
+            // Validate CRUD permissions for User object
+            CVMAErrorHandler.validateCRUDPermissions(
+                User.getSObjectType(),
+                new List<String>{'Id', 'FirstName', 'LastName', 'Email', 'Phone', 'MobilePhone', 'ContactId'},
+                'read'
+            );
+
+            // Validate CRUD permissions for Contact object
+            CVMAErrorHandler.validateCRUDPermissions(
+                Contact.getSObjectType(),
+                new List<String>{'Id', 'Phone', 'MobilePhone', 'Email', 'MailingStreet', 'MailingCity', 'MailingState', 'MailingPostalCode', 'MailingCountry', 'Membership_Id__c', 'Road_Name__c'},
+                'read'
+            );
+
             Id userId = UserInfo.getUserId();
 
             // Get User information with Contact relationship
@@ -22,6 +36,7 @@ public with sharing class CVMAMemberProfileController {
                        Contact.Membership_Id__c, Contact.Road_Name__c
                 FROM User
                 WHERE Id = :userId
+                WITH SECURITY_ENFORCED
                 LIMIT 1
             ];
 
@@ -56,8 +71,10 @@ public with sharing class CVMAMemberProfileController {
             return profileData;
 
         } catch (QueryException e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'getMemberProfile', CVMAErrorHandler.Category.SECURITY);
             throw new AuraHandledException('Error retrieving profile information: ' + e.getMessage());
         } catch (Exception e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'getMemberProfile', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Unexpected error: ' + e.getMessage());
         }
     }
@@ -68,7 +85,23 @@ public with sharing class CVMAMemberProfileController {
     @AuraEnabled
     public static String updateMemberProfile(String profileDataJson) {
         try {
-            MemberProfileData profileData = (MemberProfileData) JSON.deserialize(profileDataJson, MemberProfileData.class);
+            // Validate CRUD permissions for User object
+            CVMAErrorHandler.validateCRUDPermissions(
+                User.getSObjectType(),
+                new List<String>{'FirstName', 'LastName', 'Email', 'Phone', 'MobilePhone'},
+                'update'
+            );
+
+            // Validate CRUD permissions for Contact object
+            CVMAErrorHandler.validateCRUDPermissions(
+                Contact.getSObjectType(),
+                new List<String>{'Phone', 'MobilePhone', 'Email', 'MailingStreet', 'MailingCity', 'MailingState', 'MailingPostalCode', 'MailingCountry'},
+                'update'
+            );
+
+            // Sanitize input
+            String sanitizedInput = CVMAErrorHandler.sanitizeInput(profileDataJson);
+            MemberProfileData profileData = (MemberProfileData) JSON.deserialize(sanitizedInput, MemberProfileData.class);
 
             // Validate current user can update this profile
             Id currentUserId = UserInfo.getUserId();
@@ -133,10 +166,13 @@ public with sharing class CVMAMemberProfileController {
             return 'Profile updated successfully';
 
         } catch (JSONException e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'updateMemberProfile', CVMAErrorHandler.Category.DATA_VALIDATION);
             throw new AuraHandledException('Invalid profile data format: ' + e.getMessage());
         } catch (DmlException e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'updateMemberProfile', CVMAErrorHandler.Category.SYSTEM_ERROR);
             throw new AuraHandledException('Database error: ' + e.getDmlMessage(0));
         } catch (Exception e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'updateMemberProfile', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Error updating profile: ' + e.getMessage());
         }
     }

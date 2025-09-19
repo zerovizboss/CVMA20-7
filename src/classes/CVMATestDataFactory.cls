@@ -4,7 +4,7 @@
  * Implements builder pattern for flexible test data configuration
  */
 @IsTest
-public class CVMATestDataFactory {
+public with sharing class CVMATestDataFactory {
 
     // Constants for default values
     private static final String DEFAULT_FIRST_NAME = 'Test';
@@ -193,12 +193,25 @@ public class CVMATestDataFactory {
             return this;
         }
 
+        public UserBuilder asPortalUser() {
+            // Set appropriate portal profile
+            Id portalProfileId = getPortalUserProfileId();
+            this.user.ProfileId = portalProfileId;
+            return this;
+        }
+
         public User build() {
             return this.user;
         }
 
         public User create() {
+            // For portal users, contact must be created first and have an account
             if (this.relatedContact != null && this.relatedContact.Id == null) {
+                // If contact doesn't have an account, create one for portal users
+                if (this.relatedContact.AccountId == null && isPortalProfile(this.user.ProfileId)) {
+                    Account portalAccount = createAccount().create();
+                    this.relatedContact.AccountId = portalAccount.Id;
+                }
                 insert this.relatedContact;
             }
 
@@ -367,6 +380,25 @@ public class CVMATestDataFactory {
                 .build());
         }
 
+        insert users;
+        return users;
+    }
+
+    /**
+     * Create portal users with proper account/contact association
+     */
+    public static List<User> createPortalUsersWithContacts(Integer count) {
+        List<User> users = new List<User>();
+
+        for (Integer i = 0; i < count; i++) {
+            // Create user with portal profile and auto-create account/contact
+            User portalUser = createUser()
+                .asPortalUser()
+                .withContact(createContact().build())
+                .create();
+            users.add(portalUser);
+        }
+
         return users;
     }
 
@@ -410,12 +442,12 @@ public class CVMATestDataFactory {
     }
 
     private static Id getStandardUserProfileId() {
-        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
+        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'Standard User' WITH SECURITY_ENFORCED LIMIT 1];
         return profiles.isEmpty() ? null : profiles[0].Id;
     }
 
     private static Id getSystemAdminProfileId() {
-        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'System Administrator' LIMIT 1];
+        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'System Administrator' WITH SECURITY_ENFORCED LIMIT 1];
         return profiles.isEmpty() ? getStandardUserProfileId() : profiles[0].Id;
     }
 
@@ -424,12 +456,42 @@ public class CVMATestDataFactory {
         List<Profile> profiles = [
             SELECT Id
             FROM Profile
-            WHERE Name LIKE '%Community%'
+            WHERE (Name LIKE '%Community%'
             OR Name LIKE '%Customer%'
-            OR Name LIKE '%Partner%'
+            OR Name LIKE '%Partner%')
+            AND UserType = 'PowerPartner'
+            WITH SECURITY_ENFORCED
             LIMIT 1
         ];
         return profiles.isEmpty() ? getStandardUserProfileId() : profiles[0].Id;
+    }
+
+    private static Id getPortalUserProfileId() {
+        // Find Customer Portal User profile specifically for portal tests
+        List<Profile> profiles = [
+            SELECT Id
+            FROM Profile
+            WHERE Name = 'Customer Portal User'
+            OR Name = 'High Volume Customer Portal User'
+            OR Name LIKE '%Portal%'
+            WITH SECURITY_ENFORCED
+            LIMIT 1
+        ];
+        return profiles.isEmpty() ? getStandardUserProfileId() : profiles[0].Id;
+    }
+
+    private static Boolean isPortalProfile(Id profileId) {
+        if (profileId == null) return false;
+
+        List<Profile> profiles = [
+            SELECT Id, UserType
+            FROM Profile
+            WHERE Id = :profileId
+            AND (UserType = 'PowerPartner' OR UserType = 'PowerCustomerSuccess' OR UserType LIKE '%Portal%')
+            WITH SECURITY_ENFORCED
+            LIMIT 1
+        ];
+        return !profiles.isEmpty();
     }
 
     /**
