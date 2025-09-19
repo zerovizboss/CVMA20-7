@@ -1,0 +1,15 @@
+{
+    "unit_id": "deploy_new_agents",
+    "created_at": "2025-09-09T16:05:13Z",
+    "assigned_agent": "copilot",
+    "task_type": "git_operations",
+    "description": "Deploy new agent scripts to repository",
+    "priority": 1,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

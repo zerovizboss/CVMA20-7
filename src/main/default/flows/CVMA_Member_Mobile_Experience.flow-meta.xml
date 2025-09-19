@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>Mobile-optimized member experience flow for CVMA members with offline capabilities</description>
+    <dynamicChoiceSets>
+        <name>Member_Action_Choices</name>
+        <dataType>String</dataType>
+        <displayField>Name</displayField>
+        <filters>
+            <field>Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Mobile_Action</stringValue>
+            </value>
+        </filters>
+        <object>CVMA_Application_Config__mdt</object>
+        <outputAssignments>
+            <assignToReference>selectedAction</assignToReference>
+            <field>DeveloperName</field>
+        </outputAssignments>
+        <valueField>DeveloperName</valueField>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <interviewLabel>CVMA Member Mobile Experience</interviewLabel>
+    <label>CVMA Member Mobile Experience</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Member_Dashboard_Screen</name>
+        <label>Member Dashboard</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Welcome_Message</name>
+            <fieldText>&lt;p&gt;&lt;b style="font-size: 18px;"&gt;🏍️ Welcome to CVMA Mobile&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style="font-size: 14px;"&gt;Vets Serving Vets - Chapter 20-7&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Member_Quick_Actions</name>
+            <choiceReferences>Member_Action_Choices</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Select Action</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Application_Status_Display</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Application Status Information&lt;/b&gt;&lt;/p&gt;&lt;p&gt;View your application status in the member portal&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Member_Dashboard_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>selectedAction</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

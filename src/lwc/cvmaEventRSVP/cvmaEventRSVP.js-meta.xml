@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Lightning Web Component for CVMA Event RSVP functionality with privacy controls and summary statistics</description>
+    <masterLabel>CVMA Event RSVP</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Event</object>
+            </objects>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="eventId" type="String" label="Event ID" description="The Event record ID to display RSVP functionality for"/>
+            <property name="showSummary" type="Boolean" default="true" label="Show RSVP Summary" description="Whether to display the RSVP summary statistics"/>
+            <property name="allowNotes" type="Boolean" default="true" label="Allow Notes" description="Whether to allow members to add notes with their RSVP"/>
+            <property name="allowPlusOne" type="Boolean" default="true" label="Allow Plus One" description="Whether to allow members to bring guests"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

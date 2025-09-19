@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>allInternalUsers</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>System Administrator</submitter>
+        <type>user</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Applicant_First_Name__c</field>
+        <field>Applicant_Last_Name__c</field>
+        <field>Applicant_Email__c</field>
+        <field>Service_Branch__c</field>
+        <field>Service_Status__c</field>
+        <field>Combat_Veteran__c</field>
+        <field>Membership_Level__c</field>
+        <field>Chapter_Preference__c</field>
+        <field>Application_Date__c</field>
+        <field>Status__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <type>userHierarchyField</type>
+                <name>Owner</name>
+            </approver>
+        </assignedApprover>
+        <assignedApprover>
+            <approver>
+                <name>CVMA_Officer_Permissions</name>
+                <type>permissionSet</type>
+            </approver>
+        </assignedApprover>
+        <description>Officer review of CVMA membership application</description>
+        <entryCriteria>
+            <criteriaItems>
+                <field>Membership_Application__c.Status__c</field>
+                <operation>equals</operation>
+                <value>Pending Review</value>
+            </criteriaItems>
+        </entryCriteria>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <label>Officer Review</label>
+        <name>Officer_Review</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <description>CVMA Membership Application Approval Process - Epic #7 User Story #25
+Standard Feature Integration: Replaces custom approval workflow logic
+Automated officer notifications and status management</description>
+    <emailTemplate>CVMA_Email_Templates/CVMA_Membership_Application_Notification</emailTemplate>
+    <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
+    <entryCriteria>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <criteriaItems>
+            <field>Membership_Application__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Pending Review</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Membership_Application__c.Applicant_Email__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Membership_Application__c.Service_Branch__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>Update_Status_to_Approved</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Send_Approval_Email_to_Applicant</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Create_Contact_and_Account_Flow</name>
+            <type>Flow</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>Update_Status_to_Rejected</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Send_Rejection_Email_to_Applicant</name>
+            <type>Alert</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Update_Status_to_Under_Review</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Send_Submission_Confirmation_Email</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Notify_Officers_of_New_Application</name>
+            <type>Alert</type>
+        </action>
+    </initialSubmissionActions>
+    <label>CVMA Membership Application Approval</label>
+    <nextAutomatedApprover>
+        <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
+        <userHierarchyField>Manager</userHierarchyField>
+    </nextAutomatedApprover>
+    <postTemplate>Chatter_Templates/CVMA_Officer_Notification_Post</postTemplate>
+    <process>
+        <description>Automated processing of CVMA membership applications with officer approval workflow</description>
+        <name>CVMA_Membership_Application_Process</name>
+    </process>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

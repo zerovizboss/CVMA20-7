@@ -1,0 +1,215 @@
+<template>
+    <div class="slds-card rsvp-container">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-utility-event" title="RSVP">
+                        <lightning-icon icon-name="utility:event" alternative-text="RSVP" size="medium"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Event RSVP</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center" style="min-height: 100px;">
+                    <lightning-spinner alternative-text="Processing" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Current RSVP Status -->
+            <template if:false={isLoading}>
+                <template if:true={hasCurrentRSVP}>
+                    <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                            <div class="slds-col">
+                                <div class="slds-text-heading_small">Your Current RSVP:</div>
+                                <div class={currentRSVPClass}>
+                                    <strong>{currentRSVPDisplay}</strong>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-no-flex">
+                                <lightning-button
+                                    variant={buttonVariant}
+                                    label={buttonLabel}
+                                    onclick={handleShowRSVPForm}
+                                    disabled={isLoading}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- No Current RSVP -->
+                <template if:false={hasCurrentRSVP}>
+                    <div class="slds-box slds-box_x-small slds-text-align_center slds-m-bottom_medium">
+                        <div class="slds-text-heading_small slds-m-bottom_small">
+                            You haven't responded to this event yet.
+                        </div>
+                        <lightning-button
+                            variant="brand"
+                            label="RSVP Now"
+                            onclick={handleShowRSVPForm}
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </div>
+                </template>
+
+                <!-- RSVP Form -->
+                <template if:true={showRSVPForm}>
+                    <div class="slds-box slds-theme_default">
+                        <h3 class="slds-text-heading_medium slds-m-bottom_medium">{formTitle}</h3>
+
+                        <div class="slds-form slds-form_stacked">
+                            <!-- Response Selection -->
+                            <div class="slds-form-element slds-is-required">
+                                <label class="slds-form-element__label" for="rsvp-response">
+                                    <abbr class="slds-required" title="required">*</abbr>
+                                    Your Response
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <lightning-radio-group
+                                        name="rsvpResponse"
+                                        value={selectedResponse}
+                                        options={responseOptions}
+                                        onchange={handleResponseChange}
+                                        required>
+                                    </lightning-radio-group>
+                                </div>
+                            </div>
+
+                            <!-- Plus One Section (only show for Yes responses) -->
+                            <template if:true={showPlusOneSection}>
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-checkbox">
+                                            <input type="checkbox"
+                                                   name="plusOne"
+                                                   id="plus-one-checkbox"
+                                                   checked={bringPlusOne}
+                                                   onchange={handlePlusOneChange} />
+                                            <label class="slds-checkbox__label" for="plus-one-checkbox">
+                                                <span class="slds-checkbox_faux"></span>
+                                                <span class="slds-form-element__label">I'm bringing a guest (+1)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <template if:true={bringPlusOne}>
+                                    <div class="slds-form-element slds-is-required">
+                                        <label class="slds-form-element__label" for="plus-one-name">
+                                            <abbr class="slds-required" title="required">*</abbr>
+                                            Guest Name
+                                        </label>
+                                        <div class="slds-form-element__control">
+                                            <input type="text"
+                                                   id="plus-one-name"
+                                                   class="slds-input"
+                                                   value={plusOneName}
+                                                   onchange={handlePlusOneNameChange}
+                                                   placeholder="Enter guest name"
+                                                   maxlength="100" />
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+
+                            <!-- Notes Section -->
+                            <template if:true={allowNotes}>
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="rsvp-notes">
+                                        Additional Notes
+                                    </label>
+                                    <div class="slds-form-element__control">
+                                        <textarea id="rsvp-notes"
+                                                  class="slds-textarea"
+                                                  value={rsvpNotes}
+                                                  onchange={handleNotesChange}
+                                                  placeholder="Any additional information..."
+                                                  maxlength="500"></textarea>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <!-- Form Actions -->
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <div class="slds-grid slds-grid_align-end slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning-button
+                                                variant="neutral"
+                                                label="Cancel"
+                                                onclick={handleCancelRSVP}
+                                                disabled={isLoading}>
+                                            </lightning-button>
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning-button
+                                                variant="brand"
+                                                label="Submit RSVP"
+                                                onclick={handleSubmitRSVP}
+                                                disabled={isSubmitDisabled}>
+                                            </lightning-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- RSVP Summary (optional) -->
+                <template if:true={showSummary}>
+                    <template if:true={rsvpSummary}>
+                        <div class="slds-box slds-theme_shade slds-m-top_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_medium">RSVP Summary</h3>
+
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                    <div class="slds-text-align_center">
+                                        <div class="slds-text-heading_large slds-text-color_success">{yesCount}</div>
+                                        <div class="slds-text-body_small">Yes</div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                    <div class="slds-text-align_center">
+                                        <div class="slds-text-heading_large slds-text-color_error">{noCount}</div>
+                                        <div class="slds-text-body_small">No</div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                    <div class="slds-text-align_center">
+                                        <div class="slds-text-heading_large slds-text-color_default">{maybeCount}</div>
+                                        <div class="slds-text-body_small">Maybe</div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                    <div class="slds-text-align_center">
+                                        <div class="slds-text-heading_large slds-text-color_default">{plusOneCount}</div>
+                                        <div class="slds-text-body_small">+1 Guests</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-text-align_center slds-m-top_medium">
+                                <div class="slds-text-heading_medium">
+                                    <strong>{totalAttending}</strong> Total Attending
+                                </div>
+                                <div class="slds-text-body_small">
+                                    {totalResponses} total responses
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

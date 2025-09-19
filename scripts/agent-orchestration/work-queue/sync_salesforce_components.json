@@ -1,0 +1,15 @@
+{
+    "unit_id": "sync_salesforce_components",
+    "created_at": "2025-09-09T16:16:18Z",
+    "assigned_agent": "salesforce-monitor",
+    "task_type": "deployment_monitoring",
+    "description": "Sync components with Salesforce org",
+    "priority": 2,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

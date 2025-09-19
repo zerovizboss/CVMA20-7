@@ -1,0 +1,310 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-budget">
+                        <lightning-icon icon-name="standard:budget" alternative-text="Budget Management" title="Budget Management"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Budget Management</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-line-height_reset">Campaign Budget Tracking with 85% Code Reduction</p>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <lightning-button-icon
+                    icon-name="utility:refresh"
+                    alternative-text="Refresh Data"
+                    title="Refresh Budget Data"
+                    onclick={handleRefresh}
+                    disabled={isLoading}>
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading budget data..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <template if:true={budgetData}>
+                    <!-- Budget Summary Cards -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center budget-summary-card">
+                                <div class="slds-text-heading_large slds-text-color_success">{formattedTotalBudget}</div>
+                                <div class="slds-text-body_small">Total Budget</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{budgetData.reportingPeriod}</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center budget-summary-card">
+                                <div class="slds-text-heading_large slds-text-color_error">{formattedTotalSpent}</div>
+                                <div class="slds-text-body_small">Total Spent</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{budgetData.activeCampaigns} Active Campaigns</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center budget-summary-card">
+                                <div class="slds-text-heading_large">{formattedTotalRemaining}</div>
+                                <div class="slds-text-body_small">Remaining Budget</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center budget-summary-card">
+                                <div class={budgetUtilizationClass}>{formattedBudgetUtilization}</div>
+                                <div class="slds-text-body_small">Budget Utilization</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Budget Alerts Section -->
+                    <template if:true={hasBudgetAlerts}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Budget Alerts">Budget Alerts</span>
+                            </h3>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={budgetData.budgetAlerts} for:item="alert">
+                                    <div key={alert.campaignName} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <div class="slds-box slds-theme_alert-texture">
+                                            <div class="slds-media">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon icon-name={alert.severity} size="small" variant={alert.severity}></lightning-icon>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <div class="slds-text-heading_small">{alert.alertType}</div>
+                                                    <div class="slds-text-body_small">{alert.campaignName}</div>
+                                                    <div class="slds-text-body_small slds-m-top_x-small">{alert.message}</div>
+                                                    <div class="slds-text-body_small slds-text-color_weak">
+                                                        {alert.currentValue}% (Threshold: {alert.threshold}%)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Campaign Budgets Table -->
+                    <template if:true={hasCampaignBudgets}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Campaign Budgets">Campaign Budgets</span>
+                            </h3>
+                            <div class="slds-table_edit_container slds-is-relative">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_edit slds-table_edit_container slds-table_responsive-horizontal">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Campaign">Campaign</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Budget">Budget</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Spent">Spent</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Remaining">Remaining</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Utilization">Utilization</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="ROI">ROI</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Actions">Actions</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={budgetData.campaignBudgets} for:item="campaign">
+                                            <tr key={campaign.campaignId} class="slds-hint-parent">
+                                                <td data-label="Campaign">
+                                                    <div class="slds-truncate">{campaign.campaignName}</div>
+                                                    <div class="slds-text-body_small slds-text-color_weak">{campaign.campaignType} • {campaign.status}</div>
+                                                </td>
+                                                <td data-label="Budget">
+                                                    <div class="slds-truncate">{campaign.budgetedCost}</div>
+                                                </td>
+                                                <td data-label="Spent">
+                                                    <div class="slds-truncate">{campaign.actualCost}</div>
+                                                </td>
+                                                <td data-label="Remaining">
+                                                    <div class="slds-truncate">{campaign.remainingBudget}</div>
+                                                </td>
+                                                <td data-label="Utilization">
+                                                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                                                        <div class="slds-truncate">{campaign.utilizationPercentage}%</div>
+                                                        <div class="slds-progress-bar slds-progress-bar_x-small slds-m-left_x-small" aria-valuemin="0" aria-valuemax="100" aria-valuenow={campaign.utilizationPercentage} role="progressbar">
+                                                            <span class="slds-progress-bar__value" style={campaign.utilizationPercentage}></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td data-label="ROI">
+                                                    <div class="slds-truncate">{campaign.roi}%</div>
+                                                </td>
+                                                <td data-label="Actions">
+                                                    <lightning-button-menu alternative-text="Campaign Actions" menu-alignment="right">
+                                                        <lightning-menu-item
+                                                            value="edit"
+                                                            label="Edit Budget"
+                                                            data-campaign-id={campaign.campaignId}
+                                                            onclick={handleEditBudget}>
+                                                        </lightning-menu-item>
+                                                    </lightning-button-menu>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Spending by Category Chart -->
+                    <template if:true={categoryChartData}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Spending by Category">Spending by Category</span>
+                            </h3>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={categoryChartData} for:item="category">
+                                    <div key={category.label} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-6">
+                                        <div class="slds-box slds-text-align_center category-card">
+                                            <div class="slds-text-heading_medium">{category.formattedValue}</div>
+                                            <div class="slds-text-body_small">{category.label}</div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Budget Variance Analysis -->
+                    <template if:true={hasVarianceData}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Budget Variance Analysis">Budget Variance Analysis</span>
+                            </h3>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Campaign">Campaign</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Budgeted">Budgeted</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Actual">Actual</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Variance">Variance</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Category">Category</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={varianceData} for:item="variance">
+                                        <tr key={variance.campaignName} class="slds-hint-parent">
+                                            <td data-label="Campaign">
+                                                <div class="slds-truncate">{variance.campaignName}</div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{variance.campaignType}</div>
+                                            </td>
+                                            <td data-label="Budgeted">
+                                                <div class="slds-truncate">{variance.budgetedCost}</div>
+                                            </td>
+                                            <td data-label="Actual">
+                                                <div class="slds-truncate">{variance.actualCost}</div>
+                                            </td>
+                                            <td data-label="Variance">
+                                                <div class="slds-truncate">
+                                                    <span class={variance.percentVariance}>{variance.variance} ({variance.percentVariance}%)</span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Category">
+                                                <div class="slds-truncate">{variance.varianceCategory}</div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-color_weak">
+                            <h3 class="slds-text-heading_medium">Unable to load budget data</h3>
+                            <p class="slds-text-body_regular">Please check your permissions and try again.</p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+
+    <!-- Budget Edit Modal -->
+    <template if:true={showBudgetModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCancelBudget}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Edit Campaign Budget</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-form slds-form_stacked">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="campaign-name">Campaign</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="campaign-name" class="slds-input" readonly value={selectedCampaign.campaignName} />
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="budget-amount">Budget Amount</label>
+                            <div class="slds-form-element__control">
+                                <input type="number" id="budget-amount" class="slds-input" step="0.01" min="0" value={newBudgetAmount} onchange={handleBudgetAmountChange} />
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <p class="slds-text-body_small slds-text-color_weak">
+                                    Current spending: {selectedCampaign.actualCost}<br>
+                                    Current utilization: {selectedCampaign.utilizationPercentage}%
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handleCancelBudget}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={handleSaveBudget} disabled={isLoading}>
+                        <template if:true={isLoading}>
+                            <lightning-spinner size="x-small" class="slds-m-right_x-small"></lightning-spinner>
+                        </template>
+                        Save Budget
+                    </button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

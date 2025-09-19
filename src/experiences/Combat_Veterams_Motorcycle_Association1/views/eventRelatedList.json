@@ -11,11 +11,11 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "customTitle" : "",
+        "customTitle" : "CVMA Lucky 7 Events",
         "parentRecordId" : "{!recordId}",
         "relatedListName" : "{!relationshipApiName}",
         "showBreadCrumbs" : true,
-        "showCustomTitle" : false,
+        "showCustomTitle" : true,
         "showManualRefreshButton" : true,
         "showRowNumbers" : true
       },

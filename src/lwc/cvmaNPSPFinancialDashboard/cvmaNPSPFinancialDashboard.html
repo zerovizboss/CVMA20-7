@@ -1,0 +1,239 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-opportunity">
+                        <lightning-icon icon-name="standard:opportunity" alternative-text="NPSP Financial Dashboard" title="NPSP Financial Dashboard"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>NPSP Financial Dashboard</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-line-height_reset">Enhanced Financial Reporting with 85% Code Reduction</p>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <lightning-button-icon
+                    icon-name="utility:refresh"
+                    alternative-text="Refresh Data"
+                    title="Refresh Financial Data"
+                    onclick={handleRefresh}
+                    disabled={isLoading}>
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading financial data..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <template if:true={npspData}>
+                    <!-- Financial Summary Cards -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large slds-text-color_success">{formattedTotalDonations}</div>
+                                <div class="slds-text-body_small">Total Donations</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{npspData.reportingPeriod}</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{npspData.totalDonors}</div>
+                                <div class="slds-text-body_small">Total Donors</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{npspData.householdCount} Households</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large">{formattedAverageGift}</div>
+                                <div class="slds-text-body_small">Average Gift</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                            <div class="slds-box slds-text-align_center">
+                                <div class="slds-text-heading_large slds-text-color_error">{formattedLargestGift}</div>
+                                <div class="slds-text-body_small">Largest Gift</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Donors Section -->
+                    <template if:true={hasTopDonors}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Top Donors">Top Donors</span>
+                            </h3>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Donor">Donor</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Total Giving">Total Giving</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Gift Count">Gift Count</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Average Gift">Average Gift</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Location">Location</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={npspData.topDonors} for:item="donor">
+                                        <tr key={donor.donorName} class="slds-hint-parent">
+                                            <td data-label="Donor">
+                                                <div class="slds-truncate">{donor.donorName}</div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{donor.accountType}</div>
+                                            </td>
+                                            <td data-label="Total Giving">
+                                                <div class="slds-truncate">{donor.totalGiving}</div>
+                                            </td>
+                                            <td data-label="Gift Count">
+                                                <div class="slds-truncate">{donor.giftCount}</div>
+                                            </td>
+                                            <td data-label="Average Gift">
+                                                <div class="slds-truncate">{donor.averageGift}</div>
+                                            </td>
+                                            <td data-label="Location">
+                                                <div class="slds-truncate">{donor.location}</div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                    <!-- NPSP Household Giving -->
+                    <template if:true={hasHouseholds}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="NPSP Household Analytics">NPSP Household Analytics</span>
+                            </h3>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={npspData.householdGiving} for:item="household">
+                                    <div key={household.householdName} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <div class="slds-box">
+                                            <div class="slds-media">
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-icon_container slds-icon-standard-household">
+                                                        <lightning-icon icon-name="standard:household" size="small"></lightning-icon>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <div class="slds-text-heading_small">{household.householdName}</div>
+                                                    <div class="slds-text-body_small slds-text-color_weak">{household.primaryLocation}</div>
+                                                    <div class="slds-text-body_small slds-m-top_x-small">
+                                                        <strong>{household.householdTotal}</strong> total giving
+                                                    </div>
+                                                    <div class="slds-text-body_small">
+                                                        {household.memberCount} members • {household.perMemberAverage} avg per member
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Campaign ROI Analytics -->
+                    <template if:true={hasCampaignROI}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Campaign ROI Analytics">Campaign ROI Analytics</span>
+                            </h3>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Campaign">Campaign</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Revenue">Revenue</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="ROI">ROI %</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Response Rate">Response Rate</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Revenue/Member">Revenue/Member</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={campaignROI} for:item="campaign">
+                                        <tr key={campaign.campaignName} class="slds-hint-parent">
+                                            <td data-label="Campaign">
+                                                <div class="slds-truncate">{campaign.campaignName}</div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{campaign.campaignType}</div>
+                                            </td>
+                                            <td data-label="Revenue">
+                                                <div class="slds-truncate">{campaign.wonRevenue}</div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{campaign.donationCount} donations</div>
+                                            </td>
+                                            <td data-label="ROI">
+                                                <div class="slds-truncate">{campaign.roiPercentage}%</div>
+                                            </td>
+                                            <td data-label="Response Rate">
+                                                <div class="slds-truncate">{campaign.responseRate}%</div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{campaign.respondedYes}/{campaign.totalMembers}</div>
+                                            </td>
+                                            <td data-label="Revenue/Member">
+                                                <div class="slds-truncate">{campaign.revenuePerMember}</div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                    <!-- Regional Giving Summary -->
+                    <template if:true={regionChartData}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Regional Giving">Regional Giving Distribution</span>
+                            </h3>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={regionChartData} for:item="region">
+                                    <div key={region.label} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-6">
+                                        <div class="slds-box slds-text-align_center">
+                                            <div class="slds-text-heading_medium">{region.value}</div>
+                                            <div class="slds-text-body_small">{region.label}</div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-color_weak">
+                            <h3 class="slds-text-heading_medium">Unable to load NPSP financial data</h3>
+                            <p class="slds-text-body_regular">Please check your permissions and try again.</p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

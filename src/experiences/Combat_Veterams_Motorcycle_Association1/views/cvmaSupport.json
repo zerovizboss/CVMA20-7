@@ -7,7 +7,7 @@
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "background" : "background: rgba(0,0,0,0) url(/sfsites/c/file-asset/X23517510_2009803649296061_279276587?v=1) center center /cover",
+        "background" : "background: rgba(0,0,0,0)",
         "backgroundOverlay" : "rgba(0,0,0,0.5)",
         "contentAreaWidth" : 100,
         "sectionConfig" : {
@@ -31,6 +31,37 @@
       "componentName" : "forceCommunity:section",
       "id" : "bee5ce59-5e64-4c09-96e3-b72f1e45fc3e",
       "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "allowAttachments" : true,
+            "attachmentLabel" : "Upload File",
+            "buttonAlignment" : "center",
+            "buttonBgColor" : "",
+            "buttonBgHoverColor" : "",
+            "buttonBorderColor" : "",
+            "buttonMaxWidth" : "",
+            "buttonRadius" : 0,
+            "buttonTextColor" : "",
+            "buttonTextHoverColor" : "",
+            "callToAction" : false,
+            "callToActionButtonText" : "",
+            "callToActionText" : "",
+            "callToActionUrl" : "",
+            "confirmationSubtext" : "We’ll get back to you soon.",
+            "confirmationText" : "Your case was created.",
+            "guestQuickActionName" : "GuestCommunityCase",
+            "headerSubtitle" : "S&Bb4O",
+            "headerTitle" : "CVMA Lucky 7 Member Support",
+            "isMicrobatch" : false,
+            "quickActionName" : "NewCase",
+            "requestSummaryText" : "Case summary"
+          },
+          "componentName" : "forceCommunity:contactSupportForm",
+          "id" : "ace8c852-a7d6-4b46-92a4-13e849e0a837",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
         "id" : "b07396b1-bb50-4e75-b05f-128e23b1ab31",
         "regionLabel" : "Column 1",
         "regionName" : "1",
@@ -55,7 +86,7 @@
       "componentAttributes" : {
         "customHeadTags" : "",
         "description" : "",
-        "title" : "Cvma Support"
+        "title" : "CVMA Lucky 7 Member Support"
       },
       "componentName" : "forceCommunity:seoAssistant",
       "id" : "feea834a-5884-487a-ba27-345896679c4b",

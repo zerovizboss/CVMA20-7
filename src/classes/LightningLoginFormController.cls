@@ -1,7 +1,7 @@
 global class LightningLoginFormController {
 
     public LightningLoginFormController() {
-        
+
     }
 
     @AuraEnabled
@@ -12,10 +12,10 @@ global class LightningLoginFormController {
             return null;
         }
         catch (Exception ex) {
-            return ex.getMessage();            
+            return ex.getMessage();
         }
     }
-    
+
     @AuraEnabled
     public static Boolean getIsUsernamePasswordEnabled() {
         Auth.AuthConfiguration authConfig = getAuthConfig();
@@ -42,7 +42,7 @@ global class LightningLoginFormController {
         Auth.AuthConfiguration authConfig = getAuthConfig();
         return authConfig.getForgotPasswordUrl();
     }
-    
+
     @TestVisible
     private static Auth.AuthConfiguration getAuthConfig(){
         Id networkId = Network.getNetworkId();
@@ -52,14 +52,14 @@ global class LightningLoginFormController {
 
     @AuraEnabled
     global static String setExperienceId(String expId) {
-        // Return null if there is no error, else it will return the error message 
+        // Return null if there is no error, else it will return the error message
         try {
             if (expId != null) {
                 Site.setExperienceId(expId);
             }
-            return null; 
+            return null;
         } catch (Exception ex) {
-            return ex.getMessage();            
+            return ex.getMessage();
         }
-    }   
+    }
 }

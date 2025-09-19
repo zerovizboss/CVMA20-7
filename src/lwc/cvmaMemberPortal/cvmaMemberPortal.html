@@ -1,0 +1,372 @@
+<template>
+    <!-- CVMA Member Portal - Epic #8 Access -->
+    <div class="cvma-member-portal">
+
+        <!-- Header -->
+        <header class="portal-header">
+            <div class="header-content">
+                <div class="cvma-logo">
+                    <h1>🏍️ CVMA Chapter 20-7</h1>
+                    <p class="tagline">Vets Serving Vets - Epic #8 Enhanced</p>
+                </div>
+                <template if:true={isAuthenticated}>
+                    <div class="member-info">
+                        <div class="member-name">{memberData.memberName}</div>
+                        <div class={accessLevelClass}>{accessLevel} Member</div>
+                        <div class={membershipStatusClass}>{membershipStatus}</div>
+                        <lightning-button variant="outline-brand" label="Logout" onclick={handleLogout}></lightning-button>
+                    </div>
+                </template>
+            </div>
+        </header>
+
+        <!-- Authentication Form -->
+        <template if:false={isAuthenticated}>
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Member Authentication</h2>
+                    <p class="auth-subtitle">Access your Epic #8 member portal</p>
+
+                    <div class="auth-form">
+                        <lightning-input
+                            type="text"
+                            label="Membership ID"
+                            value={membershipId}
+                            data-field="membershipId"
+                            onchange={handleInputChange}
+                            placeholder="FM123, SUP789, AUX456"
+                            required>
+                        </lightning-input>
+
+                        <lightning-input
+                            type="text"
+                            label="Last Name"
+                            value={lastName}
+                            data-field="lastName"
+                            onchange={handleInputChange}
+                            placeholder="Enter your last name"
+                            required>
+                        </lightning-input>
+
+                        <lightning-input
+                            type="email"
+                            label="Email (Optional)"
+                            value={email}
+                            data-field="email"
+                            onchange={handleInputChange}
+                            placeholder="verification@cvma.org">
+                        </lightning-input>
+
+                        <template if:true={errorMessage}>
+                            <div class="error-message">
+                                <lightning-icon icon-name="utility:error" size="small"></lightning-icon>
+                                {errorMessage}
+                            </div>
+                        </template>
+
+                        <div class="auth-actions">
+                            <lightning-button
+                                variant="brand"
+                                label="Access Epic #8"
+                                onclick={handleAuthentication}
+                                disabled={isLoading}
+                                class="auth-button">
+                            </lightning-button>
+
+                            <lightning-button
+                                variant="outline-brand"
+                                label="Crisis Support"
+                                onclick={handleCrisisSupport}
+                                class="crisis-button">
+                            </lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="auth-help">
+                        <h3>Need Help?</h3>
+                        <ul>
+                            <li>Contact chapter leadership for your Membership ID</li>
+                            <li>Crisis support is available 24/7 without login</li>
+                            <li>VA benefits information accessible to all veterans</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Member Portal Dashboard -->
+        <template if:true={isAuthenticated}>
+            <div class="portal-content">
+
+                <!-- Navigation Tabs -->
+                <nav class="portal-nav">
+                    <ul class="nav-tabs">
+                        <li class={dashboardTabClass}>
+                            <a href="#" data-tab="dashboard" onclick={handleTabClick}>🏠 Dashboard</a>
+                        </li>
+                        <template if:true={hasAnalyticsAccess}>
+                            <li class={analyticsTabClass}>
+                                <a href="#" data-tab="analytics" onclick={handleTabClick}>📊 Analytics</a>
+                            </li>
+                        </template>
+                        <li class={benefitsTabClass}>
+                            <a href="#" data-tab="benefits" onclick={handleTabClick}>🇺🇸 VA Benefits</a>
+                        </li>
+                        <template if:true={hasCrossChapterAccess}>
+                            <li class={crossChapterTabClass}>
+                                <a href="#" data-tab="crosschapter" onclick={handleTabClick}>🤝 Cross-Chapter</a>
+                            </li>
+                        </template>
+                        <li class={crisisTabClass}>
+                            <a href="#" data-tab="crisis" onclick={handleTabClick}>🆘 Crisis Support</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Dashboard Content -->
+                <main class="portal-main">
+
+                    <!-- Dashboard Tab -->
+                    <template if:true={isDashboardActive}>
+                        <section class="dashboard-section">
+                            <h2>Your Epic #8 Dashboard</h2>
+
+                            <!-- Member Profile Summary -->
+                            <div class="profile-card">
+                                <h3>Member Profile</h3>
+                                <div class="profile-details">
+                                    <p><strong>Membership ID:</strong> {memberData.membershipId}</p>
+                                    <p><strong>Level:</strong> {memberData.membershipLevel}</p>
+                                    <p><strong>Road Name:</strong> {memberData.roadName}</p>
+                                    <p><strong>Join Date:</strong> {memberData.joinDate}</p>
+                                    <p><strong>Access Level:</strong> <span class={accessLevelClass}>{accessLevel}</span></p>
+                                </div>
+                            </div>
+
+                            <!-- Available Features -->
+                            <div class="features-grid">
+                                <template if:true={hasAnalyticsAccess}>
+                                    <div class="feature-card analytics">
+                                        <h4>📊 Analytics Access</h4>
+                                        <ul>
+                                            <template for:each={availableFeatures.analytics} for:item="feature">
+                                                <li key={feature}>✅ {feature}</li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+
+                                <template if:true={hasExternalIntegrationAccess}>
+                                    <div class="feature-card integration">
+                                        <h4>🔗 External Integration</h4>
+                                        <ul>
+                                            <template for:each={availableFeatures.external_integration} for:item="feature">
+                                                <li key={feature}>✅ {feature}</li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Epic #8 Status -->
+                            <template if:true={epic8Data}>
+                                <div class="epic8-status">
+                                    <h3>Epic #8 Phase 3 Status</h3>
+                                    <div class="status-grid">
+                                        <div class="status-item">
+                                            <span class="status-label">Veteran Services:</span>
+                                            <span class="status-value">{epic8Data.veteran_services_integration.status}</span>
+                                        </div>
+                                        <div class="status-item">
+                                            <span class="status-label">Cross-Chapter Analytics:</span>
+                                            <span class="status-value">{epic8Data.cross_chapter_analytics.status}</span>
+                                        </div>
+                                        <div class="status-item">
+                                            <span class="status-label">Advanced Automation:</span>
+                                            <span class="status-value">{epic8Data.advanced_automation.status}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </section>
+                    </template>
+
+                    <!-- Analytics Tab -->
+                    <template if:true={isAnalyticsActive}>
+                        <section class="analytics-section">
+                            <h2>📊 Member Analytics</h2>
+
+                            <template if:true={analyticsData}>
+                                <div class="analytics-grid">
+                                    <div class="analytics-card">
+                                        <h4>Engagement Score</h4>
+                                        <div class="metric-value">{dashboardData.chapterEngagement.engagementScore}%</div>
+                                    </div>
+                                    <div class="analytics-card">
+                                        <h4>Event Attendance</h4>
+                                        <div class="metric-value">{dashboardData.chapterEngagement.eventAttendanceRate}%</div>
+                                    </div>
+                                    <div class="analytics-card">
+                                        <h4>Membership Tenure</h4>
+                                        <div class="metric-value">{dashboardData.memberProfile.tenureMonths} months</div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template if:true={hasLeadershipTools}>
+                                <div class="leadership-analytics">
+                                    <h3>🎯 Leadership Analytics</h3>
+                                    <p>Predictive insights and advanced metrics available for Full Members</p>
+                                    <!-- Additional analytics for Premium members -->
+                                </div>
+                            </template>
+                        </section>
+                    </template>
+
+                    <!-- VA Benefits Tab -->
+                    <template if:true={isVaBenefitsActive}>
+                        <section class="benefits-section">
+                            <h2>🇺🇸 VA Benefits & Resources</h2>
+
+                            <div class="benefits-grid">
+                                <div class="benefit-card">
+                                    <h4>Healthcare Benefits</h4>
+                                    <p>Access to VA healthcare services and enrollment</p>
+                                    <lightning-button variant="outline-brand" label="Learn More" onclick={handleVaBenefitsLink}></lightning-button>
+                                </div>
+
+                                <div class="benefit-card">
+                                    <h4>Disability Benefits</h4>
+                                    <p>Compensation for service-connected conditions</p>
+                                    <lightning-button variant="outline-brand" label="Apply Now" onclick={handleVaBenefitsLink}></lightning-button>
+                                </div>
+
+                                <div class="benefit-card">
+                                    <h4>Education Benefits</h4>
+                                    <p>GI Bill and education assistance programs</p>
+                                    <lightning-button variant="outline-brand" label="Explore Options" onclick={handleVaBenefitsLink}></lightning-button>
+                                </div>
+
+                                <div class="benefit-card">
+                                    <h4>Home Loans</h4>
+                                    <p>VA-backed home loans with no down payment</p>
+                                    <lightning-button variant="outline-brand" label="Get Started" onclick={handleVaBenefitsLink}></lightning-button>
+                                </div>
+                            </div>
+
+                            <!-- Local Resources -->
+                            <div class="local-resources">
+                                <h3>Local Veteran Resources</h3>
+                                <div class="resource-list">
+                                    <div class="resource-item">
+                                        <strong>VA San Diego Healthcare System</strong>
+                                        <p>3350 La Jolla Village Dr, San Diego, CA 92161</p>
+                                        <p>Phone: (858) 552-8585</p>
+                                    </div>
+                                    <div class="resource-item">
+                                        <strong>Vet Center San Diego</strong>
+                                        <p>2900 6th Ave, San Diego, CA 92103</p>
+                                        <p>Phone: (619) 294-2040</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </template>
+
+                    <!-- Cross-Chapter Tab -->
+                    <template if:true={isCrossChapterActive}>
+                        <section class="crosschapter-section">
+                            <h2>🤝 Cross-Chapter Coordination</h2>
+
+                            <template if:true={crossChapterData.availableEvents}>
+                                <div class="events-section">
+                                    <h3>Upcoming Multi-Chapter Events</h3>
+                                    <div class="events-grid">
+                                        <template for:each={crossChapterData.availableEvents} for:item="event">
+                                            <div key={event.eventName} class="event-card">
+                                                <h4>{event.eventName}</h4>
+                                                <p><strong>Date:</strong> {event.date}</p>
+                                                <p><strong>Participating Chapters:</strong> {event.participatingChapters}</p>
+                                                <template if:true={event.registrationOpen}>
+                                                    <lightning-button
+                                                        variant="brand"
+                                                        label="Register"
+                                                        data-event-id={event.eventName}
+                                                        onclick={handleEventRegistration}>
+                                                    </lightning-button>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <div class="collaboration-info">
+                                <h3>Your Collaboration Level: {crossChapterData.collaborationLevel}</h3>
+                                <p>Connect and coordinate with {crossChapterData.regionalChapters.length} regional chapters</p>
+                            </div>
+                        </section>
+                    </template>
+
+                    <!-- Crisis Support Tab -->
+                    <template if:true={isCrisisActive}>
+                        <section class="crisis-section">
+                            <h2>🆘 Crisis Support & Emergency Resources</h2>
+
+                            <div class="crisis-alert">
+                                <h3>🚨 Immediate Help Available</h3>
+                                <p>If you're in crisis, help is available 24/7</p>
+                            </div>
+
+                            <div class="crisis-resources">
+                                <div class="crisis-card emergency">
+                                    <h4>Crisis Lifeline</h4>
+                                    <p class="crisis-number">988</p>
+                                    <p>24/7, free and confidential support</p>
+                                    <lightning-button variant="destructive" label="Call Now" onclick={handleCrisisSupport}></lightning-button>
+                                </div>
+
+                                <div class="crisis-card">
+                                    <h4>Veterans Crisis Line</h4>
+                                    <p class="crisis-number">1-800-273-8255</p>
+                                    <p>Press 1 for Veterans Crisis Line</p>
+                                </div>
+
+                                <div class="crisis-card">
+                                    <h4>Text Support</h4>
+                                    <p class="crisis-number">Text 838255</p>
+                                    <p>Crisis support via text message</p>
+                                </div>
+
+                                <div class="crisis-card">
+                                    <h4>Online Chat</h4>
+                                    <p>VeteransCrisisLine.net</p>
+                                    <p>Start a confidential chat</p>
+                                </div>
+                            </div>
+
+                            <div class="support-info">
+                                <h3>Additional Support Resources</h3>
+                                <ul>
+                                    <li>CVMA Chapter 20-7 Peer Support Network</li>
+                                    <li>Local mental health services</li>
+                                    <li>VA Mental Health services</li>
+                                    <li>Family support resources</li>
+                                </ul>
+                            </div>
+                        </section>
+                    </template>
+
+                </main>
+            </div>
+        </template>
+
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="loading-overlay">
+                <lightning-spinner alternative-text="Loading Epic #8..." size="large"></lightning-spinner>
+            </div>
+        </template>
+
+    </div>
+</template>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>CVMA NPSP Financial Dashboard - User Story #19: 90.6% Code Reduction via Standard Feature Integration</description>
+    <isExposed>true</isExposed>
+    <masterLabel>CVMA NPSP Financial Dashboard</masterLabel>
+    <targets>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__HomePage,lightning__AppPage">
+            <property name="title" type="String" default="CVMA Financial Dashboard"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

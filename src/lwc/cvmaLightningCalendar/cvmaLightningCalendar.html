@@ -1,0 +1,288 @@
+<template>
+    <!-- Lightning Calendar Wrapper for CVMA Event Management -->
+    <div class="cvma-calendar-container">
+
+        <!-- Calendar Header with Navigation -->
+        <div class="calendar-header">
+            <div class="header-navigation">
+                <lightning-button-icon
+                    icon-name="utility:chevronleft"
+                    onclick={handlePrevMonth}
+                    title="Previous Month"
+                    alternative-text="Previous Month">
+                </lightning-button-icon>
+
+                <h2 class="current-month-year">{currentMonthYear}</h2>
+
+                <lightning-button-icon
+                    icon-name="utility:chevronright"
+                    onclick={handleNextMonth}
+                    title="Next Month"
+                    alternative-text="Next Month">
+                </lightning-button-icon>
+            </div>
+
+            <div class="header-actions">
+                <lightning-button
+                    label="Today"
+                    onclick={handleToday}
+                    variant="neutral">
+                </lightning-button>
+
+                <lightning-button
+                    label="New Event"
+                    onclick={handleNewEvent}
+                    variant="brand"
+                    class="new-event-btn">
+                </lightning-button>
+
+                <lightning-button
+                    label="Sync Campaigns"
+                    onclick={handleSyncCampaigns}
+                    variant="neutral"
+                    title="Sync CVMA Campaigns to Calendar">
+                </lightning-button>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="loading-container">
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Lightning Calendar Component -->
+        <div class="calendar-wrapper">
+            <lightning-calendar
+                value={selectedDate}
+                onselect={handleDateSelect}
+                date={currentDate}>
+            </lightning-calendar>
+
+            <!-- Events Display for Selected Date -->
+            <template if:true={hasEvents}>
+                <div class="events-list">
+                    <h3>Events</h3>
+                    <template for:each={calendarEvents} for:item="event">
+                        <div key={event.id} class="event-item" onclick={handleEventSelect} data-event-id={event.id}>
+                            <div class="event-title">{event.subject}</div>
+                            <div class="event-time">
+                                {event.startTime} - {event.endTime}
+                            </div>
+                            <template if:true={event.description}>
+                                <div class="event-description">{event.description}</div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+
+        <!-- New Event Modal -->
+        <template if:true={showEventModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+
+                    <!-- Modal Header -->
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate">Create CVMA Event</h2>
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={handleCloseEventModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        </button>
+                    </header>
+
+                    <!-- Modal Body -->
+                    <div class="slds-modal__content slds-p-around_medium">
+
+                        <!-- Event Name -->
+                        <div class="slds-form-element slds-m-bottom_medium">
+                            <label class="slds-form-element__label" for="event-name">
+                                <abbr class="slds-required" title="required">*</abbr>Event Name
+                            </label>
+                            <div class="slds-form-element__control">
+                                <lightning-input
+                                    id="event-name"
+                                    value={newEventName}
+                                    onchange={handleEventNameChange}
+                                    required
+                                    max-length="80"
+                                    placeholder="Enter event name">
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <!-- Event Description -->
+                        <div class="slds-form-element slds-m-bottom_medium">
+                            <label class="slds-form-element__label" for="event-description">Description</label>
+                            <div class="slds-form-element__control">
+                                <lightning-textarea
+                                    id="event-description"
+                                    value={newEventDescription}
+                                    onchange={handleEventDescriptionChange}
+                                    max-length="32000"
+                                    placeholder="Enter event description">
+                                </lightning-textarea>
+                            </div>
+                        </div>
+
+                        <!-- Start Date and Time -->
+                        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="start-date">
+                                        <abbr class="slds-required" title="required">*</abbr>Start Date
+                                    </label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input
+                                            id="start-date"
+                                            type="date"
+                                            value={newEventStartDate}
+                                            onchange={handleStartDateChange}
+                                            required>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="start-time">
+                                        <abbr class="slds-required" title="required">*</abbr>Start Time
+                                    </label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input
+                                            id="start-time"
+                                            type="time"
+                                            value={newEventStartTime}
+                                            onchange={handleStartTimeChange}
+                                            required>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End Date and Time -->
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="end-date">End Date</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input
+                                            id="end-date"
+                                            type="date"
+                                            value={newEventEndDate}
+                                            onchange={handleEndDateChange}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="end-time">End Time</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input
+                                            id="end-time"
+                                            type="time"
+                                            value={newEventEndTime}
+                                            onchange={handleEndTimeChange}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <footer class="slds-modal__footer">
+                        <lightning-button
+                            label="Cancel"
+                            onclick={handleCloseEventModal}
+                            variant="neutral">
+                        </lightning-button>
+                        <lightning-button
+                            label="Create Event"
+                            onclick={handleSaveEvent}
+                            variant="brand"
+                            disabled={isSubmitDisabled}>
+                        </lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        <!-- Event Details Modal -->
+        <template if:true={showDetailsModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+
+                    <!-- Modal Header -->
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate">{selectedEventTitle}</h2>
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={handleCloseDetailsModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        </button>
+                    </header>
+
+                    <!-- Modal Body -->
+                    <div class="slds-modal__content slds-p-around_medium">
+
+                        <!-- Event Times -->
+                        <div class="event-details-section">
+                            <h3 class="slds-text-heading_small">Event Times</h3>
+                            <p><strong>Start:</strong> {selectedEventStartTime}</p>
+                            <p><strong>End:</strong> {selectedEventEndTime}</p>
+                        </div>
+
+                        <!-- Event Description -->
+                        <template if:true={selectedEvent.description}>
+                            <div class="event-details-section">
+                                <h3 class="slds-text-heading_small">Description</h3>
+                                <p>{selectedEvent.description}</p>
+                            </div>
+                        </template>
+
+                        <!-- RSVP Summary -->
+                        <template if:true={selectedEvent.yesCount}>
+                            <div class="event-details-section">
+                                <h3 class="slds-text-heading_small">RSVP Summary</h3>
+                                <div class="rsvp-summary">
+                                    <div class="rsvp-item">
+                                        <span class="rsvp-status yes">Yes:</span> {selectedEvent.yesCount}
+                                    </div>
+                                    <div class="rsvp-item">
+                                        <span class="rsvp-status no">No:</span> {selectedEvent.noCount}
+                                    </div>
+                                    <div class="rsvp-item">
+                                        <span class="rsvp-status maybe">Maybe:</span> {selectedEvent.maybeCount}
+                                    </div>
+                                    <div class="rsvp-item total">
+                                        <span class="rsvp-status">Total Attending:</span> {selectedEvent.totalAttending}
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <footer class="slds-modal__footer">
+                        <lightning-button
+                            label="Close"
+                            onclick={handleCloseDetailsModal}
+                            variant="neutral">
+                        </lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+    </div>
+</template>

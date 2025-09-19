@@ -41,7 +41,7 @@
     <navigationMenuItem>
         <label>Contact Support</label>
         <position>6</position>
-        <publiclyAvailable>false</publiclyAvailable>
+        <publiclyAvailable>true</publiclyAvailable>
         <target>/contactsupport</target>
         <type>InternalLink</type>
     </navigationMenuItem>
@@ -71,6 +71,16 @@
         <position>10</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Logout</target>
+        <type>Event</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>CVMA Lucky 7 Events</label>
+        <menuItemBranding>
+            <tileImage>VHVSTENCIL3LOGOSAMERICANFLAG1</tileImage>
+        </menuItemBranding>
+        <position>11</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>Login</target>
         <type>Event</type>
     </navigationMenuItem>
 </NavigationMenu>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>NEILON1__Neilon_Jobs_Administration</defaultLandingTab>
+    <description>This is a Salesforce Classic app for Neilon Project Management.</description>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Neilon Project Management</label>
+    <logo>NEILON1__Appurin_Images/NEILON1__Neilon_Logo.jpg</logo>
+    <tabs>NEILON1__Neilon_Jobs_Administration</tabs>
+    <tabs>NEILON1__Job__c</tabs>
+    <tabs>NEILON1__Invoice__c</tabs>
+    <tabs>NEILON1__Service_Type__c</tabs>
+</CustomApplication>

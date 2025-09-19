@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Approval notification sent to applicant when membership is approved</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>CVMA Membership Approved Notification</name>
+    <style>none</style>
+    <subject>🏍️ WELCOME TO CVMA! Your Membership Has Been Approved</subject>
+    <textOnly>Congratulations {!Membership_Application__c.Applicant_First_Name__c}!
+
+We are proud to welcome you to the Combat Veterans Motorcycle Association (CVMA) Chapter 20-7 family!
+
+YOUR MEMBERSHIP DETAILS:
+- Membership ID: {!Membership_Application__c.Membership_ID_Generated__c}
+- Member Since: {!Membership_Application__c.Processing_Date__c}
+- Membership Level: {!Membership_Application__c.Membership_Level__c}
+- Chapter: Chapter 20-7 - Jacksonville, FL
+
+NEXT STEPS:
+1. WELCOME MEETING: Attend our next chapter meeting to receive your official welcome
+2. MEMBER ORIENTATION: Complete new member orientation and brotherhood introduction
+3. EVENTS ACCESS: You now have access to all CVMA Chapter 20-7 events and rides
+4. COMMUNICATION: You will be added to our member communication channels
+5. MERCHANDISE: Contact us about ordering your CVMA patches and gear
+
+UPCOMING EVENTS:
+Check your email for invitations to upcoming chapter meetings, rides, and social events.
+
+MEMBER RESOURCES:
+- Chapter Website: www.cvma20-7.org
+- Member Portal: Access through our Salesforce community
+- Emergency Contacts: Available in your member profile
+
+BROTHERHOOD COMMITMENT:
+As a CVMA member, you join a brotherhood dedicated to "Vets Serving Vets." We support each other, our families, and our community through:
+- Veteran advocacy and support
+- Community service and charity rides
+- Brotherhood and camaraderie
+- Motorcycle safety and riding events
+
+CONTACT YOUR OFFICERS:
+If you have any questions or need assistance, please reach out:
+- Email: officers@cvma20-7.org
+- Phone: (904) 555-CVMA
+
+Welcome to the family, Brother/Sister!
+
+Vets Serving Vets
+Combat Veterans Motorcycle Association
+Chapter 20-7 - Jacksonville, FL
+
+"Honor the Fallen, Help the Living"</textOnly>
+    <type>text</type>
+</EmailTemplate>

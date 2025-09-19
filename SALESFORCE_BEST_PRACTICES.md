@@ -59,7 +59,7 @@ CVMAErrorHandler.validateCRUDPermissions(Contact.SObjectType, contactFields, 're
 // Secure query with enforced security
 List<Contact> contacts = [
     SELECT FirstName, LastName, Email
-    FROM Contact 
+    FROM Contact
     WHERE Id IN :contactIds
     WITH SECURITY_ENFORCED
 ];
@@ -232,9 +232,9 @@ System.debug('Configuration Issues: ' + issues);
 
 // Test error logging
 CVMAErrorHandler.logError(
-    new System.CalloutException('Test error'), 
+    new System.CalloutException('Test error'),
     'TestClass', 'testMethod',
-    CVMAErrorHandler.Severity.LOW, 
+    CVMAErrorHandler.Severity.LOW,
     CVMAErrorHandler.Category.SYSTEM
 );
 ```
@@ -372,6 +372,6 @@ When implementing future enhancements:
 
 ---
 
-**Last Updated:** January 2025  
-**Version:** 2.0  
+**Last Updated:** January 2025
+**Version:** 2.0
 **Maintained By:** CVMA Development Team

@@ -47,6 +47,11 @@
     </types>
     <types>
         <members>SiteSamples</members>
+        <members>ApexCharts</members>
+        <members>ChartJS</members>
+        <members>Lodash</members>
+        <members>Momentjs</members>
+        <members>SweetAlert2</members>
         <name>StaticResource</name>
     </types>
     <types>
@@ -2194,6 +2199,11 @@
         <members>User</members>
         <members>Membership_Application__c</members>
         <members>CVMA_Error_Log__c</members>
+        <members>CVMA_Event_RSVP__c</members>
+        <members>CVMA_Guest_Request__c</members>
+        <members>CVMA_Announcement__c</members>
+        <members>CVMA_Message__c</members>
+        <members>CVMA_Communication_Event__e</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -2273,6 +2283,11 @@
         <members>Enablement_sfdcSESv60.dashboardFolder</members>
         <members>Enablement_sfdcSESv61.dashboardFolder</members>
         <members>prm_channel_dashboard_folder/Enablement_Root_Prm_sfdcSES/Enablement_Prm_sfdcSESv61.dashboardFolder</members>
+        <members>CVMA_Financial_Compliance</members>
+        <members>CVMA_Financial_Compliance/CVMA_Financial_Compliance_Monitor</members>
+        <members>CVMA_Financial_Compliance/CVMA_Treasurer_Executive_Dashboard</members>
+        <members>CVMA_Epic_7_Analytics</members>
+        <members>CVMA_Executive_Analytics_Dashboard</members>
         <name>Dashboard</name>
     </types>
     <types>
@@ -2284,19 +2299,14 @@
         <name>DigitalExperienceConfig</name>
     </types>
     <types>
-        <members>Experiences_Shared_Document_Folder</members>
         <members>Experiences_Shared_Document_Folder/logo_1_png</members>
-        <members>Extentia_SIM__MapPlotter_Documents</members>
         <members>Extentia_SIM__MapPlotter_Documents/Extentia_SIM__Map_plotter_Application_logo</members>
         <members>Extentia_SIM__MapPlotter_Documents/Extentia_SIM__MP_Premium_Version_logo</members>
         <members>Extentia_SIM__MapPlotter_Documents/Extentia_SIM__MPPLogoNew_175_65</members>
-        <members>Extentia_SIM__Salesforce1_Branding_Resources</members>
         <members>Extentia_SIM__Salesforce1_Branding_Resources/Extentia_SIM__MPV2logoS1_jpg</members>
         <members>Extentia_SIM__Salesforce1_Branding_Resources/Extentia_SIM__servlet_png</members>
-        <members>npsp__NPSP_Documents</members>
         <members>npsp__NPSP_Documents/npsp__NPSP_Data_Import_Template_csv</members>
         <members>npsp__NPSP_Documents/npsp__Sample_Letterhead_Logo</members>
-        <members>trailheadapp__Trailhead</members>
         <members>trailheadapp__Trailhead/trailheadapp__Trailhead_Flogo</members>
         <members>trailheadapp__Trailhead/trailheadapp__trailheadLogo_png</members>
         <name>Document</name>
@@ -2366,6 +2376,15 @@
         <members>unfiled$public/Web_to_Case_Sample_1749737826330</members>
         <members>DNBI__DNBI_email_Templates.emailFolder</members>
         <members>npsp__NPSP_Email_Templates.emailFolder</members>
+        <members>CVMA_Financial_Compliance</members>
+        <members>CVMA_Financial_Compliance/Annual_Financial_Statement</members>
+        <members>CVMA_Financial_Compliance/Monthly_Budget_Performance_Report</members>
+        <members>CVMA_Financial_Compliance/Quarterly_Financial_Summary</members>
+        <members>CVMA_Email_Templates</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Application_Confirmation.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Approved_Notification.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Rejected_Notification.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_New_Application_Officer_Notification.email-meta.xml</members>
         <name>EmailTemplate</name>
     </types>
     <types>
@@ -2706,6 +2725,8 @@
         <members>WorkType.My_WorkTypes</members>
         <members>WorkTypeGroup.All_WorkTypeGroups</members>
         <members>WorkTypeGroup.My_WorkTypeGroups</members>
+        <members>default.Membership_Application__c.CVMA_Approved_Applications</members>
+        <members>default.Membership_Application__c.CVMA_Pending_Applications</members>
         <name>ListView</name>
     </types>
     <types>
@@ -3057,7 +3078,32 @@
         <members>CVMA_Application_Config.Email_Batch_Size</members>
         <members>CVMA_Email_Template.Renewal_Reminder</members>
         <members>CVMA_Email_Template.Welcome_New_Member</members>
+        <members>CVMA_Application_Config.Mobile_Update_Profile</members>
+        <members>CVMA_Application_Config.Mobile_View_Events</members>
+        <members>CVMA_Application_Config.Epic_8_Analytics_Integration</members>
         <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>CVMA_Financial_Analytics</members>
+        <members>CVMA_Financial_Analytics/CVMA_Monthly_Budget_Performance</members>
+        <members>CVMA_Financial_Analytics/CVMA_Annual_Financial_Statement</members>
+        <members>CVMA_Financial_Analytics/CVMA_Campaign_ROI_Analysis</members>
+        <members>CVMA_Financial_Analytics/CVMA_Financial_Audit_Trail</members>
+        <members>CVMA_Financial_Analytics/CVMA_Member_Financial_Status</members>
+        <members>CVMA_Financial_Analytics/CVMA_Monthly_Transaction_Detail</members>
+        <members>CVMA_Financial_Analytics/CVMA_Quarterly_Financial_Trends</members>
+        <members>CVMA_Financial_Analytics/CVMA_Simple_Budget_Report</members>
+        <members>CVMA_Financial_Analytics/CVMA_Simple_Revenue_Report</members>
+        <members>CVMA_Application_Analytics</members>
+        <members>CVMA_Executive_Analytics.reportFolder</members>
+        <members>CVMA_Executive_Analytics</members>
+        <members>CVMA_Executive_Analytics/CVMA_Member_Management_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Event_Management_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Financial_Performance_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Communication_Effectiveness_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Development_Excellence_KPIs</members>
+        <members>CVMA_Executive_Analytics/CVMA_Member_Experience_KPIs</members>
+        <name>Report</name>
     </types>
     <version>63.0</version>
 </Package>

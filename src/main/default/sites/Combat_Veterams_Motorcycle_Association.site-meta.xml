@@ -20,9 +20,9 @@
     <inMaintenancePage>InMaintenance</inMaintenancePage>
     <indexPage>CommunitiesLanding</indexPage>
     <masterLabel>Combat Veterams Motorcycle Association</masterLabel>
-    <redirectToCustomDomain>false</redirectToCustomDomain>
+    <redirectToCustomDomain>true</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
-    <selfRegPage>CommunitiesSelfReg</selfRegPage>
+    <selfRegPage>SiteRegister</selfRegPage>
     <siteAdmin>detonator@cvma20-7.org</siteAdmin>
     <siteGuestRecordDefaultOwner>detonator@cvma20-7.org</siteGuestRecordDefaultOwner>
     <siteType>ChatterNetwork</siteType>

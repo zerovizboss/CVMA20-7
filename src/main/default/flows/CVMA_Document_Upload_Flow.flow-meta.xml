@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>Document upload flow for member applications using native Salesforce Files</description>
+    <environments>Default</environments>
+    <interviewLabel>CVMA Document Upload</interviewLabel>
+    <label>CVMA Document Upload</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Document_Upload_Screen</name>
+        <label>Document Upload</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Upload_Instructions</name>
+            <fieldText>&lt;p&gt;&lt;b style="font-size: 18px;"&gt;📁 Document Upload Center&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Upload required documents for your CVMA membership application:&lt;/p&gt;&lt;p&gt;• DD-214 (Military Discharge Papers)&lt;/p&gt;&lt;p&gt;• Valid Photo ID&lt;/p&gt;&lt;p&gt;• Proof of Motorcycle Insurance&lt;/p&gt;&lt;p&gt;• Any additional supporting documents&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>File_Upload_Component</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Upload Documents</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>recordId</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>false</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Upload_Success_Message</name>
+            <fieldText>&lt;div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px;"&gt;
+&lt;p&gt;&lt;b&gt;✅ Success!&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Your documents have been uploaded and will be reviewed by chapter officers.&lt;/p&gt;
+&lt;p&gt;You'll receive notification once your application status is updated.&lt;/p&gt;
+&lt;/div&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>File_Upload_Component</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Document_Upload_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

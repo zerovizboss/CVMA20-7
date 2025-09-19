@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "c191ca9f-79c2-4607-bcca-44265edbd880",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "aeb6ea58-b669-4208-a428-ab571b02e758",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "User_Settings_Customizable_User_Settings_Component",
+  "id" : "943bf5d9-4a92-452b-81ff-72c2a0183996",
+  "type" : "experienceVariation"
+}

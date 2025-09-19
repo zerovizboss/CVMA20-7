@@ -1,0 +1,273 @@
+.slds-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.slds-card__header {
+    background: linear-gradient(90deg, #0070d2 0%, #005fb2 100%);
+    color: white;
+    border-bottom: none;
+}
+
+.slds-card__header .slds-icon_container {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.slds-card__header h2 {
+    color: white;
+    font-weight: 600;
+}
+
+.slds-card__header p {
+    color: rgba(255,255,255,0.8);
+}
+
+.budget-summary-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.budget-summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.category-card {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.category-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.slds-text-heading_large {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.slds-text-color_success {
+    color: #04844b;
+}
+
+.slds-text-color_error {
+    color: #c23934;
+}
+
+.slds-text-color_warning {
+    color: #fe9339;
+}
+
+.slds-section__title {
+    background: linear-gradient(90deg, #f4f6f9 0%, #e8ebef 100%);
+    border-left: 4px solid #0070d2;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.slds-table_striped tbody tr:nth-of-type(even) {
+    background-color: #fafbfc;
+}
+
+.slds-table thead th {
+    background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.slds-theme_alert-texture {
+    border-left: 4px solid #fe9339;
+    background-color: #fef7f0;
+}
+
+.slds-media__figure .slds-icon_container {
+    background: linear-gradient(135deg, #0070d2 0%, #005fb2 100%);
+}
+
+.slds-media__body .slds-text-heading_small {
+    font-weight: 600;
+    color: #0d1421;
+}
+
+/* Progress bar styling */
+.slds-progress-bar {
+    width: 60px;
+}
+
+.slds-progress-bar__value {
+    background-color: #04844b;
+}
+
+.slds-progress-bar__value_warning {
+    background-color: #fe9339;
+}
+
+.slds-progress-bar__value_error {
+    background-color: #c23934;
+}
+
+/* Budget utilization colors */
+.budget-over-limit {
+    color: #c23934;
+    font-weight: 700;
+}
+
+.budget-warning {
+    color: #fe9339;
+    font-weight: 600;
+}
+
+.budget-healthy {
+    color: #04844b;
+    font-weight: 500;
+}
+
+/* Variance analysis colors */
+.variance-over-budget {
+    color: #c23934;
+    font-weight: 600;
+}
+
+.variance-warning {
+    color: #fe9339;
+    font-weight: 500;
+}
+
+.variance-on-budget {
+    color: #04844b;
+}
+
+.variance-under-budget {
+    color: #0070d2;
+}
+
+/* Alert severity styling */
+.alert-high {
+    border-left-color: #c23934;
+    background-color: #fef5f5;
+}
+
+.alert-medium {
+    border-left-color: #fe9339;
+    background-color: #fef7f0;
+}
+
+.alert-low {
+    border-left-color: #0070d2;
+    background-color: #f0f5ff;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .slds-text-heading_large {
+        font-size: 1.5rem;
+    }
+
+    .budget-summary-card {
+        min-height: 100px;
+    }
+
+    .category-card {
+        min-height: 60px;
+    }
+
+    .slds-grid.slds-gutters .slds-col {
+        padding: 0.25rem;
+    }
+
+    .slds-table_cell-buffer td {
+        padding: 0.5rem 0.25rem;
+    }
+
+    .slds-progress-bar {
+        width: 40px;
+    }
+}
+
+/* Loading State */
+.slds-spinner_container {
+    background: rgba(255,255,255,0.8);
+}
+
+/* Error State */
+.slds-illustration {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Animation for data refresh */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slds-card__body > * {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Modal styling */
+.slds-modal__container {
+    max-width: 480px;
+}
+
+.slds-form-element {
+    margin-bottom: 1rem;
+}
+
+/* Budget Management Brand Colors */
+.budget-primary {
+    color: #0070d2;
+}
+
+.budget-secondary {
+    color: #005fb2;
+}
+
+.budget-success {
+    color: #04844b;
+}
+
+.budget-warning {
+    color: #fe9339;
+}
+
+.budget-error {
+    color: #c23934;
+}
+
+/* Interactive elements */
+.slds-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.lightning-button-menu:hover {
+    transform: scale(1.05);
+}
+
+/* Table hover effects */
+.slds-table tbody tr:hover {
+    background-color: #f4f6f9;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}

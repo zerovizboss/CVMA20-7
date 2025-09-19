@@ -3,16 +3,16 @@
  * Provides centralized logic for guest user access to Scheduler functionality
  */
 public class CVMAGuestUserPermissionHelper {
-    
+
     // Constants for permission validation
     public static final String GUEST_PROFILE_NAME = 'Guest License User';
     public static final String PERMISSION_SET_NAME = 'CVMA_Guest_Scheduler_Access';
-    
+
     // Static cache for permission checks
     private static Map<String, Boolean> objectPermissionCache = new Map<String, Boolean>();
     private static Boolean isGuestUserCacheInitialized = false;
     private static Boolean cachedGuestUserStatus = false;
-    
+
     /**
      * Validates if current user is a guest user with proper permissions
      */
@@ -23,7 +23,7 @@ public class CVMAGuestUserPermissionHelper {
         }
         return cachedGuestUserStatus;
     }
-    
+
     /**
      * Checks if guest user has access to specific object
      */
@@ -31,23 +31,23 @@ public class CVMAGuestUserPermissionHelper {
         if (objectPermissionCache.containsKey(objectName)) {
             return objectPermissionCache.get(objectName);
         }
-        
+
         Boolean hasAccess = checkObjectPermission(objectName);
         objectPermissionCache.put(objectName, hasAccess);
         return hasAccess;
     }
-    
+
     /**
      * Validates guest user permissions for scheduler objects
      */
     public static Boolean validateSchedulerAccess() {
         List<String> requiredObjects = new List<String>{
             'ServiceAppointment',
-            'ServiceTerritory', 
+            'ServiceTerritory',
             'WorkType',
             'OperatingHours'
         };
-        
+
         for (String objName : requiredObjects) {
             if (!hasObjectAccess(objName)) {
                 return false;
@@ -55,7 +55,7 @@ public class CVMAGuestUserPermissionHelper {
         }
         return true;
     }
-    
+
     /**
      * Gets list of accessible scheduler objects for guest user
      */
@@ -63,13 +63,13 @@ public class CVMAGuestUserPermissionHelper {
         List<String> allObjects = new List<String>{
             'ServiceAppointment',
             'ServiceTerritory',
-            'WorkType', 
+            'WorkType',
             'OperatingHours',
             'ServiceResource',
             'Event',
             'Case'
         };
-        
+
         List<String> accessibleObjects = new List<String>();
         for (String objName : allObjects) {
             if (hasObjectAccess(objName)) {
@@ -78,16 +78,16 @@ public class CVMAGuestUserPermissionHelper {
         }
         return accessibleObjects;
     }
-    
+
     /**
      * Validates if guest user profile exists and is configured
      */
     public static Boolean validateGuestProfile() {
         try {
             List<Profile> guestProfiles = [
-                SELECT Id, Name 
-                FROM Profile 
-                WHERE Name = :GUEST_PROFILE_NAME 
+                SELECT Id, Name
+                FROM Profile
+                WHERE Name = :GUEST_PROFILE_NAME
                 LIMIT 1
             ];
             return !guestProfiles.isEmpty();
@@ -96,7 +96,7 @@ public class CVMAGuestUserPermissionHelper {
             return false;
         }
     }
-    
+
     /**
      * Checks if custom permission set exists
      */
@@ -104,8 +104,8 @@ public class CVMAGuestUserPermissionHelper {
         try {
             List<PermissionSet> permSets = [
                 SELECT Id, Name, Label
-                FROM PermissionSet 
-                WHERE Name = :PERMISSION_SET_NAME 
+                FROM PermissionSet
+                WHERE Name = :PERMISSION_SET_NAME
                 LIMIT 1
             ];
             return !permSets.isEmpty();
@@ -114,21 +114,21 @@ public class CVMAGuestUserPermissionHelper {
             return false;
         }
     }
-    
+
     /**
      * Gets permission validation results as a map
      */
     public static Map<String, Boolean> getPermissionStatus() {
         Map<String, Boolean> status = new Map<String, Boolean>();
-        
+
         status.put('guestProfileExists', validateGuestProfile());
         status.put('permissionSetExists', validatePermissionSet());
         status.put('schedulerAccessValid', validateSchedulerAccess());
         status.put('isValidGuestUser', isValidGuestUser());
-        
+
         return status;
     }
-    
+
     /**
      * Clears permission cache (useful for testing)
      */
@@ -137,9 +137,9 @@ public class CVMAGuestUserPermissionHelper {
         isGuestUserCacheInitialized = false;
         cachedGuestUserStatus = false;
     }
-    
+
     // Private helper methods
-    
+
     /**
      * Validates guest user permissions
      */
@@ -152,7 +152,7 @@ public class CVMAGuestUserPermissionHelper {
             return false;
         }
     }
-    
+
     /**
      * Checks object permission using describe calls
      */
@@ -162,7 +162,7 @@ public class CVMAGuestUserPermissionHelper {
             if (objType == null) {
                 return false;
             }
-            
+
             Schema.DescribeSObjectResult objDescribe = objType.getDescribe();
             return objDescribe.accessible;
         } catch (Exception e) {

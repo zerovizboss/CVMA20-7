@@ -1,0 +1,311 @@
+<!--
+  @description CVMA Usage Tracking Dashboard - Visual analytics template
+  @author Claude AI - CVMA Development Team
+  @date January 2025
+-->
+<template>
+    <lightning-card title="CVMA Development Usage Analytics" icon-name="standard:dashboard">
+        <div class="slds-p-horizontal_medium">
+            <!-- Loading Spinner -->
+            <template if:true={loading}>
+                <div class="slds-align_absolute-center slds-p-vertical_large">
+                    <lightning-spinner alternative-text="Loading usage data..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error State -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <h2>Error loading usage data: {error}</h2>
+                </div>
+            </template>
+
+            <!-- Main Dashboard Content -->
+            <template if:false={loading}>
+                <!-- Action Buttons -->
+                <div class="slds-grid slds-gutters slds-wrap slds-p-bottom_medium">
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-button-group slds-float_right" role="group">
+                            <lightning-button
+                                variant="neutral"
+                                label="Refresh"
+                                icon-name="utility:refresh"
+                                onclick={handleRefresh}>
+                            </lightning-button>
+                            <lightning-button
+                                variant="brand"
+                                label="Export CSV"
+                                icon-name="utility:download"
+                                onclick={handleExport}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <lightning-tabset active-tab-value={activeTab} onactive={handleTabChange}>
+                    <!-- Overview Tab -->
+                    <lightning-tab label="Overview" value="overview">
+                        <div class="slds-p-around_medium">
+                            <!-- Key Metrics Cards -->
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div class="slds-col slds-size_1-of-4">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-icon_container slds-icon-standard-goals">
+                                                        <lightning-icon icon-name="standard:goals" size="small"></lightning-icon>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">User Stories</h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <div class="slds-text-heading_large slds-text-color_success">
+                                                {developmentMetrics.completedUserStories} / {developmentMetrics.totalUserStories}
+                                            </div>
+                                            <div class="slds-text-body_small slds-text-color_weak">
+                                                {completionPercentage}% Complete
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-icon_container slds-icon-standard-code-playground">
+                                                        <lightning-icon icon-name="standard:code_playground" size="small"></lightning-icon>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">Lines of Code</h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <div class="slds-text-heading_large slds-text-color_success">
+                                                {formattedLinesOfCode}
+                                            </div>
+                                            <div class="slds-text-body_small slds-text-color_weak">
+                                                Generated across all sessions
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-icon_container slds-icon-standard-lightning_component">
+                                                        <lightning-icon icon-name="standard:lightning_component" size="small"></lightning-icon>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">Components</h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <div class="slds-text-heading_large slds-text-color_success">
+                                                {developmentMetrics.componentsCreated}
+                                            </div>
+                                            <div class="slds-text-body_small slds-text-color_weak">
+                                                LWCs, Apex Classes, Objects
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-icon_container slds-icon-standard-trending">
+                                                        <lightning-icon icon-name="standard:trending" size="small"></lightning-icon>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">Code Reduction</h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <div class="slds-text-heading_large slds-text-color_success">
+                                                {developmentMetrics.codeReductionPercentage}%
+                                            </div>
+                                            <div class="slds-text-body_small slds-text-color_weak">
+                                                Standard Feature Integration
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="slds-p-top_large">
+                                <div class="slds-text-heading_medium slds-p-bottom_small">Overall Project Progress</div>
+                                <div class="slds-progress-bar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={completionPercentage} role="progressbar">
+                                    <span class="slds-progress-bar__value" style={progressBarStyle}>
+                                        <span class="slds-assistive-text">Progress: {completionPercentage}%</span>
+                                    </span>
+                                </div>
+                                <div class="slds-text-body_small slds-text-color_weak slds-p-top_x-small">
+                                    {developmentMetrics.completedUserStories} of {developmentMetrics.totalUserStories} user stories completed
+                                </div>
+                            </div>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Epic Progress Tab -->
+                    <lightning-tab label="Epic Progress" value="epics">
+                        <div class="slds-p-around_medium">
+                            <template for:each={developmentMetrics.epicProgress} for:item="epic">
+                                <article key={epic.epicName} class="slds-card slds-m-bottom_medium">
+                                    <div class="slds-card__header slds-grid">
+                                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                            <div class="slds-media__body">
+                                                <h2 class="slds-card__header-title">{epic.epicName}</h2>
+                                                <span class={epic.status} data-status={epic.status}>{epic.status}</span>
+                                            </div>
+                                            <div class="slds-no-flex">
+                                                <span class="slds-text-heading_small">{epic.completionPercentage}% Complete</span>
+                                            </div>
+                                        </header>
+                                    </div>
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <div class="slds-grid slds-gutters">
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <dl class="slds-list_horizontal slds-wrap">
+                                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">User Stories:</dt>
+                                                    <dd class="slds-item_detail">{epic.userStoriesCompleted} / {epic.userStoriesTotal}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <dl class="slds-list_horizontal slds-wrap">
+                                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Code Reduction:</dt>
+                                                    <dd class="slds-item_detail">{epic.codeReduction}%</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <dl class="slds-list_horizontal slds-wrap">
+                                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Last Updated:</dt>
+                                                    <dd class="slds-item_detail">
+                                                        {epic.lastUpdated}
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </template>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Recent Sessions Tab -->
+                    <lightning-tab label="Recent Sessions" value="sessions">
+                        <div class="slds-p-around_medium">
+                            <template for:each={developmentMetrics.recentSessions} for:item="session">
+                                <article key={session.sessionDate} class="slds-card slds-m-bottom_medium">
+                                    <div class="slds-card__header slds-grid">
+                                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                            <div class="slds-media__body">
+                                                <h2 class="slds-card__header-title">{session.userStory}</h2>
+                                                <p class="slds-text-body_small slds-text-color_weak">{session.sessionDate}</p>
+                                            </div>
+                                            <div class="slds-no-flex">
+                                                <span class={session.status} data-status={session.status}>{session.status}</span>
+                                            </div>
+                                        </header>
+                                    </div>
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <div class="slds-grid slds-gutters slds-m-bottom_small">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <dl class="slds-list_horizontal slds-wrap">
+                                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Lines Generated:</dt>
+                                                    <dd class="slds-item_detail">{session.linesGenerated}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <dl class="slds-list_horizontal slds-wrap">
+                                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Components:</dt>
+                                                    <dd class="slds-item_detail">{session.componentsCreated}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="slds-text-body_small">
+                                            <strong>Achievements:</strong> {session.achievements}
+                                        </div>
+                                    </div>
+                                </article>
+                            </template>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Claude Code Usage Tab -->
+                    <lightning-tab label="Claude Code Analytics" value="claude">
+                        <div class="slds-p-around_medium">
+                            <!-- Claude Usage Metrics -->
+                            <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_large">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__body slds-card__body_inner slds-text-align_center">
+                                            <div class="slds-text-heading_large slds-text-color_success">{developmentVelocity}</div>
+                                            <div class="slds-text-body_small slds-text-color_weak">Development Velocity Increase</div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="slds-col slds-size_1-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__body slds-card__body_inner slds-text-align_center">
+                                            <div class="slds-text-heading_large slds-text-color_success">{qualityScore}</div>
+                                            <div class="slds-text-body_small slds-text-color_weak">Quality Improvement Score</div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="slds-col slds-size_1-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__body slds-card__body_inner slds-text-align_center">
+                                            <div class="slds-text-heading_large slds-text-color_success">{claudeCodeUsage.successfulDeployments}</div>
+                                            <div class="slds-text-body_small slds-text-color_weak">Successful Deployments</div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+
+                            <!-- Recent Achievements -->
+                            <article class="slds-card">
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">Recent Claude Code Achievements</h2>
+                                        </div>
+                                    </header>
+                                </div>
+                                <div class="slds-card__body slds-card__body_inner">
+                                    <ul class="slds-list_dotted">
+                                        <template for:each={claudeCodeUsage.recentAchievements} for:item="achievement">
+                                            <li key={achievement} class="slds-item">
+                                                <lightning-icon icon-name="utility:success" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                                {achievement}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </lightning-tab>
+                </lightning-tabset>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,15 @@
+{
+    "unit_id": "validate_experience_cloud",
+    "created_at": "2025-09-09T16:16:18Z",
+    "assigned_agent": "cvma-support",
+    "task_type": "experience_cloud_monitoring",
+    "description": "Validate Experience Cloud site integration",
+    "priority": 3,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

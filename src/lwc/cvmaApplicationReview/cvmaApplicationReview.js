@@ -13,12 +13,12 @@ export default class CvmaApplicationReview extends LightningElement {
     @track selectedApplication;
     @track reviewNotes = '';
     @track pendingAction = '';
-    
+
     // Summary counts
     @track pendingCount = 0;
     @track approvedCount = 0;
     @track rejectedCount = 0;
-    
+
     wiredApplicationsResult;
 
     @wire(getPendingApplications)
@@ -129,10 +129,10 @@ export default class CvmaApplicationReview extends LightningElement {
 
             this.showToast('Success', result, 'success');
             this.closeStatusModal();
-            
+
             // Refresh the applications list
             await refreshApex(this.wiredApplicationsResult);
-            
+
             // Update counts
             if (this.pendingAction === 'Approved') {
                 this.approvedCount += 1;
@@ -163,7 +163,7 @@ export default class CvmaApplicationReview extends LightningElement {
     handleError(title, error) {
         console.error(title + ':', error);
         let message = 'An unknown error occurred';
-        
+
         if (error?.body?.message) {
             message = error.body.message;
         } else if (error?.message) {
@@ -171,7 +171,7 @@ export default class CvmaApplicationReview extends LightningElement {
         } else if (typeof error === 'string') {
             message = error;
         }
-        
+
         this.showToast(title, message, 'error');
     }
 

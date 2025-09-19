@@ -8,6 +8,10 @@
             <access>VIEWER</access>
             <name>CEB</name>
         </network>
+        <network>
+            <access>VIEWER</access>
+            <name>Combat Veterams Motorcycle Association</name>
+        </network>
         <workspace>
             <access>INFERRED</access>
             <isManagingWorkspace>true</isManagingWorkspace>

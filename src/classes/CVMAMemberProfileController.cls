@@ -4,15 +4,29 @@
  * Supports both User and Contact record updates with proper validation
  */
 public with sharing class CVMAMemberProfileController {
-    
+
     /**
      * Get current user's profile information including Contact details
      */
     @AuraEnabled(cacheable=true)
     public static MemberProfileData getMemberProfile() {
         try {
+            // Validate CRUD permissions for User object
+            CVMAErrorHandler.validateCRUDPermissions(
+                User.getSObjectType(),
+                new List<String>{'Id', 'FirstName', 'LastName', 'Email', 'Phone', 'MobilePhone', 'ContactId'},
+                'read'
+            );
+
+            // Validate CRUD permissions for Contact object
+            CVMAErrorHandler.validateCRUDPermissions(
+                Contact.getSObjectType(),
+                new List<String>{'Id', 'Phone', 'MobilePhone', 'Email', 'MailingStreet', 'MailingCity', 'MailingState', 'MailingPostalCode', 'MailingCountry', 'Membership_Id__c', 'Road_Name__c'},
+                'read'
+            );
+
             Id userId = UserInfo.getUserId();
-            
+
             // Get User information with Contact relationship
             User currentUser = [
                 SELECT Id, FirstName, LastName, Email, Phone, MobilePhone, ContactId,
@@ -20,16 +34,17 @@ public with sharing class CVMAMemberProfileController {
                        Contact.MailingStreet, Contact.MailingCity, Contact.MailingState,
                        Contact.MailingPostalCode, Contact.MailingCountry,
                        Contact.Membership_Id__c, Contact.Road_Name__c
-                FROM User 
-                WHERE Id = :userId 
+                FROM User
+                WHERE Id = :userId
+                WITH SECURITY_ENFORCED
                 LIMIT 1
             ];
-            
+
             // Prevent guest users from accessing profile
             if (currentUser.UserType == 'Guest') {
                 throw new AuraHandledException('Guest users cannot access member profiles.');
             }
-            
+
             MemberProfileData profileData = new MemberProfileData();
             profileData.userId = currentUser.Id;
             profileData.contactId = currentUser.ContactId;
@@ -38,7 +53,7 @@ public with sharing class CVMAMemberProfileController {
             profileData.email = currentUser.Email;
             profileData.phone = currentUser.Phone;
             profileData.mobilePhone = currentUser.MobilePhone;
-            
+
             // Contact information (if available)
             if (currentUser.Contact != null) {
                 profileData.contactPhone = currentUser.Contact.Phone;
@@ -52,42 +67,60 @@ public with sharing class CVMAMemberProfileController {
                 profileData.membershipId = currentUser.Contact.Membership_Id__c;
                 profileData.roadName = currentUser.Contact.Road_Name__c;
             }
-            
+
             return profileData;
-            
+
         } catch (QueryException e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'getMemberProfile', CVMAErrorHandler.Category.SECURITY);
             throw new AuraHandledException('Error retrieving profile information: ' + e.getMessage());
         } catch (Exception e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'getMemberProfile', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Unexpected error: ' + e.getMessage());
         }
     }
-    
+
     /**
      * Update member profile information
      */
     @AuraEnabled
     public static String updateMemberProfile(String profileDataJson) {
         try {
-            MemberProfileData profileData = (MemberProfileData) JSON.deserialize(profileDataJson, MemberProfileData.class);
-            
+            // Validate CRUD permissions for User object
+            CVMAErrorHandler.validateCRUDPermissions(
+                User.getSObjectType(),
+                new List<String>{'FirstName', 'LastName', 'Email', 'Phone', 'MobilePhone'},
+                'update'
+            );
+
+            // Validate CRUD permissions for Contact object
+            CVMAErrorHandler.validateCRUDPermissions(
+                Contact.getSObjectType(),
+                new List<String>{'Phone', 'MobilePhone', 'Email', 'MailingStreet', 'MailingCity', 'MailingState', 'MailingPostalCode', 'MailingCountry'},
+                'update'
+            );
+
+            // Sanitize input
+            String sanitizedInput = CVMAErrorHandler.sanitizeInput(profileDataJson);
+            MemberProfileData profileData = (MemberProfileData) JSON.deserialize(sanitizedInput, MemberProfileData.class);
+
             // Validate current user can update this profile
             Id currentUserId = UserInfo.getUserId();
             if (profileData.userId != currentUserId) {
                 throw new AuraHandledException('You can only update your own profile.');
             }
-            
+
             // Validate required fields
             if (String.isBlank(profileData.firstName) || String.isBlank(profileData.lastName) || String.isBlank(profileData.email)) {
                 throw new AuraHandledException('First Name, Last Name, and Email are required fields.');
             }
-            
+
             // Validate email format
             if (!isValidEmail(profileData.email)) {
                 throw new AuraHandledException('Please enter a valid email address.');
             }
-            
+
             List<SObject> recordsToUpdate = new List<SObject>();
-            
+
             // Update User record
             User userRecord = new User(
                 Id = profileData.userId,
@@ -98,7 +131,7 @@ public with sharing class CVMAMemberProfileController {
                 MobilePhone = profileData.mobilePhone
             );
             recordsToUpdate.add(userRecord);
-            
+
             // Update Contact record if available
             if (profileData.contactId != null) {
                 Contact contactRecord = new Contact(
@@ -114,10 +147,10 @@ public with sharing class CVMAMemberProfileController {
                 );
                 recordsToUpdate.add(contactRecord);
             }
-            
+
             // Perform updates with proper error handling
             Database.SaveResult[] results = Database.update(recordsToUpdate, false);
-            
+
             // Check for errors
             for (Integer i = 0; i < results.size(); i++) {
                 if (!results[i].isSuccess()) {
@@ -129,18 +162,21 @@ public with sharing class CVMAMemberProfileController {
                     throw new AuraHandledException(errorMsg);
                 }
             }
-            
+
             return 'Profile updated successfully';
-            
+
         } catch (JSONException e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'updateMemberProfile', CVMAErrorHandler.Category.DATA_VALIDATION);
             throw new AuraHandledException('Invalid profile data format: ' + e.getMessage());
         } catch (DmlException e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'updateMemberProfile', CVMAErrorHandler.Category.SYSTEM_ERROR);
             throw new AuraHandledException('Database error: ' + e.getDmlMessage(0));
         } catch (Exception e) {
+            CVMAErrorHandler.handleException(e, 'CVMAMemberProfileController', 'updateMemberProfile', CVMAErrorHandler.Category.BUSINESS_LOGIC);
             throw new AuraHandledException('Error updating profile: ' + e.getMessage());
         }
     }
-    
+
     /**
      * Validate email format
      */
@@ -148,38 +184,38 @@ public with sharing class CVMAMemberProfileController {
         if (String.isBlank(email)) {
             return false;
         }
-        
+
         // Basic email validation pattern
         String emailPattern = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
         Pattern pat = Pattern.compile(emailPattern);
         Matcher matcher = pat.matcher(email);
         return matcher.matches();
     }
-    
+
     /**
      * Get current user's permission level for profile management
      */
     @AuraEnabled(cacheable=true)
     public static ProfilePermissions getProfilePermissions() {
         ProfilePermissions permissions = new ProfilePermissions();
-        
+
         try {
             // Check if user can edit their own profile
             permissions.canEditProfile = Schema.sObjectType.User.fields.FirstName.isUpdateable() &&
                                        Schema.sObjectType.User.fields.LastName.isUpdateable() &&
                                        Schema.sObjectType.User.fields.Email.isUpdateable();
-            
+
             // Check if user can edit contact information
             permissions.canEditContact = Schema.sObjectType.Contact.fields.Phone.isUpdateable() &&
                                        Schema.sObjectType.Contact.fields.Email.isUpdateable() &&
                                        Schema.sObjectType.Contact.fields.MailingStreet.isUpdateable();
-            
+
             // Check if user has access to CVMA-specific fields
             permissions.canViewMembershipInfo = Schema.sObjectType.Contact.fields.Membership_Id__c.isAccessible() &&
                                               Schema.sObjectType.Contact.fields.Road_Name__c.isAccessible();
-            
+
             return permissions;
-            
+
         } catch (Exception e) {
             // Default to restrictive permissions on error
             permissions.canEditProfile = false;
@@ -188,7 +224,7 @@ public with sharing class CVMAMemberProfileController {
             return permissions;
         }
     }
-    
+
     /**
      * Data wrapper class for member profile information
      */
@@ -211,7 +247,7 @@ public with sharing class CVMAMemberProfileController {
         @AuraEnabled public String membershipId { get; set; }
         @AuraEnabled public String roadName { get; set; }
     }
-    
+
     /**
      * Data wrapper class for profile permissions
      */

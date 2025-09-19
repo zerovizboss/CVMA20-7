@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Request additional information from applicant</description>
+    <fieldOverrides>
+        <field>Status__c</field>
+        <formula>"Additional Info Required"</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Officer_Comments__c</field>
+        <formula>"Additional information required for application review. Please check your member portal for details."</formula>
+    </fieldOverrides>
+    <label>Request Additional Info</label>
+    <optionsCreateFeedItem>true</optionsCreateFeedItem>
+    <type>Update</type>
+</QuickAction>

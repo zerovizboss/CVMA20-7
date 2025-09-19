@@ -1,0 +1,300 @@
+.communication-hub {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.slds-card__header {
+    background: linear-gradient(90deg, #1565c0 0%, #0d47a1 100%);
+    color: white;
+    border-bottom: none;
+}
+
+.slds-card__header .slds-icon_container {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.slds-card__header h2 {
+    color: white;
+    font-weight: 600;
+}
+
+.slds-card__header p {
+    color: rgba(255,255,255,0.8);
+}
+
+/* Metric Cards */
+.metric-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 4px solid #1565c0;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Group Cards */
+.group-card {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: 3px solid #1565c0;
+    cursor: pointer;
+}
+
+.group-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Activity Feed */
+.activity-feed {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.activity-item {
+    background: white;
+    border-radius: 6px;
+    border-left: 3px solid #e8ebef;
+    transition: border-color 0.2s ease;
+}
+
+.activity-item:hover {
+    border-left-color: #1565c0;
+}
+
+/* Timeline Styling */
+.slds-timeline__item {
+    border-left: 2px solid #1565c0;
+    padding-left: 1rem;
+    margin-left: 1rem;
+    position: relative;
+}
+
+.slds-timeline__item:before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 1.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #1565c0;
+}
+
+.slds-timeline__icon {
+    position: relative;
+    z-index: 1;
+}
+
+.slds-timeline__body {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+/* Tab Styling */
+.slds-tabs_default__nav {
+    background: linear-gradient(90deg, #f4f6f9 0%, #e8ebef 100%);
+    border-radius: 8px 8px 0 0;
+}
+
+.slds-tabs_default__link {
+    font-weight: 600;
+    color: #616161;
+    transition: color 0.2s ease;
+}
+
+.slds-tabs_default__link:hover {
+    color: #1565c0;
+}
+
+.slds-is-active .slds-tabs_default__link {
+    color: #1565c0;
+    border-bottom-color: #1565c0;
+    font-weight: 700;
+}
+
+/* Section Headers */
+.slds-section__title {
+    background: linear-gradient(90deg, #f4f6f9 0%, #e8ebef 100%);
+    border-left: 4px solid #1565c0;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+/* Badge Styling */
+.slds-badge {
+    background-color: #1565c0;
+    color: white;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+}
+
+.slds-theme_success {
+    background-color: #2e7d32;
+}
+
+/* Modal Enhancements */
+.slds-modal__container {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.slds-modal__header {
+    background: linear-gradient(90deg, #1565c0 0%, #0d47a1 100%);
+    color: white;
+}
+
+.slds-modal__title {
+    color: white;
+}
+
+/* Button Hover Effects */
+.slds-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+/* Avatar Styling */
+lightning-avatar {
+    border: 2px solid #e8ebef;
+    border-radius: 50%;
+}
+
+/* Text Truncation */
+.slds-truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .metric-card {
+        min-height: 100px;
+    }
+
+    .group-card {
+        min-height: 60px;
+    }
+
+    .slds-grid.slds-gutters .slds-col {
+        padding: 0.25rem;
+    }
+
+    .activity-feed {
+        max-height: 400px;
+    }
+
+    .slds-timeline__item {
+        margin-left: 0.5rem;
+        padding-left: 0.75rem;
+    }
+
+    .slds-timeline__body {
+        padding: 0.75rem;
+    }
+}
+
+/* Loading State */
+.slds-spinner_container {
+    background: rgba(255,255,255,0.8);
+    border-radius: 8px;
+}
+
+/* Error State */
+.slds-illustration {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Animation for data refresh */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slds-card__body > * {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Communication Brand Colors */
+.comm-primary {
+    color: #1565c0;
+}
+
+.comm-secondary {
+    color: #0d47a1;
+}
+
+.comm-success {
+    color: #2e7d32;
+}
+
+.comm-warning {
+    color: #f57c00;
+}
+
+.comm-error {
+    color: #d32f2f;
+}
+
+/* Interactive Elements Enhancement */
+.slds-button-group .slds-button {
+    border-radius: 0;
+}
+
+.slds-button-group .slds-button:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.slds-button-group .slds-button:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/* Scrollbar Styling */
+.activity-feed::-webkit-scrollbar {
+    width: 6px;
+}
+
+.activity-feed::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.activity-feed::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.activity-feed::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

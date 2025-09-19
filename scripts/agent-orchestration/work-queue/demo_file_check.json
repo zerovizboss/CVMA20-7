@@ -1,0 +1,15 @@
+{
+    "unit_id": "demo_file_check",
+    "created_at": "2025-09-09T15:59:27Z",
+    "assigned_agent": "copilot",
+    "task_type": "file_operations",
+    "description": "Check if README exists",
+    "priority": 2,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

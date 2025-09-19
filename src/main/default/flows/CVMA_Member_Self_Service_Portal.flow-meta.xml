@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>Enhanced member self-service portal with application tracking, document management, and profile updates</description>
+    <environments>Default</environments>
+    <interviewLabel>CVMA Member Self-Service Portal</interviewLabel>
+    <label>CVMA Member Self-Service Portal</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Member_Application</name>
+        <label>Get Member Application</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Self_Service_Dashboard</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>Contains</operator>
+            <value>
+                <elementReference>$User.FirstName</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Membership_Application__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Self_Service_Dashboard</name>
+        <label>Self-Service Dashboard</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Portal_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style="font-size: 20px;"&gt;🏍️ CVMA Member Portal&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style="font-size: 14px;"&gt;Vets Serving Vets - Self-Service Center&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Application_Status_Card</name>
+            <fieldText>&lt;div style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; margin: 10px 0;"&gt;
+&lt;p&gt;&lt;b style="color: #0176d3;"&gt;📋 Application Status&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Status:&lt;/b&gt; {!Get_Member_Application.Status__c}&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Submitted:&lt;/b&gt; {!Get_Member_Application.CreatedDate}&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Last Updated:&lt;/b&gt; {!Get_Member_Application.LastModifiedDate}&lt;/p&gt;
+&lt;/div&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Service_Options</name>
+            <choiceReferences>Update_Profile_Choice</choiceReferences>
+            <choiceReferences>Upload_Documents_Choice</choiceReferences>
+            <choiceReferences>View_Events_Choice</choiceReferences>
+            <choiceReferences>Contact_Officers_Choice</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Select Service</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Next_Steps_Info</name>
+            <fieldText>&lt;div style="background: #f3f3f3; padding: 10px; border-radius: 5px;"&gt;
+&lt;p&gt;&lt;b&gt;💡 What's Next?&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;• Review your application status above&lt;/p&gt;
+&lt;p&gt;• Upload any required documentation&lt;/p&gt;
+&lt;p&gt;• Keep your profile information current&lt;/p&gt;
+&lt;p&gt;• Stay connected with chapter events&lt;/p&gt;
+&lt;/div&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Member_Application</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <choices>
+        <name>Update_Profile_Choice</name>
+        <choiceText>Update Profile Information</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>update_profile</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Upload_Documents_Choice</name>
+        <choiceText>Upload Documents</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>upload_documents</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>View_Events_Choice</name>
+        <choiceText>View Chapter Events</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>view_events</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Contact_Officers_Choice</name>
+        <choiceText>Contact Chapter Officers</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>contact_officers</stringValue>
+        </value>
+    </choices>
+</Flow>

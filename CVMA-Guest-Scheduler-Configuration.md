@@ -9,7 +9,7 @@ This configuration enables guest users in the Combat Veterans Motorcycle Associa
 **File:** `src/profiles/Guest License User.profile`
 - **Added ServiceAppointment object permissions** with read, create, and edit access
 - **Added Event object permissions** with read access
-- **Added Case object permissions** with read access  
+- **Added Case object permissions** with read access
 - **Enabled Salesforce Scheduler application** (`standard__LightningScheduler`)
 - **Made ServiceAppointment tab available** (changed from Hidden to Available)
 
@@ -38,7 +38,7 @@ Created sharing rules to grant guest users appropriate access:
 **File:** `src/permissionsets/CVMA_Guest_Scheduler_Access.permissionset`
 - **Service Appointment access**: Create, Read, Edit permissions
 - **Event access**: Read permission
-- **Case access**: Read permission  
+- **Case access**: Read permission
 - **Service Resource access**: Read permission
 - **Service Territory access**: Read permission
 - **ServiceAppointment tab**: Available

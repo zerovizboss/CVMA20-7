@@ -42,7 +42,7 @@ sf apex run test --class-names CVMAGuestUserSchedulerAccessTest --code-coverage 
 The test class validates:
 - ✅ Service Appointment CRUD operations for guest users
 - ✅ Case read-only access with proper filtering
-- ✅ Event read-only access with privacy filtering  
+- ✅ Event read-only access with privacy filtering
 - ✅ Sharing rules effectiveness
 - ✅ Profile permissions verification
 - ✅ Guest user creation and authentication

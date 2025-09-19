@@ -1,0 +1,15 @@
+{
+    "unit_id": "github_project_integration",
+    "created_at": "2025-09-09T16:05:28Z",
+    "assigned_agent": "copilot",
+    "task_type": "bash_execution",
+    "description": "Integrate GitHub project updates with multi-agent system",
+    "priority": 3,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

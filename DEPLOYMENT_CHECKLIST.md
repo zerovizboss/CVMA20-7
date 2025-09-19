@@ -231,7 +231,7 @@ If complete rollback is needed:
 - [ ] Lead Developer: ______________________ Date: _______
 - [ ] Security Reviewer: ___________________ Date: _______
 
-### Business Sign-off  
+### Business Sign-off
 - [ ] CVMA Chapter President: ______________ Date: _______
 - [ ] IT Manager: ________________________ Date: _______
 - [ ] End User Representative: ____________ Date: _______
@@ -240,7 +240,7 @@ If complete rollback is needed:
 
 ### Deployment Team
 - **System Administrator:** [Name] - [Email] - [Phone]
-- **Lead Developer:** [Name] - [Email] - [Phone]  
+- **Lead Developer:** [Name] - [Email] - [Phone]
 - **Project Manager:** [Name] - [Email] - [Phone]
 
 ### Support Contacts
@@ -266,6 +266,6 @@ If complete rollback is needed:
 
 ---
 
-**Deployment Guide Version:** 2.0  
-**Last Updated:** January 2025  
+**Deployment Guide Version:** 2.0
+**Last Updated:** January 2025
 **Next Review Date:** _______________

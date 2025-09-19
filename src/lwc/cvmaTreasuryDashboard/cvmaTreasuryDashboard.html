@@ -1,0 +1,191 @@
+<!--
+CVMA Treasury Dashboard - Standard Feature Integration LWC
+User Story #18: Treasury Dashboard with Lightning Design System components
+-->
+<template>
+    <!-- Loading Spinner -->
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading treasury data..." variant="brand"></lightning-spinner>
+    </template>
+
+    <!-- Error Display -->
+    <template if:true={error}>
+        <div class="slds-box slds-theme_error slds-m-bottom_medium">
+            <lightning-icon icon-name="utility:error" alternative-text="Error" size="small" class="slds-m-right_small"></lightning-icon>
+            <strong>Treasury Dashboard Error:</strong> {error.body.message}
+        </div>
+    </template>
+
+    <!-- Treasury Dashboard Content -->
+    <template if:true={treasuryData}>
+        <!-- Dashboard Header -->
+        <div class="slds-page-header slds-m-bottom_medium">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:dashboard" alternative-text="Treasury Dashboard" size="medium"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="CVMA Treasury Dashboard">
+                                            CVMA Treasury Dashboard
+                                        </span>
+                                    </h1>
+                                </div>
+                            </div>
+                            <p class="slds-page-header__name-meta">{treasuryData.reportingPeriod}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <lightning-button
+                            variant="brand"
+                            label="Refresh"
+                            icon-name="utility:refresh"
+                            onclick={handleRefresh}
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics Cards -->
+        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+            <!-- Total Revenue Card -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="utility:money" alternative-text="Revenue" size="small" variant="success"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">Total Revenue</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-text-heading_large slds-text-color_success">{formattedTotalRevenue}</div>
+                        <div class="slds-text-body_small slds-text-color_weak">{treasuryData.totalOpportunities} opportunities</div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Monthly Revenue Card -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="utility:date_time" alternative-text="Monthly" size="small"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">This Month</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-text-heading_large">{formattedMonthlyRevenue}</div>
+                        <div class="slds-text-body_small slds-text-color_weak">Current month revenue</div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Budget Variance Card -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name={budgetVarianceIcon} alternative-text="Budget" size="small"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">Budget Variance</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class={budgetVarianceClass}>
+                            <span class="slds-text-heading_large">{formattedBudgetVariance}</span>
+                        </div>
+                        <div class="slds-text-body_small slds-text-color_weak">Budget vs Actual</div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Campaigns Card -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="standard:campaign" alternative-text="Campaigns" size="small"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">Active Campaigns</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-text-heading_large">{treasuryData.totalCampaigns}</div>
+                        <div class="slds-text-body_small slds-text-color_weak">Revenue-generating campaigns</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- Campaign Breakdown Table -->
+        <template if:true={hasCampaignData}>
+            <article class="slds-card slds-m-bottom_large">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:opportunity" alternative-text="Campaigns" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Campaign Financial Breakdown</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <lightning-datatable
+                        key-field="campaignName"
+                        data={treasuryData.campaignBreakdown}
+                        columns={campaignColumns}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </div>
+            </article>
+        </template>
+
+        <!-- Campaign Member Analytics -->
+        <template if:true={hasMemberData}>
+            <article class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:groups" alternative-text="Members" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Member Engagement Analytics</h2>
+                            <p class="slds-text-body_small">Integration with Epic #2 Campaign Member data</p>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <lightning-datatable
+                        key-field="campaignName"
+                        data={campaignMemberData}
+                        columns={memberColumns}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </div>
+            </article>
+        </template>
+    </template>
+</template>

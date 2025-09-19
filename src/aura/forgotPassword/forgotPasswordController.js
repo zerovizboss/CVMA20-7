@@ -8,7 +8,7 @@
             helpler.handleForgotPassword(component, event, helpler);
         }
     },
-    
+
     setExpId: function (component, event, helper) {
         var expId = event.getParam('expid');
         if (expId) {

@@ -7,7 +7,7 @@
     <formula>IF(npe01__Organization_Type__c == &apos;Household Account&apos;,
 
 Account.BillingStreet &amp; BR() &amp;
-Account.BillingCity &amp; IF(ISBLANK(Account.BillingCity), &quot;&quot;, &quot;, &quot;) &amp; Account.BillingState &amp; &quot; &quot; &amp; Account.BillingPostalCode 
+Account.BillingCity &amp; IF(ISBLANK(Account.BillingCity), &quot;&quot;, &quot;, &quot;) &amp; Account.BillingState &amp; &quot; &quot; &amp; Account.BillingPostalCode
 &amp; IF(ISBLANK(Account.BillingCountry), &quot;&quot;, BR()&amp; Account.BillingCountry),
 
 npo02__Household__r.npo02__Formula_MailingAddress__c)</formula>

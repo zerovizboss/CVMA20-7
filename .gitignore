@@ -1,3 +1,4 @@
+# Salesforce and Development Tools
 .sf/
 .sfdx/
 .localdev/
@@ -8,3 +9,42 @@ node_modules/
 /.illuminatedCloud/
 **/tsconfig*.json
 **/*.tsbuildinfoCVMA20-7-remote/
+
+# Claude Code and Development Session Artifacts
+temp_*.txt
+temp_*.json
+.claude/settings.local.json
+CVMA-Claude-Usage-Tracking.md
+cost-comparison-analysis.md
+
+# GitHub and Deployment Artifacts
+gh.zip
+scripts/set-gitbash-default.bat
+scripts/project-sync.bat
+scripts/usage-tracking/daily-usage-template.md
+scripts/usage-tracking/quick-start-guide.md
+scripts/usage-tracking/usage-dashboard.html
+
+# PowerShell Scripts (keeping cross-platform bash scripts)
+scripts/*.ps1
+scripts/simple-balance-monitor.bat
+
+# Session and Development Logs
+logs/session-*.md
+logs/claude-sessions.log
+logs/temp_*.txt
+
+# Reports Directory (will be generated fresh)
+reports/
+backups/
+
+# OS and Editor Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Temporary Development Files
+temp/
+tmp/

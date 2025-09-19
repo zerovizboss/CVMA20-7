@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <description>Officer Communication Dashboard for CVMA Chapter management and mass communication</description>
+    <isExposed>true</isExposed>
+    <masterLabel>CVMA Officer Communication Dashboard</masterLabel>
+    <targets>
+        <target>lightning__HomePage</target>
+        <target>lightning__AppPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__HomePage,lightning__AppPage">
+            <property name="height" type="Integer" default="800" description="Dashboard height"/>
+            <property name="showAnalytics" type="Boolean" default="true" description="Show communication analytics"/>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
+            <property name="officerMode" type="Boolean" default="true" description="Enable officer-only features"/>
+            <property name="chapterFilter" type="String" default="Chapter 20-7" description="Chapter filter"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

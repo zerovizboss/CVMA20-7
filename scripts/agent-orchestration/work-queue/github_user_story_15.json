@@ -1,0 +1,15 @@
+{
+    "unit_id": "github_user_story_15",
+    "created_at": "2025-09-09T16:16:09Z",
+    "assigned_agent": "claude",
+    "task_type": "code_review",
+    "description": "Review User Story #15: RSVP Migration to Campaign Members",
+    "priority": 3,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

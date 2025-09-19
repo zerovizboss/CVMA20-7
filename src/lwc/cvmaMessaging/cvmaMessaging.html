@@ -1,0 +1,329 @@
+<!--
+ * @description Lightning Web Component template for CVMA Member-to-Member Messaging System
+ * @author Claude AI - CVMA Development Team
+ * @date 2025-01-09
+-->
+<template>
+    <lightning-card title="CVMA Messaging" icon-name="standard:email">
+
+        <!-- Header with tabs and actions -->
+        <div slot="actions" class="slds-button-group" role="group">
+            <lightning-button
+                label="Compose"
+                onclick={handleComposeClick}
+                icon-name="utility:add"
+                variant="brand">
+            </lightning-button>
+            <lightning-button
+                label="Refresh"
+                onclick={handleRefresh}
+                icon-name="utility:refresh">
+            </lightning-button>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- Navigation tabs -->
+            <div class="slds-tabs_default">
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class={inboxActive} title="Inbox" role="presentation">
+                        <a class="slds-tabs_default__link"
+                           role="tab"
+                           tabindex="0"
+                           aria-selected="true"
+                           data-view="inbox"
+                           onclick={handleViewChange}>
+                            Inbox
+                            <template if:true={unreadCount}>
+                                <span class="slds-badge slds-badge_lightest slds-m-left_xx-small">
+                                    {unreadCount}
+                                </span>
+                            </template>
+                        </a>
+                    </li>
+                    <li class={sentActive} title="Sent" role="presentation">
+                        <a class="slds-tabs_default__link"
+                           role="tab"
+                           tabindex="-1"
+                           data-view="sent"
+                           onclick={handleViewChange}>
+                            Sent
+                        </a>
+                    </li>
+                    <li class={archivedActive} title="Archived" role="presentation">
+                        <a class="slds-tabs_default__link"
+                           role="tab"
+                           tabindex="-1"
+                           data-view="archived"
+                           onclick={handleViewChange}>
+                            Archived
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab content -->
+                <div class="slds-tabs_default__content slds-show" role="tabpanel">
+
+                    <!-- Loading spinner -->
+                    <template if:true={isLoading}>
+                        <div class="slds-align_absolute-center slds-p-around_large">
+                            <lightning-spinner alternative-text="Loading messages..." size="medium"></lightning-spinner>
+                        </div>
+                    </template>
+
+                    <!-- Error message -->
+                    <template if:true={error}>
+                        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                            <span class="slds-assistive-text">Error</span>
+                            <lightning-icon icon-name="utility:error" alternative-text="Error" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            <h2>{error}</h2>
+                        </div>
+                    </template>
+
+                    <!-- Messages table -->
+                    <template if:true={hasMessages}>
+                        <lightning-datatable
+                            key-field="Id"
+                            data={messages}
+                            columns={columns}
+                            onrowaction={handleRowAction}
+                            hide-checkbox-column="true"
+                            show-row-number-column="false">
+                        </lightning-datatable>
+
+                        <!-- Pagination -->
+                        <div class="slds-m-top_medium">
+                            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                                <div class="slds-col">
+                                    <span class="slds-text-body_small slds-text-color_weak">
+                                        {pageInfo}
+                                    </span>
+                                </div>
+                                <div class="slds-col slds-no-flex">
+                                    <lightning-button-group>
+                                        <lightning-button
+                                            label="Previous"
+                                            onclick={handlePreviousPage}
+                                            disabled={isFirstPage}
+                                            icon-name="utility:chevronleft"
+                                            icon-position="left">
+                                        </lightning-button>
+                                        <lightning-button
+                                            label="Next"
+                                            onclick={handleNextPage}
+                                            disabled={isLastPage}
+                                            icon-name="utility:chevronright"
+                                            icon-position="right">
+                                        </lightning-button>
+                                    </lightning-button-group>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- No messages state -->
+                    <template if:false={hasMessages}>
+                        <template if:false={isLoading}>
+                            <div class="slds-align_absolute-center slds-p-around_large">
+                                <div class="slds-text-align_center">
+                                    <lightning-icon icon-name="utility:email" size="large" class="slds-m-bottom_medium"></lightning-icon>
+                                    <p class="slds-text-heading_medium slds-m-bottom_small">No messages found</p>
+                                    <p class="slds-text-color_weak">
+                                        <template if:true={currentView}>
+                                            You don't have any {currentView} messages at this time.
+                                        </template>
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+
+    <!-- Compose Message Modal -->
+    <template if:true={showComposeModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleComposeCancel}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Compose Message</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                    <!-- Recipient Selection -->
+                    <div class="slds-form-element slds-m-bottom_medium">
+                        <label class="slds-form-element__label" for="recipient-select">
+                            <span class="slds-required">*</span>To
+                        </label>
+                        <div class="slds-form-element__control">
+                            <lightning-combobox
+                                name="recipient"
+                                label=""
+                                placeholder="Select a member..."
+                                options={memberOptions}
+                                value={newMessage.recipientId}
+                                onchange={handleInputChange}
+                                data-field="recipientId"
+                                required>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="slds-form-element slds-m-bottom_medium">
+                        <label class="slds-form-element__label" for="subject-input">
+                            <span class="slds-required">*</span>Subject
+                        </label>
+                        <div class="slds-form-element__control">
+                            <lightning-input
+                                id="subject-input"
+                                type="text"
+                                value={newMessage.subject}
+                                onchange={handleInputChange}
+                                data-field="subject"
+                                maxlength="255"
+                                required>
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <!-- Priority -->
+                    <div class="slds-form-element slds-m-bottom_medium">
+                        <label class="slds-form-element__label" for="priority-select">Priority</label>
+                        <div class="slds-form-element__control">
+                            <lightning-combobox
+                                name="priority"
+                                label=""
+                                options={priorityOptions}
+                                value={newMessage.priority}
+                                onchange={handleInputChange}
+                                data-field="priority">
+                            </lightning-combobox>
+                        </div>
+                    </div>
+
+                    <!-- Message Body -->
+                    <div class="slds-form-element slds-m-bottom_medium">
+                        <label class="slds-form-element__label" for="message-body">
+                            <span class="slds-required">*</span>Message
+                        </label>
+                        <div class="slds-form-element__control">
+                            <lightning-textarea
+                                id="message-body"
+                                value={newMessage.messageBody}
+                                onchange={handleInputChange}
+                                data-field="messageBody"
+                                maxlength="32768"
+                                rows="6"
+                                placeholder="Type your message here..."
+                                required>
+                            </lightning-textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={handleComposeCancel}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Send Message"
+                        onclick={handleSendMessage}
+                        variant="brand"
+                        class="slds-m-left_x-small"
+                        disabled={isComposing}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- View Message Modal -->
+    <template if:true={showMessageModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="message-modal-heading" aria-modal="true" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleMessageModalClose}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="message-modal-heading" class="slds-text-heading_medium slds-hyphenate">{selectedMessageDetails.Subject__c}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+
+                    <!-- Message header info -->
+                    <div class="slds-box slds-box_x-small slds-theme_shade slds-m-bottom_medium">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="From">From:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedMessageDetails.Sender__r.Name}>
+                                        {selectedMessageDetails.Sender__r.Name}
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="To">To:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedMessageDetails.Recipient__r.Name}>
+                                        {selectedMessageDetails.Recipient__r.Name}
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Date">Date:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title={selectedMessageDetails.formattedDate}>
+                                        {selectedMessageDetails.formattedDate}
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Priority">Priority:</dt>
+                                    <dd class="slds-item_detail slds-truncate">
+                                        <span class={selectedMessageDetails.priorityClass}>
+                                            {selectedMessageDetails.Priority__c}
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message body -->
+                    <div class="slds-m-bottom_medium">
+                        <div class="slds-text-longform">
+                            <p>{selectedMessageDetails.Message_Body__c}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Close"
+                        onclick={handleMessageModalClose}>
+                    </lightning-button>
+                    <template if:true={selectedMessageDetails.Sender__c}>
+                        <lightning-button
+                            label="Reply"
+                            onclick={replyToMessage}
+                            variant="brand"
+                            class="slds-m-left_x-small">
+                        </lightning-button>
+                    </template>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Set_Email_Template_Variables</name>
+        <label>Set Email Template Variables</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>EmailSubject</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>CVMA Event Registration Confirmed - {!EventRecord.Name}</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>EmailBody</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Dear {!ContactRecord.FirstName},
+
+Thank you for registering for the CVMA Chapter 20-7 event: {!EventRecord.Name}
+
+EVENT DETAILS:
+- Event: {!EventRecord.Name}
+- Date: {!EventRecord.StartDateTime}
+- Location: {!EventRecord.Location}
+- Type: {!EventRecord.Type}
+
+WHAT TO EXPECT:
+• You will receive reminder emails 1 week and 1 day before the event
+• Event updates will be posted in our Chatter group
+• RSVP confirmations help us plan appropriate resources
+• Mobile check-in will be available at the event
+
+MOBILE ACCESS:
+Access the CVMA member portal through the Salesforce mobile app for:
+- Real-time event updates
+- Photo sharing and event feed
+- Check-in and attendance confirmation
+- Direct messaging with event organizers
+
+CONTACT INFORMATION:
+Event Coordinator: {!EventRecord.Owner.Name}
+Email: events@cvma20-7.org
+Phone: (904) 555-CVMA
+
+We look forward to seeing you at this event!
+
+Vets Serving Vets
+Combat Veterans Motorcycle Association
+Chapter 20-7 - Jacksonville, FL
+
+This message was sent via automated communication workflow.</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Event_Registration_Email</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Platform_Event_Data</name>
+        <label>Set Platform Event Data</label>
+        <locationX>176</locationX>
+        <locationY>647</locationY>
+        <assignmentItems>
+            <assignToReference>CommunicationEventRecord.Member_Id__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CommunicationEventRecord.Communication_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Event Registration</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CommunicationEventRecord.Priority__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CommunicationEventRecord.Content__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>EmailBody</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CommunicationEventRecord.Event_Id__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>EventRecord.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Publish_Communication_Event</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_Event_Type_and_Status</name>
+        <label>Check Event Type and Status</label>
+        <locationX>380</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Skip Communication</defaultConnectorLabel>
+        <rules>
+            <name>Active_Event_Registration</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Responded</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>EventRecord.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>ContactRecord.HasOptedOutOfEmail</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Email_Template_Variables</targetReference>
+            </connector>
+            <label>Active Event Registration</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>EventLocationDisplay</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!EventRecord.Location}), "TBD", {!EventRecord.Location})</expression>
+    </formulas>
+    <interviewLabel>CVMA Event Communication Automation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CVMA Event Communication Automation</label>
+    <loops>
+        <name>Create_Chatter_Group_Invitations</name>
+        <label>Create Chatter Group Invitations</label>
+        <locationX>176</locationX>
+        <locationY>863</locationY>
+        <assignNextValueToReference>ChatterGroupRecord</assignNextValueToReference>
+        <collectionReference>ChatterGroupsForEvent</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Create_Group_Member_Record</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Schedule_Reminder_Emails</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Group_Member_Record</name>
+        <label>Create Group Member Record</label>
+        <locationX>440</locationX>
+        <locationY>971</locationY>
+        <connector>
+            <targetReference>Create_Chatter_Group_Invitations</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>CollaborationGroupId</field>
+            <value>
+                <elementReference>ChatterGroupRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MemberId</field>
+            <value>
+                <elementReference>ContactRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>CollaborationGroupMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Log_Communication_Activity</name>
+        <label>Log Communication Activity</label>
+        <locationX>176</locationX>
+        <locationY>1295</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>Event registration communication sent for {!EventRecord.Name}</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>EmailSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>EventRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>ContactRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Publish_Communication_Event</name>
+        <label>Publish Communication Event</label>
+        <locationX>176</locationX>
+        <locationY>755</locationY>
+        <connector>
+            <targetReference>Create_Chatter_Group_Invitations</targetReference>
+        </connector>
+        <inputReference>CommunicationEventRecord</inputReference>
+        <object>CVMA_Communication_Event__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Schedule_Reminder_Emails</name>
+        <label>Schedule Reminder Emails</label>
+        <locationX>176</locationX>
+        <locationY>1079</locationY>
+        <connector>
+            <targetReference>Schedule_Day_Before_Reminder</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>WeekBeforeDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>Reminder: {!EventRecord.Name} is coming up next week!</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Send event reminder - 1 week</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>EventRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>ContactRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Schedule_Day_Before_Reminder</name>
+        <label>Schedule Day Before Reminder</label>
+        <locationX>176</locationX>
+        <locationY>1187</locationY>
+        <connector>
+            <targetReference>Log_Communication_Activity</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>DayBeforeDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>Final reminder: {!EventRecord.Name} is tomorrow!</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Send event reminder - 1 day</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>EventRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>ContactRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Contact_Information</name>
+        <label>Get Contact Information</label>
+        <locationX>380</locationX>
+        <locationY>215</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Event_Type_and_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <outputReference>ContactRecord</outputReference>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Event_Information</name>
+        <label>Get Event Information</label>
+        <locationX>380</locationX>
+        <locationY>107</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Contact_Information</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.CampaignId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Campaign</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <outputReference>EventRecord</outputReference>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Event_Chatter_Groups</name>
+        <label>Get Event Chatter Groups</label>
+        <locationX>176</locationX>
+        <locationY>971</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Chatter_Group_Invitations</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>Contains</operator>
+            <value>
+                <elementReference>EventRecord.Name</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CollaborationType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Private</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>CollaborationGroup</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <outputReference>ChatterGroupsForEvent</outputReference>
+    </recordLookups>
+    <subflows>
+        <name>Send_Event_Registration_Email</name>
+        <label>Send Event Registration Email</label>
+        <locationX>176</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Set_Platform_Event_Data</targetReference>
+        </connector>
+        <flowName>CVMA_Send_Email_Template</flowName>
+        <inputAssignments>
+            <name>EmailBody</name>
+            <value>
+                <elementReference>EmailBody</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>EmailSubject</name>
+            <value>
+                <elementReference>EmailSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>RecipientContactId</name>
+            <value>
+                <elementReference>ContactRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>RelatedRecordId</name>
+            <value>
+                <elementReference>EventRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Event_Information</targetReference>
+        </connector>
+        <object>CampaignMember</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <variables>
+        <name>ChatterGroupRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>CollaborationGroup</objectType>
+    </variables>
+    <variables>
+        <name>ChatterGroupsForEvent</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>CollaborationGroup</objectType>
+    </variables>
+    <variables>
+        <name>CommunicationEventRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>CVMA_Communication_Event__e</objectType>
+    </variables>
+    <variables>
+        <name>ContactRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <name>DayBeforeDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>EventRecord.StartDate</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <name>EmailBody</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>EmailSubject</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>EventRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Campaign</objectType>
+    </variables>
+    <variables>
+        <name>WeekBeforeDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>EventRecord.StartDate</elementReference>
+        </value>
+    </variables>
+</Flow>

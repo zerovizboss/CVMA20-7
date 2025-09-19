@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CVMA Monthly Budget Performance Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+        .header { background-color: #003366; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .section { margin-bottom: 25px; }
+        .metrics { background-color: #f5f5f5; padding: 15px; border-left: 4px solid #003366; }
+        .highlight { color: #003366; font-weight: bold; }
+        .footer { background-color: #f0f0f0; padding: 15px; text-align: center; margin-top: 30px; }
+        .cvma-logo { color: #003366; font-weight: bold; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏍️ Combat Veterans Motorcycle Association</h1>
+        <h2>Chapter 20-7 Monthly Budget Performance Report</h2>
+        <p>Reporting Period: {!TODAY()}</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h3>Executive Summary</h3>
+            <p>This automated financial compliance report provides comprehensive monthly budget vs. actual performance analysis for Combat Veterans Motorcycle Association Chapter 20-7 financial oversight and treasury management.</p>
+        </div>
+        
+        <div class="section metrics">
+            <h3>Key Financial Metrics</h3>
+            <ul>
+                <li><span class="highlight">Total Budgeted Amount:</span> Available in attached detailed report</li>
+                <li><span class="highlight">Total Actual Amount:</span> Available in attached detailed report</li>
+                <li><span class="highlight">Budget Variance:</span> Available in attached detailed report</li>
+                <li><span class="highlight">Variance Percentage:</span> Available in attached detailed report</li>
+                <li><span class="highlight">Campaign Performance:</span> Detailed breakdown by category</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Report Components</h3>
+            <p>The attached comprehensive report includes:</p>
+            <ul>
+                <li><strong>Budget Performance Analysis:</strong> Campaign-by-campaign comparison of budgeted vs. actual costs</li>
+                <li><strong>Variance Analysis:</strong> Identification of budget overruns and savings opportunities</li>
+                <li><strong>Category Breakdown:</strong> Analysis by Annual Budget, Quarterly Planning, and Event categories</li>
+                <li><strong>Compliance Tracking:</strong> Detailed audit trail for all financial activities</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Action Items & Recommendations</h3>
+            <p>Review the detailed budget performance analysis and identify:</p>
+            <ul>
+                <li>Campaigns exceeding budget requiring immediate attention</li>
+                <li>Cost-saving opportunities for future planning</li>
+                <li>Revenue performance against projections</li>
+                <li>Budget adjustments needed for upcoming quarters</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Next Steps</h3>
+            <p>This automated report is generated monthly on the 5th of each month. For questions or detailed analysis, please contact the Treasurer or access the real-time Financial Compliance Dashboard in Salesforce.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p class="cvma-logo">🏍️ Combat Veterans Motorcycle Association - Chapter 20-7</p>
+        <p><strong>Vets Serving Vets through Financial Excellence</strong></p>
+        <p><em>This is an automated financial compliance report generated through Salesforce Financial Management System</em></p>
+    </div>
+</body>
+</html>

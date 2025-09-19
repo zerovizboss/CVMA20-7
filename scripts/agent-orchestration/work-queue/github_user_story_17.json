@@ -1,0 +1,15 @@
+{
+    "unit_id": "github_user_story_17",
+    "created_at": "2025-09-09T16:16:08Z",
+    "assigned_agent": "claude",
+    "task_type": "high_level_planning",
+    "description": "Plan User Story #17: Replace Custom Financial Dashboards with NPSP Reports",
+    "priority": 1,
+    "status": "pending",
+    "dependencies": [],
+    "context": {},
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

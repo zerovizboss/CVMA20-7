@@ -1,0 +1,172 @@
+<template>
+    <div class="slds-card membership-status-portal">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-contact">
+                        <lightning-icon icon-name="standard:contact" alternative-text="Membership Status" title="CVMA Membership Status Portal"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Membership Status Portal</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-line-height_reset">Check your membership application status</p>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Search Section -->
+            <div class="slds-form-element slds-m-bottom_medium">
+                <label class="slds-form-element__label" for="email-input">
+                    <abbr class="slds-required" title="required">*</abbr>
+                    Email Address
+                </label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                    <lightning-input
+                        id="email-input"
+                        type="email"
+                        value={email}
+                        onchange={handleEmailChange}
+                        onkeypress={handleKeyPress}
+                        placeholder="Enter your email address..."
+                        required>
+                    </lightning-input>
+                </div>
+                <div class="slds-form-element__help" if:false={hasSearched}>
+                    Enter the email address you used when submitting your membership application.
+                </div>
+            </div>
+
+            <div class="slds-m-bottom_large">
+                <lightning-button
+                    variant="brand"
+                    label="Check Status"
+                    onclick={handleSearchStatus}
+                    disabled={isLoading}
+                    class="slds-m-right_small">
+                </lightning-button>
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Searching..." size="small" class="slds-m-left_small"></lightning-spinner>
+                </template>
+            </div>
+
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_medium">
+                    <span class="slds-assistive-text">Warning</span>
+                    <lightning-icon icon-name="utility:warning" size="x-small" variant="inverse"></lightning-icon>
+                    <h2>{error}</h2>
+                </div>
+            </template>
+
+            <!-- Application Status Results -->
+            <template if:true={hasApplication}>
+                <div class="slds-m-bottom_large">
+                    <!-- Status Header -->
+                    <div class="status-header slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-m-bottom_medium">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name={statusIcon} variant={statusVariant} size="medium"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h3 class="slds-text-heading_medium">Application Status: {applicationStatus}</h3>
+                                <p class="slds-text-body_small slds-text-color_weak">Application #{applicationData.applicationNumber}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <lightning-badge label={applicationStatus} variant={statusVariant}></lightning-badge>
+                        </div>
+                    </div>
+
+                    <!-- Application Details -->
+                    <div class="slds-box slds-m-bottom_medium">
+                        <h4 class="slds-text-heading_small slds-m-bottom_small">Application Details</h4>
+                        <dl class="slds-list_horizontal slds-wrap">
+                            <template for:each={applicationDetails} for:item="detail">
+                                <dt key={detail.key} class="slds-item_label slds-text-color_weak slds-truncate">{detail.label}:</dt>
+                                <dd key={detail.key} class="slds-item_detail slds-truncate">{detail.value}</dd>
+                            </template>
+                        </dl>
+                    </div>
+
+                    <!-- Review Notes -->
+                    <template if:true={applicationData.reviewNotes}>
+                        <div class="slds-box review-notes">
+                            <h4 class="slds-text-heading_small slds-m-bottom_small">
+                                <lightning-icon icon-name="utility:comments" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                Review Notes
+                            </h4>
+                            <p class="slds-text-body_regular">{applicationData.reviewNotes}</p>
+                        </div>
+                    </template>
+
+                    <!-- Next Steps -->
+                    <div class="slds-m-top_medium">
+                        <template if:true={applicationData.status}>
+                            <div class="slds-notify slds-notify_toast slds-toast_info">
+                                <div class="slds-notify__content">
+                                    <h2 class="slds-text-heading_small">Next Steps</h2>
+                                    <template if:true={applicationData.status}>
+                                        <template if:true={applicationData.status}>
+                                            <div lwc:if={applicationData.status === 'Under Review'}>
+                                                <p>Your application is currently being reviewed by our officers. You will receive an email notification once a decision has been made.</p>
+                                            </div>
+                                            <div lwc:elif={applicationData.status === 'Pending Documentation'}>
+                                                <p>Please submit the required documentation as noted in the review notes above. Contact us if you need assistance.</p>
+                                            </div>
+                                            <div lwc:elif={applicationData.status === 'Approved'}>
+                                                <p>Congratulations! Your membership has been approved. You should receive your membership materials via email soon.</p>
+                                            </div>
+                                            <div lwc:else>
+                                                <p>For questions about your application, please contact our membership team.</p>
+                                            </div>
+                                        </template>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- New Application Section -->
+            <template if:true={showNewApplicationButton}>
+                <div class="slds-text-align_center slds-m-top_large">
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-longform">
+                            <h3 class="slds-text-heading_medium">Ready to Join CVMA?</h3>
+                            <p class="slds-text-body_regular">
+                                Submit your membership application to join the Combat Veterans Motorcycle Association.
+                            </p>
+                            <div class="slds-m-top_medium">
+                                <lightning-button
+                                    variant="brand"
+                                    label="Apply for Membership"
+                                    onclick={handleNewApplication}
+                                    class="slds-m-bottom_small">
+                                </lightning-button>
+                                <div class="slds-text-body_small slds-text-color_weak">
+                                    <lightning-icon icon-name="utility:info" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                    Combat veterans and supporters welcome
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Help Section -->
+            <div class="slds-m-top_x-large">
+                <div class="slds-text-align_center">
+                    <div class="slds-text-body_small slds-text-color_weak">
+                        <lightning-icon icon-name="utility:help" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                        Need help? Contact us at
+                        <a href="mailto:membership@cvma20-7.org">membership@cvma20-7.org</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

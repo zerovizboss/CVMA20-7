@@ -1,0 +1,239 @@
+<!--
+  @description Lightning Web Component template for Officer Review of Guest Requests
+  @author Claude AI - CVMA Development Team
+  @date January 2025
+-->
+
+<template>
+    <lightning-card title="Guest Request Review" icon-name="standard:approval">
+        <div class="slds-card__header-actions" slot="actions">
+            <lightning-button
+                label="Refresh"
+                onclick={handleRefreshRequests}
+                variant="neutral"
+                icon-name="utility:refresh">
+            </lightning-button>
+        </div>
+
+        <div class="slds-card__body_inner">
+            <!-- Header Information -->
+            <div class="slds-m-bottom_medium">
+                <p class="slds-text-body_regular">
+                    Review and process guest attendance requests for CVMA events.
+                </p>
+                <template if:true={hasRequests}>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
+                        {requestCountLabel}
+                    </p>
+                </template>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-m-vertical_large">
+                    <lightning-spinner alternative-text="Loading requests..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Pending Requests List -->
+            <template if:true={hasRequests}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <template for:each={formattedRequests} for:item="request">
+                        <div key={request.requestId} class="slds-col slds-size_1-of-1">
+                            <article class="slds-card slds-m-bottom_medium request-card">
+                                <div class="slds-card__header">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="standard:person_account" size="small"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                <span class="slds-text-heading_small">{request.guestName}</span>
+                                            </h2>
+                                            <p class="slds-text-body_small slds-text-color_weak">
+                                                Request submitted: {request.formattedRequestDate}
+                                            </p>
+                                        </div>
+                                        <div class="slds-no-flex">
+                                            <lightning-badge label="Pending Review" class="pending-badge"></lightning-badge>
+                                        </div>
+                                    </header>
+                                </div>
+
+                                <div class="slds-card__body slds-card__body_inner">
+                                    <div class="slds-grid slds-wrap slds-gutters">
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                            <dl class="slds-list_horizontal slds-wrap">
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Event">Event:</dt>
+                                                <dd class="slds-item_detail slds-truncate" title={request.eventName}>{request.eventName}</dd>
+
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Event Date">Event Date:</dt>
+                                                <dd class="slds-item_detail slds-truncate">{request.formattedEventDate}</dd>
+
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Email">Email:</dt>
+                                                <dd class="slds-item_detail slds-truncate">{request.guestEmail}</dd>
+
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Phone">Phone:</dt>
+                                                <dd class="slds-item_detail slds-truncate">{request.guestPhone}</dd>
+                                            </dl>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                            <dl class="slds-list_horizontal slds-wrap">
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Veteran Status">Veteran:</dt>
+                                                <dd class="slds-item_detail slds-truncate">{request.veteranStatusLabel}</dd>
+
+                                                <template if:true={request.emergencyContact}>
+                                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Emergency Contact">Emergency Contact:</dt>
+                                                    <dd class="slds-item_detail slds-truncate">{request.emergencyContact}</dd>
+                                                </template>
+                                            </dl>
+                                        </div>
+                                    </div>
+
+                                    <template if:true={request.additionalInfo}>
+                                        <div class="slds-m-top_small">
+                                            <p class="slds-text-body_small slds-text-color_weak">Additional Information:</p>
+                                            <p class="slds-text-body_regular additional-info">{request.additionalInfo}</p>
+                                        </div>
+                                    </template>
+                                </div>
+
+                                <footer class="slds-card__footer">
+                                    <div class="slds-button-group" role="group">
+                                        <lightning-button
+                                            label="Review Request"
+                                            variant="brand"
+                                            onclick={handleReviewRequest}
+                                            data-request-id={request.requestId}>
+                                        </lightning-button>
+                                    </div>
+                                </footer>
+                            </article>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- No Requests Message -->
+            <template if:false={hasRequests}>
+                <div class="slds-illustration slds-illustration_small">
+                    <div class="slds-text-longform">
+                        <h3 class="slds-text-heading_medium">No Pending Guest Requests</h3>
+                        <p class="slds-text-body_regular">
+                            There are currently no guest attendance requests awaiting review.
+                            New requests will appear here automatically.
+                        </p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Review Request Modal -->
+    <template if:true={showReviewModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-id_modal slds-text-heading_medium">
+                        Review Guest Request
+                    </h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={selectedRequest}>
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <!-- Request Details -->
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small">Request Details</h3>
+                                <dl class="slds-list_vertical">
+                                    <dt class="slds-item_label slds-text-color_weak">Guest Name</dt>
+                                    <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.guestName}</dd>
+
+                                    <dt class="slds-item_label slds-text-color_weak">Event</dt>
+                                    <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.eventName}</dd>
+
+                                    <dt class="slds-item_label slds-text-color_weak">Event Date</dt>
+                                    <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.formattedEventDate}</dd>
+
+                                    <dt class="slds-item_label slds-text-color_weak">Request Date</dt>
+                                    <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.formattedRequestDate}</dd>
+                                </dl>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small">Contact Information</h3>
+                                <dl class="slds-list_vertical">
+                                    <dt class="slds-item_label slds-text-color_weak">Email</dt>
+                                    <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.guestEmail}</dd>
+
+                                    <dt class="slds-item_label slds-text-color_weak">Phone</dt>
+                                    <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.guestPhone}</dd>
+
+                                    <dt class="slds-item_label slds-text-color_weak">Veteran Status</dt>
+                                    <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.veteranStatusLabel}</dd>
+
+                                    <template if:true={selectedRequest.emergencyContact}>
+                                        <dt class="slds-item_label slds-text-color_weak">Emergency Contact</dt>
+                                        <dd class="slds-item_detail slds-m-bottom_small">{selectedRequest.emergencyContact}</dd>
+                                    </template>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <template if:true={selectedRequest.additionalInfo}>
+                            <div class="slds-m-top_medium">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small">Additional Information</h3>
+                                <div class="additional-info-box">
+                                    <p class="slds-text-body_regular">{selectedRequest.additionalInfo}</p>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Response Notes -->
+                        <div class="slds-m-top_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Response Notes</h3>
+                            <lightning-textarea
+                                label="Add notes for the guest (optional)"
+                                value={responseNotes}
+                                onchange={handleNotesChange}
+                                placeholder="Enter any notes or instructions for the guest..."
+                                rows="3">
+                            </lightning-textarea>
+                        </div>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        variant="neutral"
+                        onclick={handleCloseModal}
+                        disabled={isProcessing}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Deny Request"
+                        variant="destructive"
+                        onclick={handleDenyRequest}
+                        disabled={isProcessing}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                    <lightning-button
+                        label="Approve Request"
+                        variant="success"
+                        onclick={handleApproveRequest}
+                        disabled={isProcessing}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

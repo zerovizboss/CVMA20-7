@@ -7,10 +7,10 @@
     <masterLabel>Submit for Credit Approval</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>var windowWidth = document.documentElement.clientWidth; 
-var windowHeight = document.documentElement.clientHeight; 
-var width=windowWidth*.5-400; 
-var height=windowHeight*.5-250; 
-win2 = window.open(&quot;/apex/DNBI__companyMatchPage?id={!DNBI__Invoice__c.Id}&amp;isCustomObj=true&quot;,&apos;_new&apos;,&apos;width=800,height=500,top=&apos;+height+&apos;,left=&apos;+width+&apos;,scrollbars=yes&apos;); 
+    <url>var windowWidth = document.documentElement.clientWidth;
+var windowHeight = document.documentElement.clientHeight;
+var width=windowWidth*.5-400;
+var height=windowHeight*.5-250;
+win2 = window.open(&quot;/apex/DNBI__companyMatchPage?id={!DNBI__Invoice__c.Id}&amp;isCustomObj=true&quot;,&apos;_new&apos;,&apos;width=800,height=500,top=&apos;+height+&apos;,left=&apos;+width+&apos;,scrollbars=yes&apos;);
 win2.focus();</url>
 </WebLink>

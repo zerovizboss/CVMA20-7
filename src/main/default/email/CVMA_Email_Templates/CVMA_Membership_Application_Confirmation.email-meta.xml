@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Confirmation email sent to applicant when membership application is submitted</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>CVMA Membership Application Confirmation</name>
+    <style>none</style>
+    <subject>CVMA Membership Application Received - Application #{!Membership_Application__c.Name}</subject>
+    <textOnly>Dear {!Membership_Application__c.Applicant_First_Name__c},
+
+Thank you for submitting your application to join the Combat Veterans Motorcycle Association (CVMA) Chapter 20-7 in Jacksonville, FL.
+
+APPLICATION DETAILS:
+- Application ID: {!Membership_Application__c.Name}
+- Submitted: {!Membership_Application__c.Application_Date__c}
+- Membership Level: {!Membership_Application__c.Membership_Level__c}
+- Chapter: {!Membership_Application__c.Chapter_Preference__c}
+
+WHAT HAPPENS NEXT:
+• Our officers will review your application within 3-5 business days
+• You may be contacted for additional information if needed
+• You will be notified of the decision via email
+• If approved, you will receive your membership ID and welcome package
+
+CONTACT INFORMATION:
+If you have any questions about your application, please contact us at:
+Email: membership@cvma20-7.org
+Phone: (904) 555-CVMA
+
+Thank you for your interest in joining our brotherhood of combat veterans.
+
+Vets Serving Vets
+Combat Veterans Motorcycle Association
+Chapter 20-7 - Jacksonville, FL
+
+This is an automated message. Please do not reply to this email.</textOnly>
+    <type>text</type>
+</EmailTemplate>

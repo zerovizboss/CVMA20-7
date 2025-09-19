@@ -5,7 +5,7 @@
     <description>Text formula that constructs a sentence explaining the relationship between the two Contacts</description>
     <externalId>false</externalId>
     <formula>TEXT(npe4__RelatedContact__r.Salutation) + &quot; &quot; + npe4__RelatedContact__r.FirstName + &quot; &quot; + npe4__RelatedContact__r.LastName
-+ &quot;  &quot;  +  $Label.npe4__Relationship_Explanation_Connector + &quot; &quot; + 
++ &quot;  &quot;  +  $Label.npe4__Relationship_Explanation_Connector + &quot; &quot; +
 TEXT(npe4__Contact__r.Salutation) + &quot; &quot; + npe4__Contact__r.FirstName + &quot; &quot; + npe4__Contact__r.LastName + &quot;&apos;s &quot; + TEXT(npe4__Type__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Text formula that constructs a sentence explaining the relationship between the two Contacts</inlineHelpText>

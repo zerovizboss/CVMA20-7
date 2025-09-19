@@ -1,0 +1,165 @@
+.slds-modal_large {
+    max-width: 90vw;
+}
+
+.event-summary-card {
+    background-color: #f3f3f3;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.rsvp-summary {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.rsvp-count {
+    text-align: center;
+}
+
+.rsvp-count-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0176d3;
+}
+
+.rsvp-count-label {
+    font-size: 0.875rem;
+    color: #706e6b;
+}
+
+.yes-count {
+    color: #04844b;
+}
+
+.no-count {
+    color: #ea001e;
+}
+
+.maybe-count {
+    color: #fe9339;
+}
+
+.event-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.recurring-options {
+    background-color: #f8f9fb;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.capacity-warning {
+    background-color: #ffeaa7;
+    border: 1px solid #fdcb6e;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.event-status-planned {
+    color: #0176d3;
+}
+
+.event-status-in-progress {
+    color: #fe9339;
+}
+
+.event-status-completed {
+    color: #04844b;
+}
+
+.event-status-cancelled {
+    color: #ea001e;
+}
+
+/* Toast styling */
+.slds-notify {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    max-width: 400px;
+}
+
+.toast-success {
+    background-color: #04844b;
+    color: white;
+}
+
+.toast-error {
+    background-color: #ea001e;
+    color: white;
+}
+
+.toast-warning {
+    background-color: #fe9339;
+    color: white;
+}
+
+.toast-info {
+    background-color: #0176d3;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slds-modal__container {
+        margin: 0.5rem;
+        max-width: calc(100vw - 1rem);
+    }
+
+    .rsvp-summary {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .event-actions {
+        justify-content: center;
+    }
+}
+
+/* CVMA Branding */
+.cvma-header {
+    background: linear-gradient(45deg, #1a365d, #2c5282);
+    color: white;
+    padding: 1rem;
+    border-radius: 4px 4px 0 0;
+}
+
+.cvma-accent {
+    color: #d69e2e;
+    font-weight: bold;
+}
+
+/* Event type styling */
+.event-type-chapter-meeting {
+    border-left: 4px solid #0176d3;
+}
+
+.event-type-ride {
+    border-left: 4px solid #04844b;
+}
+
+.event-type-social-event {
+    border-left: 4px solid #fe9339;
+}
+
+.event-type-charity-event {
+    border-left: 4px solid #e53e3e;
+}
+
+.event-type-training {
+    border-left: 4px solid #805ad5;
+}
+
+.event-type-memorial-service {
+    border-left: 4px solid #2d3748;
+}

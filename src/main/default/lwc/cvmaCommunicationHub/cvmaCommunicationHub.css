@@ -1,0 +1,194 @@
+.communication-hub {
+    height: 100%;
+    max-height: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+.communication-hub.community-mode {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.communication-hub.community-mode .slds-card__header {
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.communication-hub.community-mode .slds-text-heading_small {
+    color: white;
+    font-weight: 600;
+}
+
+.communication-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.communication-item {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.communication-item:hover {
+    background-color: #f8f9fa;
+}
+
+.communication-item:hover .slds-media__figure lightning-icon {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.group-item {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.group-item:hover {
+    background-color: #f0f7ff;
+}
+
+.group-item:hover .slds-media__figure lightning-icon {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .communication-hub {
+        max-height: none;
+        height: auto;
+    }
+
+    .communication-list {
+        max-height: 300px;
+    }
+
+    .slds-col.slds-size_1-of-4 {
+        margin-top: 0.5rem;
+        text-align: left !important;
+    }
+}
+
+/* Community mode specific styles */
+.communication-hub.community-mode .slds-tabs_default__content {
+    background: white;
+    border-radius: 0 0 8px 8px;
+}
+
+.communication-hub.community-mode .slds-tabs_default__nav {
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.communication-hub.community-mode .slds-tabs_default__link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.communication-hub.community-mode .slds-tabs_default__link:hover,
+.communication-hub.community-mode .slds-is-active .slds-tabs_default__link {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Badge styling */
+.slds-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Icon styling */
+lightning-icon {
+    --slds-c-icon-color-foreground-default: #0176d3;
+}
+
+.communication-hub.community-mode lightning-icon {
+    --slds-c-icon-color-foreground-default: white;
+}
+
+/* Form styling for compose tab */
+.slds-form_stacked .slds-form-element {
+    margin-bottom: 1rem;
+}
+
+.slds-form-element__label {
+    font-weight: 600;
+    color: #3e3e3c;
+}
+
+/* Custom scrollbar for communication list */
+.communication-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.communication-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.communication-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.communication-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Animation for loading states */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.communication-item,
+.group-item {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* High priority communication styling */
+.communication-item[data-priority="High"],
+.communication-item[data-priority="Urgent"] {
+    border-left: 4px solid #ff6b6b;
+}
+
+/* Empty state styling */
+.slds-text-align_center {
+    padding: 2rem;
+}
+
+.slds-text-align_center lightning-icon {
+    opacity: 0.6;
+}
+
+/* Button group spacing */
+.slds-button-group .slds-button + .slds-button {
+    margin-left: 0.5rem;
+}
+
+/* Accessibility improvements */
+.communication-item:focus,
+.group-item:focus {
+    outline: 2px solid #0176d3;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Print styles */
+@media print {
+    .communication-hub {
+        box-shadow: none;
+        background: white !important;
+    }
+
+    .slds-tabs_default__nav {
+        display: none;
+    }
+
+    .communication-list {
+        max-height: none;
+        overflow: visible;
+    }
+}

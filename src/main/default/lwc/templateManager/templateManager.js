@@ -73,12 +73,12 @@ LIMIT 150`
     // Basic Sales Analysis - 2-Query Version
     const accounts = query1Results || [];
     const opportunities = query2Results || [];
-    
+
     // Basic calculations
     const totalRevenue = accounts.reduce((sum, acc) => sum + (acc.AnnualRevenue || 0), 0);
     const totalOpportunityValue = opportunities.reduce((sum, opp) => sum + (opp.Amount || 0), 0);
     const avgAccountRevenue = accounts.length > 0 ? totalRevenue / accounts.length : 0;
-    
+
     // Industry breakdown
     const industryStats = {};
     accounts.forEach(account => {
@@ -89,19 +89,19 @@ LIMIT 150`
         industryStats[industry].accounts++;
         industryStats[industry].revenue += account.AnnualRevenue || 0;
     });
-    
+
     // Opportunity stage breakdown for CHART
     const stageStats = {};
     opportunities.forEach(opp => {
         const stage = opp.StageName || 'Unknown';
         stageStats[stage] = (stageStats[stage] || 0) + (opp.Amount || 0);
     });
-    
+
     // Top accounts by revenue
     const topAccounts = accounts
         .sort((a, b) => (b.AnnualRevenue || 0) - (a.AnnualRevenue || 0))
         .slice(0, 10);
-    
+
     const result = {
         summary: {
             "Total Accounts": accounts.length,
@@ -110,7 +110,7 @@ LIMIT 150`
             "Opportunity Value": \`$\${Math.round(totalOpportunityValue/1000)}K\`,
             "Avg Account Revenue": \`$\${Math.round(avgAccountRevenue/1000)}K\`
         },
-        
+
         industryBreakdown: Object.entries(industryStats).map(([industry, stats]) => ({
             Industry: industry,
             'Account Count': stats.accounts,
@@ -118,13 +118,13 @@ LIMIT 150`
             'Avg Revenue': Math.round(stats.revenue / stats.accounts),
             'Revenue (K)': \`$\${Math.round(stats.revenue/1000)}K\`
         })),
-        
+
         opportunityStages: Object.fromEntries(
             Object.entries(stageStats).map(([stage, value]) => [
                 stage, Math.round(value/1000)
             ])
         ),
-        
+
         topAccounts: topAccounts.map(acc => ({
             'Account Name': acc.Name,
             Industry: acc.Industry || 'Unknown',
@@ -133,14 +133,14 @@ LIMIT 150`
             Owner: acc.Owner?.Name || 'Unassigned',
             State: acc.BillingState || 'Unknown'
         })),
-        
+
         insights: [
             \`Analyzed \${accounts.length} accounts with total revenue of $\${Math.round(totalRevenue / 1000)}K\`,
             \`\${opportunities.length} opportunities worth $\${Math.round(totalOpportunityValue / 1000)}K in pipeline\`,
             \`Top industry: \${Object.keys(industryStats)[0] || 'Unknown'} with \${industryStats[Object.keys(industryStats)[0]]?.accounts || 0} accounts\`,
             \`Highest revenue account: \${topAccounts[0]?.Name || 'N/A'} with $\${Math.round((topAccounts[0]?.AnnualRevenue || 0)/1000)}K\`
         ],
-        
+
         recommendations: [
             'Focus on top-performing industries for growth opportunities',
             'Review opportunity stages for potential bottlenecks',
@@ -148,7 +148,7 @@ LIMIT 150`
             'Develop strategies for underperforming industry segments'
         ]
     };
-    
+
     return JSON.parse(JSON.stringify(result));
 }`
                 },
@@ -209,10 +209,10 @@ LIMIT 200`
     // Contact Engagement Analysis - 2-Query Version
     const accounts = query1Results || [];
     const contacts = query2Results || [];
-    
+
     const accountMap = new Map();
     accounts.forEach(acc => accountMap.set(acc.Id, acc));
-    
+
     const accountEngagement = {};
     contacts.forEach(contact => {
         const accountId = contact.AccountId;
@@ -228,13 +228,13 @@ LIMIT 200`
         accountEngagement[accountId].contactCount++;
         accountEngagement[accountId].contacts.push(contact);
     });
-    
+
     const titleStats = {};
     contacts.forEach(contact => {
         const title = contact.Title || 'Unknown';
         const normalizedTitle = title.toLowerCase();
         let category = 'Other';
-        
+
         if (normalizedTitle.includes('ceo') || normalizedTitle.includes('president')) {
             category = 'Executive';
         } else if (normalizedTitle.includes('director') || normalizedTitle.includes('vp')) {
@@ -244,24 +244,24 @@ LIMIT 200`
         } else if (normalizedTitle.includes('sales')) {
             category = 'Sales';
         }
-        
+
         titleStats[category] = (titleStats[category] || 0) + 1;
     });
-    
+
     const engagementScores = Object.values(accountEngagement).map(acc => {
         let score = acc.contactCount * 10;
         if (acc.contactCount > 2) score += 20;
         if (acc.contactCount > 5) score += 30;
-        
+
         const titles = new Set(acc.contacts.map(c => c.Title?.toLowerCase()));
         score += titles.size * 5;
-        
+
         return {
             ...acc,
             engagementScore: Math.min(score, 100)
         };
     }).sort((a, b) => b.engagementScore - a.engagementScore);
-    
+
     const result = {
         summary: {
             "Total Accounts": accounts.length,
@@ -270,9 +270,9 @@ LIMIT 200`
             "Well-Covered Accounts": engagementScores.filter(acc => acc.contactCount >= 3).length,
             "Single Contact Accounts": engagementScores.filter(acc => acc.contactCount === 1).length
         },
-        
+
         titleDistribution: titleStats,
-        
+
         topEngagementAccounts: engagementScores.slice(0, 15).map(acc => ({
             'Account Name': acc.accountName,
             Industry: acc.industry,
@@ -280,14 +280,14 @@ LIMIT 200`
             'Engagement Score': acc.engagementScore,
             Status: acc.contactCount >= 3 ? 'Well Covered' : acc.contactCount === 1 ? 'Single Contact' : 'Moderate'
         })),
-        
+
         insights: [
             \`\${contacts.length} contacts across \${accounts.length} accounts\`,
             \`Average \${Math.round(contacts.length / accounts.length * 10) / 10} contacts per account\`,
             \`\${engagementScores.filter(acc => acc.contactCount === 1).length} accounts have only one contact\`,
             \`Top engagement: \${engagementScores[0]?.accountName || 'N/A'} with \${engagementScores[0]?.contactCount || 0} contacts\`
         ],
-        
+
         recommendations: [
             'Focus on single-contact accounts for relationship expansion',
             'Target executive-level contacts in key accounts',
@@ -295,7 +295,7 @@ LIMIT 200`
             'Develop multi-threading strategies for better account penetration'
         ]
     };
-    
+
     return JSON.parse(JSON.stringify(result));
 }`
                 },
@@ -380,45 +380,45 @@ LIMIT 100`
     const opportunities = Array.isArray(query2Results) ? query2Results : [];
     const contacts = Array.isArray(query3Results) ? query3Results : [];
     const activities = Array.isArray(query4Results) ? query4Results : [];
-    
+
     console.log('Processing sales performance data:', {
         accounts: accounts.length,
         opportunities: opportunities.length,
         contacts: contacts.length,
         activities: activities.length
     });
-    
-    const groupBy = (array, keyFn) => 
+
+    const groupBy = (array, keyFn) =>
         array.reduce((groups, item) => {
             const key = keyFn(item);
             groups[key] = groups[key] || [];
             groups[key].push(item);
             return groups;
         }, {});
-    
+
     const totalRevenue = opportunities
         .filter(opp => opp.StageName === 'Closed Won')
         .reduce((sum, opp) => sum + (opp.Amount || 0), 0);
-    
+
     const totalPipeline = opportunities
         .filter(opp => opp.StageName && !opp.StageName.includes('Closed'))
         .reduce((sum, opp) => sum + (opp.Amount || 0), 0);
-    
+
     const wonOpps = opportunities.filter(opp => opp.StageName === 'Closed Won');
-    const winRate = opportunities.length > 0 ? 
+    const winRate = opportunities.length > 0 ?
         Math.round((wonOpps.length / opportunities.length) * 100) : 0;
-    
+
     const accountsByIndustry = groupBy(accounts, acc => acc.Industry || 'Unknown');
     const industryAnalysis = Object.entries(accountsByIndustry).map(([industry, accs]) => {
         const industryOpps = opportunities.filter(opp => {
             const account = accounts.find(acc => acc.Id === opp.AccountId);
             return account && account.Industry === industry;
         });
-        
+
         const industryRevenue = industryOpps
             .filter(opp => opp.StageName === 'Closed Won')
             .reduce((sum, opp) => sum + (opp.Amount || 0), 0);
-        
+
         return {
             industry,
             accountCount: accs.length,
@@ -427,17 +427,17 @@ LIMIT 100`
             avgRevenue: accs.length > 0 ? industryRevenue / accs.length : 0
         };
     }).sort((a, b) => b.revenue - a.revenue);
-    
+
     const pipelineByStage = opportunities.reduce((stages, opp) => {
         const stage = opp.StageName || 'Unknown';
         stages[stage] = (stages[stage] || 0) + (opp.Amount || 0);
         return stages;
     }, {});
-    
+
     const completedActivities = activities.filter(act => act.Status === 'Completed').length;
-    const activityCompletionRate = activities.length > 0 ? 
+    const activityCompletionRate = activities.length > 0 ?
         Math.round((completedActivities / activities.length) * 100) : 0;
-    
+
     return {
         salesMetrics: {
             "Total Accounts": accounts.length,
@@ -448,17 +448,17 @@ LIMIT 100`
             "Total Contacts": contacts.length,
             "Activity Completion": activityCompletionRate + '%'
         },
-        
+
         industryPerformance: industryAnalysis,
         pipelineBreakdown: pipelineByStage,
-        
+
         insights: [
             \`Analyzed \${accounts.length} accounts with \${opportunities.length} opportunities\`,
             \`Win rate of \${winRate}% indicates \${winRate > 30 ? 'strong' : 'improving'} sales performance\`,
             \`Top industry: \${industryAnalysis[0]?.industry || 'N/A'} with $\${Math.round((industryAnalysis[0]?.revenue || 0) / 1000)}K revenue\`,
             \`\${completedActivities} of \${activities.length} recent activities completed (\${activityCompletionRate}%)\`
         ],
-        
+
         recommendations: [
             winRate < 25 ? 'Focus on improving qualification and sales process' : 'Maintain current sales methodology',
             totalPipeline > totalRevenue ? 'Strong pipeline indicates good future potential' : 'Increase prospecting activities',
@@ -542,49 +542,49 @@ LIMIT 100`
     const cases = Array.isArray(query2Results) ? query2Results : [];
     const contacts = Array.isArray(query3Results) ? query3Results : [];
     const opportunities = Array.isArray(query4Results) ? query4Results : [];
-    
+
     const daysBetween = (date1, date2) => {
         const diffTime = Math.abs(new Date(date2) - new Date(date1));
         return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     };
-    
-    const groupBy = (array, keyFn) => 
+
+    const groupBy = (array, keyFn) =>
         array.reduce((groups, item) => {
             const key = keyFn(item);
             groups[key] = groups[key] || [];
             groups[key].push(item);
             return groups;
         }, {});
-    
+
     const casesByAccount = groupBy(cases, c => c.AccountId);
     const contactsByAccount = groupBy(contacts, c => c.AccountId);
     const oppsByAccount = groupBy(opportunities, o => o.AccountId);
-    
+
     const accountHealth = accounts.map(account => {
         const accountCases = casesByAccount[account.Id] || [];
         const accountContacts = contactsByAccount[account.Id] || [];
         const accountOpps = oppsByAccount[account.Id] || [];
-        
+
         const openCases = accountCases.filter(c => !c.IsClosed).length;
         const highPriorityCases = accountCases.filter(c => c.Priority === 'High' && !c.IsClosed).length;
-        const lastActivityDays = account.LastActivityDate ? 
+        const lastActivityDays = account.LastActivityDate ?
             daysBetween(account.LastActivityDate, new Date()) : 999;
-        const recentOpps = accountOpps.filter(opp => 
+        const recentOpps = accountOpps.filter(opp =>
             daysBetween(opp.CreatedDate, new Date()) <= 90).length;
-        
+
         let healthScore = 100;
         healthScore -= (openCases * 10);
         healthScore -= (highPriorityCases * 20);
         healthScore -= (lastActivityDays > 90 ? 25 : 0);
         healthScore -= (recentOpps === 0 ? 15 : 0);
         healthScore -= (accountContacts.length < 2 ? 10 : 0);
-        
+
         healthScore = Math.max(0, Math.min(100, healthScore));
-        
+
         const status = healthScore >= 80 ? 'Excellent' :
                       healthScore >= 60 ? 'Good' :
                       healthScore >= 40 ? 'At Risk' : 'Critical';
-        
+
         return {
             accountName: account.Name,
             industry: account.Industry || 'Unknown',
@@ -597,18 +597,18 @@ LIMIT 100`
             recentOpportunities: recentOpps
         };
     }).sort((a, b) => a.healthScore - b.healthScore);
-    
+
     const healthDistribution = {
         "Excellent (80-100)": accountHealth.filter(a => a.healthScore >= 80).length,
         "Good (60-79)": accountHealth.filter(a => a.healthScore >= 60 && a.healthScore < 80).length,
         "At Risk (40-59)": accountHealth.filter(a => a.healthScore >= 40 && a.healthScore < 60).length,
         "Critical (0-39)": accountHealth.filter(a => a.healthScore < 40).length
     };
-    
+
     const atRiskCustomers = accountHealth.filter(a => a.healthScore < 60);
-    const avgHealthScore = accountHealth.length > 0 ? 
+    const avgHealthScore = accountHealth.length > 0 ?
         Math.round(accountHealth.reduce((sum, a) => sum + a.healthScore, 0) / accountHealth.length) : 0;
-    
+
     return {
         healthOverview: {
             "Total Customers": accounts.length,
@@ -617,24 +617,24 @@ LIMIT 100`
             "Open Cases": cases.filter(c => !c.IsClosed).length,
             "High Priority Cases": cases.filter(c => c.Priority === 'High' && !c.IsClosed).length
         },
-        
+
         customerHealthDetails: accountHealth.slice(0, 20),
         healthDistribution: healthDistribution,
-        
+
         insights: [
             \`\${atRiskCustomers.length} customers are at risk and need immediate attention\`,
             \`Average health score is \${avgHealthScore}/100 across all customers\`,
             \`\${cases.filter(c => !c.IsClosed).length} open cases require resolution\`,
             \`\${accountHealth.filter(a => a.lastActivityDays > 90).length} customers with no recent activity\`
         ],
-        
+
         recommendations: [
-            atRiskCustomers.length > 0 ? 
-                \`Prioritize outreach to \${Math.min(5, atRiskCustomers.length)} lowest-scoring customers\` : 
+            atRiskCustomers.length > 0 ?
+                \`Prioritize outreach to \${Math.min(5, atRiskCustomers.length)} lowest-scoring customers\` :
                 'Customer health levels are generally good',
             'Implement regular health score monitoring',
-            cases.filter(c => c.Priority === 'High' && !c.IsClosed).length > 0 ? 
-                'Address high-priority cases immediately' : 
+            cases.filter(c => c.Priority === 'High' && !c.IsClosed).length > 0 ?
+                'Address high-priority cases immediately' :
                 'Maintain current support levels'
         ]
     };

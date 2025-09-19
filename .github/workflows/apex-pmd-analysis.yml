@@ -1,0 +1,291 @@
+name: 'CVMA Code Quality Analysis'
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'src/classes/**'
+      - 'src/triggers/**'
+      - 'src/flows/**'
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'src/classes/**'
+      - 'src/triggers/**'
+      - 'src/flows/**'
+
+jobs:
+  apex-pmd-analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 'Checkout source code'
+        uses: actions/checkout@v4
+        
+      - name: 'Setup Java'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - name: 'Setup PMD'
+        run: |
+          wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.8.0/pmd-dist-7.8.0-bin.zip
+          unzip pmd-dist-7.8.0-bin.zip
+          chmod +x pmd-bin-7.8.0/bin/pmd
+          echo "PMD_HOME=${{ github.workspace }}/pmd-bin-7.8.0" >> $GITHUB_ENV
+          echo "${{ github.workspace }}/pmd-bin-7.8.0/bin" >> $GITHUB_PATH
+          
+      - name: 'Create PMD ruleset'
+        run: |
+          cat > pmd-ruleset.xml << 'EOF'
+          <?xml version="1.0"?>
+          <ruleset name="CVMA Apex Rules"
+                   xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+              <description>CVMA Salesforce Apex PMD Rules</description>
+              
+              <!-- Best Practices -->
+              <rule ref="category/apex/bestpractices.xml/ApexAssertionsShouldIncludeMessage" />
+              <rule ref="category/apex/bestpractices.xml/ApexUnitTestClassShouldHaveAsserts" />
+              <rule ref="category/apex/bestpractices.xml/ApexUnitTestMethodShouldHaveIsTestAnnotation" />
+              <rule ref="category/apex/bestpractices.xml/ApexUnitTestShouldNotUseSeeAllDataTrue" />
+              <rule ref="category/apex/bestpractices.xml/AvoidGlobalModifier" />
+              <rule ref="category/apex/bestpractices.xml/DebugsShouldUseLoggingLevel" />
+              <rule ref="category/apex/bestpractices.xml/UnusedLocalVariable" />
+              
+              <!-- Code Style -->
+              <rule ref="category/apex/codestyle.xml/ClassNamingConventions">
+                  <properties>
+                      <property name="testClassPattern" value="[A-Z][a-zA-Z0-9_]*Test" />
+                      <property name="abstractClassPattern" value="[A-Z][a-zA-Z0-9_]*" />
+                      <property name="classPattern" value="[A-Z][a-zA-Z0-9_]*" />
+                      <property name="interfacePattern" value="[A-Z][a-zA-Z0-9_]*" />
+                      <property name="enumPattern" value="[A-Z][a-zA-Z0-9_]*" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/codestyle.xml/FieldNamingConventions" />
+              <rule ref="category/apex/codestyle.xml/FormalParameterNamingConventions" />
+              <rule ref="category/apex/codestyle.xml/LocalVariableNamingConventions" />
+              <rule ref="category/apex/codestyle.xml/MethodNamingConventions" />
+              <rule ref="category/apex/codestyle.xml/PropertyNamingConventions" />
+              
+              <!-- Design -->
+              <rule ref="category/apex/design.xml/AvoidDeeplyNestedIfStmts">
+                  <properties>
+                      <property name="problemDepth" value="4" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/CyclomaticComplexity">
+                  <properties>
+                      <property name="methodReportLevel" value="12" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/ExcessiveClassLength">
+                  <properties>
+                      <property name="minimum" value="1500" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/ExcessiveParameterList">
+                  <properties>
+                      <property name="minimum" value="6" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/ExcessivePublicCount">
+                  <properties>
+                      <property name="minimum" value="35" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/NcssConstructorCount">
+                  <properties>
+                      <property name="minimum" value="25" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/NcssMethodCount">
+                  <properties>
+                      <property name="minimum" value="60" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/NcssTypeCount">
+                  <properties>
+                      <property name="minimum" value="700" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/StdCyclomaticComplexity">
+                  <properties>
+                      <property name="reportLevel" value="12" />
+                  </properties>
+              </rule>
+              <rule ref="category/apex/design.xml/TooManyFields">
+                  <properties>
+                      <property name="maxfields" value="25" />
+                  </properties>
+              </rule>
+              
+              <!-- Error Prone -->
+              <rule ref="category/apex/errorprone.xml/ApexCSRF" />
+              <rule ref="category/apex/errorprone.xml/AvoidDirectAccessTriggerMap" />
+              <rule ref="category/apex/errorprone.xml/AvoidHardcodingId" />
+              <rule ref="category/apex/errorprone.xml/AvoidNonExistentAnnotations" />
+              <rule ref="category/apex/errorprone.xml/EmptyIfStmt" />
+              <rule ref="category/apex/errorprone.xml/EmptyStatementBlock" />
+              <rule ref="category/apex/errorprone.xml/EmptyTryOrFinallyBlock" />
+              <rule ref="category/apex/errorprone.xml/EmptyWhileStmt" />
+              <rule ref="category/apex/errorprone.xml/InaccessibleAuraEnabledGetter" />
+              <rule ref="category/apex/errorprone.xml/MethodWithSameNameAsEnclosingClass" />
+              <rule ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode" />
+              <rule ref="category/apex/errorprone.xml/TestMethodsMustBeInTestClasses" />
+              
+              <!-- Performance -->
+              <rule ref="category/apex/performance.xml/AvoidDebugStatements" />
+              <rule ref="category/apex/performance.xml/EagerlyLoadedDescribeSObjectResult" />
+              <rule ref="category/apex/performance.xml/OperationWithLimitsInLoop" />
+              
+              <!-- Security -->
+              <rule ref="category/apex/security.xml/ApexBadCrypto" />
+              <rule ref="category/apex/security.xml/ApexCRUDViolation" />
+              <rule ref="category/apex/security.xml/ApexDangerousMethods" />
+              <rule ref="category/apex/security.xml/ApexInsecureEndpoint" />
+              <rule ref="category/apex/security.xml/ApexOpenRedirect" />
+              <rule ref="category/apex/security.xml/ApexSharingViolations" />
+              <rule ref="category/apex/security.xml/ApexSOQLInjection" />
+              <rule ref="category/apex/security.xml/ApexSuggestUsingNamedCred" />
+              <rule ref="category/apex/security.xml/ApexXSSFromEscapeFalse" />
+              <rule ref="category/apex/security.xml/ApexXSSFromURLParam" />
+          </ruleset>
+          EOF
+          
+      - name: 'Run PMD Analysis'
+        run: |
+          mkdir -p reports
+          pmd check \
+            --dir src/classes \
+            --rulesets pmd-ruleset.xml \
+            --format json \
+            --report-file reports/pmd-report.json \
+            --fail-on-violation false \
+            --minimum-priority 3
+            
+      - name: 'Generate PMD HTML Report'
+        run: |
+          pmd check \
+            --dir src/classes \
+            --rulesets pmd-ruleset.xml \
+            --format html \
+            --report-file reports/pmd-report.html \
+            --fail-on-violation false \
+            --minimum-priority 3
+            
+      - name: 'Upload PMD Reports'
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pmd-reports
+          path: reports/
+          retention-days: 30
+          
+      - name: 'Comment PR with PMD Results'
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            try {
+              const reportData = fs.readFileSync('reports/pmd-report.json', 'utf8');
+              const report = JSON.parse(reportData);
+              
+              let comment = '## 🔍 PMD Code Quality Analysis Results\n\n';
+              
+              if (report.files && report.files.length > 0) {
+                let totalViolations = 0;
+                let criticalCount = 0;
+                let highCount = 0;
+                let mediumCount = 0;
+                let lowCount = 0;
+                
+                report.files.forEach(file => {
+                  if (file.violations) {
+                    totalViolations += file.violations.length;
+                    file.violations.forEach(violation => {
+                      switch(violation.priority) {
+                        case 1: criticalCount++; break;
+                        case 2: highCount++; break;
+                        case 3: mediumCount++; break;
+                        case 4: 
+                        case 5: lowCount++; break;
+                      }
+                    });
+                  }
+                });
+                
+                comment += `### Summary\n`;
+                comment += `- **Total Violations:** ${totalViolations}\n`;
+                comment += `- **Critical:** ${criticalCount} 🔴\n`;
+                comment += `- **High:** ${highCount} 🟠\n`;
+                comment += `- **Medium:** ${mediumCount} 🟡\n`;
+                comment += `- **Low:** ${lowCount} 🟢\n\n`;
+                
+                if (totalViolations > 0) {
+                  comment += `### Top Issues\n`;
+                  let issueCount = 0;
+                  
+                  report.files.forEach(file => {
+                    if (file.violations && issueCount < 10) {
+                      file.violations.slice(0, 5).forEach(violation => {
+                        if (issueCount < 10) {
+                          const priority = violation.priority <= 2 ? '🔴' : violation.priority == 3 ? '🟡' : '🟢';
+                          comment += `${priority} **${violation.rule}** (Line ${violation.beginline}): ${violation.description}\n`;
+                          comment += `   📄 \`${file.filename}\`\n\n`;
+                          issueCount++;
+                        }
+                      });
+                    }
+                  });
+                  
+                  if (totalViolations > 10) {
+                    comment += `... and ${totalViolations - 10} more issues. Check the full report in the Actions artifacts.\n\n`;
+                  }
+                }
+                
+                comment += `### 📋 Peer Review Checklist\n`;
+                comment += `- [ ] All critical and high priority PMD violations addressed\n`;
+                comment += `- [ ] Code follows CVMA Salesforce best practices\n`;
+                comment += `- [ ] Security patterns implemented (WITH SECURITY_ENFORCED, input validation)\n`;
+                comment += `- [ ] Test coverage meets requirements (75% minimum)\n`;
+                comment += `- [ ] Error handling uses CVMAErrorHandler framework\n`;
+                comment += `- [ ] Documentation and comments are adequate\n`;
+                comment += `- [ ] No hardcoded IDs or sensitive information\n`;
+                
+              } else {
+                comment += '✅ **No PMD violations found!** Great job following coding standards.\n\n';
+                comment += `### 📋 Peer Review Checklist\n`;
+                comment += `- [ ] Code follows CVMA Salesforce best practices\n`;
+                comment += `- [ ] Security patterns implemented (WITH SECURITY_ENFORCED, input validation)\n`;
+                comment += `- [ ] Test coverage meets requirements (75% minimum)\n`;
+                comment += `- [ ] Error handling uses CVMAErrorHandler framework\n`;
+                comment += `- [ ] Documentation and comments are adequate\n`;
+                comment += `- [ ] No hardcoded IDs or sensitive information\n`;
+              }
+              
+              comment += `\n📊 **Full reports available in [Actions Artifacts](${context.payload.pull_request.html_url.replace('/pull/', '/actions/runs/')}).**`;
+              
+              // Post comment
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+              
+            } catch (error) {
+              console.log('Error processing PMD report:', error);
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '## 🔍 PMD Code Quality Analysis\n\n⚠️ Unable to parse PMD report. Please check the Actions logs for details.'
+              });
+            }

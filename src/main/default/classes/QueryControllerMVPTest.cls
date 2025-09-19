@@ -23,15 +23,17 @@ public class QueryControllerMVPTest {
         }
         insert testAccounts;
 
-        // Create test contacts
+        // Create test contacts using CVMATestDataFactory
         List<Contact> testContacts = new List<Contact>();
         for (Integer i = 0; i < testAccounts.size(); i++) {
-            testContacts.add(new Contact(
-                    FirstName = 'Test',
-                    LastName = 'Contact ' + i,
-                    Email = 'test' + i + '@example.com',
-                    AccountId = testAccounts[i].Id
-            ));
+            testContacts.add(CVMATestDataFactory.createContact()
+                    .withFirstName('Test')
+                    .withLastName('Contact ' + i)
+                    .withEmail('test' + i + '@example.com')
+                    .withAccount(testAccounts[i].Id)
+                    .withLevel('Full Member')
+                    .withMembershipId('FM' + String.valueOf(i + 1).leftPad(4, '0'))
+                    .build());
         }
         insert testContacts;
 

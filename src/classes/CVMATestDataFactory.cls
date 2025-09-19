@@ -4,8 +4,8 @@
  * Implements builder pattern for flexible test data configuration
  */
 @IsTest
-public class CVMATestDataFactory {
-    
+public with sharing class CVMATestDataFactory {
+
     // Constants for default values
     private static final String DEFAULT_FIRST_NAME = 'Test';
     private static final String DEFAULT_LAST_NAME = 'Member';
@@ -16,18 +16,18 @@ public class CVMATestDataFactory {
     private static final String DEFAULT_STATE = 'FL';
     private static final String DEFAULT_POSTAL_CODE = '32204';
     private static final String DEFAULT_COUNTRY = 'United States';
-    
+
     // Static counters for unique data generation
     private static Integer userCounter = 0;
     private static Integer contactCounter = 0;
     private static Integer accountCounter = 0;
-    
+
     /**
      * Contact Builder Class
      */
     public class ContactBuilder {
         private Contact contact;
-        
+
         public ContactBuilder() {
             contactCounter++;
             this.contact = new Contact(
@@ -50,65 +50,65 @@ public class CVMATestDataFactory {
                 npo02__LastMembershipDate__c = Date.today().addMonths(-12)
             );
         }
-        
+
         public ContactBuilder withFirstName(String firstName) {
             this.contact.FirstName = firstName;
             return this;
         }
-        
+
         public ContactBuilder withLastName(String lastName) {
             this.contact.LastName = lastName;
             return this;
         }
-        
+
         public ContactBuilder withEmail(String email) {
             this.contact.Email = email;
             return this;
         }
-        
+
         public ContactBuilder withPhone(String phone) {
             this.contact.Phone = phone;
             this.contact.MobilePhone = phone;
             return this;
         }
-        
+
         public ContactBuilder withMembershipId(String membershipId) {
             this.contact.Membership_Id__c = membershipId;
             return this;
         }
-        
+
         public ContactBuilder withLevel(String level) {
             this.contact.Level__c = level;
             return this;
         }
-        
+
         public ContactBuilder withRoadName(String roadName) {
             this.contact.Road_Name__c = roadName;
             return this;
         }
-        
+
         public ContactBuilder withMembershipDates(Date joinDate, Date endDate) {
             this.contact.npo02__MembershipJoinDate__c = joinDate;
             this.contact.npo02__MembershipEndDate__c = endDate;
             return this;
         }
-        
+
         public ContactBuilder withExpiredMembership() {
             this.contact.npo02__MembershipEndDate__c = Date.today().addDays(-30);
             return this;
         }
-        
+
         public ContactBuilder withExpiringMembership() {
             this.contact.npo02__MembershipEndDate__c = Date.today().addDays(15);
             return this;
         }
-        
+
         public ContactBuilder withNewMembership() {
             this.contact.npo02__MembershipJoinDate__c = Date.today().addDays(-15);
             this.contact.npo02__MembershipEndDate__c = Date.today().addMonths(12);
             return this;
         }
-        
+
         public ContactBuilder withMailingAddress(String street, String city, String state, String postalCode) {
             this.contact.MailingStreet = street;
             this.contact.MailingCity = city;
@@ -116,29 +116,29 @@ public class CVMATestDataFactory {
             this.contact.MailingPostalCode = postalCode;
             return this;
         }
-        
+
         public ContactBuilder withAccount(Id accountId) {
             this.contact.AccountId = accountId;
             return this;
         }
-        
+
         public Contact build() {
             return this.contact;
         }
-        
+
         public Contact create() {
             insert this.contact;
             return this.contact;
         }
     }
-    
+
     /**
      * User Builder Class
      */
     public class UserBuilder {
         private User user;
         private Contact relatedContact;
-        
+
         public UserBuilder() {
             userCounter++;
             this.user = new User(
@@ -156,67 +156,80 @@ public class CVMATestDataFactory {
                 ProfileId = getStandardUserProfileId()
             );
         }
-        
+
         public UserBuilder withFirstName(String firstName) {
             this.user.FirstName = firstName;
             return this;
         }
-        
+
         public UserBuilder withLastName(String lastName) {
             this.user.LastName = lastName;
             return this;
         }
-        
+
         public UserBuilder withEmail(String email) {
             this.user.Email = email;
             this.user.Username = email;
             return this;
         }
-        
+
         public UserBuilder withProfileId(Id profileId) {
             this.user.ProfileId = profileId;
             return this;
         }
-        
+
         public UserBuilder withContact(Contact contact) {
             this.relatedContact = contact;
             return this;
         }
-        
+
         public UserBuilder asSystemAdmin() {
             this.user.ProfileId = getSystemAdminProfileId();
             return this;
         }
-        
+
         public UserBuilder asCommunityUser() {
             this.user.ProfileId = getCommunityProfileId();
             return this;
         }
-        
+
+        public UserBuilder asPortalUser() {
+            // Set appropriate portal profile
+            Id portalProfileId = getPortalUserProfileId();
+            this.user.ProfileId = portalProfileId;
+            return this;
+        }
+
         public User build() {
             return this.user;
         }
-        
+
         public User create() {
+            // For portal users, contact must be created first and have an account
             if (this.relatedContact != null && this.relatedContact.Id == null) {
+                // If contact doesn't have an account, create one for portal users
+                if (this.relatedContact.AccountId == null && isPortalProfile(this.user.ProfileId)) {
+                    Account portalAccount = createAccount().create();
+                    this.relatedContact.AccountId = portalAccount.Id;
+                }
                 insert this.relatedContact;
             }
-            
+
             if (this.relatedContact != null) {
                 this.user.ContactId = this.relatedContact.Id;
             }
-            
+
             insert this.user;
             return this.user;
         }
     }
-    
+
     /**
      * Account Builder Class
      */
     public class AccountBuilder {
         private Account account;
-        
+
         public AccountBuilder() {
             accountCounter++;
             this.account = new Account(
@@ -230,17 +243,17 @@ public class CVMATestDataFactory {
                 Phone = DEFAULT_PHONE
             );
         }
-        
+
         public AccountBuilder withName(String name) {
             this.account.Name = name;
             return this;
         }
-        
+
         public AccountBuilder withType(String accountType) {
             this.account.Type = accountType;
             return this;
         }
-        
+
         public AccountBuilder withBillingAddress(String street, String city, String state, String postalCode) {
             this.account.BillingStreet = street;
             this.account.BillingCity = city;
@@ -248,32 +261,32 @@ public class CVMATestDataFactory {
             this.account.BillingPostalCode = postalCode;
             return this;
         }
-        
+
         public Account build() {
             return this.account;
         }
-        
+
         public Account create() {
             insert this.account;
             return this.account;
         }
     }
-    
+
     /**
      * Static factory methods
      */
     public static ContactBuilder createContact() {
         return new ContactBuilder();
     }
-    
+
     public static UserBuilder createUser() {
         return new UserBuilder();
     }
-    
+
     public static AccountBuilder createAccount() {
         return new AccountBuilder();
     }
-    
+
     /**
      * Bulk data creation methods
      */
@@ -284,13 +297,13 @@ public class CVMATestDataFactory {
         }
         return contacts;
     }
-    
+
     public static List<Contact> createAndInsertContacts(Integer count) {
         List<Contact> contacts = createContacts(count);
         insert contacts;
         return contacts;
     }
-    
+
     public static List<User> createUsers(Integer count) {
         List<User> users = new List<User>();
         for (Integer i = 0; i < count; i++) {
@@ -298,47 +311,47 @@ public class CVMATestDataFactory {
         }
         return users;
     }
-    
+
     /**
      * Specialized contact creation methods
      */
     public static List<Contact> createMembersWithVariousStatuses(Integer totalCount) {
         List<Contact> contacts = new List<Contact>();
-        
+
         Integer activeCount = (Integer) Math.floor(totalCount * 0.6);
         Integer expiringCount = (Integer) Math.floor(totalCount * 0.2);
         Integer expiredCount = (Integer) Math.floor(totalCount * 0.1);
         Integer newCount = totalCount - activeCount - expiringCount - expiredCount;
-        
+
         // Active members
         for (Integer i = 0; i < activeCount; i++) {
             contacts.add(createContact().build());
         }
-        
+
         // Expiring members
         for (Integer i = 0; i < expiringCount; i++) {
             contacts.add(createContact().withExpiringMembership().build());
         }
-        
+
         // Expired members
         for (Integer i = 0; i < expiredCount; i++) {
             contacts.add(createContact().withExpiredMembership().build());
         }
-        
+
         // New members
         for (Integer i = 0; i < newCount; i++) {
             contacts.add(createContact().withNewMembership().build());
         }
-        
+
         return contacts;
     }
-    
+
     public static List<Contact> createAndInsertMembersWithVariousStatuses(Integer totalCount) {
         List<Contact> contacts = createMembersWithVariousStatuses(totalCount);
         insert contacts;
         return contacts;
     }
-    
+
     /**
      * Create users with associated contacts for community testing
      */
@@ -346,19 +359,19 @@ public class CVMATestDataFactory {
         List<Account> accounts = new List<Account>();
         List<Contact> contacts = new List<Contact>();
         List<User> users = new List<User>();
-        
+
         // Create accounts first
         for (Integer i = 0; i < count; i++) {
             accounts.add(createAccount().build());
         }
         insert accounts;
-        
+
         // Create contacts associated with accounts
         for (Integer i = 0; i < count; i++) {
             contacts.add(createContact().withAccount(accounts[i].Id).build());
         }
         insert contacts;
-        
+
         // Create community users associated with contacts
         for (Integer i = 0; i < count; i++) {
             users.add(createUser()
@@ -366,20 +379,39 @@ public class CVMATestDataFactory {
                 .withContact(contacts[i])
                 .build());
         }
-        
+
+        insert users;
         return users;
     }
-    
+
+    /**
+     * Create portal users with proper account/contact association
+     */
+    public static List<User> createPortalUsersWithContacts(Integer count) {
+        List<User> users = new List<User>();
+
+        for (Integer i = 0; i < count; i++) {
+            // Create user with portal profile and auto-create account/contact
+            User portalUser = createUser()
+                .asPortalUser()
+                .withContact(createContact().build())
+                .create();
+            users.add(portalUser);
+        }
+
+        return users;
+    }
+
     /**
      * Create test error log records
      */
     public static List<CVMA_Error_Log__c> createErrorLogs(Integer count) {
         List<CVMA_Error_Log__c> errorLogs = new List<CVMA_Error_Log__c>();
-        
+
         for (Integer i = 0; i < count; i++) {
             String severity = Math.mod(i, 2) == 0 ? 'HIGH' : 'MEDIUM';
             String category = Math.mod(i, 3) == 0 ? 'SECURITY' : 'DATA_VALIDATION';
-            
+
             errorLogs.add(new CVMA_Error_Log__c(
                 Class_Name__c = 'TestClass' + i,
                 Method_Name__c = 'testMethod' + i,
@@ -391,16 +423,16 @@ public class CVMATestDataFactory {
                 Context_Data__c = '{"testData": "value' + i + '"}'
             ));
         }
-        
+
         return errorLogs;
     }
-    
+
     public static List<CVMA_Error_Log__c> createAndInsertErrorLogs(Integer count) {
         List<CVMA_Error_Log__c> errorLogs = createErrorLogs(count);
         insert errorLogs;
         return errorLogs;
     }
-    
+
     /**
      * Utility methods
      */
@@ -408,51 +440,81 @@ public class CVMATestDataFactory {
         // Generate membership ID per validation rule: FM+1-5 digits (3-8 chars total)
         return 'FM' + String.valueOf(sequence).leftPad(3, '0'); // Format: FMXXX (max 5 digits)
     }
-    
+
     private static Id getStandardUserProfileId() {
-        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
+        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'Standard User' WITH SECURITY_ENFORCED LIMIT 1];
         return profiles.isEmpty() ? null : profiles[0].Id;
     }
-    
+
     private static Id getSystemAdminProfileId() {
-        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'System Administrator' LIMIT 1];
+        List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'System Administrator' WITH SECURITY_ENFORCED LIMIT 1];
         return profiles.isEmpty() ? getStandardUserProfileId() : profiles[0].Id;
     }
-    
+
     private static Id getCommunityProfileId() {
         // Try to find a community profile, fallback to standard user
         List<Profile> profiles = [
-            SELECT Id 
-            FROM Profile 
-            WHERE Name LIKE '%Community%' 
-            OR Name LIKE '%Customer%' 
-            OR Name LIKE '%Partner%'
+            SELECT Id
+            FROM Profile
+            WHERE (Name LIKE '%Community%'
+            OR Name LIKE '%Customer%'
+            OR Name LIKE '%Partner%')
+            AND UserType = 'PowerPartner'
+            WITH SECURITY_ENFORCED
             LIMIT 1
         ];
         return profiles.isEmpty() ? getStandardUserProfileId() : profiles[0].Id;
     }
-    
+
+    private static Id getPortalUserProfileId() {
+        // Find Customer Portal User profile specifically for portal tests
+        List<Profile> profiles = [
+            SELECT Id
+            FROM Profile
+            WHERE Name = 'Customer Portal User'
+            OR Name = 'High Volume Customer Portal User'
+            OR Name LIKE '%Portal%'
+            WITH SECURITY_ENFORCED
+            LIMIT 1
+        ];
+        return profiles.isEmpty() ? getStandardUserProfileId() : profiles[0].Id;
+    }
+
+    private static Boolean isPortalProfile(Id profileId) {
+        if (profileId == null) return false;
+
+        List<Profile> profiles = [
+            SELECT Id, UserType
+            FROM Profile
+            WHERE Id = :profileId
+            AND (UserType = 'PowerPartner' OR UserType = 'PowerCustomerSuccess' OR UserType LIKE '%Portal%')
+            WITH SECURITY_ENFORCED
+            LIMIT 1
+        ];
+        return !profiles.isEmpty();
+    }
+
     /**
      * Setup method for common test data
      */
     public static TestDataBundle setupBasicTestData() {
         TestDataBundle bundle = new TestDataBundle();
-        
+
         // Create test account
         bundle.testAccount = createAccount().create();
-        
+
         // Create test contacts with various statuses
         bundle.activeContacts = new List<Contact>();
         bundle.expiringContacts = new List<Contact>();
         bundle.expiredContacts = new List<Contact>();
-        
+
         // Create 5 active members
         for (Integer i = 0; i < 5; i++) {
             bundle.activeContacts.add(createContact()
                 .withAccount(bundle.testAccount.Id)
                 .create());
         }
-        
+
         // Create 3 expiring members
         for (Integer i = 0; i < 3; i++) {
             bundle.expiringContacts.add(createContact()
@@ -460,7 +522,7 @@ public class CVMATestDataFactory {
                 .withExpiringMembership()
                 .create());
         }
-        
+
         // Create 2 expired members
         for (Integer i = 0; i < 2; i++) {
             bundle.expiredContacts.add(createContact()
@@ -468,14 +530,14 @@ public class CVMATestDataFactory {
                 .withExpiredMembership()
                 .create());
         }
-        
+
         // Create test users
         bundle.adminUser = createUser().asSystemAdmin().create();
         bundle.standardUser = createUser().withContact(bundle.activeContacts[0]).create();
-        
+
         return bundle;
     }
-    
+
     /**
      * Data bundle class for organized test data
      */
@@ -486,13 +548,13 @@ public class CVMATestDataFactory {
         public List<Contact> expiredContacts { get; set; }
         public User adminUser { get; set; }
         public User standardUser { get; set; }
-        
+
         public TestDataBundle() {
             this.activeContacts = new List<Contact>();
             this.expiringContacts = new List<Contact>();
             this.expiredContacts = new List<Contact>();
         }
-        
+
         public List<Contact> getAllContacts() {
             List<Contact> allContacts = new List<Contact>();
             allContacts.addAll(activeContacts);

@@ -1,0 +1,337 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-utility-money" title="Financial Management">
+                        <lightning-icon icon-name="utility:money" alternative-text="Financial Management" size="medium"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Financial Dashboard</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+            </template>
+
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-alert_error">
+                    <h2>Error loading financial data: {error.body.message}</h2>
+                </div>
+            </template>
+
+            <!-- Tab Navigation -->
+            <lightning-tabset variant="standard" active-tab-value={selectedTab} onactive={handleTabChange}>
+
+                <!-- Financial Summary Tab -->
+                <lightning-tab label="Financial Summary" value="summary">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <!-- Summary Cards -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-theme_shade summary-card">
+                                <div class="summary-label">Total Revenue</div>
+                                <div class="summary-value positive">
+                                    <lightning-formatted-number
+                                        value={financialSummary.totalRevenue}
+                                        format-style="currency"
+                                        currency-code="USD">
+                                    </lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-theme_shade summary-card">
+                                <div class="summary-label">Total Expenses</div>
+                                <div class="summary-value negative">
+                                    <lightning-formatted-number
+                                        value={financialSummary.totalExpenses}
+                                        format-style="currency"
+                                        currency-code="USD">
+                                    </lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-theme_shade summary-card">
+                                <div class="summary-label">Net Income</div>
+                                <div class="summary-value">
+                                    <lightning-formatted-number
+                                        value={financialSummary.netIncome}
+                                        format-style="currency"
+                                        currency-code="USD">
+                                    </lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-box slds-theme_shade summary-card">
+                                <div class="summary-label">Outstanding Dues</div>
+                                <div class="summary-value warning">
+                                    <lightning-formatted-number
+                                        value={financialSummary.outstandingDues}
+                                        format-style="currency"
+                                        currency-code="USD">
+                                    </lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Member Statistics -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-top_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-box slds-theme_shade summary-card">
+                                <div class="summary-label">Total Members</div>
+                                <div class="summary-value">{financialSummary.totalMembers}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-box slds-theme_shade summary-card">
+                                <div class="summary-label">Paid Members</div>
+                                <div class="summary-value positive">{financialSummary.paidMembers}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-box slds-theme_shade summary-card">
+                                <div class="summary-label">Overdue Members</div>
+                                <div class="summary-value negative">{financialSummary.overdueMembers}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reporting Period -->
+                    <div class="slds-m-top_large">
+                        <p class="slds-text-body_small slds-text-color_weak">
+                            Reporting Period: {financialSummary.reportingPeriod}
+                        </p>
+                    </div>
+                </lightning-tab>
+
+                <!-- Payment Records Tab -->
+                <lightning-tab label="Payment Records" value="payments">
+                    <!-- Filters -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <lightning-combobox
+                                label="Year"
+                                value={paymentFilters.year}
+                                options={yearOptions}
+                                onchange={handleYearChange}>
+                            </lightning-combobox>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <lightning-combobox
+                                label="Status"
+                                value={paymentFilters.status}
+                                options={statusOptions}
+                                onchange={handleStatusFilterChange}>
+                            </lightning-combobox>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-m-top_large">
+                                <p class="slds-text-body_small">
+                                    Showing {paymentRecords.length} of {paymentPagination.totalCount} records
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Records Table -->
+                    <lightning-datatable
+                        key-field="id"
+                        data={paymentRecords}
+                        columns={paymentRecordColumns}
+                        onrowaction={handleProcessPayment}
+                        show-row-number-column
+                        hide-checkbox-column>
+                    </lightning-datatable>
+
+                    <!-- Pagination -->
+                    <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
+                        <lightning-button
+                            label="Previous"
+                            onclick={handlePaymentPrevious}
+                            disabled={isFirstPaymentPage}>
+                        </lightning-button>
+
+                        <span class="slds-text-body_small slds-align_absolute-center">
+                            Page {currentPaymentPage}
+                        </span>
+
+                        <lightning-button
+                            label="Next"
+                            onclick={handlePaymentNext}
+                            disabled={isLastPaymentPage}>
+                        </lightning-button>
+                    </div>
+                </lightning-tab>
+
+                <!-- Transactions Tab -->
+                <lightning-tab label="Transactions" value="transactions">
+                    <!-- Transaction Filters -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <lightning-input
+                                type="date"
+                                label="Start Date"
+                                value={transactionFilters.startDate}
+                                data-field="startDate"
+                                onchange={handleDateFilterChange}>
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <lightning-input
+                                type="date"
+                                label="End Date"
+                                value={transactionFilters.endDate}
+                                data-field="endDate"
+                                onchange={handleDateFilterChange}>
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <lightning-combobox
+                                label="Transaction Type"
+                                value={transactionFilters.transactionType}
+                                options={transactionTypeOptions}
+                                onchange={handleTransactionTypeChange}>
+                            </lightning-combobox>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="slds-m-top_large">
+                                <p class="slds-text-body_small">
+                                    Showing {transactions.length} of {transactionPagination.totalCount} records
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transactions Table -->
+                    <lightning-datatable
+                        key-field="id"
+                        data={transactions}
+                        columns={transactionColumns}
+                        show-row-number-column
+                        hide-checkbox-column>
+                    </lightning-datatable>
+
+                    <!-- Pagination -->
+                    <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
+                        <lightning-button
+                            label="Previous"
+                            onclick={handleTransactionPrevious}
+                            disabled={isFirstTransactionPage}>
+                        </lightning-button>
+
+                        <span class="slds-text-body_small slds-align_absolute-center">
+                            Page {currentTransactionPage}
+                        </span>
+
+                        <lightning-button
+                            label="Next"
+                            onclick={handleTransactionNext}
+                            disabled={isLastTransactionPage}>
+                        </lightning-button>
+                    </div>
+                </lightning-tab>
+            </lightning-tabset>
+        </div>
+    </div>
+
+    <!-- Payment Processing Modal -->
+    <template if:true={showPaymentModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closePaymentModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Process Payment</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-form slds-form_stacked">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Member</label>
+                            <div class="slds-form-element__control">
+                                <span class="slds-form-element__static">{selectedPaymentRecord.memberName}</span>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Outstanding Balance</label>
+                            <div class="slds-form-element__control">
+                                <span class="slds-form-element__static">
+                                    <lightning-formatted-number
+                                        value={selectedPaymentRecord.balance}
+                                        format-style="currency"
+                                        currency-code="USD">
+                                    </lightning-formatted-number>
+                                </span>
+                            </div>
+                        </div>
+
+                        <lightning-input
+                            type="number"
+                            label="Payment Amount"
+                            value={paymentData.amount}
+                            data-field="amount"
+                            onchange={handlePaymentInputChange}
+                            step="0.01"
+                            min="0.01"
+                            required>
+                        </lightning-input>
+
+                        <lightning-combobox
+                            label="Payment Method"
+                            value={paymentData.paymentMethod}
+                            options={paymentMethods}
+                            data-field="paymentMethod"
+                            onchange={handlePaymentInputChange}
+                            required>
+                        </lightning-combobox>
+
+                        <lightning-input
+                            type="text"
+                            label="Reference Number"
+                            value={paymentData.referenceNumber}
+                            data-field="referenceNumber"
+                            onchange={handlePaymentInputChange}
+                            placeholder="Check number, transaction ID, etc.">
+                        </lightning-input>
+
+                        <lightning-textarea
+                            label="Notes"
+                            value={paymentData.notes}
+                            data-field="notes"
+                            onchange={handlePaymentInputChange}
+                            placeholder="Additional payment notes">
+                        </lightning-textarea>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={closePaymentModal}></lightning-button>
+                    <lightning-button variant="brand" label="Process Payment" onclick={handleSavePayment} disabled={isLoading}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

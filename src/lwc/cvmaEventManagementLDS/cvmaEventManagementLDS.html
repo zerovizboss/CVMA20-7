@@ -1,0 +1,250 @@
+<template>
+    <lightning-card title="CVMA Event Management (LDS)" icon-name="standard:event">
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- Action Buttons -->
+            <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                    <lightning-button
+                        label="Create New Event"
+                        variant="brand"
+                        onclick={openCreateModal}>
+                    </lightning-button>
+                </div>
+            </div>
+
+            <!-- Events Data Table using LDS -->
+            <template if:true={events.length}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={events}
+                    columns={columns}
+                    onrowaction={handleRowAction}
+                    hide-checkbox-column="true"
+                    show-row-number-column="true">
+                </lightning-datatable>
+            </template>
+
+            <!-- No Events Message -->
+            <template if:false={events.length}>
+                <div class="slds-text-align_center slds-p-around_large">
+                    <lightning-icon icon-name="utility:event" size="large" class="slds-m-bottom_small"></lightning-icon>
+                    <p class="slds-text-heading_small">No events found</p>
+                    <p class="slds-text-color_weak">Create your first CVMA event to get started</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Create/Edit Event Modal using LDS -->
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        onclick={closeModal}
+                        alternative-text="Close"
+                        variant="bare-inverse"
+                        class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 class="slds-text-heading_medium">
+                        {modalTitle}
+                    </h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <!-- Basic Event Information -->
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-input
+                                type="text"
+                                label="Event Name"
+                                value={formData.name}
+                                onchange={handleFieldChange}
+                                data-field="name"
+                                required="true">
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-textarea
+                                label="Description"
+                                value={formData.description}
+                                onchange={handleFieldChange}
+                                data-field="description">
+                            </lightning-textarea>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input
+                                type="date"
+                                label="Start Date"
+                                value={formData.startDate}
+                                onchange={handleFieldChange}
+                                data-field="startDate"
+                                required="true">
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input
+                                type="date"
+                                label="End Date"
+                                value={formData.endDate}
+                                onchange={handleFieldChange}
+                                data-field="endDate">
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox
+                                label="Status"
+                                value={formData.status}
+                                options={statusOptions}
+                                onchange={handleFieldChange}
+                                data-field="status">
+                            </lightning-combobox>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input
+                                type="number"
+                                label="Capacity (Optional)"
+                                value={formData.capacity}
+                                onchange={handleFieldChange}
+                                data-field="capacity"
+                                min="1">
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <!-- Recurring Event Options -->
+                    <template if:false={isEditing}>
+                        <div class="slds-m-top_medium">
+                            <lightning-input
+                                type="checkbox"
+                                label="Create Recurring Event Series"
+                                checked={formData.isRecurring}
+                                onchange={handleFieldChange}
+                                data-field="isRecurring">
+                            </lightning-input>
+                        </div>
+
+                        <template if:true={formData.isRecurring}>
+                            <div class="slds-grid slds-gutters slds-wrap slds-m-top_small">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning-combobox
+                                        label="Recurrence Pattern"
+                                        value={formData.recurrenceType}
+                                        options={recurrenceOptions}
+                                        onchange={handleFieldChange}
+                                        data-field="recurrenceType"
+                                        required="true">
+                                    </lightning-combobox>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning-input
+                                        type="number"
+                                        label="Number of Occurrences"
+                                        value={formData.recurrenceCount}
+                                        onchange={handleFieldChange}
+                                        data-field="recurrenceCount"
+                                        min="2"
+                                        max="52"
+                                        required="true">
+                                    </lightning-input>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning-input
+                                        type="date"
+                                        label="End Recurrence Date (Optional)"
+                                        value={formData.endRecurrenceDate}
+                                        onchange={handleFieldChange}
+                                        data-field="endRecurrenceDate">
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={closeModal}>
+                    </lightning-button>
+                    <lightning-button
+                        label={submitButtonLabel}
+                        variant="brand"
+                        onclick={submitForm}
+                        disabled={isSubmitting}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Event Details Modal -->
+    <template if:true={showDetailsModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        onclick={closeDetailsModal}
+                        alternative-text="Close"
+                        variant="bare-inverse"
+                        class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 class="slds-text-heading_medium">
+                        Event Details: {selectedEventStats.eventName}
+                    </h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={selectedEventStats}>
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <!-- Event Stats -->
+                            <div class="slds-col slds-size_1-of-2">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small">RSVP Summary</h3>
+                                <p><strong>Total Members:</strong> {selectedEventStats.totalMembers}</p>
+                                <p><strong>Responded:</strong> {selectedEventStats.respondedCount}</p>
+                                <p><strong>Sent Invitations:</strong> {selectedEventStats.sentCount}</p>
+                                <template if:true={selectedEventStats.capacity}>
+                                    <p><strong>Capacity:</strong> {selectedEventStats.capacity}</p>
+                                    <p><strong>Available Spots:</strong> {selectedEventStats.availableSpots}</p>
+                                </template>
+                                <template if:false={selectedEventStats.capacity}>
+                                    <p><strong>Capacity:</strong> Unlimited</p>
+                                </template>
+                            </div>
+
+                            <!-- Campaign Members using LDS -->
+                            <div class="slds-col slds-size_1-of-2">
+                                <h3 class="slds-text-heading_small slds-m-bottom_small">Members (via LDS)</h3>
+                                <lightning-record-form
+                                    record-id={selectedEventId}
+                                    object-api-name="Campaign"
+                                    layout-type="Compact"
+                                    mode="readonly">
+                                </lightning-record-form>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Close"
+                        onclick={closeDetailsModal}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -152,17 +152,17 @@
         width: 100% !important;
         margin-bottom: 1rem;
     }
-    
+
     .slds-list_horizontal dt,
     .slds-list_horizontal dd {
         width: 100%;
         margin-right: 0;
     }
-    
+
     .slds-grid_align-end {
         justify-content: flex-start !important;
     }
-    
+
     .slds-modal__container {
         width: 95%;
         margin: 1rem;

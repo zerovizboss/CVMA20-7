@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Comprehensive annual financial statement for CVMA Chapter 20-7 with complete profit and loss analysis, audit trail, and compliance documentation.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Annual Financial Statement</name>
+    <style>none</style>
+    <subject>CVMA Chapter 20-7 Annual Financial Statement - {!YEAR(TODAY())}</subject>
+    <textOnly>false</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,7 +1,7 @@
 <!-- CVMA Officer Member Dashboard -->
 <template>
     <lightning-card title="Member Management Dashboard" icon-name="utility:groups">
-        
+
         <!-- Loading Spinner -->
         <div if:true={isLoading} class="slds-is-relative">
             <lightning-spinner alternative-text="Loading dashboard..." size="medium"></lightning-spinner>
@@ -29,15 +29,15 @@
                 <div class="slds-col slds-grid slds-gutters">
                     <!-- Search -->
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
-                        <lightning-input 
-                            type="search" 
-                            label="Search Members" 
+                        <lightning-input
+                            type="search"
+                            label="Search Members"
                             placeholder="Name, ID, or Email..."
                             value={searchTerm}
                             onchange={handleSearch}>
                         </lightning-input>
                     </div>
-                    
+
                     <!-- Status Filter -->
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
                         <lightning-combobox
@@ -48,24 +48,24 @@
                         </lightning-combobox>
                     </div>
                 </div>
-                
+
                 <!-- Action Buttons -->
                 <div class="slds-col slds-no-flex">
                     <div class="slds-button-group" role="group">
-                        <lightning-button 
+                        <lightning-button
                             label="Refresh"
                             icon-name="utility:refresh"
                             onclick={handleRefresh}
                             class="slds-m-right_x-small">
                         </lightning-button>
-                        <lightning-button 
+                        <lightning-button
                             label="Export Members"
                             icon-name="utility:download"
                             onclick={handleExportMembers}
                             disabled={isLoading}
                             class="slds-m-right_x-small">
                         </lightning-button>
-                        <lightning-button 
+                        <lightning-button
                             label="Send Reminders"
                             icon-name="utility:email"
                             variant="brand"
@@ -96,7 +96,7 @@
 
             <!-- No Members Message -->
             <div if:false={hasMembers} class="slds-text-align_center slds-p-vertical_large">
-                <lightning-icon icon-name="utility:groups" size="large" variant="inverse" 
+                <lightning-icon icon-name="utility:groups" size="large" variant="inverse"
                                class="slds-icon_container slds-icon-utility-groups slds-m-bottom_small"></lightning-icon>
                 <div class="slds-text-heading_medium slds-m-bottom_small">No members found</div>
                 <div class="slds-text-body_regular slds-text-color_weak">
@@ -128,13 +128,13 @@
                     </div>
                 </div>
                 <footer class="slds-modal__footer">
-                    <lightning-button 
-                        label="Cancel" 
+                    <lightning-button
+                        label="Cancel"
                         onclick={handleCloseModal}>
                     </lightning-button>
-                    <lightning-button 
-                        label="Export CSV" 
-                        variant="brand" 
+                    <lightning-button
+                        label="Export CSV"
+                        variant="brand"
                         onclick={handleExportConfirm}
                         disabled={isLoading}>
                     </lightning-button>
@@ -164,13 +164,13 @@
                     </ul>
                 </div>
                 <footer class="slds-modal__footer">
-                    <lightning-button 
-                        label="Cancel" 
+                    <lightning-button
+                        label="Cancel"
                         onclick={handleCloseModal}>
                     </lightning-button>
-                    <lightning-button 
-                        label="Send Reminders" 
-                        variant="brand" 
+                    <lightning-button
+                        label="Send Reminders"
+                        variant="brand"
                         onclick={handleReminderConfirm}
                         disabled={isLoading}>
                     </lightning-button>

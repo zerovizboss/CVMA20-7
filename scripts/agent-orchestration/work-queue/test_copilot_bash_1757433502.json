@@ -1,0 +1,17 @@
+{
+    "unit_id": "test_copilot_bash_1757433502",
+    "created_at": "2025-09-09T15:58:22Z",
+    "assigned_agent": "copilot",
+    "task_type": "bash_execution",
+    "description": "Test bash execution capability",
+    "priority": 1,
+    "status": "pending",
+    "context": {
+        "command": "echo 'Copilot capability test successful'",
+        "test": true
+    },
+    "results": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_info": null
+}

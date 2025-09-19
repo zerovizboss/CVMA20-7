@@ -52,7 +52,7 @@ export default class CvmaMemberProfile extends LightningElement {
     @track contactRecord = {};
     @track originalUserData = {};
     @track originalContactData = {};
-    
+
     userId = Id;
     contactId;
 
@@ -135,7 +135,7 @@ export default class CvmaMemberProfile extends LightningElement {
 
     async handleSave() {
         this.isLoading = true;
-        
+
         try {
             // Validate required fields
             if (!this.userRecord.FirstName || !this.userRecord.LastName || !this.userRecord.Email) {

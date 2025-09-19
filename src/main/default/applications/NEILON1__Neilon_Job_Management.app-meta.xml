@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>NEILON1__Neilon_Job_Management_Logo</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Manage projects, jobs, audits, services, and invoices in your organization.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Neilon Project Management</label>
+    <navType>Standard</navType>
+    <tabs>NEILON1__Neilon_Jobs_Administration</tabs>
+    <tabs>NEILON1__Request_Manager</tabs>
+    <tabs>NEILON1__Job_Manager</tabs>
+    <tabs>NEILON1__Job_Calendar</tabs>
+    <tabs>NEILON1__Invoice_Manager</tabs>
+    <tabs>NEILON1__Outstanding_Invoices</tabs>
+    <tabs>NEILON1__Email_Invoices</tabs>
+    <tabs>NEILON1__Invoice_Reminders</tabs>
+    <tabs>NEILON1__Review_Invoice_Feedbacks</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>NEILON1__Neilon_Job_Management_UtilityBar</utilityBar>
+</CustomApplication>

@@ -1,14 +1,14 @@
 <template>
     <lightning-card title="Membership Applications Review" icon-name="standard:approval">
         <div class="slds-p-horizontal_large slds-p-vertical_medium">
-            
+
             <!-- Loading Spinner -->
             <template if:true={isLoading}>
                 <div class="slds-align_absolute-center slds-p-vertical_large">
                     <lightning-spinner alternative-text="Loading applications..." size="medium"></lightning-spinner>
                 </div>
             </template>
-            
+
             <!-- Applications Summary -->
             <template if:false={isLoading}>
                 <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Applications List -->
                 <template if:true={hasApplications}>
                     <div class="slds-scrollable_y" style="height: 600px;">
@@ -42,8 +42,8 @@
                                     <div class="slds-col slds-size_1-of-2">
                                         <div class="slds-m-bottom_small">
                                             <div class="slds-text-heading_small">
-                                                <lightning-button 
-                                                    variant="base" 
+                                                <lightning-button
+                                                    variant="base"
                                                     label={application.applicantName}
                                                     title="View Application Details"
                                                     onclick={handleViewApplication}
@@ -55,7 +55,7 @@
                                                 {application.applicationNumber} • {application.formattedSubmissionDate}
                                             </div>
                                         </div>
-                                        
+
                                         <dl class="slds-list_horizontal slds-wrap">
                                             <dt class="slds-item_label slds-text-color_weak slds-truncate">Email:</dt>
                                             <dd class="slds-item_detail slds-truncate">
@@ -67,7 +67,7 @@
                                             </dd>
                                         </dl>
                                     </div>
-                                    
+
                                     <!-- Military Service Information -->
                                     <div class="slds-col slds-size_1-of-2">
                                         <dl class="slds-list_horizontal slds-wrap">
@@ -88,28 +88,28 @@
                                             </dd>
                                         </dl>
                                     </div>
-                                    
+
                                     <!-- Action Buttons -->
                                     <div class="slds-col slds-size_1-of-1 slds-m-top_medium">
                                         <div class="slds-grid slds-grid_align-end">
                                             <lightning-button-group>
-                                                <lightning-button 
-                                                    variant="success" 
-                                                    label="Approve" 
+                                                <lightning-button
+                                                    variant="success"
+                                                    label="Approve"
                                                     onclick={handleApprove}
                                                     data-id={application.applicationId}
                                                     disabled={isProcessing}>
                                                 </lightning-button>
-                                                <lightning-button 
-                                                    variant="destructive" 
-                                                    label="Reject" 
+                                                <lightning-button
+                                                    variant="destructive"
+                                                    label="Reject"
                                                     onclick={handleReject}
                                                     data-id={application.applicationId}
                                                     disabled={isProcessing}>
                                                 </lightning-button>
-                                                <lightning-button 
-                                                    variant="neutral" 
-                                                    label="More Info" 
+                                                <lightning-button
+                                                    variant="neutral"
+                                                    label="More Info"
                                                     onclick={handleMoreInfo}
                                                     data-id={application.applicationId}
                                                     disabled={isProcessing}>
@@ -122,14 +122,14 @@
                         </template>
                     </div>
                 </template>
-                
+
                 <!-- No Applications Message -->
                 <template if:false={hasApplications}>
                     <div class="slds-illustration slds-illustration_small">
                         <div class="slds-text-align_center slds-p-vertical_large">
-                            <lightning-icon 
-                                icon-name="utility:checkin" 
-                                size="large" 
+                            <lightning-icon
+                                icon-name="utility:checkin"
+                                size="large"
                                 variant="inverse">
                             </lightning-icon>
                             <h3 class="slds-text-heading_medium slds-m-top_medium">No Pending Applications</h3>
@@ -146,7 +146,7 @@
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                             onclick={closeApplicationModal}>
                         <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
                         <span class="slds-assistive-text">Close</span>
@@ -175,7 +175,7 @@
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                             onclick={closeStatusModal}>
                         <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
                         <span class="slds-assistive-text">Close</span>
@@ -190,8 +190,8 @@
                             <strong>Applicant:</strong> {selectedApplication.applicantName}<br>
                             <strong>Application:</strong> {selectedApplication.applicationNumber}
                         </div>
-                        
-                        <lightning-textarea 
+
+                        <lightning-textarea
                             label="Review Notes"
                             value={reviewNotes}
                             onchange={handleNotesChange}
@@ -202,9 +202,9 @@
                 </div>
                 <footer class="slds-modal__footer">
                     <lightning-button variant="neutral" label="Cancel" onclick={closeStatusModal}></lightning-button>
-                    <lightning-button 
-                        variant="brand" 
-                        label="Confirm" 
+                    <lightning-button
+                        variant="brand"
+                        label="Confirm"
                         onclick={confirmStatusUpdate}
                         disabled={confirmDisabled}>
                     </lightning-button>

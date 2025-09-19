@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CVMA Quarterly Financial Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+        .header { background-color: #003366; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .section { margin-bottom: 25px; }
+        .metrics { background-color: #f5f5f5; padding: 15px; border-left: 4px solid #003366; }
+        .highlight { color: #003366; font-weight: bold; }
+        .footer { background-color: #f0f0f0; padding: 15px; text-align: center; margin-top: 30px; }
+        .cvma-logo { color: #003366; font-weight: bold; font-size: 18px; }
+        .trends { background-color: #e8f4fd; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏍️ Combat Veterans Motorcycle Association</h1>
+        <h2>Chapter 20-7 Quarterly Financial Summary</h2>
+        <p>Reporting Period: Q{!TEXT(CEILING(MONTH(TODAY())/3))} {!YEAR(TODAY())}</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h3>Quarterly Financial Overview</h3>
+            <p>This comprehensive quarterly report provides strategic financial analysis for Combat Veterans Motorcycle Association Chapter 20-7, including revenue trends, campaign performance, and compliance metrics for board review and strategic planning.</p>
+        </div>
+        
+        <div class="section metrics">
+            <h3>Quarter Performance Metrics</h3>
+            <ul>
+                <li><span class="highlight">Quarterly Revenue:</span> Detailed breakdown in attached reports</li>
+                <li><span class="highlight">Transaction Volume:</span> Total financial activities for the quarter</li>
+                <li><span class="highlight">Campaign ROI Performance:</span> Investment return analysis</li>
+                <li><span class="highlight">Member Engagement:</span> Financial participation metrics</li>
+                <li><span class="highlight">Budget Compliance:</span> Variance tracking and analysis</li>
+            </ul>
+        </div>
+        
+        <div class="section trends">
+            <h3>Financial Trends Analysis</h3>
+            <p>The attached quarterly trends report includes:</p>
+            <ul>
+                <li><strong>Revenue Growth Patterns:</strong> Quarter-over-quarter performance comparison</li>
+                <li><strong>Seasonal Analysis:</strong> Identification of revenue cycles and patterns</li>
+                <li><strong>Campaign Effectiveness:</strong> ROI analysis across all campaign categories</li>
+                <li><strong>Member Contribution Trends:</strong> Individual and household giving patterns</li>
+                <li><strong>Expense Management:</strong> Cost control and budget optimization insights</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Strategic Recommendations</h3>
+            <p>Based on quarterly analysis, consider the following strategic initiatives:</p>
+            <ul>
+                <li>Review high-performing campaigns for replication opportunities</li>
+                <li>Address budget variances exceeding 10% threshold</li>
+                <li>Optimize member engagement strategies based on contribution patterns</li>
+                <li>Plan resource allocation for upcoming quarters based on trends</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Compliance Status</h3>
+            <p>All financial activities remain compliant with organizational policies and regulatory requirements. Complete audit trail documentation is maintained and available for review.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p class="cvma-logo">🏍️ Combat Veterans Motorcycle Association - Chapter 20-7</p>
+        <p><strong>Vets Serving Vets through Strategic Financial Excellence</strong></p>
+        <p><em>Automated quarterly financial compliance report - Generated on the 5th day after quarter end</em></p>
+    </div>
+</body>
+</html>

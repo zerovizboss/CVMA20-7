@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Service Branch --></label>
+    <name>Service_Branch__c</name>
+    <picklistValues>
+        <masterLabel>Air Force</masterLabel>
+        <translation><!-- Air Force --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Army</masterLabel>
+        <translation><!-- Army --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coast Guard</masterLabel>
+        <translation><!-- Coast Guard --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Marines</masterLabel>
+        <translation><!-- Marines --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Navy</masterLabel>
+        <translation><!-- Navy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Space Force</masterLabel>
+        <translation><!-- Space Force --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -4,10 +4,10 @@
     <analyticsAdoptionMetadata>false</analyticsAdoptionMetadata>
     <autoInstallApps>false</autoInstallApps>
     <bundleCachingOptOut>false</bundleCachingOptOut>
-    <canAccessAnalyticsViaAPI>false</canAccessAnalyticsViaAPI>
+    <canAccessAnalyticsViaAPI>true</canAccessAnalyticsViaAPI>
     <canAnnotateDashboards>false</canAnnotateDashboards>
     <canEnableSavedView>true</canEnableSavedView>
-    <canExploreDataConversationally>false</canExploreDataConversationally>
+    <canExploreDataConversationally>true</canExploreDataConversationally>
     <canShareAppsWithCommunities>false</canShareAppsWithCommunities>
     <canViewThumbnailAssets>false</canViewThumbnailAssets>
     <cdpQueryCachingOptIn>false</cdpQueryCachingOptIn>
@@ -28,6 +28,13 @@
     <enableFloatingReportHeaders>true</enableFloatingReportHeaders>
     <enableIncludeDisclaimerMessage>false</enableIncludeDisclaimerMessage>
     <enableInsights>true</enableInsights>
+    <enableEinsteinAnalytics>true</enableEinsteinAnalytics>
+    <enableWaveAppBuilder>true</enableWaveAppBuilder>
+    <enableWaveDatasets>true</enableWaveDatasets>
+    <enableWaveDashboards>true</enableWaveDashboards>
+    <enableWaveLens>true</enableWaveLens>
+    <enableWaveStory>true</enableWaveStory>
+    <enableWaveTemplate>true</enableWaveTemplate>
     <enableLightningReportBuilder>false</enableLightningReportBuilder>
     <enableLotusNotesImages>false</enableLotusNotesImages>
     <enableMassEnableReportBuilder>true</enableMassEnableReportBuilder>
@@ -61,7 +68,7 @@
     <enableWaveAssetsNewDateVersion>false</enableWaveAssetsNewDateVersion>
     <enableWaveIndexMVDim>true</enableWaveIndexMVDim>
     <enableWaveIndexMVDimV2>false</enableWaveIndexMVDimV2>
-    <enableWaveRecordNavigation>false</enableWaveRecordNavigation>
+    <enableWaveRecordNavigation>true</enableWaveRecordNavigation>
     <enableWaveReplication>false</enableWaveReplication>
     <enableWaveSharingInheritance>false</enableWaveSharingInheritance>
     <enableWaveSqlCFIndexing>false</enableWaveSqlCFIndexing>

@@ -1,0 +1,262 @@
+<template>
+    <div class="slds-card guest-calendar-container">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-utility-event" title="CVMA Events">
+                        <lightning-icon icon-name="utility:event" alternative-text="CVMA Events" size="medium"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Events Calendar</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Calendar Navigation -->
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-m-bottom_medium">
+                <div class="slds-col">
+                    <div class="slds-button-group" role="group">
+                        <lightning-button
+                            variant="neutral"
+                            icon-name="utility:chevronleft"
+                            alternative-text="Previous Month"
+                            onclick={handlePreviousMonth}
+                            disabled={isLoading}>
+                        </lightning-button>
+                        <lightning-button
+                            variant="brand"
+                            label="Today"
+                            onclick={handleToday}
+                            disabled={isLoading}>
+                        </lightning-button>
+                        <lightning-button
+                            variant="neutral"
+                            icon-name="utility:chevronright"
+                            alternative-text="Next Month"
+                            onclick={handleNextMonth}
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex">
+                    <h3 class="slds-text-heading_medium">{monthYearDisplay}</h3>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center" style="min-height: 100px;">
+                    <lightning-spinner alternative-text="Loading events" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Events List (Guest-friendly view) -->
+            <template if:false={isLoading}>
+                <template if:true={hasEvents}>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <template for:each={calendarEvents} for:item="event">
+                            <div key={event.Id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                <div class="slds-box slds-box_x-small event-card"
+                                     data-event-id={event.Id}
+                                     onclick={handleEventClick}
+                                     role="button"
+                                     tabindex="0"
+                                     onkeypress={handleEventClick}>
+
+                                    <!-- Event Header -->
+                                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-start slds-m-bottom_x-small">
+                                        <div class="slds-col slds-has-flexi-truncate">
+                                            <h4 class="slds-text-heading_small slds-truncate" title={event.Subject}>
+                                                {event.Subject}
+                                            </h4>
+                                        </div>
+                                        <div class="slds-col slds-no-flex">
+                                            <template if:true={event.isToday}>
+                                                <span class="slds-badge slds-badge_success">Today</span>
+                                            </template>
+                                            <template if:true={event.isUpcoming}>
+                                                <template if:false={event.isToday}>
+                                                    <span class="slds-badge slds-badge_info">Upcoming</span>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </div>
+
+                                    <!-- Event Details -->
+                                    <div class="slds-text-body_small slds-text-color_weak">
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_xx-small">
+                                            <lightning-icon icon-name="utility:clock" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                            <span>{event.displayDate}</span>
+                                        </div>
+                                        <template if:true={event.displayTime}>
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_xx-small">
+                                                <lightning-icon icon-name="utility:time" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                                <span>{event.displayTime}</span>
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                    <!-- Event Description Preview -->
+                                    <template if:true={event.Description}>
+                                        <div class="slds-text-body_small slds-m-top_x-small">
+                                            <div class="event-description-preview">
+                                                {event.Description}
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- Click to view more indicator -->
+                                    <div class="slds-text-align_center slds-m-top_x-small">
+                                        <span class="slds-text-body_small slds-text-color_weak">
+                                            Click for details
+                                            <lightning-icon icon-name="utility:chevronright" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- No Events Message -->
+                <template if:false={hasEvents}>
+                    <div class="slds-box slds-box_small slds-text-align_center">
+                        <lightning-icon icon-name="utility:info" size="medium" class="slds-m-bottom_small"></lightning-icon>
+                        <h3 class="slds-text-heading_small">{noEventsMessage}</h3>
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_small">
+                            Check back soon for upcoming CVMA chapter events and activities.
+                        </p>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Event Details Modal -->
+            <template if:true={showDetailsModal}>
+                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <lightning-button-icon
+                                icon-name="utility:close"
+                                onclick={handleCloseModal}
+                                alternative-text="Close"
+                                variant="bare-inverse"
+                                class="slds-modal__close">
+                            </lightning-button-icon>
+                            <h2 class="slds-text-heading_medium slds-hyphenate">
+                                Event Details
+                            </h2>
+                        </header>
+                        <div class="slds-modal__content slds-var-p-around_medium">
+                            <template if:true={eventDetails}>
+                                <div class="slds-form slds-form_stacked">
+                                    <!-- Event Title -->
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">Event</label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <strong>{eventDetails.subject}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Event Date/Time -->
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">Date & Time</label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <lightning-formatted-date-time
+                                                    value={eventDetails.startDateTime}
+                                                    year="numeric"
+                                                    month="long"
+                                                    day="2-digit"
+                                                    weekday="long"
+                                                    hour="2-digit"
+                                                    minute="2-digit">
+                                                </lightning-formatted-date-time>
+                                                <template if:true={eventDetails.endDateTime}>
+                                                    <span> - </span>
+                                                    <lightning-formatted-date-time
+                                                        value={eventDetails.endDateTime}
+                                                        hour="2-digit"
+                                                        minute="2-digit">
+                                                    </lightning-formatted-date-time>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Event Description -->
+                                    <template if:true={eventDetails.description}>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label">Description</label>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    <lightning-formatted-rich-text
+                                                        value={eventDetails.description}>
+                                                    </lightning-formatted-rich-text>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- RSVP Summary (if available) -->
+                                    <template if:true={eventDetails.rsvpSummary}>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label">Attendance</label>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    <div class="slds-grid slds-wrap slds-gutters_small">
+                                                        <div class="slds-col">
+                                                            <span class="slds-badge slds-badge_success">
+                                                                {eventDetails.rsvpSummary.attendingCount} Attending
+                                                            </span>
+                                                        </div>
+                                                        <template if:true={eventDetails.rsvpSummary.maybeCount}>
+                                                            <div class="slds-col">
+                                                                <span class="slds-badge slds-badge_warning">
+                                                                    {eventDetails.rsvpSummary.maybeCount} Maybe
+                                                                </span>
+                                                            </div>
+                                                        </template>
+                                                        <template if:true={eventDetails.rsvpSummary.plusOneCount}>
+                                                            <div class="slds-col">
+                                                                <span class="slds-badge slds-badge_info">
+                                                                    {eventDetails.rsvpSummary.plusOneCount} Guests
+                                                                </span>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- Guest Notice -->
+                                    <div class="slds-box slds-theme_info slds-m-top_medium">
+                                        <p class="slds-text-body_small">
+                                            <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                            To RSVP for this event, please log in as a CVMA member or contact your chapter officers.
+                                        </p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button
+                                variant="neutral"
+                                label="Close"
+                                title="Close"
+                                onclick={handleCloseModal}>
+                            </lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+        </div>
+    </div>
+</template>

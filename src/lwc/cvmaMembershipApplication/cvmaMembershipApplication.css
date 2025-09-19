@@ -117,17 +117,17 @@
     .slds-col {
         width: 100% !important;
     }
-    
+
     .slds-list_horizontal dt,
     .slds-list_horizontal dd {
         width: 100%;
         margin-right: 0;
     }
-    
+
     .navigation-buttons .slds-grid {
         flex-direction: column;
     }
-    
+
     .navigation-buttons .slds-col_bump-left {
         margin-left: 0 !important;
         margin-top: 0.5rem;
