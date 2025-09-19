@@ -58,7 +58,9 @@
       "Bash(ls:*)",
       "Bash(rm:*)",
       "Bash(./bin/gh.exe:*)",
-      "Bash(gh project:*)"
+      "Bash(gh project:*)",
+      "Bash(gh pr close:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []
