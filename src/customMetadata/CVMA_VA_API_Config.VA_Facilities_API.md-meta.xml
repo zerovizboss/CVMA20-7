@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>VA Facilities API</label>
+    <protected>false</protected>
+    <values>
+        <field>API_Endpoint_URL__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">https://api.va.gov/services/va_facilities</value>
+    </values>
+    <values>
+        <field>API_Key_Name__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">VA_Facilities_API_Key</value>
+    </values>
+    <values>
+        <field>API_Version__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">v1</value>
+    </values>
+    <values>
+        <field>Cache_TTL_Minutes__c</field>
+        <value xsi:type="xsd:double" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">120.0</value>
+    </values>
+    <values>
+        <field>Environment__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">Sandbox</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">true</value>
+    </values>
+    <values>
+        <field>Max_Retry_Attempts__c</field>
+        <value xsi:type="xsd:double" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">3.0</value>
+    </values>
+    <values>
+        <field>Rate_Limit_Per_Hour__c</field>
+        <value xsi:type="xsd:double" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">1000.0</value>
+    </values>
+    <values>
+        <field>Timeout_Seconds__c</field>
+        <value xsi:type="xsd:double" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">30.0</value>
+    </values>
+    <values>
+        <field>Use_Mock_API__c</field>
+        <value xsi:type="xsd:boolean" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">true</value>
+    </values>
+    <values>
+        <field>OAuth_Client_ID_Key__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">VA_OAuth_Client_ID</value>
+    </values>
+    <values>
+        <field>OAuth_Client_Secret_Key__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">VA_OAuth_Client_Secret</value>
+    </values>
+    <values>
+        <field>OAuth_Token_Endpoint__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">https://sandbox-api.va.gov/oauth2/token</value>
+    </values>
+    <values>
+        <field>OAuth_Scope__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">veteran/facilities.read</value>
+    </values>
+    <values>
+        <field>Feature_Flag_Override__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">ENABLE_REAL_VA_FACILITIES_API</value>
+    </values>
+    <values>
+        <field>Health_Check_Endpoint__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">/facilities/health</value>
+    </values>
+    <values>
+        <field>Circuit_Breaker_Threshold__c</field>
+        <value xsi:type="xsd:double" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">5.0</value>
+    </values>
+    <values>
+        <field>Circuit_Breaker_Reset_Minutes__c</field>
+        <value xsi:type="xsd:double" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">15.0</value>
+    </values>
+    <values>
+        <field>Enable_Monitoring__c</field>
+        <value xsi:type="xsd:boolean" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">true</value>
+    </values>
+    <values>
+        <field>SLA_Response_Time_MS__c</field>
+        <value xsi:type="xsd:double" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">3000.0</value>
+    </values>
+</CustomMetadata>

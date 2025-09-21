@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "veteran-organizations-main-view",
+  "appPageId" : "veteran-organizations-page-id",
+  "configurationTags" : [ ],
+  "devName" : "VeteranOrganizations",
+  "id" : "veteran-organizations-route-id",
+  "label" : "Veteran Organizations",
+  "pageAccess" : "UseParent",
+  "routeType" : "standard",
+  "type" : "route",
+  "urlPrefix" : "veteran-organizations"
+}

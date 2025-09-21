@@ -1,0 +1,383 @@
+<template>
+    <!-- Veterans Resources Portal Main Container -->
+    <div class="slds-card veterans-resources-portal">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-opportunity slds-icon_large">
+                        <lightning-icon icon-name="standard:opportunity" size="large" variant="brand"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>CVMA Veterans Resources Portal</span>
+                    </h2>
+                    <p class="slds-card__header-subtitle">{welcomeMessage}</p>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <!-- User Profile Badges -->
+                <template if:true={memberLevel}>
+                    <span class={memberLevelBadge}>{memberLevel}</span>
+                </template>
+                <template if:true={serviceBranch}>
+                    <span class={serviceBranchBadge}>{serviceBranch}</span>
+                </template>
+
+                <!-- Action Buttons -->
+                <lightning-button-group>
+                    <lightning-button
+                        label="Emergency Support"
+                        variant="destructive"
+                        icon-name="standard:call"
+                        onclick={handleEmergencySupport}
+                    ></lightning-button>
+                    <lightning-button
+                        label="Get Help"
+                        variant="neutral"
+                        icon-name="standard:question"
+                        onclick={handleGetHelp}
+                    ></lightning-button>
+                    <lightning-button
+                        label="Refresh"
+                        variant="neutral"
+                        icon-name="utility:refresh"
+                        onclick={handleRefresh}
+                    ></lightning-button>
+                </lightning-button-group>
+            </div>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-spinner_container">
+                    <div role="status" class="slds-spinner slds-spinner_medium">
+                        <span class="slds-assistive-text">Loading veteran resources...</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Error Display -->
+            <template if:true={error}>
+                <div class="slds-notification slds-notification_toast slds-theme_error">
+                    <span class="slds-assistive-text">Error</span>
+                    <lightning-icon icon-name="utility:error" size="small" variant="inverse"></lightning-icon>
+                    <div class="slds-notification__body">
+                        <p>Unable to load veteran resources. Please try again later.</p>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Search Bar -->
+            <template if:true={enableSearch}>
+                <div class="slds-form-element slds-m-bottom_medium">
+                    <label class="slds-form-element__label" for="search-input">
+                        <span class="slds-assistive-text">Search veteran resources</span>
+                    </label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                        <lightning-icon icon-name="utility:search" size="x-small" class="slds-input__icon slds-input__icon_left"></lightning-icon>
+                        <lightning-input
+                            id="search-input"
+                            type="search"
+                            placeholder={searchPlaceholder}
+                            value={searchTerm}
+                            onchange={handleSearchChange}
+                            variant="label-hidden"
+                        ></lightning-input>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Navigation Pills -->
+            <template if:false={showOverview}>
+                <nav class="slds-m-bottom_medium">
+                    <lightning-button
+                        label="← Back to Overview"
+                        variant="base"
+                        icon-name="utility:back"
+                        onclick={handleBackToOverview}
+                    ></lightning-button>
+                </nav>
+            </template>
+
+            <!-- Overview View -->
+            <template if:true={showOverview}>
+                <!-- Personalized Recommendations Section -->
+                <template if:true={hasPersonalizedRecommendations}>
+                    <div class="slds-section slds-is-open slds-m-bottom_large">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small">
+                                <lightning-icon icon-name="standard:person_account" size="small"></lightning-icon>
+                                Recommended for You
+                            </span>
+                        </h3>
+                        <div class="slds-section__content">
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={personalizedRecommendations} for:item="recommendation">
+                                    <div key={recommendation.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <article class="slds-card recommendation-card" data-recommendation-id={recommendation.id} onclick={handleRecommendationClick}>
+                                            <div class="slds-card__header">
+                                                <header class="slds-media slds-media_center">
+                                                    <div class="slds-media__figure">
+                                                        <span class="slds-icon_container">
+                                                            <lightning-icon icon-name={recommendation.iconName} size="small"></lightning-icon>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h4 class="slds-card__header-title">
+                                                            <span class="slds-truncate">{recommendation.title}</span>
+                                                        </h4>
+                                                    </div>
+                                                    <template if:true={recommendation.urgency}>
+                                                        <div class="slds-no-flex">
+                                                            <span class={recommendation.urgencyClass}>{recommendation.urgency}</span>
+                                                        </div>
+                                                    </template>
+                                                </header>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <p>{recommendation.description}</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Priority Resource Categories -->
+                <template if:true={showCategories}>
+                    <div class="slds-section slds-is-open slds-m-bottom_large">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small">
+                                <lightning-icon icon-name="standard:apps" size="small"></lightning-icon>
+                                Priority Resources
+                            </span>
+                        </h3>
+                        <div class="slds-section__content">
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={priorityCategories} for:item="category">
+                                    <div key={category.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                                        <article class="slds-card category-card" data-category-id={category.id} onclick={handleCategoryClick}>
+                                            <div class="slds-card__header">
+                                                <header class="slds-media slds-media_center">
+                                                    <div class="slds-media__figure">
+                                                        <span class={category.color}>
+                                                            <lightning-icon icon-name={category.icon} size="medium"></lightning-icon>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h4 class="slds-card__header-title">
+                                                            <span class="slds-truncate">{category.name}</span>
+                                                        </h4>
+                                                        <template if:true={category.resourceCount}>
+                                                            <p class="slds-card__header-subtitle">
+                                                                {category.resourceCount} resources available
+                                                            </p>
+                                                        </template>
+                                                    </div>
+                                                </header>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <p>{category.description}</p>
+                                                <template if:true={category.subcategories}>
+                                                    <div class="slds-m-top_small">
+                                                        <template for:each={category.subcategories} for:item="subcategory">
+                                                            <span key={subcategory} class="slds-badge slds-m-right_xx-small slds-m-bottom_xx-small">
+                                                                {subcategory}
+                                                            </span>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Categories -->
+                    <div class="slds-section slds-is-open">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small">
+                                <lightning-icon icon-name="standard:resource_skill" size="small"></lightning-icon>
+                                Additional Resources
+                            </span>
+                        </h3>
+                        <div class="slds-section__content">
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={additionalCategories} for:item="category">
+                                    <div key={category.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                                        <article class="slds-card category-card" data-category-id={category.id} onclick={handleCategoryClick}>
+                                            <div class="slds-card__header">
+                                                <header class="slds-media slds-media_center">
+                                                    <div class="slds-media__figure">
+                                                        <span class={category.color}>
+                                                            <lightning-icon icon-name={category.icon} size="small"></lightning-icon>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h4 class="slds-card__header-title">
+                                                            <span class="slds-truncate">{category.name}</span>
+                                                        </h4>
+                                                    </div>
+                                                </header>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <p class="slds-text-body_small">{category.description}</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Search Results View -->
+            <template if:true={showSearch}>
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small">
+                            Search Results for "{searchTerm}"
+                        </span>
+                    </h3>
+                    <div class="slds-section__content">
+                        <template if:true={hasSearchResults}>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={searchResults} for:item="result">
+                                    <div key={result.id} class="slds-col slds-size_1-of-1">
+                                        <article class="slds-card search-result-card">
+                                            <div class="slds-card__header">
+                                                <header class="slds-media slds-media_center">
+                                                    <div class="slds-media__figure">
+                                                        <lightning-icon icon-name={result.iconName} size="small"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h4 class="slds-card__header-title">
+                                                            <span>{result.title}</span>
+                                                        </h4>
+                                                        <p class="slds-card__header-subtitle">{result.category}</p>
+                                                    </div>
+                                                </header>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <p>{result.description}</p>
+                                                <template if:true={result.website}>
+                                                    <p class="slds-m-top_small">
+                                                        <lightning-formatted-url value={result.website} target="_blank"></lightning-formatted-url>
+                                                    </p>
+                                                </template>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <template if:false={hasSearchResults}>
+                            <div class="slds-illustration slds-illustration_small">
+                                <div class="slds-text-heading_medium slds-m-bottom_x-small">
+                                    No results found for "{searchTerm}"
+                                </div>
+                                <p class="slds-text-body_regular">
+                                    Try adjusting your search terms or browse categories above.
+                                </p>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Category View -->
+            <template if:true={showCategory}>
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small">
+                            Category Resources
+                        </span>
+                    </h3>
+                    <div class="slds-section__content">
+                        <template if:true={hasSearchResults}>
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <template for:each={searchResults} for:item="result">
+                                    <div key={result.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                        <article class="slds-card category-resource-card">
+                                            <div class="slds-card__header">
+                                                <header class="slds-media slds-media_center">
+                                                    <div class="slds-media__figure">
+                                                        <lightning-icon icon-name={result.iconName} size="small"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h4 class="slds-card__header-title">
+                                                            <span>{result.title}</span>
+                                                        </h4>
+                                                    </div>
+                                                </header>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <p>{result.description}</p>
+                                                <template if:true={result.eligibilityRequirements}>
+                                                    <div class="slds-m-top_small">
+                                                        <h5 class="slds-text-heading_x-small">Eligibility:</h5>
+                                                        <p class="slds-text-body_small">{result.eligibilityRequirements}</p>
+                                                    </div>
+                                                </template>
+                                                <template if:true={result.applicationProcess}>
+                                                    <div class="slds-m-top_small">
+                                                        <h5 class="slds-text-heading_x-small">How to Apply:</h5>
+                                                        <p class="slds-text-body_small">{result.applicationProcess}</p>
+                                                    </div>
+                                                </template>
+                                                <div class="slds-m-top_medium">
+                                                    <template if:true={result.website}>
+                                                        <lightning-button
+                                                            label="Visit Website"
+                                                            variant="brand"
+                                                            icon-name="utility:new_window"
+                                                            onclick={result.handleWebsiteClick}
+                                                            class="slds-m-right_small"
+                                                        ></lightning-button>
+                                                    </template>
+                                                    <template if:true={result.applicationUrl}>
+                                                        <lightning-button
+                                                            label="Apply Now"
+                                                            variant="success"
+                                                            icon-name="utility:right"
+                                                            onclick={result.handleApplicationClick}
+                                                        ></lightning-button>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Footer -->
+        <div class="slds-card__footer">
+            <div class="slds-grid slds-grid_align-spread">
+                <div class="slds-col">
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        CVMA Veterans Resources Portal | Vets Serving Vets
+                    </p>
+                </div>
+                <div class="slds-col slds-no-flex">
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        Need help? Call 24/7 Veterans Crisis Line: 988, Press 1
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

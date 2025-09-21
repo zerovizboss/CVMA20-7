@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "va-services-main-view",
+  "appPageId" : "va-services-page-id",
+  "configurationTags" : [ ],
+  "devName" : "VAServices",
+  "id" : "va-services-route-id",
+  "label" : "VA Services",
+  "pageAccess" : "UseParent",
+  "routeType" : "standard",
+  "type" : "route",
+  "urlPrefix" : "va-services"
+}

@@ -79,7 +79,10 @@
       "Bash(sf sobject describe:*)",
       "Bash(\"C:\\Program Files\\sf\\bin\\sf.exe\" data query --query \"SELECT Name FROM ApexClass WHERE Name LIKE ''%Test%'' ORDER BY Name\" --target-org cvma)",
       "WebSearch",
-      "WebFetch(domain:developer.va.gov)"
+      "WebFetch(domain:developer.va.gov)",
+      "WebFetch(domain:digital.va.gov)",
+      "Bash(cat:*)",
+      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT Id, Name, UrlPathPrefix, Status FROM Network ORDER BY Name\")"
     ],
     "deny": [],
     "ask": []

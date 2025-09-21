@@ -1,0 +1,32 @@
+{
+  "appPageId" : "veteran-organizations-page-id",
+  "componentName" : "cvmaVeteranOrganizationsDirectory",
+  "configurationTags" : [ ],
+  "dataProviders" : [ ],
+  "devName" : "VeteranOrganizationsView",
+  "id" : "veteran-organizations-main-view",
+  "label" : "Veteran Organizations Directory",
+  "regions" : [
+    {
+      "components" : [
+        {
+          "componentAttributes" : {
+            "directoryMode" : "comprehensive",
+            "enableFiltering" : true,
+            "enableSearch" : true,
+            "showCategories" : true
+          },
+          "componentName" : "cvmaVeteranOrganizationsDirectory",
+          "id" : "veteran-organizations-directory-component",
+          "regionName" : "content",
+          "type" : "component"
+        }
+      ],
+      "id" : "content-region",
+      "regionName" : "content",
+      "type" : "region"
+    }
+  ],
+  "type" : "view",
+  "viewType" : "directory"
+}

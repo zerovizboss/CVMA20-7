@@ -1,0 +1,32 @@
+{
+  "appPageId" : "va-services-page-id",
+  "componentName" : "cvmaVAServicesDashboard",
+  "configurationTags" : [ ],
+  "dataProviders" : [ ],
+  "devName" : "VAServicesView",
+  "id" : "va-services-main-view",
+  "label" : "VA Services Dashboard",
+  "regions" : [
+    {
+      "components" : [
+        {
+          "componentAttributes" : {
+            "dashboardMode" : "full",
+            "showBenefits" : true,
+            "enableOptimization" : true,
+            "realTimeData" : true
+          },
+          "componentName" : "cvmaVAServicesDashboard",
+          "id" : "va-services-dashboard-component",
+          "regionName" : "content",
+          "type" : "component"
+        }
+      ],
+      "id" : "content-region",
+      "regionName" : "content",
+      "type" : "region"
+    }
+  ],
+  "type" : "view",
+  "viewType" : "dashboard"
+}

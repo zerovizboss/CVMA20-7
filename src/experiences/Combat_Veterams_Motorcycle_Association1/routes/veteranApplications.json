@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "veteran-applications-main-view",
+  "appPageId" : "veteran-applications-page-id",
+  "configurationTags" : [ ],
+  "devName" : "VeteranApplications",
+  "id" : "veteran-applications-route-id",
+  "label" : "Application Assistance",
+  "pageAccess" : "UseParent",
+  "routeType" : "standard",
+  "type" : "route",
+  "urlPrefix" : "veteran-applications"
+}

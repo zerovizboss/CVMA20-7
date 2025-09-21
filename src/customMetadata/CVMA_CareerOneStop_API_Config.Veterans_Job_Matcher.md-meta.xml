@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Veterans Job Matcher API</label>
+    <protected>false</protected>
+    <values>
+        <field>API_Endpoint_URL__c</field>
+        <value xsi:type="xsd:string">https://api.careeronestop.org/v1/veteransjobmatcher</value>
+    </values>
+    <values>
+        <field>API_Version__c</field>
+        <value xsi:type="xsd:string">v1</value>
+    </values>
+    <values>
+        <field>API_Key_Name__c</field>
+        <value xsi:type="xsd:string">CareerOneStop_API_Key</value>
+    </values>
+    <values>
+        <field>User_ID__c</field>
+        <value xsi:type="xsd:string">CVMA_VET_SERVICES</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Max_Retry_Attempts__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Timeout_Seconds__c</field>
+        <value xsi:type="xsd:double">30.0</value>
+    </values>
+    <values>
+        <field>Rate_Limit_Per_Hour__c</field>
+        <value xsi:type="xsd:double">1000.0</value>
+    </values>
+    <values>
+        <field>Rate_Limit_Per_Minute__c</field>
+        <value xsi:type="xsd:double">50.0</value>
+    </values>
+    <values>
+        <field>Environment__c</field>
+        <value xsi:type="xsd:string">Development</value>
+    </values>
+    <values>
+        <field>Cache_TTL_Minutes__c</field>
+        <value xsi:type="xsd:double">1440.0</value>
+    </values>
+    <values>
+        <field>Use_Mock_API__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Enable_Caching__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Enable_Rate_Limiting__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Enable_Analytics__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Circuit_Breaker_Threshold__c</field>
+        <value xsi:type="xsd:double">5.0</value>
+    </values>
+    <values>
+        <field>Circuit_Breaker_Reset_Minutes__c</field>
+        <value xsi:type="xsd:double">15.0</value>
+    </values>
+    <values>
+        <field>SLA_Response_Time_MS__c</field>
+        <value xsi:type="xsd:double">3000.0</value>
+    </values>
+    <values>
+        <field>Military_Branch_Support__c</field>
+        <value xsi:type="xsd:string">Army MOS, Navy Rating, Air Force AFSC, Marine MOS, Space Force AFSC, Coast Guard Rating</value>
+    </values>
+    <values>
+        <field>API_Description__c</field>
+        <value xsi:type="xsd:string">Match military occupation codes to civilian careers with salary and outlook data. Supports all service branches including Army MOS, Navy Ratings, Air Force AFSC, Marine MOS, Space Force AFSC, and Coast Guard Ratings. Provides comprehensive career translation with education requirements and job market analysis.</value>
+    </values>
+</CustomMetadata>

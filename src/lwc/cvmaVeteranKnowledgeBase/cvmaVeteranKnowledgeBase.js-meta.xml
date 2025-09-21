@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>508-compliant veteran knowledge base for Default Help Center with accessibility features</description>
+    <masterLabel>CVMA Veteran Knowledge Base</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="displayMode" type="String" default="search" label="Display Mode"
+                description="Initial display mode: search, article, or category" />
+            <property name="enableSearch" type="Boolean" default="true" label="Enable Search"
+                description="Show search functionality for articles" />
+            <property name="showCategories" type="Boolean" default="true" label="Show Categories"
+                description="Display knowledge article categories" />
+            <property name="showFeaturedArticles" type="Boolean" default="true" label="Show Featured Articles"
+                description="Display featured veteran articles" />
+            <property name="maxSearchResults" type="Integer" default="10" label="Max Search Results"
+                description="Maximum number of search results to display" />
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage,lightning__RecordPage">
+            <property name="displayMode" type="String" default="search" label="Display Mode"
+                description="Initial display mode: search, article, or category" />
+            <property name="enableSearch" type="Boolean" default="true" label="Enable Search"
+                description="Show search functionality for articles" />
+            <property name="showCategories" type="Boolean" default="true" label="Show Categories"
+                description="Display knowledge article categories" />
+            <property name="showFeaturedArticles" type="Boolean" default="true" label="Show Featured Articles"
+                description="Display featured veteran articles" />
+            <property name="maxSearchResults" type="Integer" default="10" label="Max Search Results"
+                description="Maximum number of search results to display" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

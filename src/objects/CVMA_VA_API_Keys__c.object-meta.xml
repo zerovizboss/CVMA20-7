@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Protected</customSettingsType>
+    <description>Secure storage for VA Lighthouse API credentials and sensitive configuration values. Protected custom settings provide enhanced security for API keys and sensitive data.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>CVMA VA API Keys</label>
+    <pluralLabel>CVMA VA API Keys</pluralLabel>
+    <visibility>Protected</visibility>
+    <fields>
+        <fullName>API_Key_Value__c</fullName>
+        <description>Encrypted API key or sensitive credential value</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Store the actual API key, client secret, or other sensitive credential value. This field is automatically encrypted in Protected Custom Settings.</inlineHelpText>
+        <label>API Key Value</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Key_Type__c</fullName>
+        <description>Type of credential stored (Client ID, Client Secret, API Key, etc.)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Specify the type of credential being stored for easier management</inlineHelpText>
+        <label>Key Type</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Environment__c</fullName>
+        <description>Environment this credential applies to (Sandbox, Production, Development)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Specify the environment to ensure correct credentials are used in each org</inlineHelpText>
+        <label>Environment</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Whether this credential is currently active and should be used</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Uncheck to temporarily disable this credential without deleting it</inlineHelpText>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Used__c</fullName>
+        <description>Timestamp when this credential was last successfully used</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically updated when the credential is successfully used for API authentication</inlineHelpText>
+        <label>Last Used</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Expires_On__c</fullName>
+        <description>Optional expiration date for this credential</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set an expiration date if the credential has a known expiry (optional)</inlineHelpText>
+        <label>Expires On</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+</CustomObject>

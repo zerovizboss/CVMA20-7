@@ -1,0 +1,226 @@
+<template>
+    <div class="veteran-resource-finder">
+        <!-- Search and Filter Header -->
+        <div class="slds-card slds-m-bottom_medium">
+            <div class="slds-card__header">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="utility:search" size="medium" alternative-text="Search"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span class="slds-text-heading_medium">Veteran Resources Finder</span>
+                        </h2>
+                        <p class="slds-text-body_small slds-text-color_weak">
+                            Find veteran service organizations and programs tailored to your needs
+                        </p>
+                    </div>
+                </header>
+            </div>
+
+            <div class="slds-card__body slds-card__body_inner">
+                <!-- Search Bar -->
+                <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                        <lightning-input
+                            type="search"
+                            label="Search Organizations"
+                            placeholder="Search by name, service, or keyword..."
+                            value={searchTerm}
+                            onchange={handleSearchChange}
+                            class="search-input">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-large-size_1-of-4">
+                        <lightning-combobox
+                            name="category"
+                            label="Service Category"
+                            value={selectedCategory}
+                            placeholder="Select Category"
+                            options={categoryOptions}
+                            onchange={handleCategoryChange}>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-large-size_1-of-4">
+                        <lightning-combobox
+                            name="state"
+                            label="State/Region"
+                            value={selectedState}
+                            placeholder="All States"
+                            options={stateOptions}
+                            onchange={handleStateChange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+
+                <!-- Results Summary -->
+                <div class="slds-m-bottom_medium" if:true={hasResults}>
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        Showing {filteredOrganizations.length} organizations
+                        <template if:true={searchTerm}>matching "{searchTerm}"</template>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div if:true={isLoading} class="slds-align_absolute-center slds-m-vertical_large">
+            <lightning-spinner alternative-text="Loading organizations..." size="large"></lightning-spinner>
+        </div>
+
+        <!-- Organizations Grid -->
+        <div if:true={hasResults} class="organizations-grid">
+            <template for:each={filteredOrganizations} for:item="org">
+                <div key={org.id} class="slds-card organization-card slds-m-bottom_medium">
+                    <div class="slds-card__header">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <img src={org.logoUrl} alt={org.organizationName} class="org-logo"
+                                     onerror="this.style.display='none'">
+                                <lightning-icon if:false={org.logoUrl} icon-name="standard:groups"
+                                              size="medium" alternative-text="Organization"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h3 class="slds-card__header-title">
+                                    <span class="slds-text-heading_small organization-name">{org.organizationName}</span>
+                                </h3>
+                                <div class="slds-grid slds-gutters_xx-small slds-m-top_xx-small">
+                                    <div class="slds-col">
+                                        <lightning-badge label={org.serviceCategory} class="category-badge"></lightning-badge>
+                                    </div>
+                                    <div class="slds-col" if:true={org.combatVeteranFocus}>
+                                        <lightning-badge label="Combat Veteran Focus" variant="success"></lightning-badge>
+                                    </div>
+                                    <div class="slds-col" if:true={org.disabilityFocus}>
+                                        <lightning-badge label="Disability Focus" variant="warning"></lightning-badge>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+
+                    <div class="slds-card__body slds-card__body_inner">
+                        <p class="slds-text-body_regular slds-m-bottom_small">{org.description}</p>
+
+                        <!-- Eligibility Highlights -->
+                        <div if:true={org.eligibilityHighlights} class="slds-m-bottom_small">
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_xx-small">
+                                <strong>Key Eligibility:</strong>
+                            </p>
+                            <ul class="slds-list_dotted">
+                                <template for:each={org.eligibilityHighlights} for:item="criteria">
+                                    <li key={criteria} class="slds-text-body_small">{criteria}</li>
+                                </template>
+                            </ul>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="slds-grid slds-gutters_small slds-m-bottom_small contact-info">
+                            <div class="slds-col" if:true={org.phone}>
+                                <lightning-icon icon-name="utility:phone" size="x-small" class="contact-icon"></lightning-icon>
+                                <a href={org.phoneLink} class="slds-text-body_small contact-link">{org.phone}</a>
+                            </div>
+                            <div class="slds-col" if:true={org.website}>
+                                <lightning-icon icon-name="utility:world" size="x-small" class="contact-icon"></lightning-icon>
+                                <a href={org.website} target="_blank" class="slds-text-body_small contact-link">Website</a>
+                            </div>
+                            <div class="slds-col" if:true={org.statesCovered}>
+                                <lightning-icon icon-name="utility:location" size="x-small" class="contact-icon"></lightning-icon>
+                                <span class="slds-text-body_small">{org.statesCovered}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-card__footer">
+                        <div class="slds-grid slds-gutters_small">
+                            <div class="slds-col">
+                                <lightning-button
+                                    variant="brand"
+                                    label="Check Eligibility"
+                                    data-id={org.id}
+                                    onclick={handleCheckEligibility}
+                                    class="action-button">
+                                </lightning-button>
+                            </div>
+                            <div class="slds-col">
+                                <lightning-button
+                                    variant="neutral"
+                                    label="Learn More"
+                                    data-id={org.id}
+                                    onclick={handleLearnMore}
+                                    class="action-button">
+                                </lightning-button>
+                            </div>
+                            <div class="slds-col" if:true={org.applicationUrl}>
+                                <lightning-button
+                                    variant="success"
+                                    label="Apply Now"
+                                    data-id={org.id}
+                                    onclick={handleApplyNow}
+                                    class="action-button">
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- No Results Message -->
+        <div if:false={hasResults} class="slds-align_absolute-center slds-m-vertical_large">
+            <div class="slds-illustration slds-illustration_large">
+                <img src="/img/chatter/Desert.svg" class="slds-illustration__svg" alt="No results">
+                <div class="slds-text-longform">
+                    <h3 class="slds-text-heading_medium">No Organizations Found</h3>
+                    <p class="slds-text-body_regular">{noResultsMessage}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Eligibility Check Modal -->
+        <template if:true={showEligibilityModal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning-button-icon icon-name="utility:close" alternative-text="close"
+                                             onclick={handleCloseModal} class="slds-modal__close"></lightning-button-icon>
+                        <h2 id="modal-heading-01" class="slds-text-id_large slds-hyphenate">{eligibilityModalTitle}</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-var-p-around_medium">
+                        <template if:true={eligibilityResults}>
+                            <template for:each={eligibilityResults} for:item="result">
+                                <div key={result.program} class="slds-card slds-m-bottom_small">
+                                    <div class="slds-card__header">
+                                        <h3 class="slds-text-heading_small">{result.programName}</h3>
+                                    </div>
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <div class="slds-grid slds-gutters_small">
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <lightning-badge
+                                                    label={result.eligibilityStatus}
+                                                    variant={result.statusVariant}>
+                                                </lightning-badge>
+                                            </div>
+                                            <div class="slds-col slds-size_2-of-3">
+                                                <p class="slds-text-body_small">{result.requirements}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Close" onclick={handleCloseModal}></lightning-button>
+                        <lightning-button variant="brand" label="Continue Application"
+                                        onclick={handleApplyNow} data-id={selectedOrganization.id}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+</template>
