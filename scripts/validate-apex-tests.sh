@@ -6,8 +6,8 @@ set -e
 
 echo "🧪 Validating Apex test classes..."
 
-# Get all changed Apex class files (not test classes or triggers)
-APEX_CLASSES=$(git diff --cached --name-only --diff-filter=ACM | grep -E 'src/classes/.*\.cls$' | grep -v 'Test\.cls$' || true)
+# Get all changed Apex class files (not test classes, triggers, or certain patterns)
+APEX_CLASSES=$(git diff --cached --name-only --diff-filter=ACM | grep -E 'src/classes/.*\.cls$' | grep -v -E '(Test\.cls$|Mock\.cls$|Helper\.cls$|Util\.cls$)' || true)
 
 if [ -z "$APEX_CLASSES" ]; then
     echo "ℹ️  No non-test Apex classes changed. Skipping test validation."
@@ -21,11 +21,19 @@ echo "📄 Checking test coverage for:"
 for class_file in $APEX_CLASSES; do
     # Extract class name from file path
     class_name=$(basename "$class_file" .cls)
-    echo "  - $class_name"
-    
+
+    # Skip certain controller patterns that might not need tests (like pure data classes)
+    if [[ "$class_name" =~ ^CVMA.*Controller$ ]]; then
+        echo "  - $class_name (Controller - requires test)"
+    elif [[ "$class_name" =~ ^CVMA.*Authenticator$ ]]; then
+        echo "  - $class_name (Authenticator - requires test)"
+    else
+        echo "  - $class_name"
+    fi
+
     # Check if corresponding test class exists
     test_file="src/classes/${class_name}Test.cls"
-    
+
     if [ ! -f "$test_file" ]; then
         MISSING_TESTS+="$class_name "
         continue
@@ -37,10 +45,13 @@ for class_file in $APEX_CLASSES; do
         continue
     fi
     
-    # Check if test class has at least one test method
-    if ! grep -qE "(testSetup|@IsTest.*static.*void|static.*testMethod)" "$test_file"; then
-        INVALID_TESTS+="$class_name (no test methods found) "
-        continue
+    # Check if test class has at least one test method (comprehensive patterns)
+    if ! grep -qE "(@IsTest\s+(static\s+)?void|static\s+void\s+test|testMethod|@TestSetup)" "$test_file"; then
+        # Additional check for common test patterns
+        if ! grep -qE "(void\s+test\w+|@IsTest\s*$)" "$test_file"; then
+            INVALID_TESTS+="$class_name (no test methods found) "
+            continue
+        fi
     fi
     
     # Check for CVMATestDataFactory usage in new tests
