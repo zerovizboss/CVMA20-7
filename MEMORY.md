@@ -2330,16 +2330,27 @@ When agents encounter technical issues, bugs, or unexpected behavior during deve
 **Methodology**: Optimal session time and token management with rollover calculation
 
 #### **Session Analysis Framework**
-1. **Current Session Usage Assessment**:
-   - **Token Usage Tracking**: Monitor conversation, multi-agent deployment, documentation tokens
-   - **Time Usage Analysis**: Track development time vs. available session capacity
-   - **Remaining Capacity Calculation**: Available tokens and time for additional tasks
+**CRITICAL PRINCIPLE**: **Sessions are defined by TOKEN CAPACITY, not Epic boundaries**
 
-2. **Next Epic/User Story Development Time Analysis**:
-   - **Epic #8 Phase 3 Completion**: ~30,000 tokens, 20-30 minutes
-   - **Epic #9 VA API Integration**: ~125,000 tokens, 60+ minutes
-   - **Epic #10 Veterans Portal**: ~180,000 tokens, 95+ minutes
-   - **Standard Test Class Creation**: ~5,000 tokens, 5-10 minutes each
+1. **Token-Capacity-Driven Session Management**:
+   - **Session Limit**: ~200,000 tokens total capacity per Claude session
+   - **Continuous Development**: Complete as many User Stories as token capacity allows
+   - **Epic Boundaries Irrelevant**: One session can span multiple Epics or complete partial Epics
+   - **User Story Granularity**: Each User Story has calculated token cost for optimal planning
+
+2. **Individual User Story Token Calculations**:
+   - **Standard Controller Creation**: ~15,000-20,000 tokens, 15-20 minutes
+   - **Complex API Integration**: ~25,000-35,000 tokens, 25-35 minutes
+   - **LWC Component Development**: ~10,000-15,000 tokens, 10-15 minutes
+   - **Experience Builder Pages**: ~20,000-30,000 tokens, 20-30 minutes
+   - **Test Class Creation**: ~5,000 tokens, 5-10 minutes each
+   - **Documentation Updates**: ~5,000-10,000 tokens, 5-10 minutes
+
+3. **Session Optimization Strategy**:
+   - **Queue User Stories by Token Cost**: Arrange tasks to maximize session utilization
+   - **Complete Full User Stories Only**: Never leave partial implementations
+   - **Token Rollover Maximization**: Preserve unused capacity for enhanced next session
+   - **Multi-Epic Sessions**: Complete User Stories across Epic boundaries within token limits
 
 3. **Token Rollover Calculation Protocol**:
    ```
@@ -2349,11 +2360,29 @@ When agents encounter technical issues, bugs, or unexpected behavior during deve
    Available for Rollover: Capacity - Used - Reserve
    ```
 
-#### **Optimal Session Completion Criteria**
-- **Complete Epic/User Story**: Only if sufficient tokens/time remain for full completion
-- **Create Comprehensive Savepoint**: Document blocking issues, ready components, next priorities
-- **Token Rollover Maximization**: Preserve unused tokens for enhanced next session capacity
+#### **Token-Driven Session Completion Criteria**
+- **User Story Completion Priority**: Complete as many full User Stories as token capacity allows
+- **Epic Boundary Flexibility**: Sessions can span multiple Epics or complete partial Epic progress
+- **Token Threshold Management**: Stop new User Stories when <20,000 tokens remain
+- **Comprehensive Savepoint**: Document completed User Stories, next priorities, token rollover
 - **Zero Ramp-up Documentation**: Complete context for immediate next session startup
+
+#### **Session Utilization Examples**
+**Session Scenario 1**: ~200,000 token capacity
+- Epic #8 Phase 3 Completion: 30,000 tokens ✅
+- Epic #9 User Story #1: 25,000 tokens ✅
+- Epic #9 User Story #2: 20,000 tokens ✅
+- Epic #9 User Story #3: 35,000 tokens ✅
+- Epic #9 User Story #4: 25,000 tokens ✅
+- Documentation: 10,000 tokens ✅
+- **Total**: 145,000 tokens (5 User Stories completed across 2 Epics)
+
+**Session Scenario 2**: ~105,000 token rollover capacity
+- Epic #9 User Story #1: 25,000 tokens ✅
+- Epic #9 User Story #2: 20,000 tokens ✅
+- Epic #9 User Story #3: 35,000 tokens ✅
+- Documentation: 10,000 tokens ✅
+- **Total**: 90,000 tokens (3 User Stories completed, 15,000 rollover)
 
 #### **Session Handoff Documentation Requirements**
 1. **Token Management Analysis**: Usage breakdown and rollover calculation

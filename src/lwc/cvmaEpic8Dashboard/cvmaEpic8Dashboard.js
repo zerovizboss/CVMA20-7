@@ -5,8 +5,9 @@ import getVeteranServicesIntegration from '@salesforce/apex/CVMAEpic8Phase3Contr
 import getCrossChapterAnalytics from '@salesforce/apex/CVMAEpic8Phase3Controller.getCrossChapterAnalytics';
 import getAdvancedAutomationEngine from '@salesforce/apex/CVMAEpic8Phase3Controller.getAdvancedAutomationEngine';
 import getEinsteinPredictiveAnalytics from '@salesforce/apex/CVMAEinsteinAnalyticsController.getEinsteinPredictiveAnalytics';
-import getVABenefitsSimple from '@salesforce/apex/CVMAMockGovIntegrationHelper.getVABenefitsSimple';
-import getDODRecordsSimple from '@salesforce/apex/CVMAMockGovIntegrationHelper.getDODRecordsSimple';
+import getVABenefits from '@salesforce/apex/CVMARealVABenefitsController.getVABenefits';
+import getVAForms from '@salesforce/apex/CVMARealVAFormsController.getVAForms';
+import getDODRecordsSimple from '@salesforce/apex/CVMAMockDODRecordsController.getDODRecords';
 import getBenefitRecommendations from '@salesforce/apex/CVMAMockGovIntegrationHelper.getBenefitRecommendations';
 
 export default class CvmaEpic8Dashboard extends LightningElement {
@@ -67,10 +68,14 @@ export default class CvmaEpic8Dashboard extends LightningElement {
             const contactId = this.memberId || this.getCurrentUserContactId();
 
             if (contactId) {
-                // Load simplified government services data
-                this.vaBenefitsData = await getVABenefitsSimple({ contactId: contactId });
+                // Load real government services data
+                this.vaBenefitsData = await getVABenefits({ contactId: contactId });
+                this.vaFormsData = JSON.parse(await getVAForms());
                 this.dodRecordsData = await getDODRecordsSimple({ contactId: contactId });
                 this.benefitRecommendations = await getBenefitRecommendations({ contactId: contactId });
+
+                // Update health metrics based on real API responses
+                this.updateGovernmentServicesHealth();
             } else {
                 // Load mock data for demo
                 this.loadMockGovernmentData();
@@ -128,6 +133,35 @@ export default class CvmaEpic8Dashboard extends LightningElement {
         // In a real implementation, this would get the current user's contact ID
         // For now, return null to trigger mock data
         return null;
+    }
+
+    updateGovernmentServicesHealth() {
+        let healthScore = 0;
+        let totalServices = 0;
+
+        // Check VA Benefits API health
+        if (this.vaBenefitsData && this.vaBenefitsData.apiStatus) {
+            totalServices++;
+            if (this.vaBenefitsData.apiStatus.status === 'Available') {
+                healthScore += 100;
+            }
+        }
+
+        // Check VA Forms API health
+        if (this.vaFormsData && this.vaFormsData.status === 'success') {
+            totalServices++;
+            healthScore += 100;
+        }
+
+        // Check DOD Records API health
+        if (this.dodRecordsData && this.dodRecordsData.apiStatus) {
+            totalServices++;
+            if (this.dodRecordsData.apiStatus.status === 'Available') {
+                healthScore += 100;
+            }
+        }
+
+        this.govServicesHealth = totalServices > 0 ? Math.round(healthScore / totalServices) : 95;
     }
 
     // View navigation
