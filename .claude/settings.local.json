@@ -82,7 +82,9 @@
       "WebFetch(domain:developer.va.gov)",
       "WebFetch(domain:digital.va.gov)",
       "Bash(cat:*)",
-      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT Id, Name, UrlPathPrefix, Status FROM Network ORDER BY Name\")"
+      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT Id, Name, UrlPathPrefix, Status FROM Network ORDER BY Name\")",
+      "Bash(gh issue create:*)",
+      "Bash(gh issue comment:*)"
     ],
     "deny": [],
     "ask": []
