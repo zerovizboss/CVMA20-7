@@ -12,6 +12,8 @@ import searchVeteranResources from '@salesforce/apex/CVMAVeteranResourceFinderCo
 import getVAServicesIntegration from '@salesforce/apex/CVMAVAServicesIntegrationController.getVAServicesIntegration';
 import getAvailableMemberDocumentation from '@salesforce/apex/CVMAMemberDocumentationController.getAvailableMemberDocumentation';
 import requestMemberDocumentation from '@salesforce/apex/CVMAMemberDocumentationController.requestMemberDocumentation';
+import validateUserAccess from '@salesforce/apex/CVMAMemberAccessController.validateUserAccess';
+import getAccessibilityConfiguration from '@salesforce/apex/CVMAAccessibilityController.getAccessibilityConfiguration';
 
 export default class CvmaVeteranResourcesPortal extends LightningElement {
     @api portalMode = 'landing'; // landing, search, detail
@@ -48,6 +50,17 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
     @track userProfile = {};
     @track memberLevel = '';
     @track serviceBranch = '';
+
+    // User Story #34: Enhanced access control properties
+    @track userAccessData = {};
+    @track userPermissions = {};
+    @track featureAccess = {};
+    @track contentAccess = {};
+    @track isAccessValidated = false;
+
+    // User Story #35: Accessibility configuration
+    @track accessibilityConfig = {};
+    @track accessibilityEnabled = false;
 
     // Resource categories configuration
     resourceCategoryConfig = [
@@ -150,10 +163,16 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
         this.error = null;
 
         try {
+            // User Story #34: Validate user access first
+            if (this.recordId) {
+                await this.validateUserAccess();
+                await this.loadAccessibilityConfiguration();
+            }
+
             // Load resource categories
             await this.loadResourceCategories();
 
-            // Load member documentation categories
+            // Load member documentation categories (with access control)
             await this.loadMemberDocumentation();
 
             // Load personalized recommendations if user profile available
@@ -628,6 +647,181 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
 
     get documentationSectionTitle() {
         return 'CVMA Member Documentation';
+    }
+
+    // User Story #34: Access control validation
+    async validateUserAccess() {
+        try {
+            // Get current user ID - in Experience Cloud, this should be the current user
+            const userId = this.recordId; // Assuming recordId is the user's Contact ID
+
+            const result = await validateUserAccess({ userId: userId });
+
+            if (result.success) {
+                this.userAccessData = result;
+                this.userPermissions = result.permissions || {};
+                this.featureAccess = result.featureAccess || {};
+                this.contentAccess = result.contentAccess || {};
+                this.isAccessValidated = true;
+
+                // Update UI based on access level
+                this.updateUIForAccessLevel(result.accessLevel);
+            } else {
+                console.error('Access validation failed:', result.error);
+                this.showToast('Access Error', 'Unable to validate user access', 'warning');
+            }
+        } catch (error) {
+            console.error('Error validating user access:', error);
+            this.isAccessValidated = false;
+        }
+    }
+
+    updateUIForAccessLevel(accessLevel) {
+        const level = accessLevel?.level || 'guest';
+
+        // Update component behavior based on access level
+        if (level === 'guest') {
+            this.showDocumentationSection = false;
+            this.enableSearch = this.contentAccess.publicContentOnly !== false;
+        } else if (level === 'member') {
+            this.showDocumentationSection = this.userPermissions.canSubmitReviews || false;
+            this.enableSearch = true;
+        } else if (level === 'admin') {
+            this.showDocumentationSection = true;
+            this.enableSearch = true;
+        }
+    }
+
+    // User Story #35: Accessibility configuration
+    async loadAccessibilityConfiguration() {
+        try {
+            const userId = this.recordId;
+            const result = await getAccessibilityConfiguration({ userId: userId });
+
+            if (result.success) {
+                this.accessibilityConfig = result;
+                this.accessibilityEnabled = true;
+
+                // Apply accessibility settings to component
+                this.applyAccessibilitySettings(result.accessibilitySettings);
+            } else {
+                console.error('Accessibility configuration failed:', result.error);
+            }
+        } catch (error) {
+            console.error('Error loading accessibility configuration:', error);
+            this.accessibilityEnabled = false;
+        }
+    }
+
+    applyAccessibilitySettings(settings) {
+        if (!settings) return;
+
+        // Apply theme settings
+        if (settings.theme === 'high-contrast') {
+            this.template.host.classList.add('high-contrast-theme');
+        }
+
+        // Apply font size settings
+        if (settings.fontSize === 'large') {
+            this.template.host.classList.add('large-text');
+        }
+
+        // Apply motion preferences
+        if (settings.animation === 'reduced') {
+            this.template.host.classList.add('reduced-motion');
+        }
+
+        // Apply screen reader optimizations
+        if (settings.screenReaderMode) {
+            this.template.host.classList.add('screen-reader-optimized');
+        }
+    }
+
+    // Enhanced getters with access control
+    get canAccessVeteransPortal() {
+        return this.featureAccess.canAccessVeteransPortal !== false;
+    }
+
+    get canViewMemberDirectory() {
+        return this.featureAccess.canViewMemberDirectory || false;
+    }
+
+    get canAccessEventCalendar() {
+        return this.featureAccess.canAccessEventCalendar !== false;
+    }
+
+    get canAccessMemberOnlyResources() {
+        return this.featureAccess.canAccessMemberOnlyResources || false;
+    }
+
+    get canAccessVAServices() {
+        return this.userPermissions.canAccessVAServices || false;
+    }
+
+    get canCreateCases() {
+        return this.userPermissions.canCreateCases || false;
+    }
+
+    get canViewMemberContent() {
+        return this.contentAccess.canViewMemberContent !== false;
+    }
+
+    get maxDownloads() {
+        return this.contentAccess.maxDownloads || 3;
+    }
+
+    get allowedContentTypes() {
+        return this.contentAccess.allowedContentTypes || ['Public Events', 'Community Resources'];
+    }
+
+    get accessLevelBadge() {
+        const level = this.userAccessData.accessLevel?.level || 'guest';
+        const levelClasses = {
+            'admin': 'slds-badge slds-badge_error',
+            'member': 'slds-badge slds-badge_success',
+            'user': 'slds-badge slds-badge_info',
+            'guest': 'slds-badge slds-badge_light'
+        };
+        return levelClasses[level] || 'slds-badge slds-badge_light';
+    }
+
+    get accessLevelDescription() {
+        return this.userAccessData.accessLevel?.description || 'Guest Access';
+    }
+
+    get membershipRequired() {
+        return this.contentAccess.membershipRequired || false;
+    }
+
+    // Enhanced welcome message with access level
+    get enhancedWelcomeMessage() {
+        const level = this.userAccessData.accessLevel?.level || 'guest';
+        const userName = this.userProfile.name || 'Visitor';
+
+        if (level === 'admin') {
+            return `Welcome ${userName} - Administrator Access to CVMA Veterans Resources`;
+        } else if (level === 'member') {
+            return `Welcome ${userName} - Full Member Access to CVMA Veterans Resources`;
+        } else if (level === 'user') {
+            return `Welcome ${userName} - User Access to CVMA Veterans Resources`;
+        } else {
+            return `Welcome ${userName} - Guest Access to Public Veterans Resources`;
+        }
+    }
+
+    // Accessibility helper methods
+    get hasAccessibilitySupport() {
+        return this.accessibilityEnabled && this.accessibilityConfig.success;
+    }
+
+    get screenReaderInstructions() {
+        if (!this.hasAccessibilitySupport) return '';
+
+        return 'Navigate using tab key. Use arrow keys within component sections. Press enter to activate buttons and links.';
+    }
+
+    get skipToMainContent() {
+        return this.accessibilityConfig.screenReaderConfig?.skipLinks || false;
     }
 
     // Refresh data

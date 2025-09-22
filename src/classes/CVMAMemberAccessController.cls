@@ -40,11 +40,19 @@ public with sharing class CVMAMemberAccessController {
             // Build access permissions based on profile
             Map<String, Object> permissions = buildAccessPermissions(currentUser, accessLevel);
 
+            // Get enhanced feature access matrix for User Story #34
+            Map<String, Object> featureAccess = getFeatureAccessMatrix(accessLevel);
+
+            // Get content restrictions based on member status
+            Map<String, Object> contentAccess = getContentAccessRestrictions(currentUser);
+
             response.put('success', true);
             response.put('userId', currentUser.Id);
             response.put('accessLevel', accessLevel);
             response.put('memberProfile', memberProfile);
             response.put('permissions', permissions);
+            response.put('featureAccess', featureAccess);
+            response.put('contentAccess', contentAccess);
             response.put('isAuthenticated', true);
 
             return response;
@@ -392,6 +400,98 @@ public with sharing class CVMAMemberAccessController {
         } else {
             return 'Access restricted: ' + userLevel + ' level insufficient for ' + resource.Type + ' resources';
         }
+    }
+
+    /**
+     * Private helper: Get enhanced feature access matrix for User Story #34
+     */
+    private static Map<String, Object> getFeatureAccessMatrix(Map<String, Object> accessLevel) {
+        Map<String, Object> featureAccess = new Map<String, Object>();
+        String level = (String) accessLevel.get('level');
+
+        // Enhanced Veterans Resources Portal features
+        featureAccess.put('canAccessVeteransPortal', level != 'guest');
+        featureAccess.put('canViewMemberDirectory', level == 'member' || level == 'admin');
+        featureAccess.put('canAccessEventCalendar', level != 'guest');
+        featureAccess.put('canSubmitEventSuggestions', level == 'member' || level == 'admin');
+
+        // User Story #34: Member-specific features
+        featureAccess.put('canAccessMemberOnlyResources', level == 'member' || level == 'admin');
+        featureAccess.put('canViewChapterFinancials', level == 'admin');
+        featureAccess.put('canAccessOfficerTools', level == 'admin');
+        featureAccess.put('canManageDocumentation', level == 'admin');
+
+        // Communication features
+        featureAccess.put('canSendMessages', level == 'member' || level == 'admin');
+        featureAccess.put('canCreateDiscussions', level == 'member' || level == 'admin');
+        featureAccess.put('canAccessPrivateForums', level == 'member' || level == 'admin');
+
+        // Service integration features
+        featureAccess.put('canScheduleAppointments', level == 'member' || level == 'admin');
+        featureAccess.put('canRequestAdvocacy', level == 'member' || level == 'admin');
+        featureAccess.put('canAccessPremiumServices', level == 'member' || level == 'admin');
+
+        return featureAccess;
+    }
+
+    /**
+     * Private helper: Get content access restrictions based on member status
+     */
+    private static Map<String, Object> getContentAccessRestrictions(User currentUser) {
+        Map<String, Object> contentAccess = new Map<String, Object>();
+
+        // Determine member status from Contact relationship
+        Boolean isActiveMember = currentUser.ContactId != null;
+        Boolean hasMembershipId = false;
+
+        if (isActiveMember) {
+            try {
+                Contact memberContact = [
+                    SELECT Membership_Id__c
+                    FROM Contact
+                    WHERE Id = :currentUser.ContactId
+                    WITH SECURITY_ENFORCED
+                    LIMIT 1
+                ];
+                hasMembershipId = String.isNotBlank(memberContact.Membership_Id__c);
+            } catch (Exception e) {
+                System.debug('Error checking membership status: ' + e.getMessage());
+            }
+        }
+
+        // Content access based on membership status
+        contentAccess.put('canViewMemberContent', hasMembershipId);
+        contentAccess.put('canDownloadMemberResources', hasMembershipId);
+        contentAccess.put('canAccessPrivateContent', hasMembershipId);
+
+        // Guest restrictions
+        if (!isActiveMember || !hasMembershipId) {
+            contentAccess.put('publicContentOnly', true);
+            contentAccess.put('maxDownloads', 3);
+            contentAccess.put('canViewDetailedProfiles', false);
+        } else {
+            contentAccess.put('publicContentOnly', false);
+            contentAccess.put('maxDownloads', 50);
+            contentAccess.put('canViewDetailedProfiles', true);
+        }
+
+        // Content type restrictions
+        List<String> allowedContentTypes = new List<String>();
+        if (hasMembershipId) {
+            allowedContentTypes.addAll(new List<String>{
+                'Meeting Minutes', 'Chapter Updates', 'Member Resources',
+                'Event Photos', 'Financial Reports', 'Officer Communications'
+            });
+        } else {
+            allowedContentTypes.addAll(new List<String>{
+                'Public Events', 'Community Resources', 'General Information'
+            });
+        }
+
+        contentAccess.put('allowedContentTypes', allowedContentTypes);
+        contentAccess.put('membershipRequired', !hasMembershipId);
+
+        return contentAccess;
     }
 
     /**
