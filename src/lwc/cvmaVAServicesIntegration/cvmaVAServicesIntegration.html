@@ -1,0 +1,544 @@
+<!--
+    cvmaVAServicesIntegration.html
+    Epic #10 User Story #32: VA Services Integration Component
+    Government services coordination with comprehensive accessibility
+
+    Combat Veterans Motorcycle Association Chapter 20-7
+    Seamless integration of VA services with community resources
+-->
+<template>
+    <!-- Main Container -->
+    <div class="slds-card va-services-container" role="main" aria-label="VA Services Integration">
+
+        <!-- Header Section -->
+        <div class="slds-card__header slds-text-align_center">
+            <h1 class="slds-card__header-title slds-text-heading_large slds-text-color_default">
+                🏛️ VA Services Integration
+            </h1>
+            <p class="slds-text-body_regular slds-m-top_small" id="services-description">
+                {memberGreeting} - Comprehensive coordination of government and community resources
+            </p>
+            <template if:true={showVeteranStatus}>
+                <div class="slds-box slds-theme_success slds-m-top_small" role="status">
+                    <p class="slds-text-body_small">
+                        ✅ Veteran status verified - Access to full VA services integration
+                    </p>
+                </div>
+            </template>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-tabs_default" role="tablist" aria-label="VA Services Navigation">
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <template for:each={tabOptions} for:item="tab">
+                        <li key={tab.value} class="slds-tabs_default__item" role="presentation">
+                            <a class={tab.tabClass}
+                               role="tab"
+                               tabindex={tab.tabIndex}
+                               aria-selected={tab.isActive}
+                               aria-controls={tab.panelId}
+                               id={tab.tabId}
+                               data-tab={tab.value}
+                               onclick={handleTabSelect}>
+                                <lightning-icon icon-name={tab.iconName} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                {tab.label}
+                            </a>
+                        </li>
+                    </template>
+                </ul>
+
+                <!-- Loading Spinner -->
+                <template if:true={isLoading}>
+                    <div class="slds-text-align_center slds-p-around_medium" role="status" aria-live="polite">
+                        <lightning-spinner alternative-text="Loading VA services..." size="medium"></lightning-spinner>
+                        <p class="slds-m-top_small">Loading VA services integration...</p>
+                    </div>
+                </template>
+
+                <!-- Error Display -->
+                <template if:true={error}>
+                    <div class="slds-box slds-theme_error slds-m-bottom_medium" role="alert">
+                        <h3 class="slds-text-heading_small">⚠️ Error Loading VA Services</h3>
+                        <p class="slds-text-body_regular">{error}</p>
+                    </div>
+                </template>
+
+                <!-- Overview Tab Panel -->
+                <template if:true={showOverviewTab}>
+                    <div class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="overview-tab">
+
+                        <!-- VA Services Status -->
+                        <template if:true={hasVAServices}>
+                            <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_large">
+
+                                <!-- VA Benefits Status -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                    <article class="slds-card status-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                💰 VA Benefits Status
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <template if:true={benefitTypes}>
+                                                <template for:each={benefitTypes} for:item="benefit">
+                                                    <div key={benefit.type} class="slds-m-bottom_small">
+                                                        <button class="slds-button slds-button_neutral slds-button_stretch"
+                                                                data-benefit-type={benefit.type}
+                                                                onclick={handleBenefitTypeSelect}>
+                                                            {benefit.label}: {benefit.status}
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                            <template if:false={benefitTypes}>
+                                                <p class="slds-text-body_small slds-text-color_weak">
+                                                    Click Benefits Coordination tab to load benefit details
+                                                </p>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <!-- VA Facilities -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                    <article class="slds-card status-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                🏥 VA Facilities
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <template if:true={vaServices.vaFacilities}>
+                                                <p class="slds-text-body_regular slds-m-bottom_small">
+                                                    {vaServices.vaFacilities.totalCount} facilities found
+                                                </p>
+                                                <template for:each={appointmentTypes} for:item="type">
+                                                    <div key={type.type} class="slds-m-bottom_x-small">
+                                                        <button class="slds-button slds-button_outline-brand slds-button_stretch"
+                                                                data-appointment-type={type.type}
+                                                                onclick={handleAppointmentTypeSelect}>
+                                                            <lightning-icon icon-name={type.icon} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                                            {type.label}
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <!-- Service Coordination -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                    <article class="slds-card status-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                🤝 Service Coordination
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <p class="slds-text-body_small slds-m-bottom_medium">
+                                                Need assistance coordinating VA services with community resources?
+                                            </p>
+                                            <lightning-button
+                                                variant="brand"
+                                                label="Request Service Coordination"
+                                                onclick={handleToggleServiceForm}
+                                                class="slds-button_stretch">
+                                            </lightning-button>
+                                            <div class="slds-m-top_small">
+                                                <button class="slds-button slds-button_neutral slds-button_stretch"
+                                                        onclick={loadAdvocacySupport}>
+                                                    View Advocacy Support
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+
+                            <!-- Service Analysis -->
+                            <template if:true={serviceGaps}>
+                                <div class="slds-box slds-theme_warning slds-m-bottom_medium">
+                                    <h3 class="slds-text-heading_small slds-m-bottom_small">🔍 Service Gap Analysis</h3>
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <h4 class="slds-text-heading_x-small slds-m-bottom_x-small">Identified Gaps:</h4>
+                                            <ul class="slds-list_dotted">
+                                                <template for:each={serviceGaps} for:item="gap">
+                                                    <li key={gap}>{gap}</li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <h4 class="slds-text-heading_x-small slds-m-bottom_x-small">Recommendations:</h4>
+                                            <ul class="slds-list_dotted">
+                                                <template for:each={recommendations} for:item="rec">
+                                                    <li key={rec}>{rec}</li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+
+                        <!-- Service Coordination Form -->
+                        <template if:true={showServiceForm}>
+                            <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                                <h3 class="slds-text-heading_small slds-m-bottom_medium">📝 Service Coordination Request</h3>
+
+                                <!-- Service Type -->
+                                <div class="slds-m-bottom_medium">
+                                    <lightning-combobox
+                                        label="Service Type"
+                                        options={serviceTypeOptions}
+                                        value={serviceType}
+                                        onchange={handleServiceTypeChange}
+                                        required>
+                                    </lightning-combobox>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="slds-m-bottom_medium">
+                                    <lightning-textarea
+                                        label="Description of Assistance Needed"
+                                        placeholder="Please describe what assistance you need with VA services..."
+                                        value={serviceDescription}
+                                        onchange={handleServiceDescriptionChange}
+                                        required
+                                        max-length="1000">
+                                    </lightning-textarea>
+                                </div>
+
+                                <!-- Urgency -->
+                                <div class="slds-m-bottom_medium">
+                                    <lightning-combobox
+                                        label="Urgency Level"
+                                        options={urgencyOptions}
+                                        value={serviceUrgency}
+                                        onchange={handleServiceUrgencyChange}
+                                        required>
+                                    </lightning-combobox>
+                                </div>
+
+                                <!-- Form Actions -->
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-button
+                                            variant="brand"
+                                            label="Submit Request"
+                                            onclick={handleCreateServiceCase}
+                                            disabled={isLoading}
+                                            class="slds-button_stretch">
+                                        </lightning-button>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-button
+                                            variant="neutral"
+                                            label="Cancel"
+                                            onclick={handleToggleServiceForm}
+                                            class="slds-button_stretch">
+                                        </lightning-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Benefits Coordination Tab Panel -->
+                <template if:true={showBenefitsTab}>
+                    <div class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="benefits-tab">
+                        <template if:true={hasBenefitsData}>
+                            <div class="slds-grid slds-gutters slds-wrap">
+
+                                <!-- Current Benefits Status -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                💰 {selectedBenefitType} Benefits Status
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <template if:true={benefitsData.currentBenefits}>
+                                                <div class="slds-m-bottom_medium">
+                                                    <h4 class="slds-text-heading_x-small slds-m-bottom_small">Current Status:</h4>
+                                                    <p class="slds-text-body_regular">
+                                                        {benefitsData.currentBenefits.message}
+                                                    </p>
+                                                </div>
+                                            </template>
+
+                                            <!-- Complementary Resources -->
+                                            <template if:true={benefitsData.complementaryResources}>
+                                                <div class="slds-m-bottom_medium">
+                                                    <h4 class="slds-text-heading_x-small slds-m-bottom_small">Community Resources:</h4>
+                                                    <template for:each={benefitsData.complementaryResources} for:item="resource">
+                                                        <div key={resource.Id} class="slds-box slds-theme_shade slds-m-bottom_small">
+                                                            <h5 class="slds-text-heading_x-small">{resource.Title}</h5>
+                                                            <p class="slds-text-body_small">{resource.Summary}</p>
+                                                            <template if:true={resource.Phone_Number__c}>
+                                                                <p class="slds-text-body_small">
+                                                                    📞 <a href={resource.phoneLink}>{resource.Phone_Number__c}</a>
+                                                                </p>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <!-- Related Cases -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                📋 Active Cases
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <template if:true={benefitsData.relatedCases}>
+                                                <template for:each={benefitsData.relatedCases} for:item="case">
+                                                    <div key={case.Id} class="slds-box slds-theme_info slds-m-bottom_small">
+                                                        <h5 class="slds-text-heading_x-small">{case.CaseNumber}</h5>
+                                                        <p class="slds-text-body_small">{case.Subject}</p>
+                                                        <lightning-badge label={case.Status} variant="inverse"></lightning-badge>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                            <template if:false={benefitsData.relatedCases}>
+                                                <p class="slds-text-body_small slds-text-color_weak">
+                                                    No active cases for this benefit type
+                                                </p>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:false={hasBenefitsData}>
+                            <div class="slds-text-align_center slds-p-around_large">
+                                <p class="slds-text-body_regular">
+                                    Select a benefit type from the Overview tab to view coordination details
+                                </p>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Appointments Tab Panel -->
+                <template if:true={showAppointmentsTab}>
+                    <div class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="appointments-tab">
+                        <template if:true={hasAppointmentData}>
+                            <div class="slds-grid slds-gutters slds-wrap">
+
+                                <!-- Appointment Recommendations -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                📅 {selectedAppointmentType} Appointment Assistance
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+
+                                            <!-- Appointment Tips -->
+                                            <template if:true={appointmentData.recommendations.tips}>
+                                                <div class="slds-m-bottom_medium">
+                                                    <h4 class="slds-text-heading_x-small slds-m-bottom_small">💡 Scheduling Tips:</h4>
+                                                    <ul class="slds-list_dotted">
+                                                        <template for:each={appointmentData.recommendations.tips} for:item="tip">
+                                                            <li key={tip} class="slds-text-body_small">{tip}</li>
+                                                        </template>
+                                                    </ul>
+                                                </div>
+                                            </template>
+
+                                            <!-- Preparation Checklist -->
+                                            <template if:true={appointmentData.recommendations.preparation}>
+                                                <div class="slds-m-bottom_medium">
+                                                    <h4 class="slds-text-heading_x-small slds-m-bottom_small">📋 Preparation Checklist:</h4>
+                                                    <ul class="slds-list_dotted">
+                                                        <template for:each={appointmentData.recommendations.preparation} for:item="item">
+                                                            <li key={item} class="slds-text-body_small">{item}</li>
+                                                        </template>
+                                                    </ul>
+                                                </div>
+                                            </template>
+
+                                            <!-- Assistance Resources -->
+                                            <template if:true={appointmentData.appointmentHelp}>
+                                                <div class="slds-m-bottom_medium">
+                                                    <h4 class="slds-text-heading_x-small slds-m-bottom_small">🤝 Assistance Resources:</h4>
+                                                    <template for:each={appointmentData.appointmentHelp} for:item="help">
+                                                        <div key={help.Id} class="slds-box slds-theme_shade slds-m-bottom_small">
+                                                            <h5 class="slds-text-heading_x-small">{help.Title}</h5>
+                                                            <p class="slds-text-body_small">{help.Summary}</p>
+                                                            <template if:true={help.Phone_Number__c}>
+                                                                <a href={help.phoneLink} class="slds-text-link">
+                                                                    📞 {help.Phone_Number__c}
+                                                                </a>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <!-- Nearby Facilities -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                🏥 Nearby VA Facilities
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <template if:true={appointmentData.nearbyFacilities.facilities}>
+                                                <template for:each={appointmentData.nearbyFacilities.facilities} for:item="facility">
+                                                    <div key={facility.id} class="slds-box slds-theme_info slds-m-bottom_small">
+                                                        <h5 class="slds-text-heading_x-small">{facility.name}</h5>
+                                                        <p class="slds-text-body_small">{facility.address}</p>
+                                                        <template if:true={facility.phone}>
+                                                            <a href={facility.phoneLink} class="slds-text-link">
+                                                                📞 {facility.phone}
+                                                            </a>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:false={hasAppointmentData}>
+                            <div class="slds-text-align_center slds-p-around_large">
+                                <p class="slds-text-body_regular">
+                                    Select an appointment type from the Overview tab to view assistance details
+                                </p>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Advocacy Support Tab Panel -->
+                <template if:true={showAdvocacyTab}>
+                    <div class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="advocacy-tab">
+                        <template if:true={hasAdvocacyData}>
+                            <div class="slds-grid slds-gutters slds-wrap">
+
+                                <!-- Advocacy Resources -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                🛡️ Veteran Service Organizations
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <template for:each={advocacyData.advocacyResources} for:item="resource">
+                                                <div key={resource.Id} class="slds-box slds-theme_shade slds-m-bottom_medium">
+                                                    <h4 class="slds-text-heading_x-small slds-m-bottom_small">{resource.Title}</h4>
+                                                    <p class="slds-text-body_small slds-m-bottom_small">{resource.Summary}</p>
+                                                    <div class="slds-grid slds-gutters">
+                                                        <template if:true={resource.Phone_Number__c}>
+                                                            <div class="slds-col">
+                                                                <a href={resource.phoneLink} class="slds-text-link">
+                                                                    📞 {resource.Phone_Number__c}
+                                                                </a>
+                                                            </div>
+                                                        </template>
+                                                        <template if:true={resource.Website_URL__c}>
+                                                            <div class="slds-col">
+                                                                <a href={resource.Website_URL__c} target="_blank"
+                                                                   data-link-type="advocacy"
+                                                                   onclick={handleExternalLinkClick}
+                                                                   class="slds-text-link">
+                                                                    🌐 Website
+                                                                </a>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <!-- CVMA Chapter Support -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                    <article class="slds-card">
+                                        <div class="slds-card__header">
+                                            <h3 class="slds-card__header-title slds-text-heading_small">
+                                                🏍️ CVMA Chapter Support
+                                            </h3>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <template if:true={advocacyData.chapterOfficers}>
+                                                <template for:each={advocacyData.chapterOfficers} for:item="officer">
+                                                    <div key={officer.Id} class="slds-box slds-theme_info slds-m-bottom_small">
+                                                        <h5 class="slds-text-heading_x-small">{officer.Name}</h5>
+                                                        <p class="slds-text-body_small">{officer.Position__c}</p>
+                                                        <template if:true={officer.Phone}>
+                                                            <a href={officer.phoneLink} class="slds-text-link">
+                                                                📞 {officer.Phone}
+                                                            </a>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </template>
+
+                                            <!-- Active Advocacy Cases -->
+                                            <template if:true={advocacyData.advocacyCases}>
+                                                <div class="slds-m-top_medium">
+                                                    <h4 class="slds-text-heading_x-small slds-m-bottom_small">Active Cases:</h4>
+                                                    <template for:each={advocacyData.advocacyCases} for:item="case">
+                                                        <div key={case.Id} class="slds-box slds-theme_warning slds-m-bottom_x-small">
+                                                            <p class="slds-text-body_small">{case.Subject}</p>
+                                                            <lightning-badge label={case.Status}></lightning-badge>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Emergency Support Section -->
+        <div class="emergency-support slds-box slds-theme_error slds-text-align_center slds-m-top_medium" role="region" aria-label="Emergency Support">
+            <h3 class="slds-text-heading_small slds-m-bottom_small">🆘 Crisis Support</h3>
+            <div class="slds-grid slds-gutters emergency-links">
+                <div class="slds-col slds-size_1-of-3">
+                    <a href="tel:988" class="slds-button slds-button_destructive emergency-btn">
+                        📞 988 Crisis Lifeline
+                    </a>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <a href="tel:18002738255" class="slds-button slds-button_destructive emergency-btn">
+                        📞 Veterans Crisis Line
+                    </a>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <a href="https://www.veteranscrisisline.net/get-help/chat" target="_blank"
+                       class="slds-button slds-button_destructive emergency-btn">
+                        💬 Crisis Chat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

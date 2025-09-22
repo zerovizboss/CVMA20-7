@@ -4,17 +4,31 @@ import { getRecord } from 'lightning/uiRecordApi';
 import CONTACT_OBJECT from '@salesforce/schema/Contact';
 import CONTACT_NAME_FIELD from '@salesforce/schema/Contact.Name';
 import CONTACT_LEVEL_FIELD from '@salesforce/schema/Contact.Level__c';
-import CONTACT_SERVICE_BRANCH_FIELD from '@salesforce/schema/Contact.Military_Service_Branch__c';
+// Remove non-existent field import
+// import CONTACT_SERVICE_BRANCH_FIELD from '@salesforce/schema/Contact.Military_Service_Branch__c';
 
-import getVeteranResourceCategories from '@salesforce/apex/CVMAVeteranResourcesController.getVeteranResourceCategories';
-import searchVeteranResources from '@salesforce/apex/CVMAVeteranResourcesController.searchVeteranResources';
-import getPersonalizedRecommendations from '@salesforce/apex/CVMAVeteranResourcesController.getPersonalizedRecommendations';
+import getVeteranResourceDirectory from '@salesforce/apex/CVMAVeteranResourceFinderController.getVeteranResourceDirectory';
+import searchVeteranResources from '@salesforce/apex/CVMAVeteranResourceFinderController.searchVeteranResources';
+import getVAServicesIntegration from '@salesforce/apex/CVMAVAServicesIntegrationController.getVAServicesIntegration';
+import getAvailableMemberDocumentation from '@salesforce/apex/CVMAMemberDocumentationController.getAvailableMemberDocumentation';
+import requestMemberDocumentation from '@salesforce/apex/CVMAMemberDocumentationController.requestMemberDocumentation';
 
 export default class CvmaVeteranResourcesPortal extends LightningElement {
     @api portalMode = 'landing'; // landing, search, detail
-    @api showCategories = true;
-    @api enableSearch = true;
+    @api showCategories = false;
+    @api enableSearch = false;
     @api recordId; // Current user's contact ID
+
+    // Initialize component with proper defaults
+    connectedCallback() {
+        if (this.showCategories === undefined) {
+            this.showCategories = true;
+        }
+        if (this.enableSearch === undefined) {
+            this.enableSearch = true;
+        }
+        this.loadResourceData();
+    }
 
     @track isLoading = true;
     @track resourceCategories = [];
@@ -24,6 +38,11 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
     @track selectedCategory = '';
     @track activeView = 'overview';
     @track error = null;
+
+    // Documentation system properties
+    @track memberDocumentationCategories = [];
+    @track showDocumentationSection = true;
+    @track documentationRequestStatus = '';
 
     // User profile information
     @track userProfile = {};
@@ -109,14 +128,14 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
     // Wire to get current user's contact record
     @wire(getRecord, {
         recordId: '$recordId',
-        fields: [CONTACT_NAME_FIELD, CONTACT_LEVEL_FIELD, CONTACT_SERVICE_BRANCH_FIELD]
+        fields: [CONTACT_NAME_FIELD, CONTACT_LEVEL_FIELD]
     })
     wiredContact({ data, error }) {
         if (data) {
             this.userProfile = {
                 name: data.fields.Name.value,
-                level: data.fields.Level__c.value || 'Basic',
-                serviceBranch: data.fields.Military_Service_Branch__c.value || ''
+                level: data.fields.Level__c?.value || 'Basic',
+                serviceBranch: data.fields.Title?.value || '' // Use Title field as fallback
             };
             this.memberLevel = this.userProfile.level;
             this.serviceBranch = this.userProfile.serviceBranch;
@@ -125,9 +144,6 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
         }
     }
 
-    connectedCallback() {
-        this.loadResourceData();
-    }
 
     async loadResourceData() {
         this.isLoading = true;
@@ -136,6 +152,9 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
         try {
             // Load resource categories
             await this.loadResourceCategories();
+
+            // Load member documentation categories
+            await this.loadMemberDocumentation();
 
             // Load personalized recommendations if user profile available
             if (this.recordId) {
@@ -153,18 +172,35 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
 
     async loadResourceCategories() {
         try {
-            const categoryData = await getVeteranResourceCategories();
+            const result = await getVeteranResourceDirectory();
 
-            // Merge API data with local configuration
-            this.resourceCategories = this.resourceCategoryConfig.map(category => {
-                const apiCategory = categoryData.find(item => item.categoryId === category.id);
-                return {
-                    ...category,
-                    resourceCount: apiCategory ? apiCategory.resourceCount : 0,
-                    featuredResources: apiCategory ? apiCategory.featuredResources : [],
-                    lastUpdated: apiCategory ? apiCategory.lastUpdated : new Date().toISOString()
-                };
-            });
+            if (result.success) {
+                // Use the service categories from our controller
+                const serviceCategories = result.serviceCategories || [];
+                const resources = result.resources || [];
+
+                // Merge API data with local configuration
+                this.resourceCategories = this.resourceCategoryConfig.map(category => {
+                    const resourceCount = resources.filter(r =>
+                        r.Industry && category.subcategories.some(sub =>
+                            r.Industry.includes(sub) || r.Name.includes(sub)
+                        )
+                    ).length;
+
+                    return {
+                        ...category,
+                        resourceCount: resourceCount,
+                        featuredResources: resources.filter(r =>
+                            r.Industry && category.subcategories.some(sub =>
+                                r.Industry.includes(sub) || r.Name.includes(sub)
+                            )
+                        ).slice(0, 3),
+                        lastUpdated: new Date().toISOString()
+                    };
+                });
+            } else {
+                this.resourceCategories = this.resourceCategoryConfig;
+            }
 
             // Sort by priority
             this.resourceCategories.sort((a, b) => a.priority - b.priority);
@@ -178,18 +214,74 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
 
     async loadPersonalizedRecommendations() {
         try {
-            const recommendations = await getPersonalizedRecommendations({
-                contactId: this.recordId,
-                memberLevel: this.memberLevel,
-                serviceBranch: this.serviceBranch
-            });
+            if (this.recordId) {
+                const result = await getVAServicesIntegration({ contactId: this.recordId });
 
-            this.personalizedRecommendations = recommendations || [];
+                if (result.success) {
+                    // Generate recommendations based on VA services analysis
+                    const recommendations = this.generateRecommendationsFromVAServices(result);
+                    this.personalizedRecommendations = recommendations;
+                } else {
+                    this.personalizedRecommendations = this.getDefaultRecommendations();
+                }
+            } else {
+                this.personalizedRecommendations = this.getDefaultRecommendations();
+            }
 
         } catch (error) {
             console.error('Error loading personalized recommendations:', error);
             this.personalizedRecommendations = this.getDefaultRecommendations();
         }
+    }
+
+    generateRecommendationsFromVAServices(vaServicesResult) {
+        const recommendations = [];
+
+        // Analyze service gaps for recommendations
+        if (vaServicesResult.serviceAnalysis && vaServicesResult.serviceAnalysis.identifiedGaps) {
+            const gaps = vaServicesResult.serviceAnalysis.identifiedGaps;
+
+            gaps.forEach(gap => {
+                if (gap.includes('healthcare')) {
+                    recommendations.push({
+                        id: 'healthcare-gap',
+                        title: 'Healthcare Services Gap Identified',
+                        description: 'We found potential gaps in your healthcare services. Explore additional healthcare resources.',
+                        category: 'va-benefits',
+                        urgency: 'high',
+                        actionUrl: '/va-services',
+                        iconName: 'standard:opportunity'
+                    });
+                }
+
+                if (gap.includes('Multiple open')) {
+                    recommendations.push({
+                        id: 'case-consolidation',
+                        title: 'Service Request Optimization',
+                        description: 'You have multiple open service requests. Consider consolidating for better coordination.',
+                        category: 'service-coordination',
+                        urgency: 'medium',
+                        actionUrl: '/my-cases',
+                        iconName: 'standard:case'
+                    });
+                }
+            });
+        }
+
+        // Add member-specific recommendations
+        if (this.memberLevel === 'Premium' || this.memberLevel === 'Full Member') {
+            recommendations.push({
+                id: 'premium-resources',
+                title: 'Premium Member Resources',
+                description: 'Access exclusive resources available to premium CVMA members.',
+                category: 'member-benefits',
+                urgency: 'medium',
+                actionUrl: '/premium-resources',
+                iconName: 'standard:custom'
+            });
+        }
+
+        return recommendations.length > 0 ? recommendations : this.getDefaultRecommendations();
     }
 
     getDefaultRecommendations() {
@@ -257,14 +349,20 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
         this.isLoading = true;
 
         try {
-            const results = await searchVeteranResources({
+            const result = await searchVeteranResources({
                 searchTerm: this.searchTerm,
-                category: this.selectedCategory,
-                memberLevel: this.memberLevel
+                serviceCategory: this.selectedCategory,
+                geographicArea: '',
+                contactId: this.recordId
             });
 
-            this.searchResults = results || [];
-            this.activeView = 'search';
+            if (result.success) {
+                this.searchResults = result.searchResults || [];
+                this.activeView = 'search';
+            } else {
+                this.showToast('Search Error', result.error || 'Failed to search veteran resources', 'error');
+                this.searchResults = [];
+            }
 
         } catch (error) {
             console.error('Error performing search:', error);
@@ -308,14 +406,33 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
         this.isLoading = true;
 
         try {
-            const results = await searchVeteranResources({
+            // Map category ID to industry filter
+            const categoryMapping = {
+                'va-benefits': 'Government',
+                'service-dogs': 'Nonprofit',
+                'wounded-warrior': 'Nonprofit',
+                'housing': 'Real Estate',
+                'emergency-response': 'Nonprofit',
+                'local-services': 'Nonprofit',
+                'financial-assistance': 'Financial Services',
+                'crisis-support': 'Healthcare'
+            };
+
+            const serviceCategory = categoryMapping[categoryId] || '';
+
+            const result = await searchVeteranResources({
                 searchTerm: '',
-                category: categoryId,
-                memberLevel: this.memberLevel
+                serviceCategory: serviceCategory,
+                geographicArea: '',
+                contactId: this.recordId
             });
 
-            this.searchResults = results || [];
-            this.activeView = 'category';
+            if (result.success) {
+                this.searchResults = result.searchResults || [];
+                this.activeView = 'category';
+            } else {
+                this.showToast('Error', result.error || 'Failed to load category resources', 'error');
+            }
 
         } catch (error) {
             console.error('Error loading category resources:', error);
@@ -454,6 +571,63 @@ export default class CvmaVeteranResourcesPortal extends LightningElement {
 
         // Navigate to crisis support immediately
         this.navigateToCategory('crisis-support');
+    }
+
+    // Documentation system methods
+    async loadMemberDocumentation() {
+        try {
+            const result = await getAvailableMemberDocumentation();
+            this.memberDocumentationCategories = result || [];
+        } catch (error) {
+            console.error('Error loading member documentation:', error);
+            this.memberDocumentationCategories = [];
+        }
+    }
+
+    async handleRequestDocumentation(event) {
+        const docCategory = event.target.dataset.category;
+        const docTitle = event.target.dataset.title;
+
+        if (!docCategory) {
+            this.showToast('Error', 'Invalid documentation request', 'error');
+            return;
+        }
+
+        this.documentationRequestStatus = 'Sending documentation...';
+
+        try {
+            // Get user email from profile or prompt
+            const userEmail = this.getUserEmailForDocumentation();
+            const userName = this.userProfile.name || 'CVMA Member';
+
+            const result = await requestMemberDocumentation({
+                category: docCategory,
+                memberEmail: userEmail,
+                memberName: userName
+            });
+
+            this.documentationRequestStatus = '';
+            this.showToast('Documentation Request', result, 'success');
+
+        } catch (error) {
+            this.documentationRequestStatus = '';
+            console.error('Error requesting documentation:', error);
+            this.showToast('Documentation Error', 'Failed to request documentation. Please try again.', 'error');
+        }
+    }
+
+    getUserEmailForDocumentation() {
+        // For Experience Cloud, try to get user email from context
+        // This would need to be enhanced based on your community user setup
+        return 'member@cvma.org'; // Placeholder - replace with actual user email logic
+    }
+
+    get hasDocumentationCategories() {
+        return this.memberDocumentationCategories && this.memberDocumentationCategories.length > 0;
+    }
+
+    get documentationSectionTitle() {
+        return 'CVMA Member Documentation';
     }
 
     // Refresh data
