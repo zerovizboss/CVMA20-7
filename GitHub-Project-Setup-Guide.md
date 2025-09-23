@@ -205,7 +205,7 @@ Configure these status options:
 4. **Notification System**: Slack/email notifications for status changes
 
 ### Project Board Automation
-1. **Auto-move to Done**: When PR is merged and closes issue
+1. **Auto-move to Done**: When PR is merged and closes the issue
 2. **Auto-assign to Sprint**: Based on labels or milestones
 3. **Blocked Item Alerts**: Notifications when items are blocked too long
 4. **Sprint Completion Tracking**: Automatic sprint metrics calculation
@@ -214,7 +214,7 @@ Configure these status options:
 
 ## Getting Started Checklist
 
-- [ ] Create GitHub Project with name and description
+- [ ] Create a GitHub Project with name and description
 - [ ] Configure custom fields (Epic, Priority, Story Points, Sprint, etc.)
 - [ ] Set up project views (Epic Overview, Sprint Planning, Phase Timeline, Current Sprint)
 - [ ] Configure status options (Backlog, Ready, In Progress, In Review, Done, Blocked)
@@ -231,5 +231,5 @@ Configure these status options:
 1. Conduct project kickoff meeting
 2. Assign initial user stories to team members
 3. Begin Sprint 1 planning
-4. Establish daily standup schedule
+4. Establish a daily standup schedule
 5. Set up development environment and CI/CD pipeline
