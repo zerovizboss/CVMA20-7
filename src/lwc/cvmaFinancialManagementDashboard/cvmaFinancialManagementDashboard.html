@@ -1,0 +1,288 @@
+<template>
+    <lightning-card title={dashboardTitle} icon-name="standard:currency">
+
+        <!-- Access Level Indicator -->
+        <div slot="actions">
+            <lightning-badge
+                label={accessMessage}
+                variant={hasFinancialAccess}
+                class="slds-m-right_small">
+            </lightning-badge>
+
+            <lightning-button-group>
+                <lightning-button
+                    label="Refresh"
+                    icon-name="utility:refresh"
+                    onclick={handleRefreshData}
+                    disabled={isLoading}>
+                </lightning-button>
+
+                <lightning-button
+                    label="Export"
+                    icon-name="utility:download"
+                    onclick={handleExportData}
+                    disabled={canExportData}
+                    variant="brand">
+                </lightning-button>
+            </lightning-button-group>
+        </div>
+
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading financial data..."></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error Display -->
+        <template if:true={hasError}>
+            <div class="slds-p-around_medium">
+                <lightning-message-banner type="error" dismissible="true">
+                    <h2 slot="header">Financial Data Error</h2>
+                    <p>{errorMessage}</p>
+                </lightning-message-banner>
+            </div>
+        </template>
+
+        <!-- Main Dashboard Content -->
+        <template if:false={isLoading}>
+            <div class="slds-p-around_medium">
+
+                <!-- Year and Date Range Selectors -->
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning-combobox
+                            label="Financial Year"
+                            value={currentYear}
+                            options={yearOptions}
+                            onchange={handleYearChange}>
+                        </lightning-combobox>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning-input
+                            type="date"
+                            label="Start Date"
+                            value={dateRange.startDate}
+                            data-field="startDate"
+                            onchange={handleDateRangeChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning-input
+                            type="date"
+                            label="End Date"
+                            value={dateRange.endDate}
+                            data-field="endDate"
+                            onchange={handleDateRangeChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning-button
+                            label="Create Annual Dues"
+                            variant="brand"
+                            icon-name="utility:add"
+                            onclick={handleCreateAnnualDues}
+                            disabled={canCreateDues}
+                            class="slds-m-top_large">
+                        </lightning-button>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <lightning-tabset active-tab-value={selectedTab} onactive={handleTabChange}>
+
+                    <!-- Overview Tab -->
+                    <lightning-tab label="Overview" value="overview" if:true={showOverview}>
+                        <div class="slds-grid slds-wrap slds-gutters">
+
+                            <!-- Key Financial Metrics -->
+                            <div class="slds-col slds-size_1-of-3">
+                                <lightning-card title="Total Revenue" icon-name="utility:money">
+                                    <div class="slds-p-horizontal_small">
+                                        <div class="slds-text-heading_large slds-text-color_success">
+                                            {totalRevenue}
+                                        </div>
+                                        <p class="slds-text-body_small">Year to Date</p>
+                                    </div>
+                                </lightning-card>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-3">
+                                <lightning-card title="Total Expenses" icon-name="utility:expense">
+                                    <div class="slds-p-horizontal_small">
+                                        <div class="slds-text-heading_large slds-text-color_error">
+                                            {totalExpenses}
+                                        </div>
+                                        <p class="slds-text-body_small">Year to Date</p>
+                                    </div>
+                                </lightning-card>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-3">
+                                <lightning-card title="Net Income" icon-name="utility:trending">
+                                    <div class="slds-p-horizontal_small">
+                                        <div class={netIncomeClass}>
+                                            <span class="slds-text-heading_large">{netIncome}</span>
+                                        </div>
+                                        <p class="slds-text-body_small">Revenue - Expenses</p>
+                                    </div>
+                                </lightning-card>
+                            </div>
+
+                            <!-- Collection Rate -->
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-card title="Dues Collection Rate" icon-name="utility:percent">
+                                    <div class="slds-p-horizontal_small">
+                                        <div class={collectionRateClass}>
+                                            <span class="slds-text-heading_large">{collectionRate}%</span>
+                                        </div>
+                                        <p class="slds-text-body_small">Member Dues {currentYear}</p>
+                                    </div>
+                                </lightning-card>
+                            </div>
+
+                            <!-- Top Fundraiser -->
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-card title="Top Fundraising Campaign" icon-name="utility:campaign">
+                                    <div class="slds-p-horizontal_small">
+                                        <template if:true={topFundraiser}>
+                                            <div class="slds-text-heading_medium">{topFundraiser.Name}</div>
+                                            <div class="slds-text-color_success slds-text-body_regular">
+                                                {topFundraiser.AmountWonOpportunities}
+                                            </div>
+                                        </template>
+                                        <template if:false={topFundraiser}>
+                                            <p class="slds-text-body_small">No active campaigns</p>
+                                        </template>
+                                    </div>
+                                </lightning-card>
+                            </div>
+
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Member Dues Tab -->
+                    <lightning-tab label="Member Dues" value="dues" if:true={showDues}>
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_medium slds-m-bottom_medium">
+                                Member Dues Management - {currentYear}
+                            </h3>
+
+                            <!-- Dues Analytics Display -->
+                            <template if:true={memberDuesData.duesAnalysis}>
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-card title="Collection Status">
+                                            <div class="slds-p-horizontal_small">
+                                                <p>Collection Rate: <strong class={collectionRateClass}>{collectionRate}%</strong></p>
+                                                <p>Total Members: {memberDuesData.totalMembers}</p>
+                                            </div>
+                                        </lightning-card>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-card title="Revenue Projections">
+                                            <div class="slds-p-horizontal_small">
+                                                <p>Projected Revenue: {memberDuesData.revenueProjections}</p>
+                                                <p>Outstanding Amount: {memberDuesData.outstandingAmount}</p>
+                                            </div>
+                                        </lightning-card>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Fundraising Tab -->
+                    <lightning-tab label="Fundraising" value="fundraising" if:true={showFundraising}>
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_medium slds-m-bottom_medium">
+                                Fundraising Performance
+                            </h3>
+
+                            <!-- Active Campaigns -->
+                            <template if:true={activeCampaigns}>
+                                <lightning-datatable
+                                    key-field="Id"
+                                    data={activeCampaigns}
+                                    columns={campaignColumns}
+                                    hide-checkbox-column="true">
+                                </lightning-datatable>
+                            </template>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Expenses Tab -->
+                    <lightning-tab label="Expenses" value="expenses" if:true={showExpenses}>
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_medium slds-m-bottom_medium">
+                                Expense Tracking
+                            </h3>
+
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning-card title="Monthly Total">
+                                        <div class="slds-p-horizontal_small">
+                                            <div class="slds-text-heading_large slds-text-color_error">
+                                                {monthlyExpenseTotal}
+                                            </div>
+                                        </div>
+                                    </lightning-card>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Reports Tab -->
+                    <lightning-tab label="Reports" value="reports" if:true={showReports}>
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_medium slds-m-bottom_medium">
+                                Financial Reports
+                            </h3>
+
+                            <p class="slds-text-body_regular">
+                                NPSP Reports & Dashboards integration will be implemented here.
+                                This will provide native Salesforce financial reporting capabilities.
+                            </p>
+                        </div>
+                    </lightning-tab>
+
+                </lightning-tabset>
+            </div>
+        </template>
+
+        <!-- Create Annual Dues Modal -->
+        <template if:true={showCreateDuesModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium">Create Annual Dues for {currentYear}</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <p>This will create annual dues opportunities for all active CVMA members for {currentYear}.</p>
+                        <p><strong>Warning:</strong> This action will create new opportunities. Ensure dues for {currentYear} have not already been created.</p>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <lightning-button
+                            label="Cancel"
+                            onclick={handleCancelCreateDues}>
+                        </lightning-button>
+                        <lightning-button
+                            label="Create Dues"
+                            variant="brand"
+                            onclick={handleConfirmCreateDues}
+                            disabled={processingOperation}>
+                        </lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+    </lightning-card>
+</template>

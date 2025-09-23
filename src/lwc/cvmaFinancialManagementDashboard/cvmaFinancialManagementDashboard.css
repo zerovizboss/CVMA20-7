@@ -1,0 +1,153 @@
+/* CVMA Financial Management Dashboard Styles */
+
+.slds-text-color_success {
+    color: #04844b !important;
+}
+
+.slds-text-color_error {
+    color: #c23934 !important;
+}
+
+.slds-text-color_warning {
+    color: #dd7a00 !important;
+}
+
+/* Financial metrics styling */
+.financial-metric {
+    text-align: center;
+    padding: 1rem;
+}
+
+.financial-metric .metric-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.financial-metric .metric-label {
+    font-size: 0.875rem;
+    color: #747474;
+    margin-top: 0.5rem;
+}
+
+/* Chart container */
+.chart-container {
+    height: 300px;
+    position: relative;
+}
+
+/* Modal styling */
+.slds-modal__content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 768px) {
+    .financial-metric .metric-value {
+        font-size: 1.8rem;
+    }
+
+    .slds-col {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Badge styling for access levels */
+.access-badge {
+    margin-left: auto;
+}
+
+/* Loading state */
+.loading-container {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card hover effects */
+.slds-card:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+}
+
+/* Tab content padding */
+.tab-content {
+    padding: 1rem;
+    min-height: 400px;
+}
+
+/* Data table styling */
+.slds-table th,
+.slds-table td {
+    padding: 0.75rem 0.5rem;
+}
+
+/* Status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-indicator.success {
+    background-color: #04844b;
+}
+
+.status-indicator.warning {
+    background-color: #dd7a00;
+}
+
+.status-indicator.error {
+    background-color: #c23934;
+}
+
+/* CVMA branding */
+.cvma-primary {
+    color: #1f5582;
+}
+
+.cvma-secondary {
+    color: #c41e3a;
+}
+
+/* Accessibility enhancements */
+.slds-assistive-text {
+    position: absolute !important;
+    margin: -1px !important;
+    border: 0 !important;
+    padding: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .slds-text-color_success {
+        color: #0d8043 !important;
+    }
+
+    .slds-text-color_error {
+        color: #ba0517 !important;
+    }
+
+    .slds-text-color_warning {
+        color: #b85600 !important;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
