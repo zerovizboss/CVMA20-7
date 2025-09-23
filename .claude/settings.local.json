@@ -28,7 +28,8 @@
       "Bash(sf project retrieve:*)",
       "Bash(sf org open:*)",
       "Bash(sf data query:*)",
-      "Bash(sf apex run:*)"
+      "Bash(sf apex run:*)",
+      "Bash(scripts/reorganize-repository.sh:*)"
     ],
     "deny": [],
     "ask": []
