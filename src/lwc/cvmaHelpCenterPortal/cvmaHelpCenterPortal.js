@@ -8,6 +8,10 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
  */
 export default class CvmaHelpCenterPortal extends LightningElement {
     @api displayMode = 'search-first'; // search-first, category-first, accessibility-first
+    @api enableAdvancedSearch = false;
+    @api showQuickSolutions = false;
+    @api prioritizeAccessibility = false;
+
     @track searchTerm = '';
     @track selectedCategory = '';
     @track searchResults = [];

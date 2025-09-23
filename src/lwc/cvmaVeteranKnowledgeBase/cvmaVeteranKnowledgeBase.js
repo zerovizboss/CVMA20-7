@@ -1,6 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { CurrentPageReference } from 'lightning/navigation';
+import generateTrainingPDF from '@salesforce/apex/CVMADocumentSharingController.generateTrainingPDF';
 
 /**
  * CVMA Veteran Knowledge Base Component
@@ -9,9 +10,9 @@ import { CurrentPageReference } from 'lightning/navigation';
  */
 export default class CvmaVeteranKnowledgeBase extends LightningElement {
     @api displayMode = 'search'; // search, article, category
-    @api enableSearch = true;
-    @api showCategories = true;
-    @api showFeaturedArticles = true;
+    @api enableSearch = false;
+    @api showCategories = false;
+    @api showFeaturedArticles = false;
     @api maxSearchResults = 10;
 
     @track searchTerm = '';
@@ -30,8 +31,56 @@ export default class CvmaVeteranKnowledgeBase extends LightningElement {
         keyboardNavigation: true
     };
 
-    // Knowledge article categories with veteran-focused content
+    // Enhanced knowledge categories for CVMA training system
     knowledgeCategories = [
+        {
+            id: 'ceb-training',
+            title: 'CEB Officer Training',
+            description: 'Leadership training for Chapter Executive Board members',
+            icon: 'utility:knowledge_base',
+            color: 'slds-icon-standard-calibration',
+            articleCount: 12,
+            priority: 1,
+            audience: 'CEB_Officers',
+            articles: [
+                'officer-dashboard-guide',
+                'member-management-procedures',
+                'financial-oversight-training',
+                'emergency-response-protocols'
+            ]
+        },
+        {
+            id: 'member-training',
+            title: 'Member Training',
+            description: 'Self-service training for CVMA members',
+            icon: 'utility:groups',
+            color: 'slds-icon-standard-opportunity',
+            articleCount: 15,
+            priority: 2,
+            audience: 'Members',
+            articles: [
+                'getting-started-guide',
+                'platform-navigation',
+                'member-benefits-overview',
+                'event-participation-guide'
+            ]
+        },
+        {
+            id: 'technical-docs',
+            title: 'Technical Documentation',
+            description: 'Developer and technical reference materials',
+            icon: 'utility:setup',
+            color: 'slds-icon-standard-code_playground',
+            articleCount: 25,
+            priority: 3,
+            audience: 'Technical_Staff',
+            articles: [
+                'api-documentation',
+                'development-guidelines',
+                'deployment-procedures',
+                'troubleshooting-guide'
+            ]
+        },
         {
             id: 'getting-started',
             title: 'Getting Started',
@@ -39,7 +88,8 @@ export default class CvmaVeteranKnowledgeBase extends LightningElement {
             icon: 'utility:new',
             color: 'slds-icon-standard-opportunity',
             articleCount: 8,
-            priority: 1,
+            priority: 4,
+            audience: 'All',
             articles: [
                 'veteran-benefits-overview',
                 'first-time-va-application',
@@ -408,6 +458,105 @@ export default class CvmaVeteranKnowledgeBase extends LightningElement {
         }, 100);
     }
 
+    // PDF Generation for training materials
+    async generateTrainingPDF(articleId) {
+        try {
+            this.isLoading = true;
+
+            const article = this.featuredArticles.find(art => art.id === articleId);
+            if (!article) {
+                throw new Error('Article not found');
+            }
+
+            // Convert article content to markdown
+            const markdownContent = this.convertToMarkdown(article);
+
+            // Determine target audience based on category
+            let targetAudience = 'Members';
+            const category = this.knowledgeCategories.find(cat => cat.id === article.category);
+            if (category && category.audience) {
+                targetAudience = category.audience;
+            }
+
+            // Generate PDF using existing CVMADocumentSharingController
+            const contentDocumentId = await generateTrainingPDF({
+                documentName: article.title,
+                markdownContent: markdownContent,
+                targetAudience: targetAudience
+            });
+
+            // Open the generated PDF
+            this.openContentDocument(contentDocumentId);
+
+            this.showToast('Success', `${article.title} PDF generated successfully`, 'success');
+
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            this.showToast('Error', 'Failed to generate PDF. Please try again.', 'error');
+        } finally {
+            this.isLoading = false;
+        }
+    }
+
+    // Convert article content to markdown format
+    convertToMarkdown(article) {
+        let markdown = `# ${article.title}\n\n`;
+        markdown += `**Category:** ${article.category}\n`;
+        markdown += `**Read Time:** ${article.readTime}\n`;
+        markdown += `**Last Updated:** ${article.lastUpdated}\n\n`;
+
+        if (article.content.summary) {
+            markdown += `## Summary\n${article.content.summary}\n\n`;
+        }
+
+        if (article.content.steps) {
+            markdown += `## Steps\n\n`;
+            article.content.steps.forEach((step, index) => {
+                markdown += `### ${step.title}\n`;
+                markdown += `${step.description}\n\n`;
+                markdown += `${step.details}\n\n`;
+
+                if (step.actionItems) {
+                    markdown += `**Action Items:**\n`;
+                    step.actionItems.forEach(item => {
+                        markdown += `- ${item}\n`;
+                    });
+                    markdown += `\n`;
+                }
+
+                if (step.estimatedTime) {
+                    markdown += `**Estimated Time:** ${step.estimatedTime}\n\n`;
+                }
+            });
+        }
+
+        if (article.content.resources) {
+            markdown += `## Resources\n\n`;
+            article.content.resources.forEach(resource => {
+                markdown += `- [${resource.title}](${resource.url}): ${resource.description}\n`;
+            });
+        }
+
+        return markdown;
+    }
+
+    // Open content document in new tab
+    openContentDocument(contentDocumentId) {
+        const baseUrl = window.location.origin;
+        const documentUrl = `${baseUrl}/sfc/servlet.shepherd/document/download/${contentDocumentId}`;
+        window.open(documentUrl, '_blank');
+    }
+
+    // Show toast notification
+    showToast(title, message, variant) {
+        const event = new ShowToastEvent({
+            title: title,
+            message: message,
+            variant: variant
+        });
+        this.dispatchEvent(event);
+    }
+
     // Getters for template rendering
     get isSearchMode() {
         return this.displayMode === 'search';
@@ -451,5 +600,13 @@ export default class CvmaVeteranKnowledgeBase extends LightningElement {
 
     get searchPlaceholderText() {
         return 'Search veteran resources... (Press Ctrl+/ to focus)';
+    }
+
+    get articleStepsWithNumbers() {
+        if (!this.selectedArticle?.content?.steps) return [];
+        return this.selectedArticle.content.steps.map((step, index) => ({
+            ...step,
+            stepNumber: index + 1
+        }));
     }
 }

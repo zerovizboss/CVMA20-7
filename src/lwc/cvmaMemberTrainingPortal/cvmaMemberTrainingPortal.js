@@ -8,6 +8,10 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
  */
 export default class CvmaMemberTrainingPortal extends LightningElement {
     @api displayMode = 'full'; // full, compact, mobile
+    @api showProgressTracking = false;
+    @api enableQuickHelp = false;
+    @api defaultLearningPath = 'getting-started';
+
     @track selectedPath = '';
     @track currentStep = 0;
 

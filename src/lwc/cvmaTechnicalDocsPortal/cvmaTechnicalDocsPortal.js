@@ -8,6 +8,10 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
  */
 export default class CvmaTechnicalDocsPortal extends LightningElement {
     @api displayMode = 'reference'; // reference, development, api-focused
+    @api enableAdvancedFiltering = false;
+    @api showCodeExamples = false;
+    @api enableDocumentPreview = false;
+
     @track selectedDocType = '';
     @track searchTerm = '';
     @track selectedTags = [];

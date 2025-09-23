@@ -107,13 +107,12 @@
                                                     type="button"
                                                     class="result-link"
                                                     data-article={result.id}
-                                                    onclick={handleArticleSelection}
-                                                    aria-describedby="{result.id}-desc">
+                                                    onclick={handleArticleSelection}>
                                                     {result.title}
                                                 </button>
                                             </h3>
                                             <p class="result-category">Category: {result.category}</p>
-                                            <div id="{result.id}-desc" class="sr-only">
+                                            <div class="sr-only">
                                                 Article about {result.title} in {result.category} category
                                             </div>
                                         </article>
@@ -150,12 +149,11 @@
                                                 type="button"
                                                 class="category-btn"
                                                 data-category={category.id}
-                                                onclick={handleCategorySelection}
-                                                aria-describedby="{category.id}-desc">
+                                                onclick={handleCategorySelection}>
                                                 Browse Articles
                                                 <span class="btn-arrow" aria-hidden="true">→</span>
                                             </button>
-                                            <div id="{category.id}-desc" class="sr-only">
+                                            <div class="sr-only">
                                                 Browse {category.articleCount} articles in {category.title} category
                                             </div>
                                         </div>
@@ -186,7 +184,7 @@
                                                     class="featured-link"
                                                     data-article={article.id}
                                                     onclick={handleArticleSelection}
-                                                    aria-describedby="{article.id}-info">
+                                                    aria-describedby="\{article.id}-info">
                                                     {article.title}
                                                 </button>
                                             </h3>
@@ -210,7 +208,7 @@
                                             </dl>
                                         </div>
 
-                                        <div id="{article.id}-info" class="sr-only">
+                                        <div id="\{article.id}-info" class="sr-only">
                                             {article.description}. Read time: {article.readTime}. Difficulty: {article.difficulty}.
                                         </div>
                                     </article>
@@ -361,9 +359,9 @@
                             <section class="steps-section" aria-labelledby="steps-title">
                                 <h2 id="steps-title" class="content-title">Step-by-Step Instructions</h2>
                                 <ol class="steps-list" role="list">
-                                    <template for:each={selectedArticle.content.steps} for:item="step" for:index="index">
+                                    <template for:each={articleStepsWithNumbers} for:item="step">
                                         <li key={step.title} class="step-item" role="listitem">
-                                            <div class="step-number" aria-hidden="true">{index + 1}</div>
+                                            <div class="step-number" aria-hidden="true">{step.stepNumber}</div>
                                             <div class="step-content">
                                                 <h3 class="step-title">{step.title}</h3>
                                                 <p class="step-description">{step.description}</p>

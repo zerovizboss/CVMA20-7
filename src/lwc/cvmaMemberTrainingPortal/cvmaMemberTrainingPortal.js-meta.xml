@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Member Training Portal - Self-service training interface optimized for CVMA Chapter 20-7 members</description>
+    <masterLabel>Member Training Portal</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage">
+            <property name="displayMode" type="String" label="Display Mode" description="Portal display mode: full, compact, mobile" default="full"/>
+            <property name="showProgressTracking" type="Boolean" label="Show Progress Tracking" description="Display learning progress indicators" default="true"/>
+            <property name="enableQuickHelp" type="Boolean" label="Enable Quick Help" description="Show quick help topics for immediate assistance" default="true"/>
+            <property name="defaultLearningPath" type="String" label="Default Learning Path" description="Default learning path for new users" default="getting-started"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

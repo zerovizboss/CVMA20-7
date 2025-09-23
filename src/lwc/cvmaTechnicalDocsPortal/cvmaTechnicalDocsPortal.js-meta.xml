@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Technical Documentation Portal - Reference documentation with advanced search and filtering for technical staff and developers</description>
+    <masterLabel>Technical Documentation Portal</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage">
+            <property name="displayMode" type="String" label="Display Mode" description="Portal display mode: reference, development, api-focused" default="reference"/>
+            <property name="enableAdvancedFiltering" type="Boolean" label="Enable Advanced Filtering" description="Show advanced filtering options and tag selection" default="true"/>
+            <property name="showCodeExamples" type="Boolean" label="Show Code Examples" description="Display code snippets and examples" default="true"/>
+            <property name="enableDocumentPreview" type="Boolean" label="Enable Document Preview" description="Show document previews in portal" default="true"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

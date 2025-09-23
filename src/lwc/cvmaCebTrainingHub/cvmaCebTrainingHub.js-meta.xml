@@ -10,13 +10,10 @@
         <target>lightning__AppPage</target>
     </targets>
     <targetConfigs>
-        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
+        <targetConfig targets="lightning__AppPage">
             <property name="displayMode" type="String" label="Display Mode" description="Hub display mode: dashboard, compact, mobile" default="dashboard"/>
             <property name="showQuickActions" type="Boolean" label="Show Quick Actions" description="Display quick access buttons for common tasks" default="true"/>
             <property name="defaultCategory" type="String" label="Default Category" description="Default training category to display" default="all"/>
-        </targetConfig>
-        <targetConfig targets="lightning__AppPage">
-            <property name="displayMode" type="String" label="Display Mode" description="Hub display mode for app pages"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

@@ -1,6 +1,8 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, track, api, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getCEBTrainingDocuments from '@salesforce/apex/CVMADocumentSharingController.getCEBTrainingDocuments';
+import generateTrainingPDF from '@salesforce/apex/CVMADocumentSharingController.generateTrainingPDF';
+import { getRecord } from 'lightning/uiRecordApi';
+import USER_ID from '@salesforce/user/Id';
 
 /**
  * CEB Training Hub - Optimized for CEB Site Experience
@@ -8,6 +10,10 @@ import getCEBTrainingDocuments from '@salesforce/apex/CVMADocumentSharingControl
  * Site: https://cvma20-7-dev-ed.develop.my.site.com/ceb
  */
 export default class CvmaCebTrainingHub extends LightningElement {
+    @api displayMode = 'dashboard';
+    @api showQuickActions = false;
+    @api defaultCategory = 'all';
+
     @track trainingModules = [];
     @track selectedModule = '';
     @track isLoading = false;
@@ -101,16 +107,63 @@ export default class CvmaCebTrainingHub extends LightningElement {
         }
     }
 
-    // Open training document
-    openTrainingDocument(documentName) {
-        // Integration with PDF generation
-        this.dispatchEvent(new CustomEvent('opendocument', {
-            detail: {
+    // Open training document using existing PDF generation system
+    async openTrainingDocument(documentName) {
+        try {
+            this.isLoading = true;
+
+            // Get document content from Knowledge Articles or markdown
+            const markdownContent = await this.getDocumentContent(documentName);
+
+            // Generate PDF using existing CVMADocumentSharingController
+            const contentDocumentId = await generateTrainingPDF({
                 documentName: documentName,
+                markdownContent: markdownContent,
                 targetAudience: 'CEB_Officers'
-            },
-            bubbles: true
-        }));
+            });
+
+            // Open the generated PDF
+            this.openContentDocument(contentDocumentId);
+
+            this.showToast('Success', `${documentName} opened successfully`, 'success');
+
+        } catch (error) {
+            console.error('Error opening training document:', error);
+            this.showToast('Error', 'Failed to open training document', 'error');
+        } finally {
+            this.isLoading = false;
+        }
+    }
+
+    // Get document content (integrate with Knowledge Articles)
+    async getDocumentContent(documentName) {
+        // Mock content - in real implementation, this would query Knowledge Articles
+        const mockContent = `# ${documentName}
+
+## Combat Veterans Motorcycle Association
+### Chapter 20-7 - Jacksonville, FL
+
+This training document provides comprehensive guidance for CEB officers on ${documentName.toLowerCase()}.
+
+### Key Responsibilities
+- Daily operations management
+- Member support and guidance
+- Chapter compliance and reporting
+
+### Emergency Procedures
+For immediate assistance, contact the Chapter Commander or visit the emergency procedures section.
+
+---
+**🏍️ Vets Serving Vets**`;
+
+        return mockContent;
+    }
+
+    // Open content document in new tab
+    openContentDocument(contentDocumentId) {
+        const baseUrl = window.location.origin;
+        const documentUrl = `${baseUrl}/sfc/servlet.shepherd/document/download/${contentDocumentId}`;
+        window.open(documentUrl, '_blank');
     }
 
     // Search functionality

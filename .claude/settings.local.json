@@ -1,35 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash('/c/Program Files/sf/bin/sf' apex run test --class-names \"CVMAFinancialManagementControllerTest\" --result-format human --code-coverage)",
-      "Bash('/c/Program Files/sf/bin/sf' project deploy start --metadata \"ApexClass:CVMAFinancialManagementController,ApexClass:CVMAFinancialManagementControllerTest\" --wait 10)",
-      "Bash('/c/Program Files/sf/bin/sf' apex run test --class-names \"CVMAFinancialControllerTest\" --result-format human --code-coverage)",
-      "Bash('/c/Program Files/sf/bin/sf' apex get test -i 707bm00000WAhOC -o detonator@cvma20-7.org)",
-      "Bash('/c/Program Files/sf/bin/sf' project deploy start --metadata \"ApexClass:CVMAMemberLifecycleController,ApexClass:CVMAMemberLifecycleControllerTest\" --wait 10)",
-      "Bash('/c/Program Files/sf/bin/sf' apex run test --class-names \"CVMAMemberLifecycleControllerTest\" --result-format human --code-coverage)",
-      "Bash('/c/Program Files/sf/bin/sf' project deploy start --source-dir \"src/classes\" --metadata \"ApexClass\" --ignore-conflicts --wait 10)",
-      "Bash('/c/Program Files/sf/bin/sf' project deploy start --source-dir \"src/classes/CVMAMemberLifecycleController.cls\" --source-dir \"src/classes/CVMAMemberLifecycleController.cls-meta.xml\" --source-dir \"src/classes/CVMAMemberLifecycleControllerTest.cls\" --source-dir \"src/classes/CVMAMemberLifecycleControllerTest.cls-meta.xml\" --wait 10)",
-      "Bash('/c/Program Files/sf/bin/sf' apex get test -i 707bm00000WBoE0 -o detonator@cvma20-7.org)",
-      "Bash('/c/Program Files/sf/bin/sf' project deploy start --source-dir \"src/classes/CVMAMemberLifecycleControllerTest.cls\" --wait 10)",
-      "Bash('/c/Program Files/sf/bin/sf' apex get test -i 707bm00000WBx2S -o detonator@cvma20-7.org)",
-      "Bash(\"/c/Program Files/Salesforce CLI/bin/sf.cmd\" data query --query \"SELECT Level__c FROM Contact WHERE Level__c != null GROUP BY Level__c\" --target-org cvma)",
-      "Bash('/c/Program Files/sf/bin/sf' data query --query \"SELECT Level__c FROM Contact WHERE Level__c != null GROUP BY Level__c\" --target-org cvma)",
-      "Bash(\"C:\\Program Files\\sf\\bin\\sf.exe\" data query --query \"SELECT Level__c FROM Contact WHERE Level__c != null GROUP BY Level__c\" --target-org cvma)",
-      "Bash('/c/Program Files/sf/bin/sf' apex run test --class-names \"CVMAMemberLifecycleControllerTest\" --result-format human --code-coverage --wait 10)",
-      "WebFetch(domain:www.combatvet.us)",
-      "Bash(git add:*)",
-      "Bash(git reset:*)",
-      "Bash(git commit:*)",
-      "Bash(sf project deploy:*)",
-      "Bash(sf apex run test:*)",
-      "Bash(sf org display:*)",
-      "Bash(chmod:*)",
-      "Bash(scripts/organize-documentation.sh:*)",
-      "Bash(sf project retrieve:*)",
-      "Bash(sf org open:*)",
-      "Bash(sf data query:*)",
-      "Bash(sf apex run:*)",
-      "Bash(scripts/reorganize-repository.sh:*)"
+      "Bash(sf community:*)",
+      "Bash(./scripts/validate-training-deployment.sh:*)"
     ],
     "deny": [],
     "ask": []
