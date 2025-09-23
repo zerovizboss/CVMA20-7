@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>CVMA Training Document Manager - Generate and share training PDFs for CEB officers and members</description>
+    <masterLabel>CVMA Document Manager</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="mode" type="String" label="Display Mode" description="Component display mode: full, compact, minimal"/>
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property name="mode" type="String" label="Display Mode" description="Component display mode"/>
+            <property name="audienceFilter" type="String" label="Audience Filter" description="Filter documents by target audience"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

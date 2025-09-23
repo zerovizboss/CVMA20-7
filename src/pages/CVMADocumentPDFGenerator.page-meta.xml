@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <label>CVMA Document PDF Generator</label>
+    <description>Generates PDF documents from markdown training materials for CEB officers and members</description>
+</ApexPage>

@@ -1,0 +1,161 @@
+<template>
+    <lightning-card title="CVMA Training Document Manager" icon-name="standard:document">
+        <div class="slds-p-horizontal_small">
+
+            <!-- Header Section -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-1">
+                    <div class="cvma-header">
+                        <h1 class="slds-text-heading_small slds-text-color_destructive">
+                            Combat Veterans Motorcycle Association
+                        </h1>
+                        <p class="slds-text-body_small">
+                            Chapter 20-7 - Jacksonville, FL | Training Document Generator
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Selection -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox
+                        name="document-selector"
+                        label="Select Training Document"
+                        value={selectedDocument}
+                        placeholder="Choose a document to generate..."
+                        options={availableDocuments}
+                        onchange={handleDocumentChange}
+                        required>
+                    </lightning-combobox>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox
+                        name="audience-selector"
+                        label="Target Audience"
+                        value={targetAudience}
+                        options={audienceOptions}
+                        onchange={handleAudienceChange}
+                        required>
+                    </lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Document Information -->
+            <template if:true={selectedDocument}>
+                <div class="slds-box slds-box_x-small slds-m-bottom_medium cvma-info-box">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-1">
+                            <h3 class="slds-text-heading_x-small slds-m-bottom_x-small">
+                                Document Information
+                            </h3>
+                            <template for:each={availableDocuments} for:item="doc">
+                                <template if:true={doc.isSelected}>
+                                    <p key={doc.value} class="slds-text-body_small">
+                                        <strong>Category:</strong> {doc.category}<br/>
+                                        <strong>Description:</strong> {doc.description}
+                                    </p>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Action Buttons -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-1 slds-text-align_center">
+                    <lightning-button
+                        variant="brand"
+                        label={generateButtonLabel}
+                        onclick={handleGeneratePDF}
+                        disabled={isGenerating}
+                        class="slds-m-right_small">
+                    </lightning-button>
+
+                    <template if:true={isGenerating}>
+                        <lightning-spinner
+                            alternative-text="Generating PDF..."
+                            size="small"
+                            class="slds-m-left_small">
+                        </lightning-spinner>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Available Documents List -->
+            <template if:true={hasDocuments}>
+                <div class="slds-card slds-m-top_medium">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="standard:document" size="small"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    Available Training Documents
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-grid slds-wrap slds-gutters_x-small">
+                            <template for:each={availableDocuments} for:item="doc">
+                                <div key={doc.value} class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                    <div class="slds-box slds-box_xx-small cvma-document-card">
+                                        <h4 class="slds-text-heading_x-small slds-m-bottom_xx-small">
+                                            {doc.label}
+                                        </h4>
+                                        <p class="slds-text-body_small slds-text-color_weak">
+                                            {doc.description}
+                                        </p>
+                                        <div class="slds-m-top_xx-small">
+                                            <lightning-badge label={doc.category} variant="outline-brand"></lightning-badge>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Help Section -->
+            <div class="slds-card slds-m-top_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:info" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                How to Use This Tool
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-text-longform">
+                        <ol>
+                            <li><strong>Select Document:</strong> Choose a training document from the dropdown</li>
+                            <li><strong>Choose Audience:</strong> Select who will receive the PDF (CEB Officers, Members, or Technical Staff)</li>
+                            <li><strong>Generate PDF:</strong> Click the Generate PDF button to create and share the document</li>
+                            <li><strong>Access:</strong> The PDF will open automatically and be shared with the selected audience</li>
+                        </ol>
+
+                        <div class="slds-m-top_small">
+                            <p class="slds-text-body_small slds-text-color_weak">
+                                <strong>Note:</strong> Generated PDFs are automatically shared with the appropriate user groups
+                                and include CVMA branding and styling optimized for the target audience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

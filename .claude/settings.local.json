@@ -22,7 +22,13 @@
       "Bash(git commit:*)",
       "Bash(sf project deploy:*)",
       "Bash(sf apex run test:*)",
-      "Bash(sf org display:*)"
+      "Bash(sf org display:*)",
+      "Bash(chmod:*)",
+      "Bash(scripts/organize-documentation.sh:*)",
+      "Bash(sf project retrieve:*)",
+      "Bash(sf org open:*)",
+      "Bash(sf data query:*)",
+      "Bash(sf apex run:*)"
     ],
     "deny": [],
     "ask": []
