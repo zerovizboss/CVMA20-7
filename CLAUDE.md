@@ -2,6 +2,19 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🏍️ **ENHANCED DEVELOPMENT PROTOCOLS**
+
+**CRITICAL**: For advanced multi-agent development protocols, revolutionary architecture patterns, and Strategic→TodoWrite→Tactical methodology, see **STORM_CLAUDE.md** - our enhanced development framework that extends beyond base CLAUDE.md capabilities.
+
+STORM_CLAUDE.md contains:
+- Multi-agent coordination protocols (Strategic Agent + Tactical Agent)
+- Standard Feature Integration methodology (70%+ code reduction)
+- Epic/User Story management patterns
+- Session memory and continuity protocols
+- Advanced Salesforce development patterns
+
+**Always reference STORM_CLAUDE.md for complex Epic development and multi-session coordination.**
+
 ## Project Overview
 
 This is a Salesforce project for the Combat Veterans Motorcycle Association (CVMA). The codebase includes:
