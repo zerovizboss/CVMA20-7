@@ -53,6 +53,7 @@
         <members>Lodash</members>
         <members>Momentjs</members>
         <members>SweetAlert2</members>
+        <members>cvmaMilitaryAwardsCSS</members>
         <name>StaticResource</name>
     </types>
     <types>

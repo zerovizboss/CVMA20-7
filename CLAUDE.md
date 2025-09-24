@@ -6,14 +6,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **CRITICAL**: For advanced multi-agent development protocols, revolutionary architecture patterns, and Strategic→TodoWrite→Tactical methodology, see **STORM_CLAUDE.md** - our enhanced development framework that extends beyond base CLAUDE.md capabilities.
 
+**DEVOPS TEAM PROTOCOL**: For persistent resource references, established patterns, and context preservation, see **CVMA-RESOURCE-REGISTRY.md** - prevents "chasing our tail in the Storm" by maintaining known resources across sessions.
+
+### **Required Session Initialization Files**:
+1. **STORM_CLAUDE.md**: Epic status, multi-agent protocols, development methodology
+2. **CVMA-RESOURCE-REGISTRY.md**: Persistent resources, known patterns, cultural context
+3. **CLAUDE.md** (this file): Base development guidance and project overview
+
 STORM_CLAUDE.md contains:
 - Multi-agent coordination protocols (Strategic Agent + Tactical Agent)
-- Standard Feature Integration methodology (70%+ code reduction)
+- Standard Feature Integration methodology (88.5%+ average code reduction)
 - Epic/User Story management patterns
 - Session memory and continuity protocols
 - Advanced Salesforce development patterns
 
-**Always reference STORM_CLAUDE.md for complex Epic development and multi-session coordination.**
+CVMA-RESOURCE-REGISTRY.md contains:
+- OneDrive documentation resources (`C:\Users\zerov\OneDrive\Documents\CVMA\Documentation`)
+- GitHub repository and project management patterns
+- Established development protocols and resource integration
+- Cultural context (STORM/WX humor references)
+- DevSecOps "known knowns" that should never require re-explanation
+
+**Always reference both STORM_CLAUDE.md AND CVMA-RESOURCE-REGISTRY.md for autonomous development continuity.**
 
 ## Project Overview
 
