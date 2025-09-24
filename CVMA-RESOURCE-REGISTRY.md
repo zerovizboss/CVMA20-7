@@ -11,10 +11,11 @@
 ## 📋 **CRITICAL RESOURCE LOCATIONS**
 
 ### **1. CVMA Documentation Repository**
-- **Primary Location**: `C:\Users\zerov\OneDrive\Documents\CVMA\Documentation`
-- **Purpose**: Source materials for .md to .pdf conversion capabilities
+- **Primary Location**: `C:\Users\zerov\OneDrive\Documents\CVMA`
+- **Purpose**: All CVMA information stored locally - source materials for .md to .pdf conversion capabilities
 - **Integration**: CVMADocumentSharingController PDF generation system
 - **Access Pattern**: Reference for organizational content creation (bylaws, SOPs, protocols)
+- **Access Options**: Local file system access, or Google Drive/OneDrive account sharing if needed
 
 ### **2. Target GitHub Repository & Project Management**
 - **Repository**: https://github.com/zerovizboss/CVMA20-7.git
@@ -64,11 +65,12 @@ DevSecOps Standard Operating Procedure:
 ```javascript
 // Established pattern - NO re-explanation needed
 const pdfGeneration = {
-    source: 'C:/Users/zerov/OneDrive/Documents/CVMA/Documentation',
+    source: 'C:/Users/zerov/OneDrive/Documents/CVMA',
     controller: 'CVMADocumentSharingController',
     method: 'generateTrainingPDF()',
     integration: 'Knowledge Articles + ContentDocument',
-    branding: 'Military awards styling'
+    branding: 'Military awards styling',
+    accessOptions: ['localFileSystem', 'googleDriveSharing', 'oneDriveSharing']
 };
 ```
 
