@@ -5,7 +5,6 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import USER_ID from '@salesforce/user/Id';
 import USER_PROFILE_NAME from '@salesforce/schema/User.Profile.Name';
 import USER_CONTACT_ID from '@salesforce/schema/User.ContactId';
-import CONTACT_MEMBER_LEVEL from '@salesforce/schema/Contact.CVMA_Member_Level__c';
 import MILITARY_AWARDS_CSS from '@salesforce/resourceUrl/cvmaMilitaryAwardsCSS';
 
 /**
@@ -16,8 +15,8 @@ import MILITARY_AWARDS_CSS from '@salesforce/resourceUrl/cvmaMilitaryAwardsCSS';
  */
 export default class CvmaUnifiedPortal extends LightningElement {
     @api portalMode = 'unified'; // unified, officer, member, guest
-    @api enableCrisisSupport = true;
-    @api showQuickActions = true;
+    @api enableCrisisSupport = false;
+    @api showQuickActions = false;
 
     @track showOfficerSection = false;
     @track showTrainingSection = true;
@@ -47,18 +46,8 @@ export default class CvmaUnifiedPortal extends LightningElement {
         }
     }
 
-    // Wire contact record for member-specific data
-    @wire(getRecord, {
-        recordId: '$contactId',
-        fields: [CONTACT_MEMBER_LEVEL]
-    })
-    wiredContact({ error, data }) {
-        if (data) {
-            this.determineMemberLevel(data);
-        } else if (error && this.contactId) {
-            console.error('Error loading contact data:', error);
-        }
-    }
+    // Wire contact record for member-specific data (placeholder for future implementation)
+    // Note: CVMA_Member_Level__c field implementation pending
 
     // Load military awards CSS styling
     connectedCallback() {
@@ -101,23 +90,10 @@ export default class CvmaUnifiedPortal extends LightningElement {
         this.configurePortalForRole();
     }
 
-    // Determine member level from contact record
+    // Determine member level from contact record (placeholder for future implementation)
     determineMemberLevel(contactData) {
-        const memberLevel = getFieldValue(contactData, CONTACT_MEMBER_LEVEL);
-
-        if (memberLevel) {
-            if (memberLevel.includes('Officer') || memberLevel.includes('Commander') ||
-                memberLevel.includes('Executive') || memberLevel.includes('Board')) {
-                this.userRole = `CEB ${memberLevel}`;
-                this.isOfficer = true;
-                this.showOfficerSection = true;
-                this.audienceFilter = 'officer';
-            } else {
-                this.userRole = memberLevel;
-                this.audienceFilter = 'member';
-            }
-        }
-
+        // TODO: Implement when CVMA_Member_Level__c field is available
+        console.log('Member level determination pending CVMA field implementation');
         this.configurePortalForRole();
     }
 

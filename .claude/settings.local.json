@@ -18,7 +18,10 @@
       "Bash(gh pr view:*)",
       "Bash(git branch:*)",
       "Bash(git checkout:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" project deploy start --target-org cvma)",
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" project deploy start --source-dir src/lwc/cvmaUnifiedPortal --target-org cvma)",
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" project deploy start --source-dir src/staticresources --target-org cvma)"
     ],
     "deny": [],
     "ask": []

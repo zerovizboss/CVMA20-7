@@ -11,15 +11,10 @@
         <target>lightning__HomePage</target>
     </targets>
     <targetConfigs>
-        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
-            <property name="portalMode" type="String" label="Portal Mode" description="Portal display mode: unified, officer, member, guest" default="unified"/>
-            <property name="enableCrisisSupport" type="Boolean" label="Enable Crisis Support" description="Display crisis support section prominently" default="true"/>
-            <property name="showQuickActions" type="Boolean" label="Show Quick Actions" description="Display quick action buttons for common tasks" default="true"/>
-        </targetConfig>
         <targetConfig targets="lightning__AppPage,lightning__HomePage">
             <property name="portalMode" type="String" label="Portal Mode" description="Portal display mode: unified, officer, member, guest" default="unified"/>
-            <property name="enableCrisisSupport" type="Boolean" label="Enable Crisis Support" description="Display crisis support section prominently" default="true"/>
-            <property name="showQuickActions" type="Boolean" label="Show Quick Actions" description="Display quick action buttons for common tasks" default="true"/>
+            <property name="enableCrisisSupport" type="Boolean" label="Enable Crisis Support" description="Display crisis support section prominently" default="false"/>
+            <property name="showQuickActions" type="Boolean" label="Show Quick Actions" description="Display quick action buttons for common tasks" default="false"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
