@@ -108,6 +108,14 @@ Process (PROVEN 88.5% average code reduction):
 - **Error Handling**: CVMAErrorHandler centralized logging system
 - **Configuration**: CVMA_Application_Config__mdt custom metadata types
 
+### **Salesforce Lightning Design System References**
+- **SLDS2**: https://www.lightningdesignsystem.com/2e1ef8501/p/85bd85-lightning-design-system-2
+- **SLDS1**: https://v1.lightningdesignsystem.com/
+- **Purpose**: Proper Salesforce DOM and Shadow DOM compliance for components
+- **Critical**: Front-End Developer must follow SLDS principles for UX excellence
+- **Button Standards**: Military awards styling must comply with SLDS button specifications
+- **Layout Standards**: Components should be page-focused, not monolithic unified portals
+
 ### **Experience Cloud Architecture**
 - **Constraint**: Developer Edition = 1 site maximum (confirmed)
 - **Solution**: cvmaUnifiedPortal component with role-based variations

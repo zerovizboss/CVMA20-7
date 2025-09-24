@@ -63,22 +63,22 @@
                 </h2>
                 <div class="slds-section__content" if:true={showTrainingSection}>
                     <!-- Role-based Training Content -->
-                    <div class="slds-grid slds-wrap slds-gutters">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                    <div class="cvma-military-grid">
+                        <div class="cvma-military-button-container">
                             <lightning-button variant="base" label="Member Orientation"
-                                              class="slds-button cvma-military-award cvma-btn-national-defense"
+                                              class="cvma-btn-national-defense"
                                               onclick={openMemberOrientation}>
                             </lightning-button>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                        <div class="cvma-military-button-container">
                             <lightning-button variant="base" label="Chapter Protocols"
-                                              class="slds-button cvma-military-award cvma-btn-gwot"
+                                              class="cvma-btn-gwot"
                                               onclick={openChapterProtocols}>
                             </lightning-button>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                        <div class="cvma-military-button-container">
                             <lightning-button variant="base" label="Safety Training"
-                                              class="slds-button cvma-military-award cvma-btn-combat-action"
+                                              class="cvma-btn-combat-action"
                                               onclick={openSafetyTraining}>
                             </lightning-button>
                         </div>
@@ -118,38 +118,38 @@
                 </h2>
                 <div class="slds-section__content" if:true={showDocumentSection}>
                     <!-- Unified Document Management -->
-                    <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="cvma-military-grid">
                         <!-- CVMA Bylaws -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <div class="cvma-military-button-container">
                             <lightning-button variant="base" label="CVMA Bylaws"
-                                              class="slds-button cvma-military-award cvma-btn-bronze-star"
+                                              class="cvma-btn-bronze-star"
                                               onclick={openBylaws}>
                                 <lightning-icon icon-name="utility:file" size="x-small" slot="iconLeft"></lightning-icon>
                             </lightning-button>
                         </div>
                         <!-- Standard Operating Procedures -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <div class="cvma-military-button-container">
                             <lightning-button variant="base" label="SOPs & Protocols"
-                                              class="slds-button cvma-military-award cvma-btn-gwot"
+                                              class="cvma-btn-gwot"
                                               onclick={openSOPs}>
                                 <lightning-icon icon-name="utility:knowledge_base" size="x-small" slot="iconLeft"></lightning-icon>
                             </lightning-button>
                         </div>
                         <!-- Forms & Templates -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <div class="cvma-military-button-container">
                             <lightning-button variant="base" label="Forms & Templates"
-                                              class="slds-button cvma-military-award cvma-btn-national-defense"
+                                              class="cvma-btn-national-defense"
                                               onclick={openForms}>
                                 <lightning-icon icon-name="utility:form" size="x-small" slot="iconLeft"></lightning-icon>
                             </lightning-button>
                         </div>
-                        <!-- Document Manager -->
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <c-cvma-document-manager
-                                target-audience={userRole}
-                                enable-pdf-generation="true">
-                            </c-cvma-document-manager>
-                        </div>
+                    </div>
+                    <!-- Document Manager - Full Width Component -->
+                    <div class="slds-m-top_medium">
+                        <c-cvma-document-manager
+                            target-audience={userRole}
+                            enable-pdf-generation="true">
+                        </c-cvma-document-manager>
                     </div>
                 </div>
             </div>

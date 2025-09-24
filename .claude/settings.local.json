@@ -21,7 +21,12 @@
       "Bash(git pull:*)",
       "Bash(\"C:\\Program Files\\sf\\bin\\sf\" project deploy start --target-org cvma)",
       "Bash(\"C:\\Program Files\\sf\\bin\\sf\" project deploy start --source-dir src/lwc/cvmaUnifiedPortal --target-org cvma)",
-      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" project deploy start --source-dir src/staticresources --target-org cvma)"
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" project deploy start --source-dir src/staticresources --target-org cvma)",
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" org open --target-org cvma)",
+      "Bash(sf org display:*)",
+      "Bash(sf data query:*)",
+      "Bash(sf project deploy:*)",
+      "Bash(sf org open:*)"
     ],
     "deny": [],
     "ask": []
