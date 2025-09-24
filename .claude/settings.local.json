@@ -4,7 +4,11 @@
       "Bash(\"C:\\Program Files\\sf\\bin\\sf\" data query --query \"SELECT Name, Status, UrlPathPrefix FROM Network\" --target-org cvma)",
       "WebSearch",
       "Bash(git fetch:*)",
-      "Bash(gh pr list:*)"
+      "Bash(gh pr list:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
