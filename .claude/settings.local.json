@@ -1,8 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(sf community:*)",
-      "Bash(./scripts/validate-training-deployment.sh:*)"
+      "Bash(\"C:\\Program Files\\sf\\bin\\sf\" data query --query \"SELECT Name, Status, UrlPathPrefix FROM Network\" --target-org cvma)",
+      "WebSearch",
+      "Bash(git fetch:*)",
+      "Bash(gh pr list:*)"
     ],
     "deny": [],
     "ask": []
