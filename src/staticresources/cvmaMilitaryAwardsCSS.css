@@ -1,0 +1,352 @@
+/**
+ * CVMA Military Awards & Ribbons Branding CSS
+ * Combat Veterans Motorcycle Association Chapter 20-7
+ * Integration: Single-site Experience Cloud portal component buttons
+ * Design: Military service awards aesthetic for veteran organization
+ */
+
+/* =========================
+   MILITARY AWARDS BUTTON STYLES
+   ========================= */
+
+/* Combat Action Ribbon - Primary Actions */
+.cvma-btn-combat-action {
+    background: linear-gradient(135deg, #c41e3a 0%, #ffffff 50%, #0033a0 100%);
+    background-size: 100% 20px;
+    background-repeat: repeat-y;
+    border: 2px solid #1c1c1c;
+    border-radius: 4px;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cvma-btn-combat-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    background-position: 0 -5px;
+}
+
+/* Purple Heart - Critical Actions */
+.cvma-btn-purple-heart {
+    background: linear-gradient(45deg, #663399 0%, #ffffff 25%, #663399 50%, #ffffff 75%, #663399 100%);
+    background-size: 20px 20px;
+    border: 2px solid #4a1a4a;
+    border-radius: 4px;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 4px 8px rgba(102, 51, 153, 0.4);
+    position: relative;
+}
+
+.cvma-btn-purple-heart:hover {
+    background-position: 5px 5px;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(102, 51, 153, 0.6);
+}
+
+/* Bronze Star - Achievement Actions */
+.cvma-btn-bronze-star {
+    background: linear-gradient(135deg, #cd7f32 0%, #ffd700 50%, #cd7f32 100%);
+    background-size: 100% 15px;
+    background-repeat: repeat-y;
+    border: 2px solid #8b4513;
+    border-radius: 4px;
+    color: #1c1c1c;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(205, 127, 50, 0.4);
+}
+
+.cvma-btn-bronze-star:hover {
+    background: linear-gradient(135deg, #ffd700 0%, #cd7f32 50%, #ffd700 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(205, 127, 50, 0.6);
+}
+
+/* National Defense Service Medal - Standard Actions */
+.cvma-btn-national-defense {
+    background: linear-gradient(90deg, #c41e3a 0%, #ffffff 15%, #0033a0 30%, #ffffff 45%, #c41e3a 60%, #ffffff 75%, #0033a0 90%, #ffffff 100%);
+    background-size: 40px 20px;
+    border: 2px solid #1c1c1c;
+    border-radius: 4px;
+    color: #1c1c1c;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cvma-btn-national-defense:hover {
+    background-position: 10px 0;
+    transform: scale(1.02);
+}
+
+/* Global War on Terrorism Service Medal - Secondary Actions */
+.cvma-btn-gwot {
+    background: linear-gradient(135deg, #8b4513 0%, #ffd700 25%, #228b22 50%, #ffd700 75%, #8b4513 100%);
+    background-size: 30px 15px;
+    border: 2px solid #2f4f2f;
+    border-radius: 4px;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 3px 6px rgba(34, 139, 34, 0.4);
+}
+
+.cvma-btn-gwot:hover {
+    background-position: -5px -5px;
+    box-shadow: 0 4px 8px rgba(34, 139, 34, 0.6);
+}
+
+/* =========================
+   SPECIALTY RIBBON EFFECTS
+   ========================= */
+
+/* Meritorious Service Medal - Navigation */
+.cvma-nav-meritorious {
+    background: linear-gradient(90deg, #800080 0%, #ffffff 20%, #c41e3a 40%, #ffffff 60%, #800080 80%, #ffffff 100%);
+    background-size: 25px 100%;
+    border-bottom: 3px solid #4b0082;
+    padding: 12px 20px;
+    color: #1c1c1c;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.cvma-nav-meritorious:hover {
+    background-position: 5px 0;
+    border-bottom-color: #800080;
+    color: #4b0082;
+}
+
+/* Army Commendation Medal - Officer Actions */
+.cvma-btn-officer-commendation {
+    background: linear-gradient(135deg, #228b22 0%, #ffffff 33%, #ffd700 66%, #228b22 100%);
+    background-size: 20px 20px;
+    border: 2px solid #006400;
+    border-radius: 6px;
+    color: #1c1c1c;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 8px rgba(34, 139, 34, 0.3);
+    position: relative;
+}
+
+.cvma-btn-officer-commendation::before {
+    content: '★';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    color: #ffd700;
+    font-size: 14px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.cvma-btn-officer-commendation:hover {
+    background-position: -5px -5px;
+    transform: scale(1.03);
+}
+
+/* =========================
+   CVMA CHAPTER SPECIFIC STYLES
+   ========================= */
+
+/* Chapter Commander Badge */
+.cvma-btn-commander {
+    background: linear-gradient(45deg, #ffd700 0%, #ffffff 25%, #000000 50%, #ffffff 75%, #ffd700 100%);
+    background-size: 15px 15px;
+    border: 3px solid #ffd700;
+    border-radius: 8px;
+    color: #000000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
+    position: relative;
+}
+
+.cvma-btn-commander::after {
+    content: '⭐';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+}
+
+/* Veteran Support Services */
+.cvma-btn-veteran-support {
+    background: linear-gradient(90deg, #c41e3a 0%, #ffffff 50%, #0033a0 100%);
+    background-size: 100% 10px;
+    background-repeat: repeat-y;
+    border: 2px solid #1c1c1c;
+    border-radius: 4px;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.cvma-btn-veteran-support::before {
+    content: '🏍️';
+    margin-right: 8px;
+}
+
+/* =========================
+   RESPONSIVE MILITARY RIBBONS
+   ========================= */
+
+/* Mobile-first ribbon adjustments */
+@media (max-width: 768px) {
+    .cvma-btn-combat-action,
+    .cvma-btn-purple-heart,
+    .cvma-btn-bronze-star,
+    .cvma-btn-national-defense,
+    .cvma-btn-gwot,
+    .cvma-btn-officer-commendation,
+    .cvma-btn-commander,
+    .cvma-btn-veteran-support {
+        padding: 8px 12px;
+        font-size: 14px;
+        background-size: 15px 15px;
+    }
+
+    .cvma-nav-meritorious {
+        background-size: 20px 100%;
+        padding: 8px 15px;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .cvma-btn-combat-action,
+    .cvma-btn-purple-heart,
+    .cvma-btn-bronze-star,
+    .cvma-btn-national-defense,
+    .cvma-btn-gwot,
+    .cvma-btn-officer-commendation,
+    .cvma-btn-commander,
+    .cvma-btn-veteran-support {
+        padding: 10px 16px;
+        font-size: 15px;
+    }
+}
+
+/* Desktop optimization */
+@media (min-width: 1025px) {
+    .cvma-btn-combat-action,
+    .cvma-btn-purple-heart,
+    .cvma-btn-bronze-star,
+    .cvma-btn-national-defense,
+    .cvma-btn-gwot,
+    .cvma-btn-officer-commendation,
+    .cvma-btn-commander,
+    .cvma-btn-veteran-support {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+/* =========================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================= */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .cvma-btn-combat-action,
+    .cvma-btn-purple-heart,
+    .cvma-btn-bronze-star,
+    .cvma-btn-national-defense,
+    .cvma-btn-gwot,
+    .cvma-btn-officer-commendation,
+    .cvma-btn-commander,
+    .cvma-btn-veteran-support {
+        border-width: 3px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .cvma-btn-combat-action:hover,
+    .cvma-btn-purple-heart:hover,
+    .cvma-btn-bronze-star:hover,
+    .cvma-btn-national-defense:hover,
+    .cvma-btn-gwot:hover,
+    .cvma-btn-officer-commendation:hover,
+    .cvma-btn-commander:hover,
+    .cvma-btn-veteran-support:hover {
+        transform: none;
+        transition: none;
+    }
+}
+
+/* Focus indicators for keyboard navigation */
+.cvma-btn-combat-action:focus,
+.cvma-btn-purple-heart:focus,
+.cvma-btn-bronze-star:focus,
+.cvma-btn-national-defense:focus,
+.cvma-btn-gwot:focus,
+.cvma-btn-officer-commendation:focus,
+.cvma-btn-commander:focus,
+.cvma-btn-veteran-support:focus {
+    outline: 3px solid #ffd700;
+    outline-offset: 2px;
+}
+
+/* =========================
+   COMPONENT INTEGRATION CLASSES
+   ========================= */
+
+/* For use in Lightning Web Components */
+.slds-button.cvma-military-award {
+    border: none;
+    padding: 0;
+    overflow: hidden;
+}
+
+.slds-button.cvma-military-award .slds-button__icon {
+    margin-right: 8px;
+}
+
+/* SLDS override for military styling */
+.slds-card.cvma-military-themed .slds-card__header {
+    background: linear-gradient(90deg, #c41e3a 0%, #ffffff 50%, #0033a0 100%);
+    background-size: 100% 5px;
+    background-repeat: repeat-y;
+    border-bottom: 2px solid #1c1c1c;
+}
+
+/* =========================
+   ANIMATION EFFECTS
+   ========================= */
+
+/* Ribbon wave animation */
+@keyframes ribbonWave {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 0; }
+}
+
+.cvma-btn-animated {
+    animation: ribbonWave 3s linear infinite;
+}
+
+/* Honor guard salute effect */
+@keyframes honorSalute {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05) rotateY(5deg); }
+    100% { transform: scale(1); }
+}
+
+.cvma-btn-honor:hover {
+    animation: honorSalute 0.6s ease-in-out;
+}
