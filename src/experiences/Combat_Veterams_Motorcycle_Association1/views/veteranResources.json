@@ -1,0 +1,31 @@
+{
+  "appPageId" : "veteran-resources-page-id",
+  "componentName" : "cvmaVeteranResourcesPortal",
+  "configurationTags" : [ ],
+  "dataProviders" : [ ],
+  "devName" : "VeteranResourcesView",
+  "id" : "veteran-resources-main-view",
+  "label" : "Veteran Resources Portal",
+  "regions" : [
+    {
+      "components" : [
+        {
+          "componentAttributes" : {
+            "portalMode" : "landing",
+            "showCategories" : true,
+            "enableSearch" : true
+          },
+          "componentName" : "cvmaVeteranResourcesPortal",
+          "id" : "veteran-resources-portal-component",
+          "regionName" : "content",
+          "type" : "component"
+        }
+      ],
+      "id" : "content-region",
+      "regionName" : "content",
+      "type" : "region"
+    }
+  ],
+  "type" : "view",
+  "viewType" : "list"
+}

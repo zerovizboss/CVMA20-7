@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page_Layout</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default,lightningCommunity__Page">
+            <property name="guidanceContext" type="String" default="veteran-resources"
+                     description="Context for guidance content (veteran-resources, va-services, emergency)"/>
+            <property name="showOnFirstVisit" type="Boolean" default="true"
+                     description="Automatically show guidance for new users"/>
+            <property name="enableVoiceCommands" type="Boolean" default="true"
+                     description="Enable voice command functionality"/>
+            <property name="highContrastMode" type="Boolean" default="false"
+                     description="Start in high contrast mode for accessibility"/>
+            <property name="reducedMotion" type="Boolean" default="false"
+                     description="Disable animations and transitions"/>
+            <property name="autoRead" type="Boolean" default="false"
+                     description="Automatically read content aloud for screen reader users"/>
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property name="compactMode" type="Boolean" default="true"
+                     description="Use compact layout for internal Salesforce apps"/>
+            <property name="showForInternalUsers" type="Boolean" default="true"
+                     description="Show guidance for internal Salesforce users"/>
+        </targetConfig>
+    </targetConfigs>
+    <masterLabel>CVMA In-App Guidance</masterLabel>
+    <description>508-compliant interactive guidance system for CVMA veteran resources with voice commands, accessibility features, and crisis intervention support. Designed specifically for veterans with PTSD and service-connected disabilities.</description>
+</LightningComponentBundle>

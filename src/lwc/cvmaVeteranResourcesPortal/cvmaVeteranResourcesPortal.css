@@ -1,0 +1,349 @@
+/* CVMA Veterans Resources Portal Styles */
+
+.veterans-resources-portal {
+    max-width: 100%;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+.veterans-resources-portal .slds-card__header {
+    background: linear-gradient(135deg, #1f3a93 0%, #2563eb 100%);
+    color: white;
+    border-radius: 8px 8px 0 0;
+    padding: 1.5rem;
+}
+
+.veterans-resources-portal .slds-card__header-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.veterans-resources-portal .slds-card__header-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* Badge Styles */
+.veterans-resources-portal .slds-badge {
+    margin-left: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.slds-badge.slds-badge_success {
+    background-color: #28a745;
+    color: white;
+}
+
+.slds-badge.slds-badge_info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.slds-badge.slds-badge_warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.slds-badge.slds-theme_success {
+    background-color: #198754;
+    color: white;
+}
+
+.slds-badge.slds-theme_info {
+    background-color: #0dcaf0;
+    color: #212529;
+}
+
+.slds-badge.slds-theme_error {
+    background-color: #dc3545;
+    color: white;
+}
+
+.slds-badge.slds-theme_warning {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.slds-badge.slds-theme_alt-inverse {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Card Hover Effects */
+.category-card,
+.recommendation-card,
+.search-result-card,
+.category-resource-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.category-card:hover,
+.recommendation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #2563eb;
+}
+
+.search-result-card:hover,
+.category-resource-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-color: #17a2b8;
+}
+
+/* Category Card Specific Styles */
+.category-card .slds-card__header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-bottom: 2px solid #e9ecef;
+    padding: 1rem;
+}
+
+.category-card .slds-card__header-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f3a93;
+}
+
+.category-card .slds-card__header-subtitle {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.category-card .slds-card__body {
+    padding: 1rem;
+}
+
+/* Recommendation Card Styles */
+.recommendation-card {
+    background: linear-gradient(135deg, #fff8e1 0%, #ffffff 100%);
+    border-left: 4px solid #ffc107;
+}
+
+.recommendation-card .slds-card__header-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f3a93;
+}
+
+.recommendation-card .slds-card__body {
+    padding: 0.75rem 1rem;
+}
+
+/* Search Results Styles */
+.search-result-card {
+    background: white;
+    border-left: 3px solid #17a2b8;
+}
+
+.search-result-card .slds-card__header-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f3a93;
+}
+
+.search-result-card .slds-card__header-subtitle {
+    color: #17a2b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Category Resource Card Styles */
+.category-resource-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-resource-card .slds-card__body {
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.category-resource-card .slds-text-heading_x-small {
+    color: #1f3a93;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+/* Section Styles */
+.slds-section__title {
+    background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 100%);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #2563eb;
+    margin-bottom: 1rem;
+}
+
+.slds-section__title .slds-truncate {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f3a93;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Search Input Styles */
+.veterans-resources-portal .slds-input {
+    border-radius: 6px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.veterans-resources-portal .slds-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Loading Spinner */
+.slds-spinner_container {
+    position: relative;
+    min-height: 200px;
+}
+
+/* Error Notification */
+.slds-notification.slds-theme_error {
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+/* Footer Styles */
+.veterans-resources-portal .slds-card__footer {
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    padding: 1rem 1.5rem;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .veterans-resources-portal .slds-card__header {
+        padding: 1rem;
+    }
+
+    .veterans-resources-portal .slds-card__header-title {
+        font-size: 1.25rem;
+    }
+
+    .category-card,
+    .recommendation-card {
+        margin-bottom: 0.75rem;
+    }
+
+    .category-card .slds-card__header,
+    .category-card .slds-card__body {
+        padding: 0.75rem;
+    }
+
+    .slds-section__title .slds-truncate {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .veterans-resources-portal {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .veterans-resources-portal .slds-card__header {
+        border-radius: 0;
+        padding: 0.75rem;
+    }
+
+    .veterans-resources-portal .slds-card__header-title {
+        font-size: 1.1rem;
+    }
+
+    .veterans-resources-portal .slds-card__footer {
+        border-radius: 0;
+        padding: 0.75rem;
+    }
+
+    .category-card:hover,
+    .recommendation-card:hover {
+        transform: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Accessibility Enhancements */
+.category-card:focus,
+.recommendation-card:focus,
+.search-result-card:focus,
+.category-resource-card:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .veterans-resources-portal {
+        border: 2px solid #000;
+    }
+
+    .category-card,
+    .recommendation-card,
+    .search-result-card,
+    .category-resource-card {
+        border: 2px solid #000;
+    }
+
+    .veterans-resources-portal .slds-card__header {
+        background: #000;
+        color: #fff;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .category-card,
+    .recommendation-card,
+    .search-result-card,
+    .category-resource-card {
+        transition: none;
+    }
+
+    .category-card:hover,
+    .recommendation-card:hover {
+        transform: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .veterans-resources-portal {
+        background: white;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+
+    .veterans-resources-portal .slds-card__header {
+        background: white;
+        color: black;
+        border-bottom: 2px solid #000;
+    }
+
+    .category-card,
+    .recommendation-card,
+    .search-result-card,
+    .category-resource-card {
+        break-inside: avoid;
+        border: 1px solid #000;
+        margin-bottom: 0.5rem;
+    }
+}

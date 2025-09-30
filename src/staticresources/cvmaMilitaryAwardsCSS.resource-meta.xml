@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>text/css</contentType>
+    <description>CVMA Military Awards and Ribbons CSS for Experience Cloud portal component buttons - Combat Veterans Motorcycle Association Chapter 20-7 branding</description>
+</StaticResource>

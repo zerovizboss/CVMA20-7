@@ -2,6 +2,33 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🏍️ **ENHANCED DEVELOPMENT PROTOCOLS**
+
+**CRITICAL**: For advanced multi-agent development protocols, revolutionary architecture patterns, and Strategic→TodoWrite→Tactical methodology, see **STORM_CLAUDE.md** - our enhanced development framework that extends beyond base CLAUDE.md capabilities.
+
+**DEVOPS TEAM PROTOCOL**: For persistent resource references, established patterns, and context preservation, see **CVMA-RESOURCE-REGISTRY.md** - prevents "chasing our tail in the Storm" by maintaining known resources across sessions.
+
+### **Required Session Initialization Files**:
+1. **STORM_CLAUDE.md**: Epic status, multi-agent protocols, development methodology
+2. **CVMA-RESOURCE-REGISTRY.md**: Persistent resources, known patterns, cultural context
+3. **CLAUDE.md** (this file): Base development guidance and project overview
+
+STORM_CLAUDE.md contains:
+- Multi-agent coordination protocols (Strategic Agent + Tactical Agent)
+- Standard Feature Integration methodology (88.5%+ average code reduction)
+- Epic/User Story management patterns
+- Session memory and continuity protocols
+- Advanced Salesforce development patterns
+
+CVMA-RESOURCE-REGISTRY.md contains:
+- OneDrive documentation resources (`C:\Users\zerov\OneDrive\Documents\CVMA\Documentation`)
+- GitHub repository and project management patterns
+- Established development protocols and resource integration
+- Cultural context (STORM/WX humor references)
+- DevSecOps "known knowns" that should never require re-explanation
+
+**Always reference both STORM_CLAUDE.md AND CVMA-RESOURCE-REGISTRY.md for autonomous development continuity.**
+
 ## Project Overview
 
 This is a Salesforce project for the Combat Veterans Motorcycle Association (CVMA). The codebase includes:
@@ -132,16 +159,16 @@ Each community has its own branding, navigation menus, and moderation rules conf
 
 ### Step 1: Project State Assessment (Always Execute First)
 ```bash
-# Read current project state from MEMORY.md (focus on latest session achievements)
-# Check NEXT-SESSION-*.md files for immediate priorities
+# Read current project state from docs/Technical/Epic-Documentation/MEMORY_CONTINUED.md (focus on latest session achievements)
+# Check docs/Technical/Epic-Documentation/NEXT-SESSION-*.md files for immediate priorities
 # Review git status for pending work
 # Identify current Epic progress and active user stories
 ```
 
 ### Step 2: Session Context Establishment
-1. **Read MEMORY.md latest entries** - Current Epic status, completed user stories, next priorities
-2. **Check NEXT-SESSION-PRIORITIES-*.md** - Ready-to-implement tasks with all prerequisites met
-3. **Review SESSION-*-ACHIEVEMENTS.md** - Previous session outcomes and technical decisions
+1. **Read docs/Technical/Epic-Documentation/MEMORY_CONTINUED.md latest entries** - Current Epic status, completed user stories, next priorities
+2. **Check docs/Technical/Epic-Documentation/NEXT-SESSION-PRIORITIES-*.md** - Ready-to-implement tasks with all prerequisites met
+3. **Review docs/Technical/Epic-Documentation/SESSION-*-ACHIEVEMENTS.md** - Previous session outcomes and technical decisions
 4. **Validate git status** - Understand pending changes and current branch context
 
 ### Step 3: Multi-Agent Coordination Protocol

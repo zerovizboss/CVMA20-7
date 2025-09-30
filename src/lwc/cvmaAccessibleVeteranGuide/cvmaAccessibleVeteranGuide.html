@@ -1,0 +1,458 @@
+<template>
+    <!-- CVMA 508-Compliant Veteran Assistance Guide -->
+    <div class={containerClass} role="main" aria-label="CVMA Veteran Resources Guide">
+
+        <!-- Skip Navigation Link for Screen Readers -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <!-- Accessibility Controls Bar -->
+        <div class={accessibilityControlsClass} role="toolbar" aria-label="Accessibility Controls">
+            <h2 class="accessibility-title">Accessibility Options</h2>
+            <div class="accessibility-buttons">
+                <button
+                    type="button"
+                    class="accessibility-btn"
+                    data-setting="highContrast"
+                    onclick={handleAccessibilityToggle}
+                    aria-pressed={highContrastMode}
+                    aria-describedby="high-contrast-desc"
+                    title="Toggle high contrast mode for better visibility">
+                    <span aria-hidden="true">🔆</span>
+                    <span class="btn-text">High Contrast</span>
+                </button>
+                <div id="high-contrast-desc" class="sr-only">Enhances color contrast for better visibility</div>
+
+                <button
+                    type="button"
+                    class="accessibility-btn"
+                    data-setting="largeText"
+                    onclick={handleAccessibilityToggle}
+                    aria-pressed={largeTextMode}
+                    aria-describedby="large-text-desc"
+                    title="Increase text size for better readability">
+                    <span aria-hidden="true">🔍</span>
+                    <span class="btn-text">Large Text</span>
+                </button>
+                <div id="large-text-desc" class="sr-only">Increases text size for better readability</div>
+
+                <button
+                    type="button"
+                    class="accessibility-btn"
+                    data-setting="reducedMotion"
+                    onclick={handleAccessibilityToggle}
+                    aria-pressed={reducedMotion}
+                    aria-describedby="reduced-motion-desc"
+                    title="Reduce animations and motion effects">
+                    <span aria-hidden="true">🛡️</span>
+                    <span class="btn-text">Reduce Motion</span>
+                </button>
+                <div id="reduced-motion-desc" class="sr-only">Reduces animations and motion effects for comfort</div>
+
+                <template if:true={enableVoiceNavigation}>
+                    <button
+                        type="button"
+                        class="accessibility-btn voice-btn"
+                        data-setting="voiceNavigation"
+                        onclick={handleAccessibilityToggle}
+                        aria-pressed={isVoiceActive}
+                        aria-describedby="voice-nav-desc"
+                        title="Enable voice navigation commands">
+                        <span aria-hidden="true">🎤</span>
+                        <span class="btn-text">Voice Control</span>
+                    </button>
+                    <div id="voice-nav-desc" class="sr-only">Enables voice commands for hands-free navigation</div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Emergency Crisis Banner - Always Visible -->
+        <div class="crisis-banner" role="banner" aria-label="Emergency Crisis Support">
+            <div class="crisis-content">
+                <h2 class="crisis-title">
+                    <span class="emergency-icon" aria-hidden="true">🆘</span>
+                    Crisis Support Available 24/7
+                </h2>
+                <p class="crisis-subtitle">If you're in crisis, immediate help is available</p>
+                <button
+                    type="button"
+                    class="crisis-emergency-btn"
+                    onclick={handleEmergencyAccess}
+                    data-resource="crisis-lifeline"
+                    aria-describedby="crisis-help-desc"
+                    data-focus-target="true">
+                    Call 988 - Crisis Lifeline
+                </button>
+                <div id="crisis-help-desc" class="sr-only">Connects to National Suicide Prevention Lifeline, available 24 hours a day</div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+
+            <!-- Landing Mode - Resource Selection -->
+            <template if:true={isLandingMode}>
+                <section class="landing-section" aria-labelledby="landing-title">
+                    <header class="section-header">
+                        <h1 id="landing-title" class="main-title">
+                            CVMA Chapter 20-7 Veteran Resources
+                        </h1>
+                        <p class="main-subtitle">
+                            Simple, accessible guidance to the support you've earned through your service
+                        </p>
+                    </header>
+
+                    <div class="resource-grid" role="group" aria-label="Available resource categories">
+                        <template for:each={resourceCategories} for:item="category">
+                            <article key={category.id} class="resource-card">
+                                <div class="card-header">
+                                    <lightning-icon
+                                        icon-name={category.iconName}
+                                        size="large"
+                                        class="resource-icon"
+                                        aria-hidden="true">
+                                    </lightning-icon>
+                                    <h3 class="resource-title">{category.title}</h3>
+                                </div>
+
+                                <div class="card-content">
+                                    <p class="resource-description">{category.description}</p>
+
+                                    <dl class="resource-details">
+                                        <dt class="detail-label">Estimated Time:</dt>
+                                        <dd class="detail-value">{category.estimatedTime}</dd>
+
+                                        <dt class="detail-label">Difficulty:</dt>
+                                        <dd class="detail-value">{category.difficulty}</dd>
+                                    </dl>
+
+                                    <ul class="steps-preview" aria-label="Process steps for {category.title}">
+                                        <template for:each={category.steps} for:item="step">
+                                            <li key={step} class="step-item">
+                                                <span class="step-number" aria-hidden="true">•</span>
+                                                {step}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+
+                                <div class="card-actions">
+                                    <button
+                                        type="button"
+                                        class="resource-btn"
+                                        data-resource={category.id}
+                                        onclick={handleResourceSelection}
+                                        aria-describedby="{category.id}-desc">
+                                        Start Guided Process
+                                        <span class="btn-arrow" aria-hidden="true">→</span>
+                                    </button>
+                                    <div id="{category.id}-desc" class="sr-only">
+                                        Begin step-by-step guidance for {category.title}. Estimated time: {category.estimatedTime}
+                                    </div>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+
+                    <!-- Quick Access Section -->
+                    <aside class="quick-access" aria-labelledby="quick-access-title">
+                        <h2 id="quick-access-title">Quick Access Resources</h2>
+                        <div class="quick-links">
+                            <a href="https://va.gov" target="_blank" rel="noopener noreferrer" class="quick-link">
+                                <span class="link-icon" aria-hidden="true">🇺🇸</span>
+                                VA.gov Official Site
+                                <span class="external-icon" aria-label="Opens in new window">↗</span>
+                            </a>
+                            <a href="tel:1-800-827-1000" class="quick-link">
+                                <span class="link-icon" aria-hidden="true">📞</span>
+                                VA Help Line: 1-800-827-1000
+                            </a>
+                            <button
+                                type="button"
+                                class="quick-link emergency-access"
+                                onclick={handleEmergencyAccess}
+                                data-resource="veterans-crisis">
+                                <span class="link-icon" aria-hidden="true">🆘</span>
+                                Veterans Crisis Line
+                            </button>
+                        </div>
+                    </aside>
+                </section>
+            </template>
+
+            <!-- Guided Mode - Step-by-Step Process -->
+            <template if:true={isGuidedMode}>
+                <section class="guided-section" aria-labelledby="guided-title">
+                    <header class="guided-header">
+                        <h1 id="guided-title">{selectedCategory.title} - Step {currentStep} of {totalSteps}</h1>
+
+                        <!-- Progress Bar -->
+                        <div class="progress-container" role="progressbar" aria-valuenow={currentStep} aria-valuemin="1" aria-valuemax={totalSteps} aria-label="Progress through {selectedCategory.title} process">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style={`width: ${progressPercentage}%`}></div>
+                            </div>
+                            <p class="progress-text">Step {currentStep} of {totalSteps} completed</p>
+                        </div>
+                    </header>
+
+                    <div class="step-content">
+                        <!-- Step 1: Resource Overview -->
+                        <template if:true={isStep1}>
+                            <div class="step-section" aria-labelledby="step1-title">
+                                <h2 id="step1-title">Getting Started with {selectedCategory.title}</h2>
+
+                                <div class="overview-content">
+                                    <p class="step-description">{selectedCategory.description}</p>
+
+                                    <div class="preparation-section">
+                                        <h3>What You'll Need:</h3>
+                                        <ul class="preparation-list">
+                                            <template if:true={selectedCategory.id} for:each={selectedCategory.steps} for:item="step" for:index="index">
+                                                <li key={step} class="prep-item">
+                                                    <span class="step-number" aria-hidden="true">{index + 1}.</span>
+                                                    {step}
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+
+                                    <div class="time-estimate">
+                                        <h3>Time Required:</h3>
+                                        <p class="estimate-text">{selectedCategory.estimatedTime}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Step 2: Resource-Specific Guidance -->
+                        <template if:true={isStep2}>
+                            <div class="step-section" aria-labelledby="step2-title">
+                                <h2 id="step2-title">Application Process</h2>
+
+                                <!-- VA Benefits Specific Content -->
+                                <template if:true={selectedResourceType} if:equals="va-benefits">
+                                    <div class="va-benefits-guide">
+                                        <h3>VA Benefits Application Steps</h3>
+                                        <ol class="detailed-steps">
+                                            <li class="detailed-step">
+                                                <h4>Check Your Eligibility</h4>
+                                                <p>Visit VA.gov eligibility checker or call 1-800-827-1000</p>
+                                                <a href="https://www.va.gov/disability/eligibility/" target="_blank" rel="noopener noreferrer" class="step-link">
+                                                    Check Eligibility
+                                                    <span class="external-icon" aria-label="Opens in new window">↗</span>
+                                                </a>
+                                            </li>
+                                            <li class="detailed-step">
+                                                <h4>Gather Required Documents</h4>
+                                                <ul>
+                                                    <li>DD-214 (Discharge papers)</li>
+                                                    <li>Medical records (if applying for disability)</li>
+                                                    <li>Marriage certificate (if applicable)</li>
+                                                    <li>Birth certificates for dependents</li>
+                                                </ul>
+                                            </li>
+                                            <li class="detailed-step">
+                                                <h4>Complete Application</h4>
+                                                <p>Apply online, by mail, or in person at a VA facility</p>
+                                                <a href="https://www.va.gov/disability/how-to-file-claim/" target="_blank" rel="noopener noreferrer" class="step-link">
+                                                    Start Application
+                                                    <span class="external-icon" aria-label="Opens in new window">↗</span>
+                                                </a>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </template>
+
+                                <!-- Mental Health Specific Content -->
+                                <template if:true={selectedResourceType} if:equals="mental-health">
+                                    <div class="mental-health-guide">
+                                        <h3>Mental Health Support Access</h3>
+                                        <div class="immediate-help">
+                                            <h4>Immediate Support Available</h4>
+                                            <div class="crisis-resources-grid">
+                                                <template for:each={emergencyResources} for:item="resource">
+                                                    <div key={resource.id} class="crisis-resource-card">
+                                                        <h5>{resource.name}</h5>
+                                                        <p>{resource.description}</p>
+                                                        <button
+                                                            type="button"
+                                                            class="crisis-resource-btn"
+                                                            data-resource={resource.id}
+                                                            onclick={handleEmergencyAccess}>
+                                                            Connect Now
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Step 3: Follow-up and Resources -->
+                        <template if:true={isStep3}>
+                            <div class="step-section" aria-labelledby="step3-title">
+                                <h2 id="step3-title">Next Steps and Follow-up</h2>
+
+                                <div class="completion-content">
+                                    <div class="success-message" role="status" aria-live="polite">
+                                        <h3>Great job! You've completed the {selectedCategory.title} process.</h3>
+                                        <p>Here's what happens next and additional resources for you.</p>
+                                    </div>
+
+                                    <div class="followup-actions">
+                                        <h4>What to Expect:</h4>
+                                        <ul class="followup-list">
+                                            <li>Confirmation email or letter within 5-10 business days</li>
+                                            <li>Status updates available online or by phone</li>
+                                            <li>Processing time varies by benefit type</li>
+                                            <li>Additional documentation may be requested</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="additional-resources">
+                                        <h4>Additional Support:</h4>
+                                        <ul class="resource-links">
+                                            <li>
+                                                <a href="https://www.ebenefits.va.gov/" target="_blank" rel="noopener noreferrer">
+                                                    Track Your Application Status
+                                                    <span class="external-icon" aria-label="Opens in new window">↗</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="tel:1-800-827-1000">
+                                                    VA Help Line: 1-800-827-1000
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.va.gov/find-locations/" target="_blank" rel="noopener noreferrer">
+                                                    Find Local VA Office
+                                                    <span class="external-icon" aria-label="Opens in new window">↗</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Navigation Controls -->
+                    <nav class="step-navigation" role="navigation" aria-label="Step navigation">
+                        <button
+                            type="button"
+                            class="nav-btn prev-btn"
+                            onclick={handlePreviousStep}
+                            disabled={currentStep === 1}
+                            aria-label="Go to previous step">
+                            <span class="btn-arrow" aria-hidden="true">←</span>
+                            Previous
+                        </button>
+
+                        <div class="step-indicator" aria-hidden="true">
+                            Step {currentStep} of {totalSteps}
+                        </div>
+
+                        <template if:true={currentStep < totalSteps}>
+                            <button
+                                type="button"
+                                class="nav-btn next-btn"
+                                onclick={handleNextStep}
+                                data-focus-target="true"
+                                aria-label="Continue to next step">
+                                Next
+                                <span class="btn-arrow" aria-hidden="true">→</span>
+                            </button>
+                        </template>
+
+                        <template if:true={currentStep === totalSteps}>
+                            <button
+                                type="button"
+                                class="nav-btn complete-btn"
+                                onclick={handleProcessComplete}
+                                data-focus-target="true"
+                                aria-label="Complete the process and return to main menu">
+                                Complete Process
+                                <span class="btn-arrow" aria-hidden="true">✓</span>
+                            </button>
+                        </template>
+                    </nav>
+                </section>
+            </template>
+
+            <!-- Emergency Mode - Crisis Resources -->
+            <template if:true={isEmergencyMode}>
+                <section class="emergency-section" aria-labelledby="emergency-title" role="main">
+                    <header class="emergency-header">
+                        <h1 id="emergency-title">Crisis Support & Emergency Resources</h1>
+                        <p class="emergency-subtitle">Immediate help is available 24/7. You are not alone.</p>
+                    </header>
+
+                    <div class="emergency-grid">
+                        <template for:each={emergencyResources} for:item="resource">
+                            <article key={resource.id} class="emergency-card">
+                                <div class="emergency-content">
+                                    <h3 class="emergency-resource-title">{resource.name}</h3>
+                                    <p class="emergency-description">{resource.description}</p>
+
+                                    <template if:true={resource.number}>
+                                        <div class="emergency-number">{resource.number}</div>
+                                    </template>
+                                </div>
+
+                                <div class="emergency-actions">
+                                    <button
+                                        type="button"
+                                        class="emergency-btn"
+                                        data-resource={resource.id}
+                                        onclick={handleEmergencyAccess}
+                                        aria-describedby="{resource.id}-help">
+                                        Connect Now
+                                    </button>
+                                    <div id="{resource.id}-help" class="sr-only">{resource.description}</div>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+
+                    <div class="safety-plan">
+                        <h2>Immediate Safety Steps</h2>
+                        <ol class="safety-steps">
+                            <li>Call one of the crisis lines above if you're in immediate danger</li>
+                            <li>Remove access to means of self-harm</li>
+                            <li>Contact a trusted friend, family member, or CVMA brother/sister</li>
+                            <li>Go to your nearest emergency room if in immediate physical danger</li>
+                            <li>Text HOME to 838255 for ongoing text support</li>
+                        </ol>
+                    </div>
+
+                    <nav class="emergency-navigation">
+                        <button
+                            type="button"
+                            class="nav-btn back-btn"
+                            onclick={handleExitEmergency}
+                            aria-label="Return to main resources page">
+                            <span class="btn-arrow" aria-hidden="true">←</span>
+                            Back to Resources
+                        </button>
+                    </nav>
+                </section>
+            </template>
+
+        </main>
+
+        <!-- Screen Reader Status Updates -->
+        <div aria-live="polite" aria-atomic="true" class="sr-only" id="status-updates"></div>
+
+        <!-- Loading State -->
+        <template if:true={isLoading}>
+            <div class="loading-overlay" role="status" aria-label="Loading veteran resources">
+                <div class="loading-content">
+                    <lightning-spinner alternative-text="Loading veteran resources..." size="large"></lightning-spinner>
+                    <p class="loading-text">Loading your veteran resources...</p>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

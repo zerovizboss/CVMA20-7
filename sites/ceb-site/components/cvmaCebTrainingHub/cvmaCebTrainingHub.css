@@ -1,0 +1,141 @@
+/* CEB Training Hub - Optimized for Officer Workflows */
+
+.training-hub {
+    background-color: #f8f9fa;
+    padding: 1rem;
+}
+
+.ceb-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.ceb-header h1 {
+    color: white !important;
+    margin-bottom: 0.5rem;
+}
+
+.ceb-search {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.training-module-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 100%;
+}
+
+.training-module-card:hover {
+    border-color: #d32f2f;
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
+    transform: translateY(-2px);
+}
+
+.training-module-card:focus {
+    outline: 2px solid #d32f2f;
+    outline-offset: 2px;
+}
+
+/* Category-specific styling */
+.slds-card__header .slds-media__figure {
+    margin-right: 0.75rem;
+}
+
+/* Task-oriented quick actions */
+.slds-button {
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* Progress indicators */
+.progress-ring {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .training-hub {
+        padding: 0.5rem;
+    }
+
+    .ceb-header {
+        padding: 1rem;
+    }
+
+    .ceb-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .slds-col.slds-size_1-of-2,
+    .slds-col.slds-size_1-of-3 {
+        width: 100% !important;
+    }
+
+    .training-module-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .training-module-card {
+        border-color: #000;
+        border-width: 2px;
+    }
+
+    .training-module-card:hover {
+        border-color: #000;
+        background-color: #f0f0f0;
+    }
+
+    .ceb-header {
+        background: #000;
+        color: #fff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .training-module-card {
+        transition: none;
+    }
+
+    .training-module-card:hover {
+        transform: none;
+    }
+}
+
+/* Focus indicators for accessibility */
+.training-module-card:focus-within {
+    outline: 3px solid #d32f2f;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .training-hub {
+        background-color: white;
+    }
+
+    .ceb-header {
+        background: white;
+        color: black;
+        border: 2px solid black;
+    }
+
+    .training-module-card {
+        border: 1px solid black;
+        break-inside: avoid;
+        margin-bottom: 1rem;
+    }
+}

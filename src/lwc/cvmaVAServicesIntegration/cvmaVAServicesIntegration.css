@@ -1,0 +1,351 @@
+/**
+ * cvmaVAServicesIntegration.css
+ * Epic #10 User Story #32: 508-Compliant VA Services Integration Styling
+ * Government services coordination with trauma-informed design
+ *
+ * Combat Veterans Motorcycle Association Chapter 20-7
+ * Professional government services styling with accessibility excellence
+ */
+
+/* Main Container Styling */
+.va-services-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Government Services Theme */
+.va-services-container * {
+    transition: none !important; /* PTSD-friendly: no unexpected animations */
+    animation: none !important;
+}
+
+/* Tab Navigation Enhancement */
+.slds-tabs_default__nav {
+    background-color: #ffffff;
+    border-bottom: 3px solid #0176d3;
+    border-radius: 6px 6px 0 0;
+}
+
+.slds-tabs_default__item a {
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    color: #0176d3;
+    border-radius: 6px 6px 0 0;
+}
+
+.slds-tabs_default__item a:hover,
+.slds-tabs_default__item a:focus {
+    background-color: #f3f3f3;
+    color: #005fb2;
+    outline: 2px solid #005fb2;
+    outline-offset: 2px;
+}
+
+.slds-tabs_default__item a[aria-selected="true"] {
+    background-color: #0176d3;
+    color: #ffffff;
+    border-bottom: 3px solid #005fb2;
+}
+
+/* Status Cards */
+.status-card {
+    height: 100%;
+    border: 2px solid #e5e5e5;
+    border-radius: 6px;
+    background-color: #ffffff;
+    transition: none;
+}
+
+.status-card:hover {
+    border-color: #0176d3;
+    box-shadow: 0 4px 12px rgba(1, 118, 211, 0.15);
+}
+
+.status-card .slds-card__header {
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 6px 6px 0 0;
+}
+
+/* Government Service Buttons */
+.slds-button_neutral,
+.slds-button_outline-brand {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    min-height: 44px; /* WCAG compliance */
+}
+
+.slds-button_neutral:hover,
+.slds-button_neutral:focus {
+    background-color: #f3f3f3;
+    border-color: #0176d3;
+    outline: 2px solid #005fb2;
+    outline-offset: 2px;
+}
+
+.slds-button_outline-brand:hover,
+.slds-button_outline-brand:focus {
+    background-color: #0176d3;
+    color: #ffffff;
+    outline: 2px solid #005fb2;
+    outline-offset: 2px;
+}
+
+.slds-button_stretch {
+    width: 100%;
+    text-align: center;
+}
+
+/* Service Form Styling */
+.slds-box.slds-theme_default {
+    border: 2px solid #0176d3;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+/* Emergency Support Styling */
+.emergency-support {
+    border: 3px solid #d32f2f;
+    background-color: #ffebee;
+    border-radius: 6px;
+}
+
+.emergency-links {
+    gap: 1rem;
+}
+
+.emergency-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    min-height: 44px;
+}
+
+.emergency-btn:hover,
+.emergency-btn:focus {
+    background-color: #b71c1c;
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* Resource Cards */
+.slds-box.slds-theme_shade {
+    border-left: 4px solid #0176d3;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.slds-box.slds-theme_info {
+    border-left: 4px solid #1976d2;
+    background-color: #e3f2fd;
+}
+
+.slds-box.slds-theme_warning {
+    border-left: 4px solid #f57c00;
+    background-color: #fff3e0;
+}
+
+.slds-box.slds-theme_success {
+    border-left: 4px solid #2e7d32;
+    background-color: #e8f5e8;
+}
+
+/* Link Styling */
+.slds-text-link {
+    color: #0176d3;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.slds-text-link:hover,
+.slds-text-link:focus {
+    color: #005fb2;
+    outline: 2px solid #005fb2;
+    outline-offset: 2px;
+    background-color: #f3f3f3;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+/* Badge Styling */
+.slds-badge {
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .va-services-container {
+        border: 3px solid #000000;
+        background-color: #ffffff;
+    }
+
+    .status-card {
+        border: 2px solid #000000;
+        background-color: #ffffff;
+    }
+
+    .slds-tabs_default__nav {
+        border-bottom: 3px solid #000000;
+    }
+
+    .slds-tabs_default__item a {
+        color: #000000;
+        border: 1px solid #000000;
+    }
+
+    .emergency-support {
+        border: 3px solid #000000;
+        background-color: #ffffff;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Large Text Support */
+.va-services-container {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.slds-text-heading_small,
+.slds-text-heading_x-small {
+    line-height: 1.4;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .va-services-container {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+
+    .slds-tabs_default__item a {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .emergency-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .emergency-btn {
+        padding: 1.25rem;
+        font-size: 1.1rem;
+    }
+
+    .slds-grid.slds-gutters {
+        gap: 0.5rem;
+    }
+}
+
+/* Tablet Optimization */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .va-services-container {
+        max-width: 95%;
+        margin: 1rem auto;
+    }
+
+    .status-card .slds-card__body {
+        padding: 1rem;
+    }
+}
+
+/* Loading States */
+.slds-spinner_container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+}
+
+/* Focus Management for Accessibility */
+.slds-tabs_default__content:focus {
+    outline: none;
+}
+
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid #005fb2;
+    outline-offset: 2px;
+}
+
+/* Screen Reader Support */
+.slds-assistive-text {
+    position: absolute !important;
+    margin: -1px !important;
+    border: 0 !important;
+    padding: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+}
+
+/* Tab Panel Animation (PTSD-friendly) */
+.slds-tabs_default__content {
+    opacity: 1;
+    display: block;
+}
+
+.slds-tabs_default__content.slds-hide {
+    display: none;
+}
+
+/* Touch Target Sizing */
+button,
+a,
+.slds-button {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Print Styles */
+@media print {
+    .emergency-support,
+    .slds-tabs_default__nav {
+        display: none !important;
+    }
+
+    .status-card,
+    .slds-box {
+        break-inside: avoid;
+        border: 1px solid #000000;
+        margin-bottom: 1rem;
+        background-color: #ffffff !important;
+    }
+
+    .va-services-container {
+        box-shadow: none;
+        border: 1px solid #000000;
+    }
+}
+
+/* Card Hover States for Non-Touch Devices */
+@media (hover: hover) and (pointer: fine) {
+    .status-card:hover {
+        transform: none; /* No movement for PTSD-friendly design */
+        border-color: #0176d3;
+    }
+}

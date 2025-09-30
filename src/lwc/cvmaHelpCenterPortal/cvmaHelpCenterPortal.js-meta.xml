@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Help Center Portal - Search-driven support and accessibility help interface for comprehensive self-service support</description>
+    <masterLabel>Help Center Portal</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage">
+            <property name="displayMode" type="String" label="Display Mode" description="Portal display mode: search-first, category-first, accessibility-first" default="search-first"/>
+            <property name="enableAdvancedSearch" type="Boolean" label="Enable Advanced Search" description="Show advanced search filters and options" default="true"/>
+            <property name="showQuickSolutions" type="Boolean" label="Show Quick Solutions" description="Display quick solution buttons for common issues" default="true"/>
+            <property name="prioritizeAccessibility" type="Boolean" label="Prioritize Accessibility" description="Highlight accessibility features and support" default="true"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

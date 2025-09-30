@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>CEB Training Hub - Task-oriented training interface optimized for Chapter Executive Board Officers</description>
+    <masterLabel>CEB Training Hub</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage">
+            <property name="displayMode" type="String" label="Display Mode" description="Hub display mode: dashboard, compact, mobile" default="dashboard"/>
+            <property name="showQuickActions" type="Boolean" label="Show Quick Actions" description="Display quick access buttons for common tasks" default="true"/>
+            <property name="defaultCategory" type="String" label="Default Category" description="Default training category to display" default="all"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

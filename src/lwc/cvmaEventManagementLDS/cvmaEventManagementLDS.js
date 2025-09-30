@@ -54,24 +54,52 @@ export default class CvmaEventManagementLDS extends LightningElement {
             CAMPAIGN_START_DATE,
             CAMPAIGN_END_DATE,
             CAMPAIGN_STATUS,
+            CAMPAIGN_TYPE,
             CAMPAIGN_NUMBER_SENT
         ]
     })
     wiredEventsList({ error, data }) {
-        if (data) {
-            // Filter for CVMA Events only
-            this.events = data.records.records.filter(record =>
-                getFieldValue(record, 'Type') === 'CVMA Event'
-            ).map(record => ({
-                Id: record.id,
-                Name: getFieldValue(record, CAMPAIGN_NAME),
-                StartDate: getFieldValue(record, CAMPAIGN_START_DATE),
-                EndDate: getFieldValue(record, CAMPAIGN_END_DATE),
-                Status: getFieldValue(record, CAMPAIGN_STATUS),
-                Capacity: getFieldValue(record, CAMPAIGN_NUMBER_SENT)
-            }));
-        } else if (error) {
-            this.showToast('Error', 'Unable to load events: ' + error.body.message, 'error');
+        this.events = []; // Always initialize
+
+        if (error) {
+            console.error('Event list error:', error);
+            this.showToast('Error', 'Unable to load events: ' + (error.body?.message || error.message), 'error');
+            return;
+        }
+
+        if (!data) {
+            return; // Still loading
+        }
+
+        // Handle different data structures
+        let records = [];
+        if (data.records && Array.isArray(data.records.records)) {
+            records = data.records.records;
+        } else if (data.records && Array.isArray(data.records)) {
+            records = data.records;
+        } else if (Array.isArray(data)) {
+            records = data;
+        }
+
+        try {
+            // Filter and map events safely
+            this.events = records
+                .filter(record => {
+                    const type = getFieldValue(record, CAMPAIGN_TYPE) || getFieldValue(record, 'Type');
+                    return type === 'CVMA Event';
+                })
+                .map(record => ({
+                    Id: record.id,
+                    Name: getFieldValue(record, CAMPAIGN_NAME) || 'Unnamed Event',
+                    StartDate: getFieldValue(record, CAMPAIGN_START_DATE),
+                    EndDate: getFieldValue(record, CAMPAIGN_END_DATE),
+                    Status: getFieldValue(record, CAMPAIGN_STATUS) || 'Unknown',
+                    Capacity: getFieldValue(record, CAMPAIGN_NUMBER_SENT) || 0
+                }));
+        } catch (mappingError) {
+            console.error('Error processing events:', mappingError);
+            this.events = [];
+            this.showToast('Warning', 'Some events could not be loaded properly', 'warning');
         }
     }
 

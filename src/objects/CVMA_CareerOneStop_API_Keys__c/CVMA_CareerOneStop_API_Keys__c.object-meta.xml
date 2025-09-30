@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Protected</customSettingsType>
+    <description>Protected Custom Settings for secure CareerOneStop API key management and authentication credentials. This stores sensitive API keys encrypted by Salesforce and is only accessible to system administrators.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>CVMA CareerOneStop API Keys</label>
+    <visibility>Protected</visibility>
+    <fields>
+        <fullName>API_Key__c</fullName>
+        <description>CareerOneStop API Key for authenticating requests to the Department of Labor CareerOneStop services</description>
+        <externalId>false</externalId>
+        <label>API Key</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>API_Secret__c</fullName>
+        <description>CareerOneStop API Secret for enhanced security authentication (if required by API)</description>
+        <externalId>false</externalId>
+        <label>API Secret</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User_ID__c</fullName>
+        <description>CareerOneStop API User ID for request identification and tracking</description>
+        <externalId>false</externalId>
+        <label>User ID</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Environment__c</fullName>
+        <description>Environment designation for the API keys (Production, Sandbox, Development)</description>
+        <externalId>false</externalId>
+        <label>Environment</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if this API key set is currently active and should be used for API requests</description>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Used_Date__c</fullName>
+        <description>Date and time when this API key was last used for a successful API request</description>
+        <externalId>false</externalId>
+        <label>Last Used Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Request_Count__c</fullName>
+        <description>Total number of API requests made using this key set (for monitoring and rate limiting)</description>
+        <externalId>false</externalId>
+        <label>Request Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rate_Limit_Remaining__c</fullName>
+        <description>Remaining API calls for current rate limit period (updated after each API call)</description>
+        <externalId>false</externalId>
+        <label>Rate Limit Remaining</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rate_Limit_Reset_Time__c</fullName>
+        <description>Date and time when the rate limit counter will reset for this API key</description>
+        <externalId>false</externalId>
+        <label>Rate Limit Reset Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <description>Administrative notes about this API key set, usage restrictions, or special configurations</description>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>32768</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+</CustomObject>

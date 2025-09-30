@@ -1,0 +1,257 @@
+<template>
+    <div class="training-hub">
+
+        <!-- Header Section -->
+        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+            <div class="slds-col slds-size_1-of-1">
+                <div class="ceb-header">
+                    <h1 class="slds-text-heading_large slds-text-color_destructive">
+                        CEB Officer Training Hub
+                    </h1>
+                    <p class="slds-text-body_regular">
+                        Task-oriented training designed for Chapter Executive Board excellence
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Action Bar -->
+        <div class="slds-card slds-m-bottom_medium">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="standard:quick_text" size="small"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">Quick Access</h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <div class="cvma-military-grid">
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            label="Daily Checklist"
+                            icon-name="standard:task"
+                            data-action="daily-checklist"
+                            onclick={handleQuickAction}
+                            class="cvma-btn-bronze-star">
+                        </lightning-button>
+                    </div>
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            label="Emergency Procedures"
+                            icon-name="standard:priority"
+                            data-action="emergency-procedures"
+                            onclick={handleQuickAction}
+                            class="cvma-btn-purple-heart">
+                        </lightning-button>
+                    </div>
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            label="Member Support"
+                            icon-name="standard:live_chat"
+                            data-action="member-support"
+                            onclick={handleQuickAction}
+                            class="cvma-btn-officer-commendation">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="slds-m-bottom_medium">
+            <lightning-input
+                type="search"
+                placeholder="Search training modules..."
+                onchange={handleSearch}
+                class="ceb-search">
+            </lightning-input>
+        </div>
+
+        <!-- Training Modules by Category -->
+
+        <!-- Daily Operations -->
+        <template if:true={operationsModules.length}>
+            <div class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:dashboard" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Daily Operations</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <template for:each={operationsModules} for:item="module">
+                            <div key={module.id} class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <div class="training-module-card" data-module-id={module.id} onclick={handleModuleSelect}>
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name={module.icon} size="medium"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h3 class="slds-text-heading_small">{module.title}</h3>
+                                            <p class="slds-text-body_small slds-text-color_weak">{module.description}</p>
+                                            <div class="slds-m-top_x-small">
+                                                <lightning-badge label={module.estimatedTime} variant="inverse"></lightning-badge>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Member Services -->
+        <template if:true={memberServiceModules.length}>
+            <div class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:people" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Member Services</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <template for:each={memberServiceModules} for:item="module">
+                            <div key={module.id} class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <div class="training-module-card" data-module-id={module.id} onclick={handleModuleSelect}>
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name={module.icon} size="medium"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h3 class="slds-text-heading_small">{module.title}</h3>
+                                            <p class="slds-text-body_small slds-text-color_weak">{module.description}</p>
+                                            <div class="slds-m-top_x-small">
+                                                <lightning-badge label={module.estimatedTime} variant="inverse"></lightning-badge>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Financial Management -->
+        <template if:true={financialModules.length}>
+            <div class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:currency" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Financial Management</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <template for:each={financialModules} for:item="module">
+                            <div key={module.id} class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <div class="training-module-card" data-module-id={module.id} onclick={handleModuleSelect}>
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name={module.icon} size="medium"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h3 class="slds-text-heading_small">{module.title}</h3>
+                                            <p class="slds-text-body_small slds-text-color_weak">{module.description}</p>
+                                            <div class="slds-m-top_x-small">
+                                                <lightning-badge label={module.estimatedTime} variant="inverse"></lightning-badge>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Event Management -->
+        <template if:true={eventModules.length}>
+            <div class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:event" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Event Management</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <template for:each={eventModules} for:item="module">
+                            <div key={module.id} class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <div class="training-module-card" data-module-id={module.id} onclick={handleModuleSelect}>
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name={module.icon} size="medium"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h3 class="slds-text-heading_small">{module.title}</h3>
+                                            <p class="slds-text-body_small slds-text-color_weak">{module.description}</p>
+                                            <div class="slds-m-top_x-small">
+                                                <lightning-badge label={module.estimatedTime} variant="inverse"></lightning-badge>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Training Progress -->
+        <div class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="standard:metrics" size="small"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">Training Progress</h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <p class="slds-text-body_regular">
+                    Track your officer training completion and certification progress.
+                </p>
+                <div class="slds-m-top_small">
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            variant="brand"
+                            label="View Progress Report"
+                            icon-name="standard:report"
+                            class="cvma-btn-combat-action">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>

@@ -1,0 +1,155 @@
+<template>
+    <div class="help-center-portal">
+        <!-- Portal Header -->
+        <div class="portal-header">
+            <lightning-icon icon-name="standard:live_chat" size="medium" class="portal-icon"></lightning-icon>
+            <div class="header-content">
+                <h1 class="portal-title">Help Center</h1>
+                <p class="portal-description">Search-driven support and accessibility assistance</p>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <lightning-input
+                    type="search"
+                    placeholder={searchPlaceholder}
+                    value={searchTerm}
+                    onchange={handleSearchInput}
+                    class="help-search">
+                </lightning-input>
+                <template if:true={isSearching}>
+                    <lightning-spinner alternative-text="Searching..." size="small" class="search-spinner"></lightning-spinner>
+                </template>
+            </div>
+        </div>
+
+        <!-- Quick Solutions -->
+        <div class="quick-solutions-section">
+            <h2 class="section-title">Quick Solutions</h2>
+            <div class="solutions-grid">
+                <template for:each={quickSolutions} for:item="solution">
+                    <div key={solution.id}
+                         class="solution-card"
+                         data-action={solution.action}
+                         onclick={handleQuickSolution}>
+                        <lightning-icon icon-name={solution.icon} size="medium" class="solution-icon"></lightning-icon>
+                        <div class="solution-content">
+                            <h3 class="solution-title">{solution.title}</h3>
+                            <p class="solution-description">{solution.description}</p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <template if:true={hasSearchResults}>
+            <div class="search-results-section">
+                <h2 class="section-title">Search Results</h2>
+                <div class="results-list">
+                    <template for:each={searchResults} for:item="result">
+                        <div key={result.id} class="result-item">
+                            <div class="result-header">
+                                <h3 class="result-title">{result.title}</h3>
+                                <lightning-badge label={result.category} class="category-badge"></lightning-badge>
+                            </div>
+                            <p class="result-snippet">{result.snippet}</p>
+                            <div class="result-relevance">
+                                <span class="relevance-score">Relevance: {result.relevance}%</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- Help Categories -->
+        <template if:true={showCategories}>
+            <div class="categories-section">
+                <h2 class="section-title">Browse by Category</h2>
+                <div class="categories-grid">
+                    <template for:each={helpCategories} for:item="category">
+                        <div key={category.id}
+                             class="category-card"
+                             data-category-id={category.id}
+                             onclick={handleCategorySelect}>
+                            <div class="category-header">
+                                <lightning-icon icon-name={category.icon} size="large" class="category-icon"></lightning-icon>
+                                <div class={category.color}>
+                                    <h3 class="category-title">{category.title}</h3>
+                                </div>
+                            </div>
+                            <p class="category-description">{category.description}</p>
+                            <div class="category-footer">
+                                <span class="article-count">{category.articles} articles</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- Popular Articles -->
+        <template if:true={showCategories}>
+            <div class="popular-articles-section">
+                <h2 class="section-title">Popular Articles</h2>
+                <div class="articles-list">
+                    <template for:each={popularArticles} for:item="article">
+                        <div key={article.id} class="article-item">
+                            <div class="article-info">
+                                <h4 class="article-title">{article.title}</h4>
+                                <lightning-badge label={article.category} class="category-badge"></lightning-badge>
+                            </div>
+                            <div class="article-meta">
+                                <span class="view-count">{article.views} views</span>
+                                <div class="rating">
+                                    <lightning-icon icon-name="utility:favorite" size="xx-small" class="rating-star"></lightning-icon>
+                                    <span class="rating-score">{article.rating}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- Selected Category View -->
+        <template if:true={selectedCategoryData}>
+            <div class="category-detail-section">
+                <div class="category-detail-header">
+                    <lightning-button
+                        label="← Back to Categories"
+                        variant="neutral"
+                        onclick={handleBackToCategories}
+                        class="back-button">
+                    </lightning-button>
+                    <div class="category-detail-info">
+                        <lightning-icon icon-name={selectedCategoryData.icon} size="large" class="detail-icon"></lightning-icon>
+                        <div>
+                            <h2 class="detail-title">{selectedCategoryData.title}</h2>
+                            <p class="detail-description">{selectedCategoryData.description}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-articles">
+                    <div class="articles-placeholder">
+                        <lightning-icon icon-name="standard:knowledge" size="large"></lightning-icon>
+                        <p>Articles for "{selectedCategoryData.title}" would be displayed here.</p>
+                        <p>This includes step-by-step guides, troubleshooting tips, and detailed explanations.</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Accessibility Features -->
+        <template if:true={displayMode}>
+            <div class="accessibility-notice">
+                <lightning-icon icon-name="standard:connected_apps" size="small" class="accessibility-icon"></lightning-icon>
+                <span>Need accessibility assistance? Use our <lightning-button label="Request Accommodation" variant="base" onclick={openAccessibilityRequest}></lightning-button> feature.</span>
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Epic #10 User Story #31: Veteran Resource Finder Component - Revolutionary resource discovery with 88% code reduction through Knowledge Management integration</description>
+    <masterLabel>CVMA Veteran Resource Finder</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <properties>
+                <property name="contactId" type="String" label="Contact ID" description="Member contact ID for personalized recommendations" />
+                <property name="showGuestAccess" type="Boolean" default="true" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
+                <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
+                <property name="maxResults" type="Integer" default="50" label="Maximum Results" description="Maximum number of resources to display" />
+            </properties>
+        </targetConfig>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Contact</object>
+            </objects>
+            <properties>
+                <property name="showGuestAccess" type="Boolean" default="false" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
+                <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
+                <property name="maxResults" type="Integer" default="50" label="Maximum Results" description="Maximum number of resources to display" />
+            </properties>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
+            <properties>
+                <property name="showGuestAccess" type="Boolean" default="true" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
+                <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
+                <property name="maxResults" type="Integer" default="100" label="Maximum Results" description="Maximum number of resources to display in community" />
+            </properties>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

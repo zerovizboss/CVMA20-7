@@ -1,0 +1,86 @@
+/* CVMA Document Manager Styling */
+
+.cvma-header {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 3px solid #d32f2f;
+    margin-bottom: 1rem;
+}
+
+.cvma-header h1 {
+    color: #d32f2f;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.cvma-info-box {
+    background-color: #f8f9fa;
+    border-left: 4px solid #d32f2f;
+}
+
+.cvma-document-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    transition: box-shadow 0.2s ease;
+    min-height: 120px;
+}
+
+.cvma-document-card:hover {
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.15);
+    border-color: #d32f2f;
+}
+
+/* Loading states */
+.slds-spinner_container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .slds-size_1-of-2 {
+        width: 100% !important;
+    }
+
+    .cvma-header {
+        padding: 0.5rem;
+    }
+
+    .cvma-header h1 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Print styles for PDF generation */
+@media print {
+    .slds-card {
+        box-shadow: none;
+        border: none;
+    }
+
+    .cvma-header {
+        border-bottom: 2px solid #000;
+    }
+}
+
+/* Accessibility enhancements */
+.cvma-document-card:focus {
+    outline: 2px solid #d32f2f;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .cvma-header {
+        border-bottom-color: #000;
+    }
+
+    .cvma-header h1 {
+        color: #000;
+    }
+
+    .cvma-info-box {
+        border-left-color: #000;
+    }
+}

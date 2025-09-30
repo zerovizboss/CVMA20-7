@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>508-compliant veteran assistance guide with PTSD-friendly design for CVMA Chapter 20-7</description>
+    <masterLabel>CVMA Accessible Veteran Guide</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="guidanceMode" type="String" default="landing" label="Guidance Mode"
+                description="Mode for the component: landing, guided, or emergency" />
+            <property name="enableVoiceNavigation" type="Boolean" default="false" label="Enable Voice Navigation"
+                description="Enable voice commands for accessibility" />
+            <property name="highContrastMode" type="Boolean" default="false" label="High Contrast Mode"
+                description="Enable high contrast colors for better visibility" />
+            <property name="reducedMotion" type="Boolean" default="false" label="Reduced Motion"
+                description="Reduce animations and motion effects" />
+            <property name="largeTextMode" type="Boolean" default="false" label="Large Text Mode"
+                description="Increase text size for better readability" />
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage,lightning__RecordPage">
+            <property name="guidanceMode" type="String" default="landing" label="Guidance Mode"
+                description="Mode for the component: landing, guided, or emergency" />
+            <property name="enableVoiceNavigation" type="Boolean" default="false" label="Enable Voice Navigation"
+                description="Enable voice commands for accessibility" />
+            <property name="highContrastMode" type="Boolean" default="false" label="High Contrast Mode"
+                description="Enable high contrast colors for better visibility" />
+            <property name="reducedMotion" type="Boolean" default="false" label="Reduced Motion"
+                description="Reduce animations and motion effects" />
+            <property name="largeTextMode" type="Boolean" default="false" label="Large Text Mode"
+                description="Increase text size for better readability" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

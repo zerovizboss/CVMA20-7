@@ -1,0 +1,471 @@
+<template>
+    <!-- CVMA Veteran Knowledge Base - 508 Compliant -->
+    <div class={containerClass} role="main" aria-label="Veteran Knowledge Base">
+
+        <!-- Skip Navigation -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <!-- Accessibility Controls -->
+        <div class="accessibility-controls" role="toolbar" aria-label="Accessibility Options">
+            <h2 class="accessibility-title">Accessibility Settings</h2>
+            <div class="accessibility-buttons">
+                <button
+                    type="button"
+                    class="accessibility-btn"
+                    data-setting="highContrast"
+                    onclick={handleAccessibilityToggle}
+                    aria-pressed={accessibilitySettings.highContrast}
+                    title="Toggle high contrast mode">
+                    <span aria-hidden="true">🔆</span>
+                    High Contrast
+                </button>
+                <button
+                    type="button"
+                    class="accessibility-btn"
+                    data-setting="largeText"
+                    onclick={handleAccessibilityToggle}
+                    aria-pressed={accessibilitySettings.largeText}
+                    title="Increase text size">
+                    <span aria-hidden="true">🔍</span>
+                    Large Text
+                </button>
+                <button
+                    type="button"
+                    class="accessibility-btn"
+                    data-setting="reducedMotion"
+                    onclick={handleAccessibilityToggle}
+                    aria-pressed={accessibilitySettings.reducedMotion}
+                    title="Reduce motion effects">
+                    <span aria-hidden="true">🛡️</span>
+                    Reduce Motion
+                </button>
+            </div>
+        </div>
+
+        <!-- Emergency Crisis Banner -->
+        <div class="crisis-banner" role="banner" aria-label="Emergency Support">
+            <div class="crisis-content">
+                <h2 class="crisis-title">
+                    <span aria-hidden="true">🆘</span>
+                    Crisis Support Available 24/7
+                </h2>
+                <p class="crisis-subtitle">If you're in crisis, immediate help is available</p>
+                <div class="crisis-actions">
+                    <a href="tel:988" class="crisis-link" aria-describedby="crisis-988-desc">
+                        Call 988 - Crisis Lifeline
+                    </a>
+                    <div id="crisis-988-desc" class="sr-only">National Suicide Prevention Lifeline, available 24 hours</div>
+
+                    <a href="tel:1-800-273-8255" class="crisis-link" aria-describedby="crisis-veterans-desc">
+                        Veterans Crisis Line
+                    </a>
+                    <div id="crisis-veterans-desc" class="sr-only">Veterans Crisis Line - Press 1, available 24 hours</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+
+            <!-- Search Mode -->
+            <template if:true={isSearchMode}>
+                <section class="search-section" aria-labelledby="search-title">
+                    <header class="search-header">
+                        <h1 id="search-title" class="page-title">CVMA Veteran Knowledge Base</h1>
+                        <p class="page-subtitle">Find answers to common questions about veteran benefits and resources</p>
+                    </header>
+
+                    <!-- Search Input -->
+                    <template if:true={enableSearch}>
+                        <div class="search-container" role="search">
+                            <label for="knowledge-search" class="search-label">Search Articles</label>
+                            <lightning-input
+                                type="search"
+                                name="knowledge-search"
+                                class="search-input"
+                                placeholder={searchPlaceholderText}
+                                value={searchTerm}
+                                onchange={handleSearch}
+                                aria-describedby="search-help">
+                            </lightning-input>
+                            <div id="search-help" class="search-help">
+                                Type at least 2 characters to search. Use keywords like "benefits", "PTSD", "housing"
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Search Results -->
+                    <template if:true={hasSearchResults}>
+                        <section class="search-results" aria-labelledby="results-title">
+                            <h2 id="results-title" class="results-title">{searchResultsText}</h2>
+                            <ul class="results-list" role="list">
+                                <template for:each={searchResults} for:item="result">
+                                    <li key={result.id} class="result-item" role="listitem">
+                                        <article class="result-card">
+                                            <h3 class="result-title">
+                                                <button
+                                                    type="button"
+                                                    class="result-link"
+                                                    data-article={result.id}
+                                                    onclick={handleArticleSelection}>
+                                                    {result.title}
+                                                </button>
+                                            </h3>
+                                            <p class="result-category">Category: {result.category}</p>
+                                            <div class="sr-only">
+                                                Article about {result.title} in {result.category} category
+                                            </div>
+                                        </article>
+                                    </li>
+                                </template>
+                            </ul>
+                        </section>
+                    </template>
+
+                    <!-- Knowledge Categories -->
+                    <template if:true={showCategories}>
+                        <section class="categories-section" aria-labelledby="categories-title">
+                            <h2 id="categories-title" class="section-title">Browse by Category</h2>
+                            <div class="categories-grid" role="group" aria-label="Knowledge categories">
+                                <template for:each={knowledgeCategories} for:item="category">
+                                    <article key={category.id} class="category-card">
+                                        <div class="category-header">
+                                            <lightning-icon
+                                                icon-name={category.icon}
+                                                size="large"
+                                                class="category-icon"
+                                                aria-hidden="true">
+                                            </lightning-icon>
+                                            <h3 class="category-title">{category.title}</h3>
+                                        </div>
+                                        <div class="category-content">
+                                            <p class="category-description">{category.description}</p>
+                                            <div class="category-stats">
+                                                <span class="article-count">{category.articleCount} articles</span>
+                                            </div>
+                                        </div>
+                                        <div class="category-actions">
+                                            <button
+                                                type="button"
+                                                class="category-btn"
+                                                data-category={category.id}
+                                                onclick={handleCategorySelection}>
+                                                Browse Articles
+                                                <span class="btn-arrow" aria-hidden="true">→</span>
+                                            </button>
+                                            <div class="sr-only">
+                                                Browse {category.articleCount} articles in {category.title} category
+                                            </div>
+                                        </div>
+                                    </article>
+                                </template>
+                            </div>
+                        </section>
+                    </template>
+
+                    <!-- Featured Articles -->
+                    <template if:true={showFeaturedArticles}>
+                        <section class="featured-section" aria-labelledby="featured-title">
+                            <h2 id="featured-title" class="section-title">Featured Articles</h2>
+                            <div class="featured-grid">
+                                <template for:each={featuredArticles} for:item="article">
+                                    <article key={article.id} class="featured-card">
+                                        <template if:true={article.urgent}>
+                                            <div class="urgent-badge" aria-label="Urgent article">
+                                                <span aria-hidden="true">🚨</span>
+                                                Urgent
+                                            </div>
+                                        </template>
+
+                                        <div class="featured-content">
+                                            <h3 class="featured-title">
+                                                <button
+                                                    type="button"
+                                                    class="featured-link"
+                                                    data-article={article.id}
+                                                    onclick={handleArticleSelection}
+                                                    aria-describedby="\{article.id}-info">
+                                                    {article.title}
+                                                </button>
+                                            </h3>
+
+                                            <p class="featured-description">{article.description}</p>
+
+                                            <dl class="featured-meta">
+                                                <dt class="meta-label">Read Time:</dt>
+                                                <dd class="meta-value">{article.readTime}</dd>
+
+                                                <dt class="meta-label">Difficulty:</dt>
+                                                <dd class="meta-value">{article.difficulty}</dd>
+
+                                                <template if:true={article.accessibilityCompliant}>
+                                                    <dt class="meta-label">Accessibility:</dt>
+                                                    <dd class="meta-value accessibility-badge">
+                                                        <span aria-hidden="true">♿</span>
+                                                        508 Compliant
+                                                    </dd>
+                                                </template>
+                                            </dl>
+                                        </div>
+
+                                        <div id="\{article.id}-info" class="sr-only">
+                                            {article.description}. Read time: {article.readTime}. Difficulty: {article.difficulty}.
+                                        </div>
+                                    </article>
+                                </template>
+                            </div>
+                        </section>
+                    </template>
+                </section>
+            </template>
+
+            <!-- Category Mode -->
+            <template if:true={isCategoryMode}>
+                <section class="category-section" aria-labelledby="category-page-title">
+                    <header class="category-header">
+                        <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+                            <ol class="breadcrumb-list">
+                                <li class="breadcrumb-item">
+                                    <button type="button" class="breadcrumb-link" onclick={handleBackToSearch}>
+                                        Knowledge Base
+                                    </button>
+                                </li>
+                                <li class="breadcrumb-item current" aria-current="page">
+                                    {selectedCategoryData.title}
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <h1 id="category-page-title" class="page-title">{selectedCategoryData.title}</h1>
+                        <p class="page-subtitle">{selectedCategoryData.description}</p>
+                    </header>
+
+                    <div class="category-articles">
+                        <h2 class="articles-title">Articles in this category</h2>
+                        <div class="articles-grid">
+                            <template for:each={categoryArticles} for:item="article">
+                                <article key={article.id} class="article-card">
+                                    <div class="article-content">
+                                        <h3 class="article-title">
+                                            <button
+                                                type="button"
+                                                class="article-link"
+                                                data-article={article.id}
+                                                onclick={handleArticleSelection}>
+                                                {article.title}
+                                            </button>
+                                        </h3>
+                                        <p class="article-description">{article.description}</p>
+                                        <div class="article-meta">
+                                            <span class="read-time">{article.readTime}</span>
+                                            <span class="difficulty">{article.difficulty}</span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </template>
+                        </div>
+                    </div>
+                </section>
+            </template>
+
+            <!-- Article Mode -->
+            <template if:true={isArticleMode}>
+                <article class="article-section" aria-labelledby="article-title">
+                    <header class="article-header">
+                        <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+                            <ol class="breadcrumb-list">
+                                <li class="breadcrumb-item">
+                                    <button type="button" class="breadcrumb-link" onclick={handleBackToSearch}>
+                                        Knowledge Base
+                                    </button>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <button type="button" class="breadcrumb-link" data-category={selectedArticle.category} onclick={handleCategorySelection}>
+                                        {selectedArticle.category}
+                                    </button>
+                                </li>
+                                <li class="breadcrumb-item current" aria-current="page">
+                                    {selectedArticle.title}
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <h1 id="article-title" class="article-title" tabindex="-1">{selectedArticle.title}</h1>
+
+                        <template if:true={selectedArticle.urgent}>
+                            <div class="urgent-notice" role="alert">
+                                <span aria-hidden="true">🚨</span>
+                                This article contains urgent information for veterans in crisis
+                            </div>
+                        </template>
+
+                        <dl class="article-metadata">
+                            <dt class="meta-label">Read Time:</dt>
+                            <dd class="meta-value">{selectedArticle.readTime}</dd>
+
+                            <dt class="meta-label">Difficulty:</dt>
+                            <dd class="meta-value">{selectedArticle.difficulty}</dd>
+
+                            <dt class="meta-label">Last Updated:</dt>
+                            <dd class="meta-value">{selectedArticle.lastUpdated}</dd>
+
+                            <template if:true={selectedArticle.accessibilityCompliant}>
+                                <dt class="meta-label">Accessibility:</dt>
+                                <dd class="meta-value accessibility-badge">
+                                    <span aria-hidden="true">♿</span>
+                                    508 Compliant
+                                </dd>
+                            </template>
+                        </dl>
+                    </header>
+
+                    <div class="article-content">
+                        <!-- Article Summary -->
+                        <section class="content-section" aria-labelledby="summary-title">
+                            <h2 id="summary-title" class="content-title">Summary</h2>
+                            <p class="summary-text">{selectedArticle.content.summary}</p>
+                        </section>
+
+                        <!-- Emergency Contacts (for crisis articles) -->
+                        <template if:true={selectedArticle.content.emergencyContacts}>
+                            <section class="emergency-contacts" aria-labelledby="emergency-title">
+                                <h2 id="emergency-title" class="content-title">Emergency Contacts</h2>
+                                <div class="emergency-grid">
+                                    <template for:each={selectedArticle.content.emergencyContacts} for:item="contact">
+                                        <div key={contact.name} class="emergency-contact-card">
+                                            <h3 class="contact-name">{contact.name}</h3>
+                                            <p class="contact-description">{contact.description}</p>
+                                            <template if:true={contact.number}>
+                                                <div class="contact-number">{contact.number}</div>
+                                                <a href="tel:{contact.number}" class="contact-link">
+                                                    Call Now
+                                                </a>
+                                            </template>
+                                            <template if:true={contact.url}>
+                                                <a href={contact.url} target="_blank" rel="noopener noreferrer" class="contact-link">
+                                                    Visit Website
+                                                    <span class="external-icon" aria-label="Opens in new window">↗</span>
+                                                </a>
+                                            </template>
+                                            <div class="availability">Available: {contact.availability}</div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </section>
+                        </template>
+
+                        <!-- Step-by-Step Instructions -->
+                        <template if:true={selectedArticle.content.steps}>
+                            <section class="steps-section" aria-labelledby="steps-title">
+                                <h2 id="steps-title" class="content-title">Step-by-Step Instructions</h2>
+                                <ol class="steps-list" role="list">
+                                    <template for:each={articleStepsWithNumbers} for:item="step">
+                                        <li key={step.title} class="step-item" role="listitem">
+                                            <div class="step-number" aria-hidden="true">{step.stepNumber}</div>
+                                            <div class="step-content">
+                                                <h3 class="step-title">{step.title}</h3>
+                                                <p class="step-description">{step.description}</p>
+                                                <p class="step-details">{step.details}</p>
+
+                                                <template if:true={step.actionItems}>
+                                                    <div class="action-items">
+                                                        <h4 class="action-title">Action Items:</h4>
+                                                        <ul class="action-list">
+                                                            <template for:each={step.actionItems} for:item="action">
+                                                                <li key={action} class="action-item">{action}</li>
+                                                            </template>
+                                                        </ul>
+                                                    </div>
+                                                </template>
+
+                                                <template if:true={step.estimatedTime}>
+                                                    <div class="time-estimate">
+                                                        <strong>Estimated Time:</strong> {step.estimatedTime}
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ol>
+                            </section>
+                        </template>
+
+                        <!-- Immediate Steps (for crisis articles) -->
+                        <template if:true={selectedArticle.content.immediateSteps}>
+                            <section class="immediate-steps" aria-labelledby="immediate-title">
+                                <h2 id="immediate-title" class="content-title">Immediate Action Steps</h2>
+                                <ol class="immediate-list">
+                                    <template for:each={selectedArticle.content.immediateSteps} for:item="step">
+                                        <li key={step} class="immediate-item">{step}</li>
+                                    </template>
+                                </ol>
+                            </section>
+                        </template>
+
+                        <!-- Resources and Links -->
+                        <template if:true={selectedArticle.content.resources}>
+                            <section class="resources-section" aria-labelledby="resources-title">
+                                <h2 id="resources-title" class="content-title">Additional Resources</h2>
+                                <ul class="resources-list">
+                                    <template for:each={selectedArticle.content.resources} for:item="resource">
+                                        <li key={resource.title} class="resource-item">
+                                            <h3 class="resource-title">
+                                                <a href={resource.url} target="_blank" rel="noopener noreferrer" class="resource-link">
+                                                    {resource.title}
+                                                    <span class="external-icon" aria-label="Opens in new window">↗</span>
+                                                </a>
+                                            </h3>
+                                            <p class="resource-description">{resource.description}</p>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </section>
+                        </template>
+
+                        <!-- Accessibility Information -->
+                        <template if:true={selectedArticle.content.accessibility}>
+                            <section class="accessibility-info" aria-labelledby="accessibility-title">
+                                <h2 id="accessibility-title" class="content-title">Accessibility Information</h2>
+                                <dl class="accessibility-details">
+                                    <dt class="accessibility-label">Screen Reader Notes:</dt>
+                                    <dd class="accessibility-value">{selectedArticle.content.accessibility.screenReaderNotes}</dd>
+
+                                    <dt class="accessibility-label">Keyboard Navigation:</dt>
+                                    <dd class="accessibility-value">{selectedArticle.content.accessibility.keyboardNavigation}</dd>
+
+                                    <template if:true={selectedArticle.content.accessibility.voiceCommands}>
+                                        <dt class="accessibility-label">Voice Commands:</dt>
+                                        <dd class="accessibility-value">{selectedArticle.content.accessibility.voiceCommands}</dd>
+                                    </template>
+                                </dl>
+                            </section>
+                        </template>
+                    </div>
+
+                    <!-- Article Navigation -->
+                    <nav class="article-navigation" aria-label="Article navigation">
+                        <button type="button" class="nav-btn back-btn" onclick={handleBackToSearch}>
+                            <span class="btn-arrow" aria-hidden="true">←</span>
+                            Back to Knowledge Base
+                        </button>
+                    </nav>
+                </article>
+            </template>
+
+        </main>
+
+        <!-- Screen Reader Announcements -->
+        <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcements"></div>
+
+        <!-- Loading State -->
+        <template if:true={isLoading}>
+            <div class="loading-overlay" role="status" aria-label="Loading knowledge base">
+                <div class="loading-content">
+                    <lightning-spinner alternative-text="Loading knowledge base..." size="large"></lightning-spinner>
+                    <p class="loading-text">Loading veteran resources...</p>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

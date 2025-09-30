@@ -1,0 +1,305 @@
+.veteran-resource-finder {
+    background: var(--lwc-colorBackgroundAlt, #fafaf9);
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+/* CVMA Branding Colors */
+:host {
+    --cvma-red: #d32f2f;
+    --cvma-blue: #1976d2;
+    --cvma-gold: #ffa000;
+    --cvma-dark-blue: #0d47a1;
+    --cvma-light-gray: #f5f5f5;
+    --cvma-dark-gray: #424242;
+}
+
+/* Search Input Enhancements */
+.search-input lightning-input {
+    --slds-c-input-color-border: var(--cvma-blue);
+}
+
+.search-input lightning-input:focus-within {
+    --slds-c-input-color-border-focus: var(--cvma-red);
+    --slds-c-input-shadow-focus: 0 0 3px var(--cvma-red);
+}
+
+/* Organization Cards */
+.organizations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.organization-card {
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.organization-card:hover {
+    border-color: var(--cvma-blue);
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Organization Logo */
+.org-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.25rem;
+    object-fit: contain;
+    background: var(--cvma-light-gray);
+    border: 1px solid #e0e0e0;
+}
+
+/* Organization Name Styling */
+.organization-name {
+    color: var(--cvma-dark-blue);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Category Badge Styling */
+.category-badge {
+    --slds-c-badge-color-background: var(--cvma-blue);
+    --slds-c-badge-text-color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Contact Information */
+.contact-info {
+    background: var(--cvma-light-gray);
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    border-left: 4px solid var(--cvma-red);
+}
+
+.contact-icon {
+    margin-right: 0.25rem;
+    color: var(--cvma-blue);
+}
+
+.contact-link {
+    color: var(--cvma-dark-blue);
+    text-decoration: none;
+}
+
+.contact-link:hover {
+    color: var(--cvma-red);
+    text-decoration: underline;
+}
+
+/* Action Buttons */
+.action-button {
+    width: 100%;
+    font-weight: 500;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+/* Brand Button (Check Eligibility) */
+lightning-button[variant="brand"] {
+    --slds-c-button-brand-color-background: var(--cvma-red);
+    --slds-c-button-brand-color-border: var(--cvma-red);
+}
+
+lightning-button[variant="brand"]:hover {
+    --slds-c-button-brand-color-background-hover: #b71c1c;
+    --slds-c-button-brand-color-border-hover: #b71c1c;
+    transform: translateY(-1px);
+}
+
+/* Success Button (Apply Now) */
+lightning-button[variant="success"] {
+    --slds-c-button-success-color-background: var(--cvma-blue);
+    --slds-c-button-success-color-border: var(--cvma-blue);
+}
+
+lightning-button[variant="success"]:hover {
+    --slds-c-button-success-color-background-hover: var(--cvma-dark-blue);
+    --slds-c-button-success-color-border-hover: var(--cvma-dark-blue);
+    transform: translateY(-1px);
+}
+
+/* Neutral Button (Learn More) */
+lightning-button[variant="neutral"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Styling */
+.slds-modal__container {
+    max-width: 800px;
+}
+
+.slds-modal__header {
+    background: linear-gradient(135deg, var(--cvma-blue), var(--cvma-dark-blue));
+    color: white;
+}
+
+.slds-modal__header h2 {
+    color: white;
+    font-weight: 600;
+}
+
+.slds-modal__close {
+    --slds-c-button-icon-color-foreground-default: white;
+}
+
+/* Eligibility Results */
+.eligibility-result {
+    border-left: 4px solid var(--cvma-blue);
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.eligibility-result.eligible {
+    border-left-color: #4caf50;
+}
+
+.eligibility-result.not-eligible {
+    border-left-color: #f44336;
+}
+
+.eligibility-result.conditional {
+    border-left-color: var(--cvma-gold);
+}
+
+/* Loading Spinner */
+lightning-spinner {
+    --slds-c-spinner-color-foreground: var(--cvma-blue);
+}
+
+/* Badges */
+lightning-badge[variant="success"] {
+    --slds-c-badge-success-color-background: #4caf50;
+}
+
+lightning-badge[variant="warning"] {
+    --slds-c-badge-warning-color-background: var(--cvma-gold);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .organizations-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .veteran-resource-finder {
+        padding: 0.5rem;
+    }
+
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+    .action-button {
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .organization-card .slds-card__footer .slds-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-button {
+        margin-bottom: 0.25rem;
+    }
+
+    .org-logo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .action-button,
+    .search-input,
+    lightning-combobox {
+        display: none !important;
+    }
+
+    .organization-card {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        margin-bottom: 1rem;
+    }
+
+    .contact-link {
+        color: #000 !important;
+    }
+}
+
+/* Accessibility Enhancements */
+.organization-card:focus-within {
+    outline: 2px solid var(--cvma-red);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .organization-card {
+        border: 2px solid #000;
+    }
+
+    .category-badge {
+        --slds-c-badge-color-background: #000;
+        --slds-c-badge-text-color: #fff;
+    }
+
+    .contact-link {
+        text-decoration: underline;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .organization-card,
+    .action-button {
+        transition: none;
+    }
+
+    .organization-card:hover {
+        transform: none;
+    }
+
+    .action-button:hover {
+        transform: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .veteran-resource-finder {
+        background: #1a1a1a;
+        color: #e0e0e0;
+    }
+
+    .organization-card {
+        background: #2a2a2a;
+        border-color: #444;
+    }
+
+    .organization-card:hover {
+        border-color: var(--cvma-blue);
+        background: #333;
+    }
+
+    .contact-info {
+        background: #333;
+    }
+
+    .org-logo {
+        background: #444;
+        border-color: #666;
+    }
+}

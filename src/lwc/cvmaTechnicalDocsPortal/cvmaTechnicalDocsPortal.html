@@ -1,0 +1,205 @@
+<template>
+    <div class="technical-docs-portal">
+        <!-- Portal Header -->
+        <div class="portal-header">
+            <lightning-icon icon-name="standard:code_playground" size="medium" class="portal-icon"></lightning-icon>
+            <div class="header-content">
+                <h1 class="portal-title">Technical Documentation Portal</h1>
+                <p class="portal-description">Reference documentation with advanced search and filtering</p>
+            </div>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="search-filters-section">
+            <div class="search-container">
+                <lightning-input
+                    type="search"
+                    placeholder="Search technical documentation..."
+                    value={searchTerm}
+                    onchange={handleSearch}
+                    class="docs-search">
+                </lightning-input>
+            </div>
+
+            <!-- Filter Tags -->
+            <div class="tags-section">
+                <h3 class="tags-title">Filter by Tags:</h3>
+                <div class="tags-container">
+                    <template for:each={filteredTagsForCurrentType} for:item="tag">
+                        <lightning-button
+                            key={tag}
+                            label={tag}
+                            variant={isTagSelected}
+                            data-tag={tag}
+                            onclick={handleTagSelect}
+                            class="tag-button">
+                        </lightning-button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Clear Filters -->
+            <template if:true={hasFilters}>
+                <div class="filter-actions">
+                    <lightning-button
+                        label="Clear All Filters"
+                        variant="neutral"
+                        onclick={handleClearFilters}
+                        class="clear-filters-button">
+                    </lightning-button>
+                    <span class="filter-summary">{filterSummary}</span>
+                </div>
+            </template>
+        </div>
+
+        <!-- Document Types -->
+        <div class="document-types-section">
+            <h2 class="section-title">Documentation Categories</h2>
+            <div class="types-grid">
+                <template for:each={documentTypes} for:item="type">
+                    <div key={type.id}
+                         class={type.color}
+                         data-doc-type={type.id}
+                         onclick={handleDocTypeSelect}>
+                        <div class="type-header">
+                            <lightning-icon icon-name={type.icon} size="large" class="type-icon"></lightning-icon>
+                            <div class="type-content">
+                                <h3 class="type-title">{type.title}</h3>
+                                <p class="type-description">{type.description}</p>
+                            </div>
+                        </div>
+                        <div class="type-footer">
+                            <span class="doc-count">{type.count} documents</span>
+                            <div class="type-tags">
+                                <template for:each={type.tags} for:item="tag">
+                                    <lightning-badge key={tag} label={tag} class="type-tag"></lightning-badge>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Filtered Documents -->
+        <template if:true={hasFilteredDocs}>
+            <div class="filtered-docs-section">
+                <h2 class="section-title">
+                    <template if:true={selectedDocTypeData}>
+                        {selectedDocTypeData.title}
+                    </template>
+                    <template if:false={selectedDocTypeData}>
+                        All Documents
+                    </template>
+                </h2>
+
+                <div class="docs-list">
+                    <template for:each={filteredDocs} for:item="doc">
+                        <div key={doc.id}
+                             class="doc-item"
+                             data-doc-id={doc.id}
+                             onclick={handleDocumentSelect}>
+                            <div class="doc-header">
+                                <h3 class="doc-title">{doc.title}</h3>
+                                <lightning-badge label={doc.type} class="doc-type-badge"></lightning-badge>
+                            </div>
+                            <div class="doc-meta">
+                                <span class="last-modified">Updated: {doc.lastModified}</span>
+                                <span class="doc-author">By: {doc.author}</span>
+                            </div>
+                            <template if:true={doc.tags}>
+                                <div class="doc-tags">
+                                    <template for:each={doc.tags} for:item="tag">
+                                        <lightning-badge key={tag} label={tag} class="doc-tag"></lightning-badge>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- Recently Updated -->
+        <div class="recent-updates-section">
+            <h2 class="section-title">Recently Updated</h2>
+            <div class="recent-docs-list">
+                <template for:each={recentlyUpdated} for:item="doc">
+                    <div key={doc.id} class="recent-doc-item">
+                        <div class="recent-doc-info">
+                            <h4 class="recent-doc-title">{doc.title}</h4>
+                            <div class="recent-doc-meta">
+                                <span class="recent-doc-date">{doc.lastModified}</span>
+                                <span class="recent-doc-author">{doc.author}</span>
+                            </div>
+                        </div>
+                        <lightning-badge label={doc.type} class="recent-doc-type"></lightning-badge>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="code-examples-section">
+            <h2 class="section-title">Code Examples & Snippets</h2>
+            <div class="examples-grid">
+                <template for:each={codeExamples} for:item="example">
+                    <div key={example.id} class="code-example-card">
+                        <div class="example-header">
+                            <h3 class="example-title">{example.title}</h3>
+                            <div class="example-meta">
+                                <lightning-badge label={example.language} class="language-badge"></lightning-badge>
+                                <lightning-badge label={example.category} class="category-badge"></lightning-badge>
+                            </div>
+                        </div>
+                        <div class="code-container">
+                            <pre class="code-snippet">{example.snippet}</pre>
+                            <lightning-button
+                                label="Copy Code"
+                                variant="neutral"
+                                data-snippet={example.snippet}
+                                onclick={handleCopyCode}
+                                class="copy-button">
+                            </lightning-button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- API Reference Quick Links -->
+        <div class="api-reference-section">
+            <h2 class="section-title">API Reference Quick Links</h2>
+            <div class="api-links-grid">
+                <div class="api-link-card">
+                    <lightning-icon icon-name="standard:apex" size="medium" class="api-icon"></lightning-icon>
+                    <div class="api-content">
+                        <h3 class="api-title">Apex Classes Reference</h3>
+                        <p class="api-description">Complete documentation for all custom Apex classes</p>
+                    </div>
+                </div>
+                <div class="api-link-card">
+                    <lightning-icon icon-name="standard:lightning_component" size="medium" class="api-icon"></lightning-icon>
+                    <div class="api-content">
+                        <h3 class="api-title">Lightning Components</h3>
+                        <p class="api-description">LWC component library and usage examples</p>
+                    </div>
+                </div>
+                <div class="api-link-card">
+                    <lightning-icon icon-name="standard:flow" size="medium" class="api-icon"></lightning-icon>
+                    <div class="api-content">
+                        <h3 class="api-title">Flows & Automation</h3>
+                        <p class="api-description">Process automation and flow documentation</p>
+                    </div>
+                </div>
+                <div class="api-link-card">
+                    <lightning-icon icon-name="standard:integration" size="medium" class="api-icon"></lightning-icon>
+                    <div class="api-content">
+                        <h3 class="api-title">Integration APIs</h3>
+                        <p class="api-description">External system integration endpoints and guides</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

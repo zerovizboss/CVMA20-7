@@ -1,0 +1,399 @@
+<!--
+    cvmaVeteranResourceFinder.html
+    Epic #10 User Story #31: Veteran Resource Finder Component
+    508-compliant veteran resource discovery interface with PTSD-friendly design
+
+    Combat Veterans Motorcycle Association Chapter 20-7
+    Revolutionary resource finder with comprehensive accessibility
+-->
+<template>
+    <!-- Main Container with Accessibility -->
+    <div class="slds-card resource-finder-container" role="main" aria-label="Veteran Resource Finder">
+
+        <!-- Header Section -->
+        <div class="slds-card__header slds-text-align_center">
+            <h1 class="slds-card__header-title slds-text-heading_large slds-text-color_default">
+                🌐 Veteran Resource Finder
+            </h1>
+            <p class="slds-text-body_regular slds-m-top_small" id="finder-description">
+                {memberGreeting} - Discover comprehensive veteran services and resources
+            </p>
+            <template if:true={showEligibilityInfo}>
+                <div class="slds-box slds-theme_info slds-m-top_small" role="status">
+                    <p class="slds-text-body_small">
+                        ✅ Personalized recommendations based on your veteran profile
+                    </p>
+                </div>
+            </template>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- Search Controls -->
+            <div class="slds-grid slds-gutters slds-wrap search-section" role="search" aria-labelledby="search-header">
+                <h2 id="search-header" class="slds-assistive-text">Search and Filter Resources</h2>
+
+                <!-- Search Input -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                    <lightning-input
+                        type="search"
+                        label="Search Resources"
+                        placeholder="Enter organization name, service type, or keyword..."
+                        value={searchTerm}
+                        onchange={handleSearchChange}
+                        aria-describedby="search-help"
+                        class="search-input">
+                    </lightning-input>
+                    <div id="search-help" class="slds-assistive-text">
+                        Search for veteran resources by name, service type, or keywords
+                    </div>
+                </div>
+
+                <!-- Service Category Filter -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                    <template if:true={hasCategories}>
+                        <lightning-combobox
+                            label="Service Category"
+                            placeholder="Select service type..."
+                            options={categoryOptions}
+                            value={selectedCategory}
+                            onchange={handleCategoryChange}
+                            aria-describedby="category-help">
+                        </lightning-combobox>
+                        <div id="category-help" class="slds-assistive-text">
+                            Filter resources by type of service provided
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Geographic Area Filter -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                    <template if:true={hasGeographicAreas}>
+                        <lightning-combobox
+                            label="Geographic Area"
+                            placeholder="Select service area..."
+                            options={geographicOptions}
+                            value={selectedGeographicArea}
+                            onchange={handleGeographicAreaChange}
+                            aria-describedby="area-help">
+                        </lightning-combobox>
+                        <div id="area-help" class="slds-assistive-text">
+                            Filter resources by geographic service area
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Clear Filters Button -->
+            <div class="slds-text-align_center slds-m-bottom_medium">
+                <lightning-button
+                    variant="neutral"
+                    label="Clear All Filters"
+                    onclick={handleClearFilters}
+                    icon-name="utility:clear"
+                    class="clear-filters-btn">
+                </lightning-button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-p-around_medium" role="status" aria-live="polite">
+                    <lightning-spinner alternative-text="Loading veteran resources..." size="medium"></lightning-spinner>
+                    <p class="slds-m-top_small">Loading veteran resources...</p>
+                </div>
+            </template>
+
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-box slds-theme_error slds-m-bottom_medium" role="alert">
+                    <h3 class="slds-text-heading_small">⚠️ Error Loading Resources</h3>
+                    <p class="slds-text-body_regular">{error}</p>
+                </div>
+            </template>
+
+            <!-- Results Section -->
+            <template if:true={hasResults}>
+                <div class="results-section" role="region" aria-label="Search Results">
+                    <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+                        📋 Available Resources ({searchResults.length})
+                    </h2>
+
+                    <!-- Resource Cards Grid -->
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <template for:each={searchResults} for:item="resource">
+                            <div key={resource.Id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_medium">
+
+                                <!-- Resource Card -->
+                                <article class="slds-card resource-card" role="article">
+                                    <div class="slds-card__header">
+                                        <h3 class="slds-card__header-title slds-text-heading_small">
+                                            <button
+                                                class="slds-button slds-button_reset resource-title-btn"
+                                                data-resource-id={resource.Id}
+                                                onclick={handleResourceSelect}
+                                                aria-describedby={resource.Id}>
+                                                {resource.Title}
+                                            </button>
+                                        </h3>
+                                    </div>
+
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <!-- Summary -->
+                                        <template if:true={resource.Summary}>
+                                            <p class="slds-text-body_small slds-m-bottom_small">
+                                                {resource.Summary}
+                                            </p>
+                                        </template>
+
+                                        <!-- Service Category -->
+                                        <template if:true={resource.Service_Type__c}>
+                                            <div class="slds-m-bottom_x-small">
+                                                <lightning-badge label={resource.Service_Type__c} variant="slds-theme_info"></lightning-badge>
+                                            </div>
+                                        </template>
+
+                                        <!-- Geographic Area -->
+                                        <template if:true={resource.Geographic_Service_Area__c}>
+                                            <p class="slds-text-body_small slds-text-color_weak">
+                                                📍 Service Area: {resource.Geographic_Service_Area__c}
+                                            </p>
+                                        </template>
+
+                                        <!-- Rating Display -->
+                                        <template if:true={resource.Rating_Score__c}>
+                                            <div class="slds-m-top_small rating-display">
+                                                <span class="slds-text-body_small">
+                                                    ⭐ {resource.Rating_Score__c}/5.0
+                                                </span>
+                                                <template if:true={resource.Review_Count__c}>
+                                                    <span class="slds-text-body_small slds-text-color_weak">
+                                                        ({resource.Review_Count__c} reviews)
+                                                    </span>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                    <div class="slds-card__footer">
+                                        <lightning-button
+                                            variant="brand"
+                                            label="View Details"
+                                            data-resource-id={resource.Id}
+                                            onclick={handleResourceSelect}
+                                            size="small"
+                                            class="view-details-btn">
+                                        </lightning-button>
+                                    </div>
+                                </article>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- No Results Message -->
+            <template if:false={hasResults}>
+                <template if:false={isLoading}>
+                    <div class="slds-text-align_center slds-p-around_large" role="status">
+                        <div class="slds-illustration slds-illustration_small">
+                            <h3 class="slds-text-heading_medium">🔍 No Resources Found</h3>
+                            <p class="slds-text-body_regular slds-m-top_small">
+                                Try adjusting your search criteria or clearing filters to see more results.
+                            </p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+
+        <!-- Resource Details Modal -->
+        <template if:true={showResourceDetails}>
+            <section role="dialog" aria-modal="true" aria-labelledby="modal-heading" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+
+                    <!-- Modal Header -->
+                    <header class="slds-modal__header">
+                        <h1 id="modal-heading" class="slds-modal__title slds-hyphenate">
+                            {selectedResource.Title}
+                        </h1>
+                        <lightning-button-icon
+                            icon-name="utility:close"
+                            onclick={handleCloseDetails}
+                            alternative-text="Close Resource Details"
+                            title="Close"
+                            variant="bare-inverse"
+                            size="large"
+                            class="slds-modal__close">
+                        </lightning-button-icon>
+                    </header>
+
+                    <!-- Modal Body -->
+                    <div class="slds-modal__content slds-p-around_medium">
+
+                        <!-- Detailed Resource Information -->
+                        <div class="slds-grid slds-gutters slds-wrap">
+
+                            <!-- Main Information -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+
+                                <!-- Summary -->
+                                <template if:true={selectedResource.Summary}>
+                                    <div class="slds-m-bottom_medium">
+                                        <h3 class="slds-text-heading_small slds-m-bottom_small">📝 Description</h3>
+                                        <p class="slds-text-body_regular">{selectedResource.Summary}</p>
+                                    </div>
+                                </template>
+
+                                <!-- Eligibility Requirements -->
+                                <template if:true={selectedResource.Eligibility_Requirements__c}>
+                                    <div class="slds-m-bottom_medium">
+                                        <h3 class="slds-text-heading_small slds-m-bottom_small">✅ Eligibility Requirements</h3>
+                                        <p class="slds-text-body_regular">{selectedResource.Eligibility_Requirements__c}</p>
+                                    </div>
+                                </template>
+
+                                <!-- Service Category -->
+                                <template if:true={selectedResource.Service_Type__c}>
+                                    <div class="slds-m-bottom_medium">
+                                        <h3 class="slds-text-heading_small slds-m-bottom_small">🏷️ Service Category</h3>
+                                        <lightning-badge label={selectedResource.Service_Type__c} variant="inverse"></lightning-badge>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                <div class="slds-box slds-theme_shade">
+                                    <h3 class="slds-text-heading_small slds-m-bottom_medium">📞 Contact Information</h3>
+
+                                    <!-- Website -->
+                                    <template if:true={selectedResource.Website_URL__c}>
+                                        <div class="slds-m-bottom_small">
+                                            <a href={selectedResource.Website_URL__c} target="_blank" rel="noopener noreferrer"
+                                               class="slds-text-link">
+                                                🌐 Visit Website
+                                            </a>
+                                        </div>
+                                    </template>
+
+                                    <!-- Phone -->
+                                    <template if:true={selectedResource.Phone_Number__c}>
+                                        <div class="slds-m-bottom_small">
+                                            <a href={phoneLink} class="slds-text-link">
+                                                📞 {selectedResource.Phone_Number__c}
+                                            </a>
+                                        </div>
+                                    </template>
+
+                                    <!-- Email -->
+                                    <template if:true={selectedResource.Email_Address__c}>
+                                        <div class="slds-m-bottom_small">
+                                            <a href={emailLink} class="slds-text-link">
+                                                ✉️ {selectedResource.Email_Address__c}
+                                            </a>
+                                        </div>
+                                    </template>
+
+                                    <!-- Geographic Area -->
+                                    <template if:true={selectedResource.Geographic_Service_Area__c}>
+                                        <div class="slds-m-bottom_small">
+                                            <strong>📍 Service Area:</strong><br>
+                                            {selectedResource.Geographic_Service_Area__c}
+                                        </div>
+                                    </template>
+                                </div>
+
+                                <!-- Ratings Section -->
+                                <template if:true={selectedResource.ratings}>
+                                    <div class="slds-box slds-theme_info slds-m-top_medium">
+                                        <h3 class="slds-text-heading_small slds-m-bottom_small">⭐ Community Ratings</h3>
+                                        <p class="slds-text-body_regular">
+                                            Average: {selectedResource.ratings.averageRating}/5.0
+                                        </p>
+                                        <p class="slds-text-body_small slds-text-color_weak">
+                                            Based on {selectedResource.ratings.totalVotes} reviews
+                                        </p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Review Form -->
+                        <template if:true={showReviewForm}>
+                            <div class="slds-box slds-theme_default slds-m-top_medium">
+                                <h3 class="slds-text-heading_small slds-m-bottom_medium">✍️ Submit Review</h3>
+
+                                <!-- Rating Selection -->
+                                <div class="slds-m-bottom_medium">
+                                    <lightning-combobox
+                                        label="Your Rating"
+                                        options={ratingOptions}
+                                        value={selectedRating}
+                                        onchange={handleRatingChange}
+                                        required>
+                                    </lightning-combobox>
+                                </div>
+
+                                <!-- Review Text -->
+                                <div class="slds-m-bottom_medium">
+                                    <lightning-textarea
+                                        label="Review Comments (Optional)"
+                                        placeholder="Share your experience with this resource..."
+                                        value={reviewText}
+                                        onchange={handleReviewTextChange}
+                                        max-length="500">
+                                    </lightning-textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <lightning-button
+                                    variant="brand"
+                                    label="Submit Review"
+                                    onclick={handleSubmitReview}
+                                    disabled={isLoading}>
+                                </lightning-button>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <footer class="slds-modal__footer">
+                        <template if:false={showReviewForm}>
+                            <lightning-button
+                                variant="neutral"
+                                label="Write Review"
+                                onclick={handleOpenReviewForm}
+                                icon-name="utility:edit">
+                            </lightning-button>
+                        </template>
+
+                        <lightning-button
+                            variant="brand"
+                            label="Close"
+                            onclick={handleCloseDetails}>
+                        </lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        <!-- Emergency Support Access (Always Visible) -->
+        <div class="emergency-support slds-box slds-theme_error slds-text-align_center slds-m-top_medium" role="region" aria-label="Emergency Support">
+            <h3 class="slds-text-heading_small slds-m-bottom_small">🆘 Need Immediate Help?</h3>
+            <div class="slds-grid slds-gutters emergency-links">
+                <div class="slds-col slds-size_1-of-2">
+                    <a href="tel:988" class="slds-button slds-button_destructive emergency-btn" role="button">
+                        📞 988 Crisis Lifeline
+                    </a>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <a href="tel:18002738255" class="slds-button slds-button_destructive emergency-btn" role="button">
+                        📞 Veterans Crisis Line
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

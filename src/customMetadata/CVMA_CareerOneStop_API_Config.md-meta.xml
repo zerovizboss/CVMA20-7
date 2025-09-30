@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <description>Configuration settings for CareerOneStop Military Skills Translation API integration including endpoints, authentication, rate limiting, and feature flags</description>
+    <label>CVMA CareerOneStop API Configuration</label>
+    <pluralLabel>CVMA CareerOneStop API Configurations</pluralLabel>
+    <visibility>Public</visibility>
+    <customFields>
+        <fullName>API_Endpoint_URL__c</fullName>
+        <dataType>Url</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>API Endpoint URL</label>
+        <required>true</required>
+    </customFields>
+    <customFields>
+        <fullName>API_Version__c</fullName>
+        <dataType>Text</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>API Version</label>
+        <length>50</length>
+        <required>true</required>
+    </customFields>
+    <customFields>
+        <fullName>API_Key_Name__c</fullName>
+        <dataType>Text</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>API Key Name</label>
+        <length>255</length>
+        <required>false</required>
+    </customFields>
+    <customFields>
+        <fullName>User_ID__c</fullName>
+        <dataType>Text</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>User ID</label>
+        <length>100</length>
+        <required>true</required>
+    </customFields>
+    <customFields>
+        <fullName>Is_Active__c</fullName>
+        <dataType>Checkbox</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Is Active</label>
+        <defaultValue>false</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Max_Retry_Attempts__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Max Retry Attempts</label>
+        <precision>2</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>3</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Timeout_Seconds__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Timeout Seconds</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>30</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Rate_Limit_Per_Hour__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Rate Limit Per Hour</label>
+        <precision>5</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>1000</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Rate_Limit_Per_Minute__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Rate Limit Per Minute</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>50</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Environment__c</fullName>
+        <dataType>Picklist</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Environment</label>
+        <required>true</required>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <value>
+                    <fullName>Production</fullName>
+                    <label>Production</label>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Sandbox</fullName>
+                    <label>Sandbox</label>
+                    <default>true</default>
+                </value>
+                <value>
+                    <fullName>Development</fullName>
+                    <label>Development</label>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </customFields>
+    <customFields>
+        <fullName>Cache_TTL_Minutes__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Cache TTL Minutes</label>
+        <precision>4</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>1440</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Use_Mock_API__c</fullName>
+        <dataType>Checkbox</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Use Mock API</label>
+        <defaultValue>true</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Enable_Caching__c</fullName>
+        <dataType>Checkbox</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Enable Caching</label>
+        <defaultValue>true</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Enable_Rate_Limiting__c</fullName>
+        <dataType>Checkbox</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Enable Rate Limiting</label>
+        <defaultValue>true</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Enable_Analytics__c</fullName>
+        <dataType>Checkbox</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Enable Analytics</label>
+        <defaultValue>true</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Health_Check_Endpoint__c</fullName>
+        <dataType>Text</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Health Check Endpoint</label>
+        <length>500</length>
+        <required>false</required>
+    </customFields>
+    <customFields>
+        <fullName>Circuit_Breaker_Threshold__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Circuit Breaker Threshold</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>5</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Circuit_Breaker_Reset_Minutes__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Circuit Breaker Reset Minutes</label>
+        <precision>3</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>15</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>SLA_Response_Time_MS__c</fullName>
+        <dataType>Number</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>SLA Response Time MS</label>
+        <precision>6</precision>
+        <scale>0</scale>
+        <required>false</required>
+        <defaultValue>3000</defaultValue>
+    </customFields>
+    <customFields>
+        <fullName>Military_Branch_Support__c</fullName>
+        <dataType>LongTextArea</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Military Branch Support</label>
+        <length>1000</length>
+        <required>false</required>
+        <visibleLines>3</visibleLines>
+    </customFields>
+    <customFields>
+        <fullName>API_Description__c</fullName>
+        <dataType>LongTextArea</dataType>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>API Description</label>
+        <length>32768</length>
+        <required>false</required>
+        <visibleLines>5</visibleLines>
+    </customFields>
+</CustomMetadata>

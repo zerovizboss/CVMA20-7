@@ -35,6 +35,7 @@
         <members>StdExceptionTemplate</members>
         <members>Unauthorized</members>
         <members>UnderConstruction</members>
+        <members>CVMADocumentPDFGenerator</members>
         <name>ApexPage</name>
     </types>
     <types>
@@ -52,6 +53,7 @@
         <members>Lodash</members>
         <members>Momentjs</members>
         <members>SweetAlert2</members>
+        <members>cvmaMilitaryAwardsCSS</members>
         <name>StaticResource</name>
     </types>
     <types>
@@ -2204,6 +2206,8 @@
         <members>CVMA_Announcement__c</members>
         <members>CVMA_Message__c</members>
         <members>CVMA_Communication_Event__e</members>
+        <members>CVMA_VA_API_Keys__c</members>
+        <members>CVMA_CareerOneStop_API_Keys__c</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -3081,6 +3085,16 @@
         <members>CVMA_Application_Config.Mobile_Update_Profile</members>
         <members>CVMA_Application_Config.Mobile_View_Events</members>
         <members>CVMA_Application_Config.Epic_8_Analytics_Integration</members>
+        <members>CVMA_VA_API_Config</members>
+        <members>CVMA_VA_API_Config.VA_Address_Validation</members>
+        <members>CVMA_VA_API_Config.VA_Facilities_API</members>
+        <members>CVMA_VA_API_Config.VA_Forms_API</members>
+        <members>CVMA_VA_API_Config.VA_Veterans_Verification</members>
+        <members>CVMA_CareerOneStop_API_Config</members>
+        <members>CVMA_CareerOneStop_API_Config.Job_Listings</members>
+        <members>CVMA_CareerOneStop_API_Config.Occupation_Details</members>
+        <members>CVMA_CareerOneStop_API_Config.Skills_Matcher</members>
+        <members>CVMA_CareerOneStop_API_Config.Veterans_Job_Matcher</members>
         <name>CustomMetadata</name>
     </types>
     <types>

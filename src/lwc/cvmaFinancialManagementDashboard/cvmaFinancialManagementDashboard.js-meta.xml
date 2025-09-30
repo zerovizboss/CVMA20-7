@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="userId" type="String" label="User ID" description="Current user ID for financial access validation"/>
+            <property name="dashboardMode" type="String" label="Dashboard Mode" description="Dashboard display mode: enhanced, basic, readonly"/>
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property name="userId" type="String" label="User ID" description="Current user ID for financial access validation"/>
+            <property name="dashboardMode" type="String" label="Dashboard Mode" description="Dashboard display mode: enhanced, basic, readonly"/>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
+            <property name="userId" type="String" label="User ID" description="Current user ID for financial access validation"/>
+            <property name="dashboardMode" type="String" label="Dashboard Mode" description="Dashboard display mode: enhanced, basic, readonly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

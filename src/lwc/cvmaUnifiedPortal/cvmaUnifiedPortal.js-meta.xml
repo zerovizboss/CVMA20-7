@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>CVMA Unified Portal - Single-site architecture consolidating all Experience Cloud functionality with military awards branding</description>
+    <masterLabel>CVMA Unified Portal</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property name="portalMode" type="String" label="Portal Mode" description="Portal display mode: unified, officer, member, guest" default="unified"/>
+            <property name="enableCrisisSupport" type="Boolean" label="Enable Crisis Support" description="Display crisis support section prominently" default="false"/>
+            <property name="showQuickActions" type="Boolean" label="Show Quick Actions" description="Display quick action buttons for common tasks" default="false"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

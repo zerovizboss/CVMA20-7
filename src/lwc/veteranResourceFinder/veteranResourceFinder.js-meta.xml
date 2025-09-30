@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page_Layout</target>
+        <target>lightningSnapin__ChatMessage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default,lightningCommunity__Page">
+            <property name="title" type="String" default="Veteran Resources Finder"
+                     description="Title displayed above the component"/>
+            <property name="maxResults" type="Integer" default="20" min="5" max="100"
+                     description="Maximum number of organizations to display"/>
+            <property name="showStateFilter" type="Boolean" default="true"
+                     description="Show state/region filter option"/>
+            <property name="defaultCategory" type="String" default="All"
+                     description="Default service category to display"/>
+            <property name="memberContext" type="Boolean" default="true"
+                     description="Use member profile for personalized recommendations"/>
+            <property name="guestAccess" type="Boolean" default="true"
+                     description="Enable access for guest users and non-members"/>
+            <property name="requireAuthentication" type="Boolean" default="false"
+                     description="Require member authentication for full features"/>
+        </targetConfig>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="relatedToMember" type="Boolean" default="false"
+                     description="Filter resources based on current member record"/>
+        </targetConfig>
+    </targetConfigs>
+    <masterLabel>Veteran Resource Finder</masterLabel>
+    <description>Advanced searchable directory of veteran service organizations with eligibility checking and personalized recommendations for CVMA members.</description>
+</LightningComponentBundle>

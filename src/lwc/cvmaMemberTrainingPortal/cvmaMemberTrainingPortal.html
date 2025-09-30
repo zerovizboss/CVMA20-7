@@ -1,0 +1,131 @@
+<template>
+    <div class="member-training-portal">
+        <!-- Portal Header -->
+        <div class="portal-header">
+            <lightning-icon icon-name="standard:trailhead" size="medium" class="portal-icon"></lightning-icon>
+            <div class="header-content">
+                <h1 class="portal-title">Member Training Portal</h1>
+                <p class="portal-description">Self-service learning paths for CVMA Chapter 20-7 members</p>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-section">
+            <lightning-input
+                type="search"
+                placeholder="Search training content..."
+                value={searchTerm}
+                onchange={handleSearch}
+                class="training-search">
+            </lightning-input>
+        </div>
+
+        <!-- Learning Paths Section -->
+        <template if:false={hasSelectedPath}>
+            <div class="learning-paths-section">
+                <div class="section-header">
+                    <h2>Choose Your Learning Path</h2>
+                    <p>Progressive learning paths designed for your success</p>
+                </div>
+
+                <div class="paths-grid">
+                    <template for:each={memberLearningPaths} for:item="path">
+                        <div key={path.id}
+                             class="path-card"
+                             data-path-id={path.id}
+                             onclick={handlePathSelect}>
+                            <div class={path.color}>
+                                <lightning-icon icon-name={path.icon} size="large" class="path-icon"></lightning-icon>
+                            </div>
+                            <div class="path-content">
+                                <h3 class="path-title">{path.title}</h3>
+                                <p class="path-description">{path.description}</p>
+                                <div class="path-meta">
+                                    <lightning-badge label={path.level} class="level-badge"></lightning-badge>
+                                    <span class="estimated-time">{path.estimatedTime}</span>
+                                </div>
+                                <div class="path-steps">
+                                    <span class="steps-count">{path.steps.length} steps</span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Quick Help Section -->
+            <div class="quick-help-section">
+                <div class="section-header">
+                    <h2>Quick Help</h2>
+                    <p>Get immediate assistance with common tasks</p>
+                </div>
+
+                <div class="quick-help-grid">
+                    <template for:each={quickHelpTopics} for:item="topic">
+                        <div key={topic.id}
+                             class="help-card"
+                             data-help-id={topic.id}
+                             onclick={handleQuickHelp}>
+                            <lightning-icon icon-name={topic.icon} size="medium" class="help-icon"></lightning-icon>
+                            <div class="help-content">
+                                <h4 class="help-title">{topic.title}</h4>
+                                <p class="help-description">{topic.description}</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- Active Learning Path View -->
+        <template if:true={hasSelectedPath}>
+            <div class="active-path-section">
+                <div class="path-navigation">
+                    <lightning-button
+                        label="← Back to Paths"
+                        variant="neutral"
+                        onclick={handleBackToPaths}
+                        class="back-button">
+                    </lightning-button>
+                    <div class="path-info">
+                        <h2 class="active-path-title">{selectedPathData.title}</h2>
+                        <lightning-progress-bar value={progressPercentage} size="medium"></lightning-progress-bar>
+                        <span class="progress-text">{progressPercentage}% Complete</span>
+                    </div>
+                </div>
+
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title">Step {currentStepNumber}: {currentStepTitle}</h3>
+                    </div>
+
+                    <div class="step-body">
+                        <!-- Step content would be dynamically loaded here -->
+                        <div class="step-placeholder">
+                            <lightning-icon icon-name="standard:knowledge" size="large"></lightning-icon>
+                            <p>Step content for "{currentStepTitle}" would be displayed here.</p>
+                            <p>This includes interactive guides, videos, and practice exercises.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-navigation">
+                        <lightning-button
+                            label="← Previous"
+                            variant="neutral"
+                            disabled={isFirstStep}
+                            data-direction="previous"
+                            onclick={handleStepProgress}>
+                        </lightning-button>
+                        <lightning-button
+                            label="Next →"
+                            variant="brand"
+                            disabled={isLastStep}
+                            data-direction="next"
+                            onclick={handleStepProgress}>
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

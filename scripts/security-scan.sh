@@ -25,9 +25,18 @@ for file in $APEX_FILES; do
     
     # Check for WITH SECURITY_ENFORCED in SOQL queries (skip test files)
     if [ -z "$IS_TEST_FILE" ]; then
-        # Find SOQL queries without WITH SECURITY_ENFORCED
-        if grep -n "SELECT.*FROM" "$file" | grep -v "WITH SECURITY_ENFORCED" | grep -v "//" | grep -v "\*" > /dev/null; then
-            SECURITY_VIOLATIONS+="$file: SOQL query without WITH SECURITY_ENFORCED\n"
+        # Find SOQL queries and check if WITH SECURITY_ENFORCED exists in the same context
+        # Use awk to check for WITH SECURITY_ENFORCED within 10 lines after SELECT
+        if grep -n "SELECT.*FROM" "$file" | grep -v "//" | grep -v "\*" > /dev/null; then
+            # For each SELECT found, check if WITH SECURITY_ENFORCED follows within reasonable range
+            QUERY_LINES=$(grep -n "SELECT.*FROM" "$file" | grep -v "//" | grep -v "\*" | cut -d: -f1)
+            for line_num in $QUERY_LINES; do
+                # Check 10 lines after the SELECT for WITH SECURITY_ENFORCED
+                END_LINE=$((line_num + 10))
+                if ! sed -n "${line_num},${END_LINE}p" "$file" | grep -q "WITH SECURITY_ENFORCED"; then
+                    SECURITY_VIOLATIONS+="$file: SOQL query at line $line_num without WITH SECURITY_ENFORCED\n"
+                fi
+            done
         fi
     fi
     

@@ -1,0 +1,32 @@
+{
+  "appPageId" : "veteran-applications-page-id",
+  "componentName" : "cvmaVeteranApplicationAssistance",
+  "configurationTags" : [ ],
+  "dataProviders" : [ ],
+  "devName" : "VeteranApplicationsView",
+  "id" : "veteran-applications-main-view",
+  "label" : "Application Assistance Portal",
+  "regions" : [
+    {
+      "components" : [
+        {
+          "componentAttributes" : {
+            "assistanceMode" : "guided",
+            "showTracking" : true,
+            "enableForms" : true,
+            "showEligibility" : true
+          },
+          "componentName" : "cvmaVeteranApplicationAssistance",
+          "id" : "veteran-applications-assistance-component",
+          "regionName" : "content",
+          "type" : "component"
+        }
+      ],
+      "id" : "content-region",
+      "regionName" : "content",
+      "type" : "region"
+    }
+  ],
+  "type" : "view",
+  "viewType" : "form"
+}

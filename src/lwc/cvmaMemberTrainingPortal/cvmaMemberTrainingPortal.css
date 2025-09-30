@@ -1,0 +1,351 @@
+/* Member Training Portal Styles */
+.member-training-portal {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Portal Header */
+.portal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #1565C0 0%, #2196F3 100%);
+    border-radius: 8px;
+    color: white;
+}
+
+.portal-icon {
+    margin-right: 1rem;
+    color: white;
+}
+
+.header-content {
+    flex: 1;
+}
+
+.portal-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.portal-description {
+    font-size: 1.125rem;
+    margin: 0.5rem 0 0 0;
+    opacity: 0.9;
+}
+
+/* Search Section */
+.search-section {
+    margin-bottom: 2rem;
+}
+
+.training-search {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Learning Paths Section */
+.learning-paths-section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: #1976D2;
+}
+
+.section-header p {
+    color: #666;
+    margin: 0;
+}
+
+.paths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.path-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.path-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #1976D2;
+}
+
+.path-icon {
+    margin-bottom: 1rem;
+}
+
+.path-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.path-description {
+    color: #666;
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+}
+
+.path-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.level-badge {
+    font-size: 0.75rem;
+}
+
+.estimated-time {
+    color: #888;
+    font-size: 0.875rem;
+}
+
+.path-steps {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 0.5rem;
+    margin-top: 1rem;
+}
+
+.steps-count {
+    color: #1976D2;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+/* Quick Help Section */
+.quick-help-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.quick-help-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.help-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.help-card:hover {
+    background: #f0f7ff;
+    border-color: #1976D2;
+}
+
+.help-icon {
+    margin-right: 1rem;
+    color: #1976D2;
+}
+
+.help-content {
+    flex: 1;
+}
+
+.help-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: #333;
+}
+
+.help-description {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Active Path Section */
+.active-path-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+}
+
+.path-navigation {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.back-button {
+    flex-shrink: 0;
+}
+
+.path-info {
+    flex: 1;
+}
+
+.active-path-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: #1976D2;
+}
+
+.progress-text {
+    margin-left: 1rem;
+    font-weight: 500;
+    color: #1976D2;
+}
+
+.step-content {
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.step-header {
+    margin-bottom: 2rem;
+}
+
+.step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+}
+
+.step-body {
+    margin-bottom: 2rem;
+}
+
+.step-placeholder {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #666;
+}
+
+.step-placeholder lightning-icon {
+    margin-bottom: 1rem;
+    color: #1976D2;
+}
+
+.step-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Color Variants */
+.success {
+    color: #4CAF50;
+}
+
+.brand {
+    color: #1976D2;
+}
+
+.warning {
+    color: #FF9800;
+}
+
+.info {
+    color: #2196F3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .member-training-portal {
+        padding: 0.5rem;
+    }
+
+    .portal-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .portal-icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .paths-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .path-navigation {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .quick-help-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .help-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .help-icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Accessibility */
+.path-card:focus,
+.help-card:focus {
+    outline: 2px solid #1976D2;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .portal-header {
+        background: #000;
+        color: #fff;
+    }
+
+    .path-card,
+    .help-card {
+        border-width: 2px;
+    }
+}

@@ -1,0 +1,104 @@
+<template>
+    <!-- CVMA Crisis Support - SLDS Compliant Design -->
+    <article class="slds-card cvma-crisis-support-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-custom-custom57" title="Crisis Support">
+                        <lightning-icon icon-name="utility:heart" alternative-text="Crisis Support" size="medium"></lightning-icon>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small cvma-crisis-title">🚨 {cardTitle}</span>
+                    </h2>
+                    <p class="slds-text-body_small cvma-crisis-subtitle">24/7 Professional Support Available</p>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Emergency Banner -->
+            <div class="slds-notify slds-notify_alert slds-theme_info cvma-emergency-banner" role="alert">
+                <h3 class="slds-text-heading_small">You Are Not Alone</h3>
+                <p>Professional, confidential support is available immediately. Choose your preferred contact method:</p>
+            </div>
+
+            <!-- Crisis Support Options Grid -->
+            <div class="slds-grid slds-wrap slds-gutters_medium cvma-crisis-grid">
+
+                <!-- Phone Support -->
+                <div if:true={showPhoneNumbers} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="slds-box slds-theme_shade cvma-support-option">
+                        <lightning-icon icon-name="utility:phone_portrait" size="small" class="cvma-option-icon"></lightning-icon>
+                        <h4 class="slds-text-heading_small">Call Crisis Line</h4>
+                        <p class="slds-text-body_small">Immediate phone support</p>
+                        <button
+                            class="slds-button cvma-btn-purple-heart cvma-crisis-button"
+                            onclick={handleCrisisLineCall}
+                            title="Call Veterans Crisis Line">
+                            📞 1-800-273-8255
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Text Support -->
+                <div if:true={showTextSupport} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="slds-box slds-theme_shade cvma-support-option">
+                        <lightning-icon icon-name="utility:sms" size="small" class="cvma-option-icon"></lightning-icon>
+                        <h4 class="slds-text-heading_small">Text Support</h4>
+                        <p class="slds-text-body_small">Private text conversation</p>
+                        <button
+                            class="slds-button cvma-btn-combat-action cvma-crisis-button"
+                            onclick={handleCrisisLineText}
+                            title="Text Veterans Crisis Line">
+                            📱 Text: 838255
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Support -->
+                <div if:true={showChatSupport} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="slds-box slds-theme_shade cvma-support-option">
+                        <lightning-icon icon-name="utility:chat" size="small" class="cvma-option-icon"></lightning-icon>
+                        <h4 class="slds-text-heading_small">Online Chat</h4>
+                        <p class="slds-text-body_small">Secure web chat</p>
+                        <button
+                            class="slds-button cvma-btn-bronze-star cvma-crisis-button"
+                            onclick={handleCrisisChat}
+                            title="Open Veterans Crisis Line Chat">
+                            💬 Start Chat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chapter Emergency Contact -->
+                <div if:true={showChapterContact} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="slds-box slds-theme_shade cvma-support-option">
+                        <lightning-icon icon-name="utility:groups" size="small" class="cvma-option-icon"></lightning-icon>
+                        <h4 class="slds-text-heading_small">Chapter Support</h4>
+                        <p class="slds-text-body_small">Local CVMA assistance</p>
+                        <button
+                            class="slds-button cvma-btn-national-defense cvma-crisis-button"
+                            onclick={handleChapterEmergency}
+                            title="Contact Chapter Emergency Support">
+                            🏍️ Chapter Help
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Message -->
+            <div class="slds-notify slds-notify_toast slds-theme_success cvma-support-message">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="utility:success" size="small" alternative-text="Support"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <p><strong>Professional Support:</strong> All services are confidential and staffed by trained professionals who understand veteran experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</template>
