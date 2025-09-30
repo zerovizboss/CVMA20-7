@@ -22,7 +22,12 @@
       "Bash(ggshield secret scan:*)",
       "Bash(sf project deploy start:*)",
       "Read(//c/Users/zerov/OneDrive/Documents/CVMA/Documentation/Forms/**)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Read(//c/Users/zerov/OneDrive/Documents/CVMA/**)",
+      "Bash(grep:*)",
+      "Bash(gh issue close:*)",
+      "Bash(gh issue comment:*)",
+      "Bash(git rebase:*)"
     ],
     "deny": [],
     "ask": []

@@ -28,6 +28,10 @@
         <apexClass>CVMAEinsteinAnalyticsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>CVMANPSPFinancialController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
 
     <!-- Field Permissions -->
     <fieldPermissions>

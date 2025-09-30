@@ -222,6 +222,141 @@ Before each session:
 
 ---
 
+## 📁 **COMPREHENSIVE CVMA FOLDER STRUCTURE**
+
+### **Primary Location:**
+`C:\Users\zerov\OneDrive\Documents\CVMA\` - Complete organizational archive
+
+### **📋 Organizational Structure:**
+
+#### **CEB (Chapter Executive Board)**
+- `Draft 6 Sept 25 Mtg Agenda.docx` - Meeting agendas and CEB governance
+
+#### **Documentation/** - Core Governance & Policy Library
+- **Auxiliary/**: CVMA Auxiliary member governance and policies
+  - `Auxiliary-Bylaws-REVISION-A.pdf` - Auxiliary governance structure
+  - `Auxiliary-Chapter-Policy-REV-A-Approved.pdf` - Chapter liaison policies
+  - `CVMAAuxiliaryPolicy-Apparel-1-20-2025.pdf` - Apparel regulations
+  - `CVMAForm500-AUXChapterRequestFormFINAL.pdf` - Chapter formation process
+  - `SOP-Auxiliary-State-Representative-Voting-Procedures-3-15-2025.pdf` - Voting protocols
+
+- **Bylaws/**: Complete CVMA National and Chapter Bylaws (Established in Registry)
+  - National Bylaws Revision V + All Appendices (A-E)
+  - Chapter Bylaws Templates and FL-20-7 specific documentation
+
+- **Forms/**: Official CVMA administrative forms (20+ forms catalogued)
+  - Disciplinary forms (400-410 series)
+  - Membership and administrative processing forms
+
+- **License Use/**: Legal and licensing documentation
+- **Policy/**: Organizational policies and procedures
+- **Protocol/**: Operational protocols and guidelines
+- **SOP/**: Standard Operating Procedures for chapter operations
+
+#### **Events/** - Chapter event documentation and planning
+- Event coordination materials and historical records
+
+#### **Key Management/** - Chapter security and access management
+- Administrative access control and security protocols
+
+#### **Lucky 7 Members/** - Chapter 20-7 specific member documentation
+- Member records and chapter-specific materials
+
+#### **Media/** - Visual and multimedia assets
+- **CVMA photos for website/**: Professional chapter photography
+  - Event documentation (Baseball games, escort services, trips)
+  - Member photography and chapter activities
+  - Historical photo archive organized by date (202208__, 202212_a)
+
+#### **Secretary/** - Chapter secretarial records and documentation
+- Meeting minutes, correspondence, and administrative records
+
+#### **Tressurer/** - Financial records and reporting (Established in Registry)
+- Monthly treasurer reports (Jan-Aug 2025)
+- Financial transparency documentation
+
+### **🎯 Additional CVMA Root Files:**
+- `ChapterBylawTemplate-8-2-2024.docx` - Official chapter bylaws template
+- `19FEB2025_Renew Plan _ JaxHost Website Hosting Control Panel.pdf` - Website management
+- `1741050772_1_quilt-of-valor-9-march-2025.docx` - Community service documentation
+- `2024-LRRP-Packet-uploaded-01-15-2025.pdf` - Long Range Reconnaissance Patrol documentation
+
+### **📚 Salesforce Integration Points:**
+- **CEB Governance**: Role-based permissions aligned with documented CEB structure
+- **Forms Repository**: 20+ CVMA forms available for automated workflows
+- **Media Assets**: Professional photography for Experience Cloud branding
+- **Financial Records**: Treasurer reports integrated into NPSP framework
+- **Policy Documentation**: Bylaws compliance validation rules and workflows
+- **Member Management**: Comprehensive member classification and access control
+
+### **🔍 Development Reference Usage:**
+- **Epic Planning**: Use Documentation/ for compliance requirements
+- **User Stories**: Reference Forms/ for workflow automation opportunities
+- **Branding**: Leverage Media/ for authentic CVMA visual identity
+- **Security**: Apply Key Management/ protocols to Salesforce access control
+- **Governance**: Align all features with Bylaws/ requirements and CEB authority structure
+
+---
+
+## 💰 **CVMA TREASURER'S REPORTS REPOSITORY**
+
+### **Report Archive Location:**
+`C:\Users\zerov\OneDrive\Documents\CVMA\Tressurer\` (Note: Legacy spelling maintained)
+
+### **Available Reports (2025):**
+- **January 2025**: JANUARY2025 TREASURERS REPORT.docx
+- **March 2025**: MARCH 2025 TREASURERS REPORT.docx
+- **May 2025**: may-2025-treasurers-report-revised.docx
+- **June 2025**: june-2025-treasurers-report.docx
+- **July 2025**: July 2025 Treasurer.zip (archived)
+- **August 2025**: august-2025-treasurers-report.docx
+
+### **Standard CVMA Treasurer Report Structure:**
+Based on CVMA Chapter 20-7 governance and National Bylaws Article XIV.03.d (Treasurer responsibilities):
+
+**Financial Position Summary:**
+- Beginning Balance (month start)
+- Total Income (donations, dues, fundraising)
+- Total Expenses (operations, events, charity)
+- Ending Balance (month end)
+- Net Change for period
+
+**Income Categories:**
+- Member Dues Collection
+- Fundraising Events (rides, merchandise)
+- Donations (general fund, specific causes)
+- Interest/Investment Income
+- Miscellaneous Revenue
+
+**Expense Categories:**
+- Operations (insurance, supplies, communications)
+- Events (ride expenses, meetings, social)
+- Charity Distributions (CVMA charity missions)
+- Administrative (banking fees, software, office)
+- Emergency Fund Allocations
+
+**Member Financial Status:**
+- Dues Current Count
+- Dues Outstanding Report
+- New Member Processing Fees
+- Transfer/Reinstatement Fees
+
+**Compliance Requirements:**
+- Monthly reconciliation statements
+- Audit trail documentation
+- Receipt retention requirements
+- Annual budget vs. actual reporting
+
+### **Salesforce Integration Requirements:**
+- **Accessibility**: All CVMA members except guests
+- **Location 1**: Treasurer's Corner page (Experience Cloud)
+- **Location 2**: Internal dashboard for authorized users
+- **Data Source**: NPSP financial framework
+- **Format**: Standard CVMA report formatting with charts/graphs
+- **Permissions**: Role-based access (Treasurer full edit, Members read-only)
+
+---
+
 ## 🏍️ **CVMA BYLAWS INTEGRATION PATTERNS**
 
 ### **Organizational Structure (Established September 30, 2025)**
