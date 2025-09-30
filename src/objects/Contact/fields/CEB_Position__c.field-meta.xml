@@ -45,6 +45,21 @@
                 <default>false</default>
                 <label>Sergeant at Arms</label>
             </value>
+            <value>
+                <fullName>Public Relations Officer</fullName>
+                <default>false</default>
+                <label>Public Relations Officer</label>
+            </value>
+            <value>
+                <fullName>Quartermaster</fullName>
+                <default>false</default>
+                <label>Quartermaster</label>
+            </value>
+            <value>
+                <fullName>Webmaster</fullName>
+                <default>false</default>
+                <label>Webmaster</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

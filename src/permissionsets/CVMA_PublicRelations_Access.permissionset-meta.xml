@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>CVMA Bylaws-Based Secretary Access - Meeting documentation and member communications</description>
-    <label>CVMA Secretary Access</label>
+    <description>CVMA Bylaws-Based Public Relations Officer Access - Communications, publicity, and external relations</description>
+    <label>CVMA Public Relations Access</label>
     <hasActivationRequired>false</hasActivationRequired>
 
     <!-- Object Permissions -->
@@ -35,6 +35,16 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
 
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Campaign</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+
     <!-- Apex Class Access -->
     <classAccesses>
         <apexClass>CVMAMemberAuthenticationController</apexClass>
@@ -49,10 +59,23 @@
         <enabled>true</enabled>
     </classAccesses>
 
-    <!-- Field Permissions - Secretary documentation access -->
+    <!-- Field Permissions - Public Relations access -->
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.Level__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <!-- Disciplinary Authority Fields (Appendix C Section 11.a.i) -->
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Administrative_Hold_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Investigation_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
 
@@ -87,17 +110,11 @@
         <visibility>Available</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Campaign</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Knowledge__kav</tab>
         <visibility>Available</visibility>
     </tabSettings>
-
-    <!-- User Permissions -->
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>CreateCustomizeApplication</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ManageKnowledge</name>
-    </userPermissions>
 </PermissionSet>

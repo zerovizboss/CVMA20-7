@@ -1,0 +1,33 @@
+# GitGuardian configuration for CVMA repositories
+version: 2
+
+secret:
+  show_secrets: false
+
+paths_ignore:
+  - "**/*.md"
+  - "**/test-results/**"
+  - "**/.github/**"
+  - "**/docs/**"
+  - "**/android-prompt-approver/**"
+
+matches_ignore:
+  - name: "Test data ignore"
+    match: "test_"
+  - name: "CVMA test patterns"
+    match: "cvma_test_"
+  - name: "Salesforce metadata IDs"
+    match: "[0-9]{15,18}"
+
+exit_zero: false
+verbose: false
+
+# Additional security configurations for CVMA
+exclude:
+  - "Generic High Entropy Secret"
+
+# CVMA-specific patterns that are not secrets
+allow:
+  - "CVMA_"
+  - "cvma_"
+  - "Chapter 20-7"

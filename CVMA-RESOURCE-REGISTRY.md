@@ -34,6 +34,38 @@
   - Running joke about "weathering the development storms" and keeping our heading
   - Reference to not getting lost in the "storm" of constant context re-establishment
 
+### **4. CVMA Bylaws Integration**
+- **National Bylaws**: `C:\Users\zerov\OneDrive\Documents\CVMA\Documentation\Bylaws\CVMA-National-Bylaws---Revision-V---Signed.pdf`
+- **Chapter 20-7 Bylaws**: `C:\Users\zerov\OneDrive\Documents\CVMA\Documentation\Bylaws\FL-20-7-Bylaws-221227.pdf`
+- **Revision Summary**: `C:\Users\zerov\OneDrive\Documents\CVMA\Documentation\Bylaws\CVMA-National-Bylaws---Change-Revision-Summary--10August2025-.pdf`
+- **Discipline Policy**: `C:\Users\zerov\OneDrive\Documents\CVMA\Documentation\Bylaws\CVMA-Bylaws-Appendix-C-Discipline-2023.pdf`
+- **Analysis Document**: `docs/Technical/Epic-Documentation/CVMA-BYLAWS-INTEGRATION-ANALYSIS.md`
+- **Epic Tracking**: GitHub Issue #63 - Epic: CVMA Bylaws Compliance and CEB Role-Based Access Control
+- **Implementation Status**: Phase 1+ Complete - Enhanced with disciplinary system integration
+- **Compliance Achievement**: Article XIV.03.b + Revision V Section 3.01(d) + Appendix C disciplinary authority
+
+### **5. CVMA Forms Repository**
+- **Location**: `C:\Users\zerov\OneDrive\Documents\CVMA\Documentation\Forms\`
+- **Critical Disciplinary Forms** (Referenced in Appendix C):
+  - **CVMA Form 400**: Investigation Decision Form
+  - **CVMA Form 401**: Chapter Request for State Level Investigation
+  - **CVMA Form 402**: State Investigative Committee Written Outline
+  - **CVMA Form 403**: Sworn Statement (Blank)
+  - **CVMA Form 404**: Administrative Hold Memorandum Template
+  - **CVMA Form 410**: Counseling Form
+- **Membership Forms**:
+  - **CVMA Form 100**: Membership Application
+  - **CVMA Form 101**: Patch Agreement
+  - **CVMA Form 102**: Life Membership Application
+  - **CVMA Form 103**: General Application Addendum
+- **Administrative Forms**:
+  - **CVMA Form 201**: Chapter Relocation Request
+  - **CVMA Form 202**: Benevolent Fund Request
+  - **CVMA Form 204**: Medical Exemption Request
+  - **CVMA Form 308**: License Use Violation Report
+  - **CVMA Form 500**: Auxiliary Chapter Request Form
+- **Integration Pattern**: Forms integrate with Salesforce via CVMADocumentSharingController
+
 ---
 
 ## 🎯 **AUTONOMOUS DEVELOPMENT PROTOCOLS**

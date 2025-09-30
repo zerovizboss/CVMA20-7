@@ -11,7 +11,18 @@
       "Bash(gh issue create:*)",
       "Bash(gh label:*)",
       "Bash(gh issue list:*)",
-      "Read(//c/Users/zerov/OneDrive/Documents/CVMA/Documentation/Bylaws/**)"
+      "Read(//c/Users/zerov/OneDrive/Documents/CVMA/Documentation/Bylaws/**)",
+      "Bash(gh project view:*)",
+      "Bash(gh issue view:*)",
+      "Bash(pip install:*)",
+      "Bash(ggshield auth:*)",
+      "Bash(ggshield config:*)",
+      "Bash(git config:*)",
+      "Bash(ggshield install:*)",
+      "Bash(ggshield secret scan:*)",
+      "Bash(sf project deploy start:*)",
+      "Read(//c/Users/zerov/OneDrive/Documents/CVMA/Documentation/Forms/**)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

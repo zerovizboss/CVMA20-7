@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Investigation_Status__c</fullName>
+    <description>Tracks investigation status per CVMA Appendix C Discipline Policy. Used by CEB members with investigative authority to manage disciplinary proceedings.</description>
+    <label>Investigation Status</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Inquiry Phase</fullName>
+                <default>false</default>
+                <label>Inquiry Phase</label>
+            </value>
+            <value>
+                <fullName>Chapter Investigation (CIC)</fullName>
+                <default>false</default>
+                <label>Chapter Investigation (CIC)</label>
+            </value>
+            <value>
+                <fullName>State Investigation (SIC)</fullName>
+                <default>false</default>
+                <label>State Investigation (SIC)</label>
+            </value>
+            <value>
+                <fullName>Regional Investigation (RIC)</fullName>
+                <default>false</default>
+                <label>Regional Investigation (RIC)</label>
+            </value>
+            <value>
+                <fullName>National Investigation (NIC)</fullName>
+                <default>false</default>
+                <label>National Investigation (NIC)</label>
+            </value>
+            <value>
+                <fullName>Investigation Complete</fullName>
+                <default>false</default>
+                <label>Investigation Complete</label>
+            </value>
+            <value>
+                <fullName>Appeal Process</fullName>
+                <default>false</default>
+                <label>Appeal Process</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

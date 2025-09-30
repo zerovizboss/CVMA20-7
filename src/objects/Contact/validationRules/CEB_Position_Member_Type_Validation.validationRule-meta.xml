@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEB_Position_Member_Type_Validation</fullName>
+    <active>true</active>
+    <description>Enforce CVMA Bylaws Article XIV.03.b requirement: Only Full Members can hold CEB positions. Support and Auxiliary members cannot hold executive positions.</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(TEXT(CEB_Position__c))),
+    OR(
+        NOT(ISPICKVAL(Level__c, 'Full Member')),
+        ISPICKVAL(Level__c, 'Medically Exempt Life Member')
+    )
+)</errorConditionFormula>
+    <errorDisplayField>CEB_Position__c</errorDisplayField>
+    <errorMessage>CVMA Bylaws Violation: Only Full Members (combat veterans) can hold Chapter Executive Board positions. Support Members, Auxiliary Members, and Medically Exempt Life Members are not eligible for CEB positions per National Bylaws Article XIV.03.b and Revision V Section 3.01(d).</errorMessage>
+</ValidationRule>

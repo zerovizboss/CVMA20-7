@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>CVMA Bylaws-Based Secretary Access - Meeting documentation and member communications</description>
-    <label>CVMA Secretary Access</label>
+    <description>CVMA Bylaws-Based Quartermaster Access - Equipment, merchandise, and inventory management</description>
+    <label>CVMA Quartermaster Access</label>
     <hasActivationRequired>false</hasActivationRequired>
 
     <!-- Object Permissions -->
@@ -21,7 +21,17 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Knowledge__kav</object>
+        <object>Product2</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>PricebookEntry</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
 
@@ -40,16 +50,8 @@
         <apexClass>CVMAMemberAuthenticationController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>CVMAAnnouncementController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CVMAEventManagementController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
 
-    <!-- Field Permissions - Secretary documentation access -->
+    <!-- Field Permissions - Quartermaster inventory access -->
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.Level__c</field>
@@ -81,23 +83,36 @@
         <readable>true</readable>
     </fieldPermissions>
 
+    <!-- Product Management Fields -->
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.Name</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.IsActive</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
     <!-- Tab Permissions -->
     <tabSettings>
         <tab>Contact</tab>
         <visibility>Available</visibility>
     </tabSettings>
     <tabSettings>
-        <tab>Knowledge__kav</tab>
+        <tab>Product2</tab>
         <visibility>Available</visibility>
     </tabSettings>
-
-    <!-- User Permissions -->
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>CreateCustomizeApplication</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ManageKnowledge</name>
-    </userPermissions>
+    <tabSettings>
+        <tab>PricebookEntry</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
 </PermissionSet>

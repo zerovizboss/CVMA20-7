@@ -117,13 +117,30 @@ Chapter Members
 - **Required**: Region → State → Chapter hierarchy
 - **Implementation**: New lookup relationships and sharing rules
 
+## 🚨 CRITICAL COMPLIANCE UPDATES (September 30, 2025)
+
+### **Revision V (June 2024) Critical Changes Implemented**
+- **Article 3.01(d)**: Medically Exempt Life Members cannot hold command positions
+- **Validation Rule Enhanced**: CEB_Position_Member_Type_Validation now excludes Medical Exempt members
+- **Impact**: Prevents Bylaws violation for members with medical exemptions
+
+### **Appendix C Discipline Integration (CRITICAL)**
+- **Section 11.a.i**: Public Relations Officer has investigative committee authority
+- **New Fields Created**:
+  - `Administrative_Hold_Status__c`: Tracks disciplinary status per Appendix C
+  - `Investigation_Status__c`: Tracks investigation phases (CIC, SIC, RIC, NIC)
+- **Permission Enhancement**: CVMA_PublicRelations_Access includes disciplinary authority
+- **Forms Integration**: 6 CVMA disciplinary forms (400-410) available in Forms repository
+
 ## Technical Implementation Roadmap
 
-### Phase 1: Immediate Compliance Updates (Priority: HIGH)
-1. Update `CEB_Position__c` picklist values
-2. Create missing permission sets (Public Relations, Quartermaster)
-3. Implement member type validation rules
-4. Update existing permission sets with additional permissions
+### Phase 1: Immediate Compliance Updates (Priority: HIGH) ✅ COMPLETE
+1. ✅ Update `CEB_Position__c` picklist values (Public Relations Officer, Quartermaster, Webmaster)
+2. ✅ Create missing permission sets (Public Relations, Quartermaster)
+3. ✅ Implement member type validation rules (Enhanced with Medical Exempt exclusion)
+4. ✅ Update existing permission sets with additional permissions
+5. ✅ Create disciplinary tracking fields (Administrative Hold, Investigation Status)
+6. ✅ Enhance Public Relations permission set with investigative authority
 
 ### Phase 2: Enhanced Compliance Features (Priority: MEDIUM)
 1. Implement Region/State hierarchy data model
