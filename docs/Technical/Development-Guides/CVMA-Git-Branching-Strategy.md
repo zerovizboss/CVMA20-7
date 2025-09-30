@@ -229,7 +229,7 @@ git checkout -b hotfix/{issue-description}
 
 ### Key Metrics
 - **Cycle Time**: Time from user story start to epic merge
-- **Merge Rate**: Successful merges vs total attempts  
+- **Merge Rate**: Successful merges vs total attempts
 - **Review Time**: Time for PR review and approval
 - **Deployment Success**: Successful vs failed deployments
 

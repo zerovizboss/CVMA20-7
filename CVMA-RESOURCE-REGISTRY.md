@@ -190,6 +190,51 @@ Before each session:
 
 ---
 
+## 🏍️ **CVMA BYLAWS INTEGRATION PATTERNS**
+
+### **Organizational Structure (Established September 30, 2025)**
+Based on OneDrive Bylaws documentation and existing Salesforce implementation:
+
+**Chapter Executive Board (CEB) Roles:**
+- **Commander (CO)**: Full administrative access, Contact modification permissions
+- **Executive Officer (XO)**: Deputy leadership, event management access
+- **Secretary**: Documentation, Knowledge Articles, meeting minutes access
+- **Treasurer**: NPSP financial dashboards, payment management, GAU access
+- **Road Captain**: Event management, safety protocols, ride coordination
+- **Chaplain**: Crisis support access, member assistance protocols
+- **Sergeant at Arms**: Meeting management, member discipline coordination
+
+**Membership Levels (Enhanced):**
+- **Full Member**: Voting rights, CEB eligibility, full site access
+- **Associate Member**: Limited voting, benefits access, restricted admin
+- **Auxiliary Member**: Support role access, family member benefits
+- **Prospect**: Evaluation phase access, limited functionality
+- **Honorary Member**: Recognition status, read-only privileges
+
+### **Permission Set Architecture:**
+```
+CVMA_Commander_Access.permissionset-meta.xml: Full administrative permissions
+CVMA_Treasurer_Access.permissionset-meta.xml: NPSP financial management
+CVMA_Secretary_Access.permissionset-meta.xml: Documentation and communications
+Epic8_Premium_Member_Access.permissionset-meta.xml: Full Member benefits
+Epic8_Basic_Member_Access.permissionset-meta.xml: Associate/Auxiliary access
+```
+
+### **Custom Fields for CEB Management:**
+```
+Contact.CEB_Position__c: Picklist of CEB roles per Bylaws
+Contact.CEB_Term_Start__c: Term start date tracking
+Contact.CEB_Term_End__c: Term end date for elections
+```
+
+### **Bylaws Documentation Access:**
+- **OneDrive Location**: `C:\Users\zerov\OneDrive\Documents\CVMA\ChapterBylawTemplate-8-2-2024.docx`
+- **PDF Generation**: CVMADocumentSharingController integration for member access
+- **Knowledge Articles**: Bylaws sections published for site access
+- **CEB Documentation**: Secretary role maintains meeting minutes and chapter records
+
+---
+
 ## 🚀 **NEXT SESSION INITIALIZATION COMMAND**
 
 ```bash

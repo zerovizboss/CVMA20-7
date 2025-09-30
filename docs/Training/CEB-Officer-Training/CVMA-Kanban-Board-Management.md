@@ -4,7 +4,7 @@
 This document outlines the process for maintaining the GitHub project kanban board for the CVMA Salesforce project. It ensures that project status accurately reflects actual development progress and testing completion.
 
 ## GitHub Project Details
-- **Project Name**: "CVMA 20-7 Experience Builder Enhancements" 
+- **Project Name**: "CVMA 20-7 Experience Builder Enhancements"
 - **Project URL**: https://github.com/users/zerovizboss/projects/5
 - **Repository**: https://github.com/zerovizboss/CVMA20-7
 - **Timeline**: Aug 04, 2025 - Jan 05, 2026
@@ -25,7 +25,7 @@ This document outlines the process for maintaining the GitHub project kanban boa
 
 #### 3. Dev Ready
 - **Purpose**: User stories ready for active development
-- **Criteria**: 
+- **Criteria**:
   - Sprint assigned
   - Acceptance criteria defined
   - Dependencies resolved
@@ -34,7 +34,7 @@ This document outlines the process for maintaining the GitHub project kanban boa
 
 #### 4. In Progress
 - **Purpose**: Active development work
-- **Criteria**: 
+- **Criteria**:
   - Developer actively working on implementation
   - Feature branch created from appropriate epic branch
   - Regular commits being made
@@ -42,7 +42,7 @@ This document outlines the process for maintaining the GitHub project kanban boa
 
 #### 5. Review
 - **Purpose**: Code review and testing phase
-- **Criteria**: 
+- **Criteria**:
   - Pull request created to epic branch
   - Apex tests passing
   - Code review completed
@@ -51,7 +51,7 @@ This document outlines the process for maintaining the GitHub project kanban boa
 
 #### 6. Done
 - **Purpose**: Completed and verified user stories
-- **Criteria**: 
+- **Criteria**:
   - Code merged to epic branch
   - Tests passing with adequate coverage
   - Feature validated in Salesforce org
@@ -72,7 +72,7 @@ Following the CVMA Git Branching Strategy:
 #### Move to "In Progress"
 - **Trigger**: Developer starts work on user story
 - **Git Action**: Feature branch created
-- **Command**: 
+- **Command**:
 ```bash
 gh issue edit {issue-number} --add-label "in-progress" --repo zerovizboss/CVMA20-7
 ```
@@ -121,7 +121,7 @@ unzip -o gh.zip
 # Add labels
 ./bin/gh.exe issue edit {issue-number} --add-label "in-progress" --repo zerovizboss/CVMA20-7
 
-# Remove labels  
+# Remove labels
 ./bin/gh.exe issue edit {issue-number} --remove-label "dev-ready" --repo zerovizboss/CVMA20-7
 
 # Close with comment
@@ -164,7 +164,7 @@ name: Update Kanban Board
 on:
   pull_request:
     types: [opened, closed]
-  
+
 jobs:
   update-board:
     runs-on: ubuntu-latest
@@ -172,7 +172,7 @@ jobs:
       - name: Move to Review on PR Open
         if: github.event.action == 'opened'
         run: gh issue edit ${{ github.event.pull_request.number }} --add-label "review"
-        
+
       - name: Move to Done on PR Merge
         if: github.event.pull_request.merged == true
         run: gh issue close ${{ github.event.pull_request.number }} --comment "Merged to epic branch"
@@ -213,7 +213,7 @@ jobs:
 
 ### Stale Issues in "In Progress"
 **Problem**: Issues stuck in progress column
-**Solution**: 
+**Solution**:
 1. Check last commit date on feature branch
 2. Contact assigned developer for status update
 3. Move back to "Dev Ready" if work paused

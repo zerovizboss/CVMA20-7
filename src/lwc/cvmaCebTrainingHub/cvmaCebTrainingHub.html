@@ -28,35 +28,32 @@
                 </header>
             </div>
             <div class="slds-card__body slds-card__body_inner">
-                <div class="slds-grid slds-gutters slds-wrap">
-                    <div class="slds-col slds-size_1-of-3">
+                <div class="cvma-military-grid">
+                    <div class="cvma-military-button-container">
                         <lightning-button
-                            variant="brand-outline"
                             label="Daily Checklist"
                             icon-name="standard:task"
                             data-action="daily-checklist"
                             onclick={handleQuickAction}
-                            class="slds-size_1-of-1">
+                            class="cvma-btn-bronze-star">
                         </lightning-button>
                     </div>
-                    <div class="slds-col slds-size_1-of-3">
+                    <div class="cvma-military-button-container">
                         <lightning-button
-                            variant="destructive-text"
                             label="Emergency Procedures"
                             icon-name="standard:priority"
                             data-action="emergency-procedures"
                             onclick={handleQuickAction}
-                            class="slds-size_1-of-1">
+                            class="cvma-btn-purple-heart">
                         </lightning-button>
                     </div>
-                    <div class="slds-col slds-size_1-of-3">
+                    <div class="cvma-military-button-container">
                         <lightning-button
-                            variant="success-text"
                             label="Member Support"
                             icon-name="standard:live_chat"
                             data-action="member-support"
                             onclick={handleQuickAction}
-                            class="slds-size_1-of-1">
+                            class="cvma-btn-officer-commendation">
                         </lightning-button>
                     </div>
                 </div>
@@ -244,11 +241,14 @@
                     Track your officer training completion and certification progress.
                 </p>
                 <div class="slds-m-top_small">
-                    <lightning-button
-                        variant="brand"
-                        label="View Progress Report"
-                        icon-name="standard:report">
-                    </lightning-button>
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            variant="brand"
+                            label="View Progress Report"
+                            icon-name="standard:report"
+                            class="cvma-btn-combat-action">
+                        </lightning-button>
+                    </div>
                 </div>
             </div>
         </div>

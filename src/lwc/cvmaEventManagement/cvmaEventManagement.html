@@ -2,22 +2,22 @@
     <lightning-card title="CVMA Event Management" icon-name="standard:event">
         <div class="slds-card__body slds-card__body_inner">
 
-            <!-- Action Buttons -->
-            <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
-                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+            <!-- Action Buttons with Military Awards Styling -->
+            <div class="cvma-military-grid slds-m-bottom_medium">
+                <div class="cvma-military-button-container">
                     <lightning-button
                         label="Create New Event"
+                        class="cvma-btn-combat-action"
                         variant="brand"
-                        onclick={openCreateModal}
-                        class="slds-m-right_small">
+                        onclick={openCreateModal}>
                     </lightning-button>
                 </div>
-                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                <div class="cvma-military-button-container">
                     <lightning-button
                         label="Refresh Events"
+                        class="cvma-btn-bronze-star"
                         variant="neutral"
-                        onclick={refreshEvents}
-                        class="slds-m-right_small">
+                        onclick={refreshEvents}>
                     </lightning-button>
                 </div>
             </div>

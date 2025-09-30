@@ -43,18 +43,15 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     position: relative;
-    overflow: hidden;
-    /* SLDS Button Constraints - Fixed Width Container */
-    width: 180px !important;
-    max-width: 180px !important;
+    /* SLDS Button Constraints - Natural Width */
+    min-width: 120px;
     min-height: 44px;
     padding: 8px 16px;
     font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
-    display: inline-block;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .cvma-btn-combat-action:hover {
@@ -63,28 +60,26 @@
     background-position: 0 -5px;
 }
 
-/* Purple Heart - Critical Actions - SLDS Compliant */
+/* Purple Heart - Critical Actions - High Contrast Fix */
 .cvma-btn-purple-heart {
     background: linear-gradient(45deg, #663399 0%, #ffffff 25%, #663399 50%, #ffffff 75%, #663399 100%);
     background-size: 20px 20px;
     border: 2px solid #4a1a4a;
     border-radius: 4px;
-    color: #ffffff;
+    color: #ffffff !important;
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
     box-shadow: 0 4px 8px rgba(102, 51, 153, 0.4);
     position: relative;
-    /* SLDS Button Constraints - Fixed Width Container */
-    width: 180px !important;
-    max-width: 180px !important;
+    /* SLDS Button Constraints - Natural Width */
+    min-width: 120px;
     min-height: 44px;
     padding: 8px 16px;
     font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
-    display: inline-block;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .cvma-btn-purple-heart:hover {
@@ -93,28 +88,26 @@
     box-shadow: 0 6px 12px rgba(102, 51, 153, 0.6);
 }
 
-/* Bronze Star - Achievement Actions */
+/* Bronze Star - Achievement Actions - High Contrast Fix */
 .cvma-btn-bronze-star {
     background: linear-gradient(135deg, #cd7f32 0%, #ffd700 50%, #cd7f32 100%);
     background-size: 100% 15px;
     background-repeat: repeat-y;
     border: 2px solid #8b4513;
     border-radius: 4px;
-    color: #1c1c1c;
+    color: #ffffff !important;
     font-weight: bold;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
     box-shadow: 0 4px 8px rgba(205, 127, 50, 0.4);
-    /* SLDS Button Constraints - Fixed Width Container */
-    width: 180px !important;
-    max-width: 180px !important;
+    /* SLDS Button Constraints - Natural Width */
+    min-width: 120px;
     min-height: 44px;
     padding: 8px 16px;
     font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
-    display: inline-block;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .cvma-btn-bronze-star:hover {
@@ -133,17 +126,15 @@
     font-weight: bold;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-    /* SLDS Button Constraints - Fixed Width Container */
-    width: 180px !important;
-    max-width: 180px !important;
+    /* SLDS Button Constraints - Natural Width */
+    min-width: 120px;
     min-height: 44px;
     padding: 8px 16px;
     font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
-    display: inline-block;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .cvma-btn-national-defense:hover {
@@ -161,17 +152,15 @@
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     box-shadow: 0 3px 6px rgba(34, 139, 34, 0.4);
-    /* SLDS Button Constraints - Fixed Width Container */
-    width: 180px !important;
-    max-width: 180px !important;
+    /* SLDS Button Constraints - Natural Width */
+    min-width: 120px;
     min-height: 44px;
     padding: 8px 16px;
     font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
-    display: inline-block;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .cvma-btn-gwot:hover {
@@ -212,17 +201,15 @@
     font-weight: bold;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
     box-shadow: 0 4px 8px rgba(34, 139, 34, 0.4);
-    /* SLDS Button Constraints - Fixed Width Container */
-    width: 180px !important;
-    max-width: 180px !important;
+    /* SLDS Button Constraints - Natural Width */
+    min-width: 120px;
     min-height: 44px;
     padding: 8px 16px;
     font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
-    display: inline-block;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .cvma-btn-officer-commendation:hover {
@@ -268,17 +255,15 @@
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     box-shadow: 0 4px 8px rgba(128, 0, 128, 0.4);
-    /* SLDS Button Constraints - Fixed Width Container */
-    width: 180px !important;
-    max-width: 180px !important;
+    /* SLDS Button Constraints - Natural Width */
+    min-width: 120px;
     min-height: 44px;
     padding: 8px 16px;
     font-size: 14px;
     line-height: 1.5;
     cursor: pointer;
-    display: inline-block;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .cvma-btn-meritorious-service:hover {
@@ -328,8 +313,7 @@
     .cvma-btn-gwot,
     .cvma-btn-officer-commendation,
     .cvma-btn-meritorious-service {
-        width: 160px !important;
-        max-width: 160px !important;
+        min-width: 100px;
         font-size: 13px;
         padding: 6px 12px;
     }

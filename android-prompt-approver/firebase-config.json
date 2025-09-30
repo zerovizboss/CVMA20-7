@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "169263470261",
+    "project_id": "claude-code-development",
+    "storage_bucket": "claude-code-development.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169263470261:android:e78636b8e5e8130b8050fc",
+        "android_client_info": {
+          "package_name": "android.prompt.approver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169263470261-sjk87vjft725f7f6l1fhadgultplav1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzpGhXlHFNVTBxO_Eo159EbH86a0y_55s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169263470261-sjk87vjft725f7f6l1fhadgultplav1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

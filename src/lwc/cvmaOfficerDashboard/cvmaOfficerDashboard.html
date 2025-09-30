@@ -49,29 +49,36 @@
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
+                <!-- Action Buttons with Military Awards Styling -->
                 <div class="slds-col slds-no-flex">
-                    <div class="slds-button-group" role="group">
-                        <lightning-button
-                            label="Refresh"
-                            icon-name="utility:refresh"
-                            onclick={handleRefresh}
-                            class="slds-m-right_x-small">
-                        </lightning-button>
-                        <lightning-button
-                            label="Export Members"
-                            icon-name="utility:download"
-                            onclick={handleExportMembers}
-                            disabled={isLoading}
-                            class="slds-m-right_x-small">
-                        </lightning-button>
-                        <lightning-button
-                            label="Send Reminders"
-                            icon-name="utility:email"
-                            variant="brand"
-                            onclick={handleSendReminders}
-                            disabled={isLoading}>
-                        </lightning-button>
+                    <div class="cvma-military-grid">
+                        <div class="cvma-military-button-container">
+                            <lightning-button
+                                label="Refresh"
+                                icon-name="utility:refresh"
+                                onclick={handleRefresh}
+                                class="cvma-btn-bronze-star">
+                            </lightning-button>
+                        </div>
+                        <div class="cvma-military-button-container">
+                            <lightning-button
+                                label="Export Members"
+                                icon-name="utility:download"
+                                onclick={handleExportMembers}
+                                disabled={isLoading}
+                                class="cvma-btn-officer-commendation">
+                            </lightning-button>
+                        </div>
+                        <div class="cvma-military-button-container">
+                            <lightning-button
+                                label="Send Reminders"
+                                icon-name="utility:email"
+                                variant="brand"
+                                onclick={handleSendReminders}
+                                disabled={isLoading}
+                                class="cvma-btn-combat-action">
+                            </lightning-button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -36,10 +36,7 @@ public with sharing class CVMAEventManagementController {
             List<Campaign> events = [
                 SELECT Id, Name, Description, StartDate, EndDate, Status, Type, IsActive,
                        NumberSent, NumberOfContacts, NumberOfResponses,
-                       (SELECT COUNT() FROM CVMA_Event_RSVPs__r WHERE Response__c = 'Yes') YesCount,
-                       (SELECT COUNT() FROM CVMA_Event_RSVPs__r WHERE Response__c = 'No') NoCount,
-                       (SELECT COUNT() FROM CVMA_Event_RSVPs__r WHERE Response__c = 'Maybe') MaybeCount,
-                       (SELECT COUNT() FROM CVMA_Event_RSVPs__r) TotalRSVPs
+                       (SELECT Id, Response__c FROM Event_RSVPs__r)
                 FROM Campaign
                 WHERE Type = 'CVMA Event'
                 AND IsActive = true
@@ -52,10 +49,28 @@ public with sharing class CVMAEventManagementController {
             for (Campaign event : events) {
                 EventWrapper wrapper = new EventWrapper();
                 wrapper.event = event;
-                wrapper.yesCount = (Integer)event.get('YesCount');
-                wrapper.noCount = (Integer)event.get('NoCount');
-                wrapper.maybeCount = (Integer)event.get('MaybeCount');
-                wrapper.totalRSVPs = (Integer)event.get('TotalRSVPs');
+
+                // Calculate RSVP counts manually from the child records
+                Integer yesCount = 0;
+                Integer noCount = 0;
+                Integer maybeCount = 0;
+
+                if (event.Event_RSVPs__r != null) {
+                    for (CVMA_Event_RSVP__c rsvp : event.Event_RSVPs__r) {
+                        if (rsvp.Response__c == 'Yes') {
+                            yesCount++;
+                        } else if (rsvp.Response__c == 'No') {
+                            noCount++;
+                        } else if (rsvp.Response__c == 'Maybe') {
+                            maybeCount++;
+                        }
+                    }
+                }
+
+                wrapper.yesCount = yesCount;
+                wrapper.noCount = noCount;
+                wrapper.maybeCount = maybeCount;
+                wrapper.totalRSVPs = yesCount + noCount + maybeCount;
                 wrapper.availableSpots = calculateAvailableSpots(event);
                 eventWrappers.add(wrapper);
             }
@@ -247,7 +262,7 @@ public with sharing class CVMAEventManagementController {
                        NumberSent, NumberOfContacts, NumberOfResponses,
                        (SELECT Id, Member__c, Member__r.Name, Response__c, RSVP_Date__c,
                                Plus_One__c, Plus_One_Name__c, Notes__c
-                        FROM CVMA_Event_RSVPs__r
+                        FROM Event_RSVPs__r
                         ORDER BY RSVP_Date__c DESC)
                 FROM Campaign
                 WHERE Id = :eventId
@@ -258,20 +273,20 @@ public with sharing class CVMAEventManagementController {
 
             EventWrapper wrapper = new EventWrapper();
             wrapper.event = event;
-            wrapper.rsvpList = event.CVMA_Event_RSVPs__r;
+            wrapper.rsvpList = event.Event_RSVPs__r;
 
             // Calculate RSVP counts
             wrapper.yesCount = 0;
             wrapper.noCount = 0;
             wrapper.maybeCount = 0;
 
-            for (CVMA_Event_RSVP__c rsvp : event.CVMA_Event_RSVPs__r) {
+            for (CVMA_Event_RSVP__c rsvp : event.Event_RSVPs__r) {
                 if (rsvp.Response__c == 'Yes') wrapper.yesCount++;
                 else if (rsvp.Response__c == 'No') wrapper.noCount++;
                 else if (rsvp.Response__c == 'Maybe') wrapper.maybeCount++;
             }
 
-            wrapper.totalRSVPs = event.CVMA_Event_RSVPs__r.size();
+            wrapper.totalRSVPs = event.Event_RSVPs__r.size();
             wrapper.availableSpots = calculateAvailableSpots(event);
 
             return wrapper;
@@ -400,8 +415,8 @@ public with sharing class CVMAEventManagementController {
         }
 
         Integer currentAttendees = 0;
-        if (event.getSObjects('CVMA_Event_RSVPs__r') != null) {
-            for (SObject rsvp : event.getSObjects('CVMA_Event_RSVPs__r')) {
+        if (event.getSObjects('Event_RSVPs__r') != null) {
+            for (SObject rsvp : event.getSObjects('Event_RSVPs__r')) {
                 if (((CVMA_Event_RSVP__c)rsvp).Response__c == 'Yes') {
                     currentAttendees++;
                     if (((CVMA_Event_RSVP__c)rsvp).Plus_One__c == true) {
@@ -511,9 +526,7 @@ public with sharing class CVMAEventManagementController {
 
             List<Campaign> events = [
                 SELECT Id, Name, Description, StartDate, EndDate, Status, Type,
-                       (SELECT COUNT() FROM CVMA_Event_RSVPs__r WHERE Response__c = 'Yes') YesCount,
-                       (SELECT COUNT() FROM CVMA_Event_RSVPs__r WHERE Response__c = 'Maybe') MaybeCount,
-                       (SELECT COUNT() FROM CVMA_Event_RSVPs__r) TotalRSVPs
+                       (SELECT Id, Response__c FROM Event_RSVPs__r)
                 FROM Campaign
                 WHERE Type = 'CVMA Event'
                 AND IsActive = true
@@ -528,9 +541,24 @@ public with sharing class CVMAEventManagementController {
             for (Campaign event : events) {
                 EventWrapper wrapper = new EventWrapper();
                 wrapper.event = event;
-                wrapper.yesCount = (Integer)event.get('YesCount');
-                wrapper.maybeCount = (Integer)event.get('MaybeCount');
-                wrapper.totalRSVPs = (Integer)event.get('TotalRSVPs');
+
+                // Calculate RSVP counts manually from the child records
+                Integer yesCount = 0;
+                Integer maybeCount = 0;
+
+                if (event.Event_RSVPs__r != null) {
+                    for (CVMA_Event_RSVP__c rsvp : event.Event_RSVPs__r) {
+                        if (rsvp.Response__c == 'Yes') {
+                            yesCount++;
+                        } else if (rsvp.Response__c == 'Maybe') {
+                            maybeCount++;
+                        }
+                    }
+                }
+
+                wrapper.yesCount = yesCount;
+                wrapper.maybeCount = maybeCount;
+                wrapper.totalRSVPs = event.Event_RSVPs__r != null ? event.Event_RSVPs__r.size() : 0;
                 wrapper.availableSpots = calculateAvailableSpots(event);
                 eventWrappers.add(wrapper);
             }

@@ -159,16 +159,16 @@ Each community has its own branding, navigation menus, and moderation rules conf
 
 ### Step 1: Project State Assessment (Always Execute First)
 ```bash
-# Read current project state from MEMORY.md (focus on latest session achievements)
-# Check NEXT-SESSION-*.md files for immediate priorities
+# Read current project state from docs/Technical/Epic-Documentation/MEMORY_CONTINUED.md (focus on latest session achievements)
+# Check docs/Technical/Epic-Documentation/NEXT-SESSION-*.md files for immediate priorities
 # Review git status for pending work
 # Identify current Epic progress and active user stories
 ```
 
 ### Step 2: Session Context Establishment
-1. **Read MEMORY.md latest entries** - Current Epic status, completed user stories, next priorities
-2. **Check NEXT-SESSION-PRIORITIES-*.md** - Ready-to-implement tasks with all prerequisites met
-3. **Review SESSION-*-ACHIEVEMENTS.md** - Previous session outcomes and technical decisions
+1. **Read docs/Technical/Epic-Documentation/MEMORY_CONTINUED.md latest entries** - Current Epic status, completed user stories, next priorities
+2. **Check docs/Technical/Epic-Documentation/NEXT-SESSION-PRIORITIES-*.md** - Ready-to-implement tasks with all prerequisites met
+3. **Review docs/Technical/Epic-Documentation/SESSION-*-ACHIEVEMENTS.md** - Previous session outcomes and technical decisions
 4. **Validate git status** - Understand pending changes and current branch context
 
 ### Step 3: Multi-Agent Coordination Protocol

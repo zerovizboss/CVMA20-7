@@ -55,7 +55,7 @@ Configure these status options:
 - **In Progress** - Items currently being worked on
 - **In Review** - Items under review/testing
 - **Done** - Completed items
-- **Blocked** - Items waiting on dependencies
+- **exBlocked** - Items waiting on dependencies
 
 ---
 

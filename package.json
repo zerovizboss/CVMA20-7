@@ -1,1 +1,37 @@
-{}
+{
+  "name": "cvma-claude-bridge",
+  "version": "1.0.0",
+  "description": "WebSocket bridge for CVMA Claude Code mobile integration with Motorola Moto G 2025",
+  "main": "claude_ws_bridge.js",
+  "scripts": {
+    "start": "node claude_ws_bridge.js",
+    "bridge": "node claude_ws_bridge.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cvma",
+    "claude-code",
+    "websocket",
+    "android",
+    "motorola",
+    "moto-g-2025",
+    "bridge",
+    "development"
+  ],
+  "author": "CVMA Chapter 20-7 Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.14.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerovizboss/CVMA20-7.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zerovizboss/CVMA20-7/issues"
+  },
+  "homepage": "https://github.com/zerovizboss/CVMA20-7#readme"
+}

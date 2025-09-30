@@ -48,3 +48,13 @@ Thumbs.db
 # Temporary Development Files
 temp/
 tmp/
+
+# Android Gradle Build Artifacts (IDE Integration Project)
+android-prompt-approver/.gradle/
+android-prompt-approver/build/
+android-prompt-approver/app/build/
+android-prompt-approver/local.properties
+gradle-8.0/
+gradle-8.0-bin.zip
+*.apk
+*.aab

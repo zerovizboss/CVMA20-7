@@ -24,27 +24,36 @@
                     <span class={serviceBranchBadge}>{serviceBranch}</span>
                 </template>
 
-                <!-- Action Buttons -->
-                <lightning-button-group>
-                    <lightning-button
-                        label="Emergency Support"
-                        variant="destructive"
-                        icon-name="standard:call"
-                        onclick={handleEmergencySupport}
-                    ></lightning-button>
-                    <lightning-button
-                        label="Get Help"
-                        variant="neutral"
-                        icon-name="standard:question"
-                        onclick={handleGetHelp}
-                    ></lightning-button>
-                    <lightning-button
-                        label="Refresh"
-                        variant="neutral"
-                        icon-name="utility:refresh"
-                        onclick={handleRefresh}
-                    ></lightning-button>
-                </lightning-button-group>
+                <!-- Action Buttons with Military Awards Styling -->
+                <div class="cvma-military-grid">
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            label="Emergency Support"
+                            class="cvma-btn-purple-heart"
+                            variant="destructive"
+                            icon-name="standard:call"
+                            onclick={handleEmergencySupport}>
+                        </lightning-button>
+                    </div>
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            label="Get Help"
+                            class="cvma-btn-national-defense"
+                            variant="neutral"
+                            icon-name="standard:question"
+                            onclick={handleGetHelp}>
+                        </lightning-button>
+                    </div>
+                    <div class="cvma-military-button-container">
+                        <lightning-button
+                            label="Refresh"
+                            class="cvma-btn-bronze-star"
+                            variant="neutral"
+                            icon-name="utility:refresh"
+                            onclick={handleRefresh}>
+                        </lightning-button>
+                    </div>
+                </div>
             </div>
         </div>
 

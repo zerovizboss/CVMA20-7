@@ -38,6 +38,56 @@
 - **Military Branding**: Awards & ribbons CSS integrated into component button design
 - **Content Strategy**: Knowledge Articles + ContentDocument hybrid for CVMA bylaws, SOPs, forms
 
+#### 🎯 **FRONT-END DEVELOPER PROTOCOL: EXPERIENCE CLOUD PAGE ARCHITECTURE**
+
+**CRITICAL**: Components should be **page-focused, not monolithic unified portals** per SLDS standards.
+
+**Site Page Structure & Component Mapping**:
+
+**HOME PAGE (Front & Center - Military Term)**:
+- `cvmaVeteranResourcesPortal` - Veterans Portal (primary focus)
+- `cvmaCrisisSupport` - Crisis support (always accessible)
+
+**Vets for Vets Rides**:
+- `cvmaEventManagement` - Event management
+- `cvmaEventRSVP`/`cvmaEventRSVPV2` - RSVP system
+- `cvmaLightningCalendar` - Calendar view
+- `cvmaEventAttendeeList` - Attendee management
+
+**Leather Wheels & Chains Donations**:
+- `cvmaEventManagement` - Campaign events setup
+- `cvmaBudgetManagement` - Fundraiser tracking
+
+**Lucky 7 CEB (Officers Only)**:
+- `cvmaOfficerDashboard` - Officer dashboard
+- `cvmaCebTrainingHub` - CEB training
+- `cvmaFinancialManagementDashboard` - Financial management
+- Role-based administrative record access
+
+**Support**:
+- `cvmaHelpCenterPortal` - Help center
+- `cvmaVeteranKnowledgeBase` - Knowledge base
+- `cvmaDocumentManager` - Document management
+- Guest and site user support cases
+
+**Save Our Grunts n Squids (SOGS)**:
+- `cvmaVAServicesIntegration` - VA services
+- `cvmaVeteranResourceFinder` - Resource finder
+- `cvmaAccessibleVeteranGuide` - Veteran guide
+- Secondary veteran services (CVMA Veterans Portal remains on Home)
+
+**SLDS Standards Reference**:
+- **SLDS2**: https://www.lightningdesignsystem.com/2e1ef8501/p/85bd85-lightning-design-system-2
+- **SLDS1**: https://v1.lightningdesignsystem.com/
+- **Button Standards**: Military awards styling must comply with SLDS button specifications
+- **Layout Standards**: Avoid accordion cramming - use appropriate page placement
+
+**Military Button Styling Requirements**:
+- No text wrapping on buttons
+- Military ribbon patterns must display without distortion
+- Follow SLDS button sizing specifications
+- Preserve CVMA military awards branding aesthetic
+
 ### 🤖 ENHANCED MULTI-AGENT COORDINATION WITH SDLC PROTOCOLS
 - **Strategic Agent (Claude)**: TodoWrite coordination → Epic planning → Architecture guidance
 - **Salesforce Deployment Manager**: Implementation execution → Testing → Quality validation
@@ -58,6 +108,28 @@ This file contains important context and information about the Combat Veterans M
 - **Mission**: Vets Serving Vets (CVMA Chapter 20-7, Jacksonville, FL)
 - **Current Phase**: Multi-Agent Architecture Implementation (September 2025 🚀)
 - **AI Integration**: Advanced Claude-Copilot agent orchestration with Unit of Work and Separation of Concerns patterns
+- **Developer Alias**: Zerovizboss/Detonator (Primary) + WX Claude/Storm Claude (AI Coordinator)
+- **Recursive Development Protocol**: Session startup includes context preservation and protocol implementation continuity
+
+## 🔄 **SESSION DISCOVERIES - September 28, 2025**
+
+### **Recursive Development Methodology - ESTABLISHED**
+- **Protocol**: Full-Duplex Communication with Human Oversight (not autonomous AI)
+- **Documentation Strategy**: Real-time knowledge compounding vs session-end batch updates
+- **Token Optimization**: 4.5-hour session budgets with 4-hour checkpoint planning
+- **Context Preservation**: Eliminate assumption corrections and context re-establishment
+
+### **Today's Technical Discoveries**
+1. **Android Integration Discovery**: Complete mobile app project exists (`android-prompt-approver/`)
+2. **Seed Data Constraint**: Storage limit requires execution strategy for `create-cvma-seed-data.apex`
+3. **Multi-Agent Protocol Enhancement**: GitHub Project Board + Salesforce deployment coordination
+4. **Session Usage Tracking**: Real-time token efficiency monitoring established
+
+### **September 28, 2025 - BREAKTHROUGH ACHIEVEMENTS**
+1. **Security Hook False Positive ELIMINATED**: Fixed `scripts/security-scan.sh` regex pattern permanently
+2. **Motorola Moto G 2025 Integration COMPLETE**: Full Node.js + Android + Claude Code workflow
+3. **Recursive Development Protocol OPERATIONAL**: Context preservation and session continuity confirmed
+4. **Mobile Development Stack DEPLOYED**: 583-line WebSocket bridge + optimized Android app ready
 
 ## Epic #6: Communication Hub - COMPLETED ✅ (September 16, 2025)
 
