@@ -1,0 +1,143 @@
+/* CVMA Unified Portal Component Styling */
+
+.unified-portal-container {
+    background-color: #f8f9fa;
+    padding: 1rem;
+}
+
+.portal-header {
+    background: linear-gradient(135deg, #1b5f9f 0%, #c41e3a 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.portal-header h1 {
+    color: white !important;
+    margin-bottom: 0.5rem;
+}
+
+.portal-section {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.portal-section:hover {
+    border-color: #1b5f9f;
+    box-shadow: 0 4px 12px rgba(27, 95, 159, 0.15);
+    transform: translateY(-2px);
+}
+
+.portal-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 100%;
+}
+
+.portal-card:hover {
+    border-color: #c41e3a;
+    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.15);
+    transform: translateY(-2px);
+}
+
+.portal-card:focus {
+    outline: 2px solid #1b5f9f;
+    outline-offset: 2px;
+}
+
+/* Military Awards and Ribbons Button Styling */
+.cvma-btn-combat-action {
+    background: linear-gradient(135deg, #c41e3a 0%, #ffffff 50%, #0033a0 100%);
+    color: #ffffff !important;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    border: 2px solid #1c1c1c;
+    border-radius: 4px;
+    padding: 12px 24px;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
+.cvma-btn-combat-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .unified-portal-container {
+        padding: 0.5rem;
+    }
+
+    .portal-header {
+        padding: 1rem;
+    }
+
+    .portal-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .slds-col.slds-size_1-of-2,
+    .slds-col.slds-size_1-of-3 {
+        width: 100% !important;
+    }
+
+    .portal-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+    .portal-section,
+    .portal-card,
+    .cvma-btn-combat-action {
+        transition: none;
+    }
+
+    .portal-section:hover,
+    .portal-card:hover,
+    .cvma-btn-combat-action:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .cvma-btn-combat-action {
+        border-width: 3px;
+        border-color: #000;
+    }
+
+    .portal-card,
+    .portal-section {
+        border-width: 2px;
+        border-color: #000;
+    }
+
+    .portal-card:hover,
+    .portal-section:hover {
+        border-color: #000;
+        background-color: #f0f0f0;
+    }
+
+    .portal-header {
+        background: #000;
+        color: #fff;
+    }
+}
+
+/* Focus indicators for accessibility */
+.portal-card:focus-within {
+    outline: 3px solid #1b5f9f;
+    outline-offset: 2px;
+}
