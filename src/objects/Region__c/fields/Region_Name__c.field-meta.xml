@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Region_Name__c</fullName>
+    <description>Official name of the CVMA Region per National Bylaws Article VII organizational structure</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the official CVMA Region name (e.g., "Northeast Region", "Southeast Region", "Midwest Region")</inlineHelpText>
+    <label>Region Name</label>
+    <length>100</length>
+    <required>true</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

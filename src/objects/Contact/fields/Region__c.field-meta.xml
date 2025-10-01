@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Region__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>CVMA Region assignment for this member per National Bylaws Article VII hierarchical structure. Typically inherited from State Organization.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This member's CVMA Region assignment, usually determined by their State Organization</inlineHelpText>
+    <label>CVMA Region</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Region__c.Active_Status__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <infoMessage>Only active Regions can be assigned to members</infoMessage>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Region__c</referenceTo>
+    <relationshipLabel>CVMA Members</relationshipLabel>
+    <relationshipName>CVMA_Members</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

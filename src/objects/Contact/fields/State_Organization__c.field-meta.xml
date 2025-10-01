@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_Organization__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>CVMA State Organization assignment for this member per National Bylaws Article VII chain of command structure</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This member's State Organization, which determines Region assignment and oversight hierarchy</inlineHelpText>
+    <label>State Organization</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>State_Organization__c.Active_Status__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <infoMessage>Only active State Organizations can be assigned to members</infoMessage>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>State_Organization__c</referenceTo>
+    <relationshipLabel>CVMA Members</relationshipLabel>
+    <relationshipName>CVMA_Members</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

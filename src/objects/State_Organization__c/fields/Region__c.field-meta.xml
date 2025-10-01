@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Region__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Parent CVMA Region for this State Organization per National Bylaws Article VII hierarchical structure</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the CVMA Region that oversees this State Organization</inlineHelpText>
+    <label>CVMA Region</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Region__c.Active_Status__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <infoMessage>Only active Regions can be assigned to State Organizations</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Region__c</referenceTo>
+    <relationshipLabel>State Organizations</relationshipLabel>
+    <relationshipName>State_Organizations</relationshipName>
+    <required>true</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

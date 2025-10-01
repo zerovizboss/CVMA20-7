@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_Abbreviation__c</fullName>
+    <description>Two-letter U.S. postal abbreviation for the state</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Enter the two-letter state abbreviation (e.g., "FL", "TX", "CA")</inlineHelpText>
+    <label>State Abbreviation</label>
+    <length>2</length>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

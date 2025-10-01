@@ -2208,6 +2208,8 @@
         <members>CVMA_Communication_Event__e</members>
         <members>CVMA_VA_API_Keys__c</members>
         <members>CVMA_CareerOneStop_API_Keys__c</members>
+        <members>Region__c</members>
+        <members>State_Organization__c</members>
         <name>CustomObject</name>
     </types>
     <types>

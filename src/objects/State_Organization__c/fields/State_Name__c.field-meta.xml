@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_Name__c</fullName>
+    <description>Full name of the U.S. state for this CVMA State Organization</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the full state name (e.g., "Florida", "Texas", "California")</inlineHelpText>
+    <label>State Name</label>
+    <length>50</length>
+    <required>true</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
