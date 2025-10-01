@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Election_Date__c</fullName>
+    <description>Date this member was last elected to their current CEB position per National Bylaws Article XIV.03.b election procedures</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Record the official election date when this member was elected to their current CEB position</inlineHelpText>
+    <label>Last Election Date</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

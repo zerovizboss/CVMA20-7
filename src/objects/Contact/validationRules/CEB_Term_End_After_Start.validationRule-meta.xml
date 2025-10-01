@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEB_Term_End_After_Start</fullName>
+    <active>true</active>
+    <description>Ensures CEB Term End Date is always after Term Start Date for valid term periods per National Bylaws Article XIV.03.b</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(CEB_Term_Start__c)),
+    NOT(ISBLANK(CEB_Term_End__c)),
+    CEB_Term_End__c &lt;= CEB_Term_Start__c
+)</errorConditionFormula>
+    <errorDisplayField>CEB_Term_End__c</errorDisplayField>
+    <errorMessage>CEB Term End Date must be after Term Start Date. Please verify the term dates are correct per National Bylaws election procedures.</errorMessage>
+</ValidationRule>

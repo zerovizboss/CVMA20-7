@@ -1,0 +1,49 @@
+CVMA Chapter Executive Board - CRITICAL: 30 Day Term Expiration Alert
+
+Dear {!Contact.FirstName} {!Contact.LastName},
+
+**CRITICAL GOVERNANCE ALERT**
+
+Your term as {!Contact.CEB_Position__c} expires in 30 days. This is the FINAL automated alert before term expiration.
+
+**CRITICAL INFORMATION:**
+Position: {!Contact.CEB_Position__c}
+Term End Date: {!Contact.CEB_Term_End__c}
+Election Due Date: {!Contact.Election_Due_Date__c}
+Days Remaining: 30
+
+**IMMEDIATE REQUIREMENTS:**
+Per CVMA National Bylaws Article XIV.03.b, the election for this position must be conducted IMMEDIATELY to prevent governance violations.
+
+If the election has already been scheduled or conducted:
+1. Chapter Secretary: Update Salesforce with election date
+2. Record new officer information and term dates
+3. Notify State Representative of election results
+
+If the election has NOT been scheduled:
+1. EMERGENCY ELECTION PROCEDURES MAY BE REQUIRED
+2. Contact State Representative immediately for guidance
+3. Conduct election at next available chapter meeting
+4. Ensure proper documentation and National Bylaws compliance
+
+**COMPLIANCE WARNING:**
+Operating with expired CEB terms without proper elections may trigger State or Regional oversight intervention per National Bylaws Article VII.03. The State Representative and Region Representative have been copied on this notification.
+
+**ESCALATION:**
+This alert has been escalated to:
+- Chapter Commander
+- Chapter Secretary
+- State Representative
+- Region Representative (if applicable)
+
+For immediate assistance with election procedures, contact your State Representative.
+
+Semper Fi,
+CVMA Chapter 20-7 Governance System
+
+---
+Combat Veterans Motorcycle Association
+Chapter 20-7 - Jacksonville, FL
+"Vets Serving Vets"
+
+This is a CRITICAL automated alert from the CVMA Salesforce governance system. Please do not reply to this email.

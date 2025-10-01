@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CRITICAL 30-day final alert for CEB term expiration with escalation to State and Regional Representatives</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CVMA CEB 30 Day Term Expiration CRITICAL</name>
+    <style>none</style>
+    <subject>CRITICAL: CVMA CEB Term Expires in 30 Days - IMMEDIATE ACTION REQUIRED</subject>
+    <textOnly>true</textOnly>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

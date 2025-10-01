@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Previous_CEB_Positions__c</fullName>
+    <description>Historical record of all CEB positions held by this member for term limit validation and succession planning per National Bylaws Article XIV.03.b</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Automatically tracks all previous CEB positions with dates served. Format: Position | Start Date - End Date (one per line)</inlineHelpText>
+    <label>Previous CEB Positions</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

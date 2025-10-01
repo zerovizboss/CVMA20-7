@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Term_Limit_Status__c</fullName>
+    <description>Tracks member's eligibility for CEB positions based on term limits and National Bylaws compliance requirements</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates if this member is eligible for CEB positions, term limited, or requires review per National Bylaws</inlineHelpText>
+    <label>Term Limit Status</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Eligible</fullName>
+                <default>true</default>
+                <label>Eligible</label>
+            </value>
+            <value>
+                <fullName>Currently Serving</fullName>
+                <default>false</default>
+                <label>Currently Serving</label>
+            </value>
+            <value>
+                <fullName>Term Limited</fullName>
+                <default>false</default>
+                <label>Term Limited</label>
+            </value>
+            <value>
+                <fullName>Review Required</fullName>
+                <default>false</default>
+                <label>Review Required</label>
+            </value>
+            <value>
+                <fullName>Ineligible</fullName>
+                <default>false</default>
+                <label>Ineligible</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

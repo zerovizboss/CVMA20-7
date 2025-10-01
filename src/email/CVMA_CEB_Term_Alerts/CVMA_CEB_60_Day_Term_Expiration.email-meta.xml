@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>60-day urgent reminder for CEB term expiration requiring immediate election scheduling per National Bylaws</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CVMA CEB 60 Day Term Expiration</name>
+    <style>none</style>
+    <subject>URGENT: CVMA CEB Election Required - 60 Days: {!Contact.CEB_Position__c}</subject>
+    <textOnly>true</textOnly>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

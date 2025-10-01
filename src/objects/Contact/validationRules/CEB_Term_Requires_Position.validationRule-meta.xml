@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEB_Term_Requires_Position</fullName>
+    <active>true</active>
+    <description>Ensures term dates can only be set when a CEB Position is assigned, preventing orphaned term tracking</description>
+    <errorConditionFormula>AND(
+    ISBLANK(TEXT(CEB_Position__c)),
+    OR(
+        NOT(ISBLANK(CEB_Term_Start__c)),
+        NOT(ISBLANK(CEB_Term_End__c)),
+        NOT(ISBLANK(Last_Election_Date__c))
+    )
+)</errorConditionFormula>
+    <errorDisplayField>CEB_Position__c</errorDisplayField>
+    <errorMessage>Term dates and election date can only be set when a CEB Position is assigned. Please select a CEB Position first.</errorMessage>
+</ValidationRule>

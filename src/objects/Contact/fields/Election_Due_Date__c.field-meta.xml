@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Election_Due_Date__c</fullName>
+    <description>Calculated date when election is required for this CEB position per National Bylaws election requirements. Triggers automated alerts at 90, 60, and 30 days prior.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    NOT(ISBLANK(CEB_Term_End__c)),
+    CEB_Term_End__c - 30,
+    NULL
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Automatic calculation: 30 days before term end date to ensure election is held before term expires</inlineHelpText>
+    <label>Election Due Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

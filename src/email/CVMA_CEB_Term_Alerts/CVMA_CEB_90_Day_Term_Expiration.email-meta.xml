@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>90-day advance notice of CEB term expiration per National Bylaws Article XIV.03.b election requirements</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CVMA CEB 90 Day Term Expiration</name>
+    <style>none</style>
+    <subject>CVMA CEB Term Expiration - 90 Day Notice: {!Contact.CEB_Position__c}</subject>
+    <textOnly>true</textOnly>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

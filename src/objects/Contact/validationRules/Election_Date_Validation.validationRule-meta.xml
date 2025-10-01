@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Election_Date_Validation</fullName>
+    <active>true</active>
+    <description>Ensures Last Election Date is on or before Term Start Date per National Bylaws Article XIV.03.b election procedures</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(Last_Election_Date__c)),
+    NOT(ISBLANK(CEB_Term_Start__c)),
+    Last_Election_Date__c &gt; CEB_Term_Start__c
+)</errorConditionFormula>
+    <errorDisplayField>Last_Election_Date__c</errorDisplayField>
+    <errorMessage>Last Election Date cannot be after Term Start Date. Elections must occur before or on the day the term begins per National Bylaws.</errorMessage>
+</ValidationRule>

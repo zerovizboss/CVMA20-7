@@ -1,0 +1,40 @@
+CVMA Chapter Executive Board - 60 Day Term Expiration Reminder
+
+Dear {!Contact.FirstName} {!Contact.LastName},
+
+This is a follow-up notification regarding your upcoming CEB term expiration in approximately 60 days.
+
+**URGENT: ELECTION SCHEDULING REQUIRED**
+
+Position: {!Contact.CEB_Position__c}
+Term End Date: {!Contact.CEB_Term_End__c}
+Election Due Date: {!Contact.Election_Due_Date__c}
+
+Per CVMA National Bylaws Article XIV.03.b, the election for this position should be scheduled immediately to ensure proper governance continuity.
+
+**IMMEDIATE ACTION REQUIRED:**
+1. Chapter Secretary: Schedule election date and notify all members
+2. Nomination Period: Open nominations for eligible Full Members
+3. Candidate Verification: Validate eligibility per National Bylaws
+4. State Representative: Notify State Representative of election plans
+
+**ELECTION REQUIREMENTS:**
+- Minimum 30-day member notification
+- Only Full Members in good standing are eligible
+- Minimum 1 year CVMA membership (6 months for new chapters)
+- Proper ballot procedures per chapter bylaws
+
+**COMPLIANCE REMINDER:**
+Failure to conduct elections in accordance with National Bylaws may result in State or Regional oversight intervention per Article VII.03.
+
+For election procedure guidance, contact your State Representative or refer to National Bylaws Article XIV.03.b.
+
+Semper Fi,
+CVMA Chapter 20-7 Governance System
+
+---
+Combat Veterans Motorcycle Association
+Chapter 20-7 - Jacksonville, FL
+"Vets Serving Vets"
+
+This is an automated message from the CVMA Salesforce governance system. Please do not reply to this email.

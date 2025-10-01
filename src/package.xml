@@ -2391,6 +2391,10 @@
         <members>CVMA_Email_Templates/CVMA_Membership_Approved_Notification.email-meta.xml</members>
         <members>CVMA_Email_Templates/CVMA_Membership_Rejected_Notification.email-meta.xml</members>
         <members>CVMA_Email_Templates/CVMA_New_Application_Officer_Notification.email-meta.xml</members>
+        <members>CVMA_CEB_Term_Alerts</members>
+        <members>CVMA_CEB_Term_Alerts/CVMA_CEB_30_Day_Term_Expiration</members>
+        <members>CVMA_CEB_Term_Alerts/CVMA_CEB_60_Day_Term_Expiration</members>
+        <members>CVMA_CEB_Term_Alerts/CVMA_CEB_90_Day_Term_Expiration</members>
         <name>EmailTemplate</name>
     </types>
     <types>
