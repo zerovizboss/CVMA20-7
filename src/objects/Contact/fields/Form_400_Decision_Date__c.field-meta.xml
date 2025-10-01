@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Form_400_Decision_Date__c</fullName>
+    <description>Date CVMA Form 400 (Investigation Decision Form) was completed per Appendix C Section 12 investigative requirements</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Record the date Form 400 Investigation Decision was completed. Marks conclusion of investigation phase per Appendix C.</inlineHelpText>
+    <label>Form 400 Decision Date</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CRITICAL alert when Administrative Hold reaches 90-day maximum per Appendix C Section 7 - immediate CEB action and escalation to chain of command required</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CVMA Administrative Hold 90 Day CRITICAL</name>
+    <style>none</style>
+    <subject>CRITICAL VIOLATION: Administrative Hold 90-Day Maximum Reached - IMMEDIATE ACTION REQUIRED</subject>
+    <textOnly>true</textOnly>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

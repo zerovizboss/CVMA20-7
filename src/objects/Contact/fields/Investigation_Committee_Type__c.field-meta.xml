@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Investigation_Committee_Type__c</fullName>
+    <description>Identifies which level investigative committee is handling this case per CVMA Appendix C Section 12 - establishes proper chain of command for disciplinary proceedings</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the investigative committee level handling this member's case. Escalates from CIC → SIC → RIC → NIC per Appendix C procedures.</inlineHelpText>
+    <label>Investigation Committee Type</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>CIC - Chapter Investigative Committee</fullName>
+                <default>false</default>
+                <label>CIC - Chapter Investigative Committee</label>
+            </value>
+            <value>
+                <fullName>SIC - State Investigative Committee</fullName>
+                <default>false</default>
+                <label>SIC - State Investigative Committee</label>
+            </value>
+            <value>
+                <fullName>RIC - Regional Investigative Committee</fullName>
+                <default>false</default>
+                <label>RIC - Regional Investigative Committee</label>
+            </value>
+            <value>
+                <fullName>NIC - National Investigative Committee</fullName>
+                <default>false</default>
+                <label>NIC - National Investigative Committee</label>
+            </value>
+            <value>
+                <fullName>NBOD Investigation</fullName>
+                <default>false</default>
+                <label>NBOD Investigation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

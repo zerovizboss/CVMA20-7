@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Website_Access_Suspended__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if member's CVMA website access has been suspended per Appendix C Section 8.e system access restrictions during Administrative Hold or disciplinary action</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check to suspend this member's access to CVMA website systems during Administrative Hold or disciplinary proceedings per Appendix C.</inlineHelpText>
+    <label>Website Access Suspended</label>
+    <type>Checkbox</type>
+</CustomField>

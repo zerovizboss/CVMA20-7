@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Form_404_Notification_Date__c</fullName>
+    <description>Date CVMA Form 404 (Administrative Hold Memorandum Template) was sent to member per Appendix C Section 8 notification requirements</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Record the date Form 404 Administrative Hold notification was sent to this member. Required documentation per Appendix C compliance.</inlineHelpText>
+    <label>Form 404 Notification Date</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <type>Date</type>
+</CustomField>

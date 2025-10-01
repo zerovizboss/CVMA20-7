@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CVMA_Store_Access_Suspended__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if member's CVMA Store purchasing privileges have been suspended per Appendix C Section 8.e access restrictions</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check to suspend this member's CVMA Store access during Administrative Hold or disciplinary action per Appendix C.</inlineHelpText>
+    <label>CVMA Store Access Suspended</label>
+    <type>Checkbox</type>
+</CustomField>

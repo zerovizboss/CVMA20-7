@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Patch_Surrender_Required__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if member must surrender CVMA patch per Appendix C Section 8 Administrative Hold requirements or Section 13 disciplinary actions</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check if this member is required to surrender their CVMA patch during Administrative Hold or as result of disciplinary action per Appendix C.</inlineHelpText>
+    <label>Patch Surrender Required</label>
+    <type>Checkbox</type>
+</CustomField>

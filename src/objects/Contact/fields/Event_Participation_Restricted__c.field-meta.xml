@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Participation_Restricted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if member's participation in CVMA events is restricted per Appendix C Section 8 Administrative Hold or disciplinary action requirements</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check to restrict this member's event participation during Administrative Hold or disciplinary proceedings per Appendix C.</inlineHelpText>
+    <label>Event Participation Restricted</label>
+    <type>Checkbox</type>
+</CustomField>

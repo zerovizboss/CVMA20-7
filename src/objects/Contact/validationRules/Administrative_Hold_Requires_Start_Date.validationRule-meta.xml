@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Administrative_Hold_Requires_Start_Date</fullName>
+    <active>true</active>
+    <description>Ensures Administrative Hold Start Date is set when Administrative Hold Status is active, required for 90-day maximum enforcement per Appendix C Section 7</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Administrative_Hold_Status__c, 'Administrative Hold'),
+    ISBLANK(Administrative_Hold_Start_Date__c)
+)</errorConditionFormula>
+    <errorDisplayField>Administrative_Hold_Start_Date__c</errorDisplayField>
+    <errorMessage>Administrative Hold Start Date is required when Administrative Hold Status is active. This date is required to enforce the 90-day maximum per Appendix C Section 7.</errorMessage>
+</ValidationRule>

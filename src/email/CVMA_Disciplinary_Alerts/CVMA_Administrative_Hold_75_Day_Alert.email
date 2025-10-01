@@ -1,0 +1,52 @@
+CVMA Administrative Hold - 75 Day Compliance Alert
+
+**CVMA APPENDIX C COMPLIANCE NOTICE**
+
+Dear Chapter Executive Board,
+
+This is an automated compliance alert regarding a member currently on Administrative Hold approaching the 90-day maximum period per CVMA Appendix C Section 7.
+
+**MEMBER INFORMATION:**
+Name: {!Contact.FirstName} {!Contact.LastName}
+Administrative Hold Start Date: {!Contact.Administrative_Hold_Start_Date__c}
+Administrative Hold End Date (90 days): {!Contact.Administrative_Hold_End_Date__c}
+Days Remaining: 15
+
+**REQUIRED ACTION:**
+
+Per Appendix C Section 7, Administrative Hold may not exceed 90 days without approval from the National Sergeant at Arms (NSAA). The CEB must take ONE of the following actions within 15 days:
+
+1. **Complete Investigation**: Conclude CIC investigation and issue Form 400 (Investigation Decision)
+2. **Release from Administrative Hold**: Restore member to active status
+3. **Request NSAA Extension**: Submit formal extension request to National Sergeant at Arms
+4. **Escalate to SIC**: Elevate investigation to State Investigative Committee (Form 401)
+
+**CURRENT INVESTIGATION STATUS:**
+Investigation Committee Type: {!Contact.Investigation_Committee_Type__c}
+Investigation Status: {!Contact.Investigation_Status__c}
+Committee Chair: {!Contact.Committee_Chair__r.Name}
+Investigation POC: {!Contact.POC_Assigned__r.Name}
+
+**FORMS STATUS:**
+{!Contact.Investigation_Forms_Status__c}
+
+**NATIONAL BYLAWS COMPLIANCE:**
+Failure to comply with the 90-day maximum may result in State or Regional oversight intervention per National Bylaws Article VII.03 chain of command authority.
+
+**IMMEDIATE NEXT STEPS:**
+1. Committee Chair schedules emergency CIC meeting
+2. Review investigation progress and documentation
+3. Determine appropriate action (complete, release, extend, or escalate)
+4. Update Salesforce investigation status
+5. Notify State Representative of action taken
+
+For questions about Appendix C procedures, contact your State Representative or refer to the CVMA Appendix C Discipline Policy (Rev E, October 2023).
+
+Semper Fi,
+CVMA Automated Compliance System
+
+---
+Combat Veterans Motorcycle Association
+"Vets Serving Vets"
+
+This is an automated compliance alert from the CVMA Salesforce governance system per Appendix C Section 7 requirements. Please do not reply to this email.

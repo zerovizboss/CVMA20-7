@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>75-day alert for Administrative Hold approaching 90-day maximum per Appendix C Section 7 - urgent CEB action required</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CVMA Administrative Hold 75 Day Alert</name>
+    <style>none</style>
+    <subject>URGENT: Administrative Hold Expires in 15 Days - Appendix C Compliance Required</subject>
+    <textOnly>true</textOnly>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>POC_Assigned__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Point of Contact assigned to manage this investigation per Appendix C Section 12 - ensures proper case management and documentation</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the CEB officer assigned as POC for this investigation. POC manages documentation and committee coordination.</inlineHelpText>
+    <label>Investigation POC</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Contact.CEB_Position__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </filterItems>
+        <infoMessage>Investigation POC must be a current CEB officer per Appendix C procedures</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Investigations Managed (POC)</relationshipLabel>
+    <relationshipName>Investigations_Managed_POC</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

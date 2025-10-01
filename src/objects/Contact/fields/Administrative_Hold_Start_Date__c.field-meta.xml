@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Administrative_Hold_Start_Date__c</fullName>
+    <description>Date Administrative Hold was initiated per CVMA Appendix C Section 6 - required for 90-day maximum enforcement and compliance tracking</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the date this member was placed on Administrative Hold. Used to calculate the 90-day maximum period per Appendix C Section 7.</inlineHelpText>
+    <label>Administrative Hold Start Date</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <type>Date</type>
+</CustomField>

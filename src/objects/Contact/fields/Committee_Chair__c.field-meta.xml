@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee_Chair__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Links to the CVMA officer chairing the investigation per Appendix C Section 11.a.i - typically the Commander for CIC investigations</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the CEB Command Position officer chairing this investigation. CIC chair is typically the Chapter Commander per Appendix C requirements.</inlineHelpText>
+    <label>Investigation Committee Chair</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Contact.CEB_Position__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </filterItems>
+        <infoMessage>Committee Chair must be a current CEB officer per Appendix C Section 11.a.i requirements</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Investigations Chaired</relationshipLabel>
+    <relationshipName>Investigations_Chaired</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

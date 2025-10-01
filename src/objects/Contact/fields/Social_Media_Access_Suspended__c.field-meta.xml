@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Social_Media_Access_Suspended__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if member's CVMA social media posting privileges have been suspended per Appendix C Section 8.e restrictions</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check to suspend this member's social media posting privileges on official CVMA platforms during disciplinary proceedings.</inlineHelpText>
+    <label>Social Media Access Suspended</label>
+    <type>Checkbox</type>
+</CustomField>

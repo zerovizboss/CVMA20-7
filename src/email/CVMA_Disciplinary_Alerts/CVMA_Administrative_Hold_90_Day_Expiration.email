@@ -1,0 +1,67 @@
+CVMA Administrative Hold - CRITICAL: 90 Day Maximum Reached
+
+**CRITICAL APPENDIX C COMPLIANCE VIOLATION ALERT**
+
+Dear Chapter Executive Board,
+
+**IMMEDIATE ACTION REQUIRED**
+
+A member's Administrative Hold has reached or exceeded the 90-day maximum period per CVMA Appendix C Section 7. This constitutes a potential compliance violation requiring IMMEDIATE CEB action.
+
+**MEMBER INFORMATION:**
+Name: {!Contact.FirstName} {!Contact.LastName}
+Administrative Hold Start Date: {!Contact.Administrative_Hold_Start_Date__c}
+Administrative Hold End Date (90 days): {!Contact.Administrative_Hold_End_Date__c}
+**STATUS: MAXIMUM PERIOD REACHED**
+
+**CRITICAL COMPLIANCE REQUIREMENT:**
+
+Per Appendix C Section 7, Administrative Hold CANNOT exceed 90 days without explicit approval from the National Sergeant at Arms (NSAA). The CEB must take IMMEDIATE action:
+
+**REQUIRED IMMEDIATE ACTIONS:**
+1. **Emergency CEB Meeting**: Convene within 24 hours
+2. **Final Investigation Decision**: Complete Form 400 immediately
+3. **Member Status Update**: Release from Administrative Hold OR
+4. **NSAA Escalation**: Emergency contact to National Sergeant at Arms for extension approval
+
+**CURRENT INVESTIGATION STATUS:**
+Investigation Committee Type: {!Contact.Investigation_Committee_Type__c}
+Investigation Status: {!Contact.Investigation_Status__c}
+Committee Chair: {!Contact.Committee_Chair__r.Name}
+Investigation POC: {!Contact.POC_Assigned__r.Name}
+Forms Status: {!Contact.Investigation_Forms_Status__c}
+
+**ESCALATION NOTIFICATION:**
+This critical compliance alert has been escalated to:
+- Chapter Commander
+- Chapter Secretary
+- State Representative
+- Region Representative
+- National Sergeant at Arms (automated notification)
+
+**COMPLIANCE CONSEQUENCES:**
+Failure to resolve this situation immediately may result in:
+- State Investigative Committee (SIC) takeover of investigation
+- Regional or National Board intervention
+- Chapter compliance review by higher authority
+- Member's automatic release from Administrative Hold per policy
+
+**MEMBER RIGHTS NOTICE:**
+Per Appendix C Section 8, members on Administrative Hold beyond 90 days without NSAA approval must be released and returned to active status OR investigation escalated to higher committee level.
+
+**EMERGENCY CONTACT:**
+For immediate guidance, contact:
+- State Representative
+- Region Representative
+- National Sergeant at Arms
+
+This situation requires URGENT CEB attention and resolution within 24 hours to maintain National Bylaws compliance.
+
+Semper Fi,
+CVMA Automated Compliance System
+
+---
+Combat Veterans Motorcycle Association
+"Vets Serving Vets"
+
+This is a CRITICAL automated compliance alert from the CVMA Salesforce governance system per Appendix C Section 7 requirements. This violation has been escalated to State, Regional, and National leadership. Immediate CEB action is required.
