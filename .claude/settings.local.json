@@ -40,7 +40,9 @@
       "Bash(git stash push:*)",
       "Bash(git stash drop:*)",
       "WebFetch(domain:www.usamm.com)",
-      "Bash(sf org display:*)"
+      "Bash(sf org display:*)",
+      "Bash(sf data query:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
