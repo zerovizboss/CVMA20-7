@@ -1,0 +1,221 @@
+/**
+ * CVMA Military Ribbons - Authentic US Navy/Marine Corps Award Ribbon CSS
+ * Based on official military ribbon designs and color patterns
+ * Source: Navy HR Uniform Regulations - Medals and Ribbons
+ */
+
+/* ==================================================================
+   BASE RIBBON BUTTON STYLE
+   ================================================================== */
+.cvma-ribbon-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    min-width: 200px;
+    border: 2px solid #1c1c1c;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.cvma-ribbon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ==================================================================
+   NAVY CROSS - Navy Blue with White Center Stripe
+   Second highest Navy award
+   ================================================================== */
+.cvma-ribbon-navy-cross {
+    background: linear-gradient(to right,
+        #002147 0%, #002147 37.5%,
+        #ffffff 37.5%, #ffffff 62.5%,
+        #002147 62.5%, #002147 100%
+    );
+}
+
+/* ==================================================================
+   SILVER STAR - Red with White/Blue Center Stripes
+   Third highest award for valor
+   ================================================================== */
+.cvma-ribbon-silver-star {
+    background: linear-gradient(to right,
+        #c1272d 0%, #c1272d 30%,
+        #ffffff 30%, #ffffff 40%,
+        #002868 40%, #002868 60%,
+        #ffffff 60%, #ffffff 70%,
+        #c1272d 70%, #c1272d 100%
+    );
+}
+
+/* ==================================================================
+   BRONZE STAR - Red/White/Blue Vertical Stripes
+   Fourth highest award
+   ================================================================== */
+.cvma-ribbon-bronze-star {
+    background: linear-gradient(to right,
+        #bf0a30 0%, #bf0a30 20%,
+        #ffffff 20%, #ffffff 40%,
+        #002868 40%, #002868 60%,
+        #ffffff 60%, #ffffff 80%,
+        #bf0a30 80%, #bf0a30 100%
+    );
+}
+
+/* ==================================================================
+   PURPLE HEART - Purple with White Edges
+   Awarded for wounds received in combat
+   ================================================================== */
+.cvma-ribbon-purple-heart {
+    background: linear-gradient(to right,
+        #ffffff 0%, #ffffff 10%,
+        #672878 10%, #672878 90%,
+        #ffffff 90%, #ffffff 100%
+    );
+}
+
+/* ==================================================================
+   NAVY/MARINE CORPS ACHIEVEMENT MEDAL
+   Navy Blue and Orange Stripes
+   ================================================================== */
+.cvma-ribbon-achievement {
+    background: linear-gradient(to right,
+        #002147 0%, #002147 22%,
+        #ff7f00 22%, #ff7f00 28%,
+        #002147 28%, #002147 44%,
+        #ff7f00 44%, #ff7f00 56%,
+        #002147 56%, #002147 72%,
+        #ff7f00 72%, #ff7f00 78%,
+        #002147 78%, #002147 100%
+    );
+}
+
+/* ==================================================================
+   NAVY GOOD CONDUCT MEDAL
+   Red with White Edges
+   ================================================================== */
+.cvma-ribbon-good-conduct {
+    background: linear-gradient(to right,
+        #ffffff 0%, #ffffff 8%,
+        #bf0a30 8%, #bf0a30 92%,
+        #ffffff 92%, #ffffff 100%
+    );
+}
+
+/* ==================================================================
+   NATIONAL DEFENSE SERVICE MEDAL
+   Yellow/Red/Yellow Stripes
+   ================================================================== */
+.cvma-ribbon-national-defense {
+    background: linear-gradient(to right,
+        #ffcd00 0%, #ffcd00 33.33%,
+        #bf0a30 33.33%, #bf0a30 66.66%,
+        #ffcd00 66.66%, #ffcd00 100%
+    );
+}
+
+/* ==================================================================
+   NAVY/MARINE CORPS COMMENDATION MEDAL
+   Green with White/Orange Stripes
+   ================================================================== */
+.cvma-ribbon-commendation {
+    background: linear-gradient(to right,
+        #006747 0%, #006747 30%,
+        #ffffff 30%, #ffffff 40%,
+        #ff7f00 40%, #ff7f00 60%,
+        #ffffff 60%, #ffffff 70%,
+        #006747 70%, #006747 100%
+    );
+}
+
+/* ==================================================================
+   NAVY/MARINE CORPS EXPEDITIONARY MEDAL
+   Blue/Yellow/Red Stripes
+   ================================================================== */
+.cvma-ribbon-expeditionary {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 25%,
+        #ffcd00 25%, #ffcd00 37.5%,
+        #bf0a30 37.5%, #bf0a30 62.5%,
+        #ffcd00 62.5%, #ffcd00 75%,
+        #002868 75%, #002868 100%
+    );
+}
+
+/* ==================================================================
+   GLOBAL WAR ON TERRORISM SERVICE MEDAL
+   Blue/Red/White/Red/Yellow Stripes
+   ================================================================== */
+.cvma-ribbon-gwot {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 20%,
+        #bf0a30 20%, #bf0a30 30%,
+        #ffffff 30%, #ffffff 42%,
+        #bf0a30 42%, #bf0a30 58%,
+        #ffffff 58%, #ffffff 70%,
+        #bf0a30 70%, #bf0a30 80%,
+        #ffcd00 80%, #ffcd00 100%
+    );
+}
+
+/* ==================================================================
+   NAVY/MARINE CORPS SEA SERVICE DEPLOYMENT RIBBON
+   Blue/Green/Blue Stripes
+   ================================================================== */
+.cvma-ribbon-sea-service {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 25%,
+        #006747 25%, #006747 37.5%,
+        #002868 37.5%, #002868 62.5%,
+        #006747 62.5%, #006747 75%,
+        #002868 75%, #002868 100%
+    );
+}
+
+/* ==================================================================
+   NAVY/MARINE CORPS OVERSEAS SERVICE RIBBON
+   Blue with Red/Yellow Center
+   ================================================================== */
+.cvma-ribbon-overseas {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 35%,
+        #bf0a30 35%, #bf0a30 47.5%,
+        #ffcd00 47.5%, #ffcd00 52.5%,
+        #bf0a30 52.5%, #bf0a30 65%,
+        #002868 65%, #002868 100%
+    );
+}
+
+/* ==================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .cvma-ribbon-btn {
+        transition: none;
+    }
+
+    .cvma-ribbon-btn:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .cvma-ribbon-btn {
+        border-width: 3px;
+        border-color: #000;
+    }
+}
+
+/* ==================================================================
+   RESPONSIVE DESIGN
+   ================================================================== */
+@media (max-width: 768px) {
+    .cvma-ribbon-btn {
+        min-width: 150px;
+        padding: 10px 20px;
+    }
+}

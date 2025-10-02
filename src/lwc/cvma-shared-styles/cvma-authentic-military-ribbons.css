@@ -1,0 +1,343 @@
+/**
+ * CVMA Authentic Military Ribbons CSS Library
+ * Combat Veterans Motorcycle Association Chapter 20-7
+ *
+ * Official CVMA Colors:
+ * - Red: #c41e3a
+ * - Gold: #B8860B (dark goldenrod)
+ * - Black: #000000
+ *
+ * Ribbons organized by:
+ * 1. CVMA Organizational
+ * 2. US Navy
+ * 3. US Marine Corps
+ * 4. US Army
+ * 5. US Air Force
+ * 6. Universal Memorial (Purple Heart, POW/MIA)
+ */
+
+/* ==================================================================
+   BASE RIBBON BUTTON STYLE
+   ================================================================== */
+.cvma-ribbon-btn,
+.cvma-btn-combat-action {
+    display: inline-block;
+    padding: 12px 24px;
+    min-width: 200px;
+    border: 2px solid #1c1c1c;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.cvma-ribbon-btn:hover,
+.cvma-btn-combat-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ==================================================================
+   CVMA ORGANIZATIONAL RIBBON
+   Black/Gold/Red/Gold/Black - Represents all combat veterans
+   ================================================================== */
+.cvma-ribbon-organizational {
+    background: linear-gradient(to right,
+        #000000 0%, #000000 20%,
+        #B8860B 20%, #B8860B 40%,
+        #c41e3a 40%, #c41e3a 60%,
+        #B8860B 60%, #B8860B 80%,
+        #000000 80%, #000000 100%
+    );
+}
+
+/* ==================================================================
+   US NAVY RIBBONS
+   ================================================================== */
+
+/* Navy Cross - Navy Blue with White Center Stripe */
+.cvma-ribbon-navy-cross {
+    background: linear-gradient(to right,
+        #002147 0%, #002147 37.5%,
+        #ffffff 37.5%, #ffffff 62.5%,
+        #002147 62.5%, #002147 100%
+    );
+}
+
+/* Navy Commendation Medal - Green/White/Orange */
+.cvma-ribbon-navy-commendation {
+    background: linear-gradient(to right,
+        #006747 0%, #006747 30%,
+        #ffffff 30%, #ffffff 40%,
+        #ff7f00 40%, #ff7f00 60%,
+        #ffffff 60%, #ffffff 70%,
+        #006747 70%, #006747 100%
+    );
+}
+
+/* Navy Achievement Medal - Navy Blue/Orange Stripes */
+.cvma-ribbon-navy-achievement {
+    background: linear-gradient(to right,
+        #002147 0%, #002147 22%,
+        #ff7f00 22%, #ff7f00 28%,
+        #002147 28%, #002147 44%,
+        #ff7f00 44%, #ff7f00 56%,
+        #002147 56%, #002147 72%,
+        #ff7f00 72%, #ff7f00 78%,
+        #002147 78%, #002147 100%
+    );
+}
+
+/* Navy Good Conduct Medal - Red with White Edges */
+.cvma-ribbon-navy-good-conduct {
+    background: linear-gradient(to right,
+        #ffffff 0%, #ffffff 8%,
+        #bf0a30 8%, #bf0a30 92%,
+        #ffffff 92%, #ffffff 100%
+    );
+}
+
+/* Navy/Marine Corps Expeditionary Medal - Blue/Yellow/Red */
+.cvma-ribbon-navy-expeditionary {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 25%,
+        #ffcd00 25%, #ffcd00 37.5%,
+        #bf0a30 37.5%, #bf0a30 62.5%,
+        #ffcd00 62.5%, #ffcd00 75%,
+        #002868 75%, #002868 100%
+    );
+}
+
+/* Navy/Marine Corps Sea Service Deployment Ribbon - Blue/Green */
+.cvma-ribbon-navy-sea-service {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 25%,
+        #006747 25%, #006747 37.5%,
+        #002868 37.5%, #002868 62.5%,
+        #006747 62.5%, #006747 75%,
+        #002868 75%, #002868 100%
+    );
+}
+
+/* Navy/Marine Corps Overseas Service Ribbon - Blue/Red/Yellow */
+.cvma-ribbon-navy-overseas {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 35%,
+        #bf0a30 35%, #bf0a30 47.5%,
+        #ffcd00 47.5%, #ffcd00 52.5%,
+        #bf0a30 52.5%, #bf0a30 65%,
+        #002868 65%, #002868 100%
+    );
+}
+
+/* ==================================================================
+   US MARINE CORPS RIBBONS
+   ================================================================== */
+
+/* Marine Corps Good Conduct Medal - Red with Gold Edges */
+.cvma-ribbon-usmc-good-conduct {
+    background: linear-gradient(to right,
+        #B8860B 0%, #B8860B 10%,
+        #c1272d 10%, #c1272d 90%,
+        #B8860B 90%, #B8860B 100%
+    );
+}
+
+/* Marine Corps Achievement Medal - Navy Blue/Gold */
+.cvma-ribbon-usmc-achievement {
+    background: linear-gradient(to right,
+        #002147 0%, #002147 22%,
+        #B8860B 22%, #B8860B 28%,
+        #002147 28%, #002147 44%,
+        #B8860B 44%, #B8860B 56%,
+        #002147 56%, #002147 72%,
+        #B8860B 72%, #B8860B 78%,
+        #002147 78%, #002147 100%
+    );
+}
+
+/* ==================================================================
+   US ARMY RIBBONS
+   ================================================================== */
+
+/* Army Commendation Medal - Green with White/Orange Center */
+.cvma-ribbon-army-commendation {
+    background: linear-gradient(to right,
+        #006747 0%, #006747 30%,
+        #ffffff 30%, #ffffff 40%,
+        #ff7f00 40%, #ff7f00 60%,
+        #ffffff 60%, #ffffff 70%,
+        #006747 70%, #006747 100%
+    );
+}
+
+/* Army Achievement Medal - Green/White Stripes */
+.cvma-ribbon-army-achievement {
+    background: linear-gradient(to right,
+        #006747 0%, #006747 22%,
+        #ffffff 22%, #ffffff 28%,
+        #006747 28%, #006747 44%,
+        #ffffff 44%, #ffffff 56%,
+        #006747 56%, #006747 72%,
+        #ffffff 72%, #ffffff 78%,
+        #006747 78%, #006747 100%
+    );
+}
+
+/* Army Good Conduct Medal - Red with White Edges */
+.cvma-ribbon-army-good-conduct {
+    background: linear-gradient(to right,
+        #ffffff 0%, #ffffff 8%,
+        #bf0a30 8%, #bf0a30 92%,
+        #ffffff 92%, #ffffff 100%
+    );
+}
+
+/* Bronze Star Medal - Red/White/Blue Stripes (All Branches) */
+.cvma-ribbon-bronze-star {
+    background: linear-gradient(to right,
+        #bf0a30 0%, #bf0a30 20%,
+        #ffffff 20%, #ffffff 40%,
+        #002868 40%, #002868 60%,
+        #ffffff 60%, #ffffff 80%,
+        #bf0a30 80%, #bf0a30 100%
+    );
+}
+
+/* ==================================================================
+   US AIR FORCE RIBBONS
+   ================================================================== */
+
+/* Air Medal - Blue/Orange Vertical Stripes */
+.cvma-ribbon-air-medal {
+    background: linear-gradient(to right,
+        #0033a0 0%, #0033a0 33.33%,
+        #ff7f00 33.33%, #ff7f00 66.66%,
+        #0033a0 66.66%, #0033a0 100%
+    );
+}
+
+/* Aerial Achievement Medal - Blue/Orange */
+.cvma-ribbon-aerial-achievement {
+    background: linear-gradient(to right,
+        #0033a0 0%, #0033a0 25%,
+        #ff7f00 25%, #ff7f00 37.5%,
+        #0033a0 37.5%, #0033a0 62.5%,
+        #ff7f00 62.5%, #ff7f00 75%,
+        #0033a0 75%, #0033a0 100%
+    );
+}
+
+/* Air Force Commendation Medal - Yellow/Blue/Red */
+.cvma-ribbon-air-force-commendation {
+    background: linear-gradient(to right,
+        #ffcd00 0%, #ffcd00 30%,
+        #0033a0 30%, #0033a0 40%,
+        #bf0a30 40%, #bf0a30 60%,
+        #0033a0 60%, #0033a0 70%,
+        #ffcd00 70%, #ffcd00 100%
+    );
+}
+
+/* Air Force Achievement Medal - Yellow/Blue */
+.cvma-ribbon-air-force-achievement {
+    background: linear-gradient(to right,
+        #ffcd00 0%, #ffcd00 25%,
+        #0033a0 25%, #0033a0 37.5%,
+        #ffcd00 37.5%, #ffcd00 62.5%,
+        #0033a0 62.5%, #0033a0 75%,
+        #ffcd00 75%, #ffcd00 100%
+    );
+}
+
+/* ==================================================================
+   UNIVERSAL MEMORIAL RIBBONS
+   ================================================================== */
+
+/* Purple Heart - Purple with White Edges */
+.cvma-ribbon-purple-heart {
+    background: linear-gradient(to right,
+        #ffffff 0%, #ffffff 10%,
+        #672878 10%, #672878 90%,
+        #ffffff 90%, #ffffff 100%
+    );
+}
+
+/* POW/MIA - Black with White Center */
+.cvma-ribbon-pow-mia {
+    background: linear-gradient(to right,
+        #000000 0%, #000000 25%,
+        #ffffff 25%, #ffffff 75%,
+        #000000 75%, #000000 100%
+    );
+}
+
+/* Silver Star Medal - Red/White/Blue (All Branches) */
+.cvma-ribbon-silver-star {
+    background: linear-gradient(to right,
+        #c1272d 0%, #c1272d 30%,
+        #ffffff 30%, #ffffff 40%,
+        #002868 40%, #002868 60%,
+        #ffffff 60%, #ffffff 70%,
+        #c1272d 70%, #c1272d 100%
+    );
+}
+
+/* National Defense Service Medal - Yellow/Red/Yellow */
+.cvma-ribbon-national-defense {
+    background: linear-gradient(to right,
+        #ffcd00 0%, #ffcd00 33.33%,
+        #bf0a30 33.33%, #bf0a30 66.66%,
+        #ffcd00 66.66%, #ffcd00 100%
+    );
+}
+
+/* Global War on Terrorism Service Medal */
+.cvma-ribbon-gwot {
+    background: linear-gradient(to right,
+        #002868 0%, #002868 20%,
+        #bf0a30 20%, #bf0a30 30%,
+        #ffffff 30%, #ffffff 42%,
+        #bf0a30 42%, #bf0a30 58%,
+        #ffffff 58%, #ffffff 70%,
+        #bf0a30 70%, #bf0a30 80%,
+        #ffcd00 80%, #ffcd00 100%
+    );
+}
+
+/* ==================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .cvma-ribbon-btn,
+    .cvma-btn-combat-action {
+        transition: none;
+    }
+
+    .cvma-ribbon-btn:hover,
+    .cvma-btn-combat-action:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .cvma-ribbon-btn,
+    .cvma-btn-combat-action {
+        border-width: 3px;
+        border-color: #000;
+    }
+}
+
+/* ==================================================================
+   RESPONSIVE DESIGN
+   ================================================================== */
+@media (max-width: 768px) {
+    .cvma-ribbon-btn,
+    .cvma-btn-combat-action {
+        min-width: 150px;
+        padding: 10px 20px;
+    }
+}

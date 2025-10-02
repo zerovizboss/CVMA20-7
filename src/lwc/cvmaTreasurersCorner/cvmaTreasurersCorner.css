@@ -12,7 +12,7 @@
 
 /* Header Styling */
 .cvma-report-header {
-    background: linear-gradient(135deg, #1a3a5c 0%, #2c5aa0 50%, #1a3a5c 100%); /* Military Blue Gradient */
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%); /* Military Blue Gradient */
     color: white;
     border-bottom: 3px solid #c41e3a; /* CVMA Red */
     padding: 1rem 1.5rem;
@@ -58,7 +58,7 @@
 .cvma-financial-tile {
     border: 2px solid #1a3a5c;
     border-radius: 6px;
-    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     transition: all 0.3s ease;
 }
 
@@ -233,26 +233,26 @@
 
 /* Custom Checkbox Button Styling for Military Aesthetic */
 .slds-checkbox_button {
-    background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     border: 1px solid #1a3a5c;
     color: #1a3a5c;
     font-weight: 600;
 }
 
 .slds-checkbox_button:hover {
-    background: linear-gradient(145deg, #e9ecef 0%, #dee2e6 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     border-color: #c41e3a;
 }
 
 input:checked + .slds-checkbox_button__label .slds-checkbox_button {
-    background: linear-gradient(145deg, #1a3a5c 0%, #2c5aa0 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     color: white;
     border-color: #c41e3a;
 }
 
-/* Military Awards and Ribbons Button Styling */
+/* Military Awards and Ribbons - Navy Commendation Medal */
 .cvma-btn-combat-action {
-    background: linear-gradient(135deg, #c41e3a 0%, #ffffff 50%, #0033a0 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     color: #ffffff !important;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);

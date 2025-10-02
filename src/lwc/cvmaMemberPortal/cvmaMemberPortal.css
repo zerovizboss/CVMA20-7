@@ -2,14 +2,14 @@
 
 .cvma-member-portal {
     font-family: 'Salesforce Sans', Arial, sans-serif;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     min-height: 100vh;
     color: #ffffff;
 }
 
 /* Header Styling */
 .portal-header {
-    background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     padding: 1rem 2rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
@@ -57,12 +57,12 @@
 }
 
 .access-level-premium {
-    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     color: #1a1a1a;
 }
 
 .access-level-basic {
-    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     color: #ffffff;
 }
 
@@ -528,9 +528,9 @@
     }
 }
 
-/* Military Awards and Ribbons Button Styling */
+/* Military Awards and Ribbons - Army Commendation Medal */
 .cvma-btn-combat-action {
-    background: linear-gradient(135deg, #c41e3a 0%, #ffffff 50%, #0033a0 100%);
+    background: linear-gradient(to right, #006747 0%, #006747 30%, #ffffff 30%, #ffffff 40%, #ff7f00 40%, #ff7f00 60%, #ffffff 60%, #ffffff 70%, #006747 70%, #006747 100%);
     color: #ffffff !important;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);

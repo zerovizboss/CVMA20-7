@@ -1,11 +1,11 @@
 .compliance-dashboard {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
     border: 1px solid #e5e5e5;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .slds-card__header {
-    background: linear-gradient(90deg, #c23934 0%, #a41e22 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
     color: white;
     border-bottom: none;
 }
@@ -86,7 +86,7 @@
 }
 
 .slds-section__title {
-    background: linear-gradient(90deg, #f4f6f9 0%, #e8ebef 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
     border-left: 4px solid #c23934;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -97,7 +97,7 @@
 }
 
 .slds-table thead th {
-    background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
     font-weight: 600;
     border-bottom: 2px solid #dee2e6;
 }
@@ -216,19 +216,19 @@
 
 /* Progress indicators */
 .compliance-progress-excellent {
-    background: linear-gradient(90deg, #04844b 0%, #057a43 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
 }
 
 .compliance-progress-good {
-    background: linear-gradient(90deg, #0070d2 0%, #005fb2 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
 }
 
 .compliance-progress-warning {
-    background: linear-gradient(90deg, #fe9339 0%, #e67e22 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
 }
 
 .compliance-progress-poor {
-    background: linear-gradient(90deg, #c23934 0%, #a41e22 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
 }
 
 /* Interactive elements */
@@ -377,9 +377,9 @@
     background: #a8a8a8;
 }
 
-/* Military Awards and Ribbons Button Styling */
+/* Military Awards and Ribbons - Navy Good Conduct Medal */
 .cvma-btn-combat-action {
-    background: linear-gradient(135deg, #c41e3a 0%, #ffffff 50%, #0033a0 100%);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 8%, #bf0a30 8%, #bf0a30 92%, #ffffff 92%, #ffffff 100%);
     color: #ffffff !important;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
