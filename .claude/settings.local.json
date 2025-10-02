@@ -42,7 +42,10 @@
       "WebFetch(domain:www.usamm.com)",
       "Bash(sf org display:*)",
       "Bash(sf data query:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(for issue in 40 41 42 43 45 46 47)",
+      "Bash(do echo \"=== Issue #$issue ===\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

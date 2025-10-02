@@ -2298,6 +2298,7 @@
         <members>CVMA_Treasurer_Dashboard</members>
         <members>CVMA_Secretary_Dashboard</members>
         <members>CVMA_Road_Captain_Dashboard</members>
+        <members>CVMA_CEB_Dashboards.dashboardFolder</members>
         <name>Dashboard</name>
     </types>
     <types>
