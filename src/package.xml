@@ -2294,6 +2294,10 @@
         <members>CVMA_Financial_Compliance/CVMA_Treasurer_Executive_Dashboard</members>
         <members>CVMA_Epic_7_Analytics</members>
         <members>CVMA_Executive_Analytics_Dashboard</members>
+        <members>CVMA_Commander_Dashboard</members>
+        <members>CVMA_Treasurer_Dashboard</members>
+        <members>CVMA_Secretary_Dashboard</members>
+        <members>CVMA_Road_Captain_Dashboard</members>
         <name>Dashboard</name>
     </types>
     <types>
@@ -2395,6 +2399,9 @@
         <members>CVMA_CEB_Term_Alerts/CVMA_CEB_30_Day_Term_Expiration</members>
         <members>CVMA_CEB_Term_Alerts/CVMA_CEB_60_Day_Term_Expiration</members>
         <members>CVMA_CEB_Term_Alerts/CVMA_CEB_90_Day_Term_Expiration</members>
+        <members>CVMA_Disciplinary_Alerts</members>
+        <members>CVMA_Disciplinary_Alerts/CVMA_Administrative_Hold_75_Day_Alert</members>
+        <members>CVMA_Disciplinary_Alerts/CVMA_Administrative_Hold_90_Day_Expiration</members>
         <name>EmailTemplate</name>
     </types>
     <types>
@@ -3123,6 +3130,28 @@
         <members>CVMA_Executive_Analytics/CVMA_Communication_Effectiveness_KPIs</members>
         <members>CVMA_Executive_Analytics/CVMA_Development_Excellence_KPIs</members>
         <members>CVMA_Executive_Analytics/CVMA_Member_Experience_KPIs</members>
+        <members>CVMA_Commander_Reports.reportFolder</members>
+        <members>CVMA_Road_Captain_Reports.reportFolder</members>
+        <members>CVMA_Secretary_Reports.reportFolder</members>
+        <members>CVMA_Treasurer_Reports.reportFolder</members>
+        <members>CVMA_Commander_Reports</members>
+        <members>CVMA_Commander_Reports/Commander_Chapter_Overview_Report</members>
+        <members>CVMA_Road_Captain_Reports</members>
+        <members>CVMA_Secretary_Reports</members>
+        <members>CVMA_Treasurer_Reports</members>
+        <members>CVMA_Commander_Reports/Commander_CEB_Term_Status_Report</members>
+        <members>CVMA_Commander_Reports/Commander_Disciplinary_Summary_Report</members>
+        <members>CVMA_Commander_Reports/Commander_Financial_Health_Report</members>
+        <members>CVMA_Treasurer_Reports/Treasurer_Expense_Tracking_Report</members>
+        <members>CVMA_Treasurer_Reports/Treasurer_Revenue_Analysis_Report</members>
+        <members>CVMA_Treasurer_Reports/Treasurer_Dues_Collection_Report</members>
+        <members>CVMA_Treasurer_Reports/Treasurer_Payment_Processing_Report</members>
+        <members>CVMA_Secretary_Reports/Secretary_Documentation_Status_Report</members>
+        <members>CVMA_Secretary_Reports/Secretary_Meeting_Schedule_Report</members>
+        <members>CVMA_Secretary_Reports/Secretary_Communication_Tracking_Report</members>
+        <members>CVMA_Road_Captain_Reports/Road_Captain_Event_Safety_Report</members>
+        <members>CVMA_Road_Captain_Reports/Road_Captain_Participation_Report</members>
+        <members>CVMA_Road_Captain_Reports/Road_Captain_Event_Calendar_Report</members>
         <name>Report</name>
     </types>
     <version>63.0</version>

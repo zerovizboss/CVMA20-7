@@ -27,7 +27,20 @@
       "Bash(grep:*)",
       "Bash(gh issue close:*)",
       "Bash(gh issue comment:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "Bash(git stash pop:*)",
+      "Bash(git stash show:*)",
+      "Bash(chmod:*)",
+      "Bash(./scripts/add-military-button-css.sh:*)",
+      "WebFetch(domain:www.mynavyhr.navy.mil)",
+      "Bash(./scripts/apply-authentic-military-ribbons.sh:*)",
+      "Bash(bash:*)",
+      "Read(//c/**)",
+      "Bash(git pull:*)",
+      "Bash(git stash push:*)",
+      "Bash(git stash drop:*)",
+      "WebFetch(domain:www.usamm.com)",
+      "Bash(sf org display:*)"
     ],
     "deny": [],
     "ask": []
