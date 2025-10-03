@@ -59,6 +59,65 @@
 | **Epic #9** | ✅ **100% Complete** | **90%+** | **VA API Integration Excellence** |
 | **Epic #10** | ✅ **100% Complete** | **90%+** | **Experience Cloud Training Platform** |
 
+---
+
+## 🚨 **CRITICAL: TECH DEBT MANAGEMENT PROTOCOL**
+
+**Established**: October 2, 2025
+**Mandatory For**: All future Epic and User Story development
+
+### **Tech Debt Resolution Requirements**
+
+**BEFORE Epic Marked Complete**:
+1. ✅ All associated GitHub issues resolved (bugs, enhancements, documentation)
+2. ✅ Tech debt agent assigned to address issues arising during development
+3. ✅ Outstanding dependencies documented with resolution timeline
+4. ✅ Zero unresolved bugs preventing Epic functionality
+
+### **Tech Debt Agent Responsibilities**
+**When Issues Arise During Development**:
+- **Immediate Resolution**: Address if not dependent on other work
+- **Documented Deferral**: Create GitHub issue with Epic linkage if dependencies exist
+- **Pre-Completion Review**: Validate all Epic-related issues resolved before marking Epic complete
+- **Quality Gate**: Epic completion blocked until tech debt cleared
+
+### **Lessons Learned (October 2, 2025 Session)**
+**Issue Accumulation**: 25 GitHub issues closed in single session (tech debt backlog too high)
+- Issues dated from August-September 2025 accumulated without resolution
+- Epics marked "complete" while associated bugs/enhancements remained open
+- Required dedicated cleanup session instead of continuous resolution
+
+### **New Standard Operating Procedure**
+**During Epic Development**:
+1. Create GitHub issue immediately when tech debt identified
+2. Link issue to Epic/User Story in GitHub project board
+3. Resolve issues continuously during development (not batch at end)
+4. **Epic Definition of Done**: All associated GitHub issues closed
+
+**Epic Completion Checklist**:
+- [ ] All User Stories completed and deployed
+- [ ] All GitHub issues associated with Epic closed
+- [ ] All bugs identified during development resolved
+- [ ] All enhancement requests documented or implemented
+- [ ] Documentation updated with Epic achievements
+- [ ] No outstanding tech debt preventing Epic functionality
+
+### **Exception Handling**
+**If Tech Debt Cannot Be Resolved Immediately**:
+1. Document reason (dependency, external blocker, future enhancement)
+2. Create GitHub issue with clear Epic linkage
+3. Add to Epic's "Known Limitations" section in documentation
+4. Schedule resolution in next appropriate session/Epic
+5. **IMPORTANT**: Epic can still be marked complete if functionality not impacted
+
+**Tech Debt Does NOT Block Epic Completion If**:
+- Enhancement request for future functionality (not critical to Epic goals)
+- Documentation improvement (non-blocking)
+- Performance optimization (system currently functional)
+- Dependency on external system/package (documented workaround exists)
+
+---
+
 ### 🏛️ SINGLE-SITE ARCHITECTURE MIGRATION (September 23, 2025)
 - **Constraint Identified**: Developer Edition allows only 1 Experience Cloud site
 - **Solution**: Unified portal with role-based navigation and audience-specific page variations
