@@ -45,7 +45,15 @@
       "Bash(find:*)",
       "Bash(for issue in 40 41 42 43 45 46 47)",
       "Bash(do echo \"=== Issue #$issue ===\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(gh pr list:*)",
+      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT QualifiedApiName, Label, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = ''Campaign'' AND QualifiedApiName LIKE ''%Location%''\" --target-org cvma)",
+      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT QualifiedApiName, Label, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = ''Account'' AND (QualifiedApiName LIKE ''%Gift%'' OR QualifiedApiName LIKE ''npsp__%'')\" --target-org cvma)",
+      "Bash(\"C:\\Program Files\\Salesforce CLI\\bin\\sf.cmd\" data query --query \"SELECT QualifiedApiName, Label, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = ''Report'' AND QualifiedApiName LIKE ''%Type%''\" --target-org cvma)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, Label, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = ''Campaign'' AND QualifiedApiName LIKE ''%Location%''\" --target-org cvma)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, Label, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = ''Account'' AND (QualifiedApiName LIKE ''%Gift%'' OR QualifiedApiName LIKE ''npsp__%'')\" --target-org cvma)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, Label, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = ''Report'' AND QualifiedApiName LIKE ''%Type%''\" --target-org cvma)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
