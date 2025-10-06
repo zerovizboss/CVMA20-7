@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Active__c</fullName>
+    <label>Is Active</label>
+    <description>Video is published and visible to members</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Check to publish video (visible to members). Uncheck to hide video.</inlineHelpText>
+    <defaultValue>false</defaultValue>
+    <required>false</required>
+    <type>Checkbox</type>
+</CustomField>

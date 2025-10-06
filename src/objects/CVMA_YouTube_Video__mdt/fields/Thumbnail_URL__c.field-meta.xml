@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Thumbnail_URL__c</fullName>
+    <label>Thumbnail URL</label>
+    <description>Custom thumbnail URL (optional - defaults to YouTube thumbnail)</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Optional custom thumbnail URL. Leave blank to use YouTube default thumbnail.</inlineHelpText>
+    <required>false</required>
+    <type>Url</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Video_Description__c</fullName>
+    <label>Video Description</label>
+    <description>Short description of video content</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Brief description displayed below video in carousel (max 500 characters)</inlineHelpText>
+    <length>500</length>
+    <required>false</required>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

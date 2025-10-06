@@ -1,0 +1,162 @@
+<template>
+    <div class="cvma-youtube-carousel">
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="slds-is-relative" style="height: 400px;">
+                <lightning-spinner alternative-text="Loading videos" size="large"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error Message -->
+        <template if:true={error}>
+            <div class="slds-box slds-box_small slds-theme_error slds-m-around_small">
+                <p class="slds-text-heading_small">Unable to load videos</p>
+                <p class="slds-m-top_x-small">{error.body.message}</p>
+            </div>
+        </template>
+
+        <!-- Main Carousel -->
+        <template if:false={isLoading}>
+            <template if:true={hasVideos}>
+                <!-- Category Filter (if not featured only) -->
+                <template if:false={featuredOnly}>
+                    <div class="slds-m-bottom_small">
+                        <lightning-combobox
+                            name="category"
+                            label="Filter by Category"
+                            value={selectedCategory}
+                            placeholder="Select a category"
+                            options={categories}
+                            onchange={handleCategoryChange}>
+                        </lightning-combobox>
+                    </div>
+                </template>
+
+                <!-- Video Player Section -->
+                <div class="carousel-container" style={carouselStyle}>
+                    <!-- Navigation Buttons -->
+                    <div class="carousel-nav-wrapper">
+                        <button
+                            class="carousel-nav-button nav-prev navy-ribbon"
+                            onclick={handlePrevious}
+                            disabled={hasNoPreviousVideo}
+                            title="Previous Video">
+                            <lightning-icon icon-name="utility:chevronleft" size="medium" alternative-text="Previous"></lightning-icon>
+                        </button>
+                        <button
+                            class="carousel-nav-button nav-next navy-ribbon"
+                            onclick={handleNext}
+                            disabled={hasNoNextVideo}
+                            title="Next Video">
+                            <lightning-icon icon-name="utility:chevronright" size="medium" alternative-text="Next"></lightning-icon>
+                        </button>
+                    </div>
+
+                    <!-- YouTube Player -->
+                    <div class="youtube-player-wrapper">
+                        <div class="youtube-player"></div>
+                    </div>
+
+                    <!-- Video Info Overlay -->
+                    <div class="video-info-overlay">
+                        <h3 class="video-title">{currentVideo.title}</h3>
+                        <p class="video-description">{currentVideo.description}</p>
+                        <div class="video-meta">
+                            <span class="video-category">
+                                <lightning-icon icon-name="utility:label" size="xx-small"></lightning-icon>
+                                {currentVideo.category}
+                            </span>
+                            <span class="video-position">
+                                {currentPosition} of {videoCount}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Playback Controls -->
+                    <div class="playback-controls">
+                        <button class="control-button" onclick={handlePlayPause} title="Play/Pause">
+                            <template if:true={isPlaying}>
+                                <lightning-icon icon-name="utility:pause" size="small" alternative-text="Pause"></lightning-icon>
+                            </template>
+                            <template if:false={isPlaying}>
+                                <lightning-icon icon-name="utility:play" size="small" alternative-text="Play"></lightning-icon>
+                            </template>
+                        </button>
+                        <button class="control-button" onclick={handleMuteToggle} title="Mute/Unmute">
+                            <template if:true={isMuted}>
+                                <lightning-icon icon-name="utility:volume_off" size="small" alternative-text="Unmute"></lightning-icon>
+                            </template>
+                            <template if:false={isMuted}>
+                                <lightning-icon icon-name="utility:volume_high" size="small" alternative-text="Mute"></lightning-icon>
+                            </template>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Thumbnail Navigation -->
+                <template if:true={showThumbnails}>
+                    <div class="thumbnail-container slds-m-top_medium">
+                        <div class="thumbnail-scroll">
+                            <template for:each={videos} for:item="video" for:index="index">
+                                <div
+                                    key={video.videoId}
+                                    class="thumbnail-item"
+                                    data-index={index}
+                                    onclick={handleThumbnailClick}>
+                                    <template if:true={video.isCurrentVideo}>
+                                        <div class="thumbnail-wrapper active-thumbnail">
+                                            <img src={video.thumbnailUrl} alt={video.title} class="thumbnail-image" />
+                                            <div class="thumbnail-overlay">
+                                                <lightning-icon icon-name="utility:play" size="small" alternative-text="Play"></lightning-icon>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template if:false={video.isCurrentVideo}>
+                                        <div class="thumbnail-wrapper">
+                                            <img src={video.thumbnailUrl} alt={video.title} class="thumbnail-image" />
+                                            <div class="thumbnail-overlay">
+                                                <lightning-icon icon-name="utility:play" size="small" alternative-text="Play"></lightning-icon>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <p class="thumbnail-title">{video.title}</p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Video Grid View (Alternative to thumbnails) -->
+                <template if:false={showThumbnails}>
+                    <div class="video-grid slds-m-top_medium">
+                        <template for:each={videos} for:item="video" for:index="index">
+                            <div key={video.videoId} class="video-grid-item" data-index={index} onclick={handleThumbnailClick}>
+                                <div class="video-card">
+                                    <div class="video-card-image">
+                                        <img src={video.thumbnailUrl} alt={video.title} />
+                                        <div class="video-card-overlay">
+                                            <lightning-icon icon-name="utility:play" size="medium" alternative-text="Play"></lightning-icon>
+                                        </div>
+                                    </div>
+                                    <div class="video-card-content">
+                                        <h4 class="video-card-title">{video.title}</h4>
+                                        <p class="video-card-category">{video.category}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+
+            <!-- No Videos Message -->
+            <template if:false={hasVideos}>
+                <div class="slds-box slds-box_small slds-theme_shade slds-text-align_center slds-m-around_small">
+                    <lightning-icon icon-name="utility:video" size="large"></lightning-icon>
+                    <p class="slds-text-heading_medium slds-m-top_medium">No Videos Available</p>
+                    <p class="slds-m-top_small">Check back later for new CVMA content.</p>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

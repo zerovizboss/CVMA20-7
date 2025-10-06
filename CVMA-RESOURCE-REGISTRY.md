@@ -46,6 +46,8 @@
 
 ### **5. CVMA Forms Repository**
 - **Location**: `C:\Users\zerov\OneDrive\Documents\CVMA\Documentation\Forms\`
+- **Last Updated**: October 2025 - 3 forms revised (100, 101, 102)
+
 - **Critical Disciplinary Forms** (Referenced in Appendix C):
   - **CVMA Form 400**: Investigation Decision Form
   - **CVMA Form 401**: Chapter Request for State Level Investigation
@@ -53,18 +55,27 @@
   - **CVMA Form 403**: Sworn Statement (Blank)
   - **CVMA Form 404**: Administrative Hold Memorandum Template
   - **CVMA Form 410**: Counseling Form
-- **Membership Forms**:
-  - **CVMA Form 100**: Membership Application
-  - **CVMA Form 101**: Patch Agreement
-  - **CVMA Form 102**: Life Membership Application
+
+- **Membership Forms** (Updated October 2025):
+  - **CVMA Form 100**: Membership Application (01OCT25 Revision - supersedes 8-7-2024 version)
+  - **CVMA Form 101**: Patch Agreement (01OCT25 Revision - supersedes August2024 version)
+  - **CVMA Form 102**: Life Membership Application (01OCT25 Revision - supersedes 07AUG24 version)
   - **CVMA Form 103**: General Application Addendum
+
 - **Administrative Forms**:
   - **CVMA Form 201**: Chapter Relocation Request
-  - **CVMA Form 202**: Benevolent Fund Request
-  - **CVMA Form 204**: Medical Exemption Request
+  - **CVMA Form 202**: Benevolent Fund Request (NOV-24 version)
+  - **CVMA Form 204**: Medical Exemption Request (AUG-2025 version)
   - **CVMA Form 308**: License Use Violation Report
   - **CVMA Form 500**: Auxiliary Chapter Request Form
+
+- **Supporting Documents**:
+  - **LMCalculator2025.xlsx**: Life Membership calculator spreadsheet
+  - **Application-Forms-Checklists-7-22-2024.pdf**: Comprehensive application guidance
+  - **CVMAPatch-Retrieval-Letter-AUG2024.docx**: Patch retrieval template
+
 - **Integration Pattern**: Forms integrate with Salesforce via CVMADocumentSharingController
+- **Sprint 1 Priority**: Forms 100, 101, 102 (October 2025 revisions) for Epic #3 Content Library migration
 
 ---
 

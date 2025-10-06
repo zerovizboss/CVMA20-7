@@ -2210,6 +2210,7 @@
         <members>CVMA_CareerOneStop_API_Keys__c</members>
         <members>Region__c</members>
         <members>State_Organization__c</members>
+        <members>CVMA_YouTube_Video__mdt</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -2392,10 +2393,6 @@
         <members>CVMA_Financial_Compliance/Monthly_Budget_Performance_Report</members>
         <members>CVMA_Financial_Compliance/Quarterly_Financial_Summary</members>
         <members>CVMA_Email_Templates</members>
-        <members>CVMA_Email_Templates/CVMA_Membership_Application_Confirmation.email-meta.xml</members>
-        <members>CVMA_Email_Templates/CVMA_Membership_Approved_Notification.email-meta.xml</members>
-        <members>CVMA_Email_Templates/CVMA_Membership_Rejected_Notification.email-meta.xml</members>
-        <members>CVMA_Email_Templates/CVMA_New_Application_Officer_Notification.email-meta.xml</members>
         <members>CVMA_CEB_Term_Alerts</members>
         <members>CVMA_CEB_Term_Alerts/CVMA_CEB_30_Day_Term_Expiration</members>
         <members>CVMA_CEB_Term_Alerts/CVMA_CEB_60_Day_Term_Expiration</members>
@@ -2403,6 +2400,10 @@
         <members>CVMA_Disciplinary_Alerts</members>
         <members>CVMA_Disciplinary_Alerts/CVMA_Administrative_Hold_75_Day_Alert</members>
         <members>CVMA_Disciplinary_Alerts/CVMA_Administrative_Hold_90_Day_Expiration</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Application_Confirmation.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Approved_Notification.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_Membership_Rejected_Notification.email-meta.xml</members>
+        <members>CVMA_Email_Templates/CVMA_New_Application_Officer_Notification.email-meta.xml</members>
         <name>EmailTemplate</name>
     </types>
     <types>
@@ -3109,6 +3110,9 @@
         <members>CVMA_CareerOneStop_API_Config.Occupation_Details</members>
         <members>CVMA_CareerOneStop_API_Config.Skills_Matcher</members>
         <members>CVMA_CareerOneStop_API_Config.Veterans_Job_Matcher</members>
+        <members>CVMA_YouTube_Video.CVMA_Welcome_Video</members>
+        <members>CVMA_YouTube_Video.Chapter_Ride_2024</members>
+        <members>CVMA_YouTube_Video.Veteran_Testimonial_1</members>
         <name>CustomMetadata</name>
     </types>
     <types>

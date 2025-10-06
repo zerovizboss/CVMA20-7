@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property name="carouselHeight" type="String" default="500px" label="Carousel Height" description="Height of the carousel (e.g., 500px, 60vh)" />
+            <property name="autoplay" type="Boolean" default="false" label="Autoplay Videos" description="Automatically play videos when carousel loads" />
+            <property name="showThumbnails" type="Boolean" default="true" label="Show Thumbnails" description="Display thumbnail navigation below carousel" />
+            <property name="featuredOnly" type="Boolean" default="true" label="Featured Videos Only" description="Show only CEB-approved featured videos" />
+            <property name="categoryFilter" type="String" default="" label="Category Filter" description="Filter videos by category (leave blank for all)" />
+        </targetConfig>
+    </targetConfigs>
+    <masterLabel>CVMA YouTube Carousel</masterLabel>
+    <description>YouTube video carousel with military ribbon styling and CEB approval workflow integration. Displays CVMA chapter videos with featured carousel and category filtering.</description>
+</LightningComponentBundle>
