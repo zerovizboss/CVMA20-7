@@ -288,6 +288,10 @@ export default class VeteranResourceFinder extends LightningElement {
         }));
     }
 
+    handleImageError(event) {
+        event.target.style.display = 'none';
+    }
+
     showToast(title, message, variant) {
         const evt = new ShowToastEvent({
             title: title,

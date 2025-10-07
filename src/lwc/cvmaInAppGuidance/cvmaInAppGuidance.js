@@ -436,4 +436,12 @@ export default class CvmaInAppGuidance extends LightningElement {
     get voiceCommandsAvailable() {
         return this.voiceSupported && this.enableVoiceCommands;
     }
+
+    get nextButtonLabel() {
+        return this.isLastStep ? 'Complete Tour' : (this.currentStepData?.nextLabel || 'Next');
+    }
+
+    get nextButtonIcon() {
+        return this.isLastStep ? 'utility:check' : 'utility:chevronright';
+    }
 }

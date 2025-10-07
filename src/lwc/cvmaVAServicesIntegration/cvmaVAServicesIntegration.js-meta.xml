@@ -13,26 +13,20 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__AppPage,lightning__HomePage">
-            <properties>
-                <property name="contactId" type="String" label="Contact ID" description="Member contact ID for personalized VA services" />
-                <property name="showFullIntegration" type="Boolean" default="true" label="Show Full Integration" description="Display complete VA services integration interface" />
-                <property name="defaultServiceType" type="String" default="Healthcare" label="Default Service Type" description="Default service type for coordination requests" />
-            </properties>
+            <property name="contactId" type="String" label="Contact ID" description="Member contact ID for personalized VA services" />
+            <property name="showFullIntegration" type="Boolean" default="true" label="Show Full Integration" description="Display complete VA services integration interface" />
+            <property name="defaultServiceType" type="String" default="Healthcare" label="Default Service Type" description="Default service type for coordination requests" />
         </targetConfig>
         <targetConfig targets="lightning__RecordPage">
             <objects>
                 <object>Contact</object>
             </objects>
-            <properties>
-                <property name="showFullIntegration" type="Boolean" default="true" label="Show Full Integration" description="Display complete VA services integration interface" />
-                <property name="defaultServiceType" type="String" default="Healthcare" label="Default Service Type" description="Default service type for coordination requests" />
-            </properties>
+            <property name="showFullIntegration" type="Boolean" default="true" label="Show Full Integration" description="Display complete VA services integration interface" />
+            <property name="defaultServiceType" type="String" default="Healthcare" label="Default Service Type" description="Default service type for coordination requests" />
         </targetConfig>
-        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
-            <properties>
-                <property name="showFullIntegration" type="Boolean" default="false" label="Show Full Integration" description="Display complete VA services integration interface (community users may have limited access)" />
-                <property name="defaultServiceType" type="String" default="General" label="Default Service Type" description="Default service type for community users" />
-            </properties>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="showFullIntegration" type="Boolean" default="false" label="Show Full Integration" description="Display complete VA services integration interface (community users may have limited access)" />
+            <property name="defaultServiceType" type="String" default="General" label="Default Service Type" description="Default service type for community users" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

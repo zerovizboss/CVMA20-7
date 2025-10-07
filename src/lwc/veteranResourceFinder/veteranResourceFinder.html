@@ -76,7 +76,7 @@
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
                             <div class="slds-media__figure">
                                 <img src={org.logoUrl} alt={org.organizationName} class="org-logo"
-                                     onerror="this.style.display='none'">
+                                     onerror={handleImageError}>
                                 <lightning-icon if:false={org.logoUrl} icon-name="standard:groups"
                                               size="medium" alternative-text="Organization"></lightning-icon>
                             </div>

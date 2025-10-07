@@ -13,29 +13,23 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__AppPage,lightning__HomePage">
-            <properties>
-                <property name="contactId" type="String" label="Contact ID" description="Member contact ID for personalized recommendations" />
-                <property name="showGuestAccess" type="Boolean" default="true" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
-                <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
-                <property name="maxResults" type="Integer" default="50" label="Maximum Results" description="Maximum number of resources to display" />
-            </properties>
+            <property name="contactId" type="String" label="Contact ID" description="Member contact ID for personalized recommendations" />
+            <property name="showGuestAccess" type="Boolean" default="true" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
+            <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
+            <property name="maxResults" type="Integer" default="50" label="Maximum Results" description="Maximum number of resources to display" />
         </targetConfig>
         <targetConfig targets="lightning__RecordPage">
             <objects>
                 <object>Contact</object>
             </objects>
-            <properties>
-                <property name="showGuestAccess" type="Boolean" default="false" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
-                <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
-                <property name="maxResults" type="Integer" default="50" label="Maximum Results" description="Maximum number of resources to display" />
-            </properties>
+            <property name="showGuestAccess" type="Boolean" default="false" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
+            <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
+            <property name="maxResults" type="Integer" default="50" label="Maximum Results" description="Maximum number of resources to display" />
         </targetConfig>
-        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
-            <properties>
-                <property name="showGuestAccess" type="Boolean" default="true" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
-                <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
-                <property name="maxResults" type="Integer" default="100" label="Maximum Results" description="Maximum number of resources to display in community" />
-            </properties>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="showGuestAccess" type="Boolean" default="true" label="Enable Guest Access" description="Allow non-member veterans to use the resource finder" />
+            <property name="defaultCategory" type="String" label="Default Category" description="Default service category filter to apply" />
+            <property name="maxResults" type="Integer" default="100" label="Maximum Results" description="Maximum number of resources to display in community" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

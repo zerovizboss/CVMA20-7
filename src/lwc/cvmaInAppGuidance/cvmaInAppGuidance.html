@@ -251,8 +251,8 @@
                                 <!-- Next/Complete Button -->
                                 <lightning-button
                                     variant="brand"
-                                    label={isLastStep ? 'Complete Tour' : currentStepData.nextLabel}
-                                    icon-name={isLastStep ? 'utility:check' : 'utility:chevronright'}
+                                    label={nextButtonLabel}
+                                    icon-name={nextButtonIcon}
                                     icon-position="right"
                                     onclick={nextStep}
                                     class="nav-btn nav-primary">
@@ -300,24 +300,4 @@
             </div>
         </div>
     </template>
-
-    <!-- Highlight Styles -->
-    <style>
-        .cvma-guidance-highlight {
-            position: relative;
-            z-index: 1001;
-            box-shadow: 0 0 0 4px rgba(0, 112, 210, 0.5), 0 0 20px rgba(0, 112, 210, 0.3) !important;
-            border-radius: 4px;
-            animation: pulse-highlight 2s infinite;
-        }
-
-        @keyframes pulse-highlight {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(0, 112, 210, 0.5), 0 0 20px rgba(0, 112, 210, 0.3); }
-            50% { box-shadow: 0 0 0 6px rgba(0, 112, 210, 0.7), 0 0 25px rgba(0, 112, 210, 0.5); }
-        }
-
-        .reduced-motion .cvma-guidance-highlight {
-            animation: none;
-        }
-    </style>
 </template>

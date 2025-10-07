@@ -11,7 +11,7 @@
         <target>lightningCommunity__Page_Layout</target>
     </targets>
     <targetConfigs>
-        <targetConfig targets="lightningCommunity__Default,lightningCommunity__Page">
+        <targetConfig targets="lightningCommunity__Default">
             <property name="guidanceContext" type="String" default="veteran-resources"
                      description="Context for guidance content (veteran-resources, va-services, emergency)"/>
             <property name="showOnFirstVisit" type="Boolean" default="true"
@@ -22,14 +22,14 @@
                      description="Start in high contrast mode for accessibility"/>
             <property name="reducedMotion" type="Boolean" default="false"
                      description="Disable animations and transitions"/>
-            <property name="autoRead" type="Boolean" default="false"
-                     description="Automatically read content aloud for screen reader users"/>
         </targetConfig>
         <targetConfig targets="lightning__AppPage,lightning__HomePage">
-            <property name="compactMode" type="Boolean" default="true"
-                     description="Use compact layout for internal Salesforce apps"/>
-            <property name="showForInternalUsers" type="Boolean" default="true"
-                     description="Show guidance for internal Salesforce users"/>
+            <property name="guidanceContext" type="String" default="veteran-resources"
+                     description="Context for guidance content (veteran-resources, va-services, emergency)"/>
+            <property name="showOnFirstVisit" type="Boolean" default="false"
+                     description="Automatically show guidance for new internal users"/>
+            <property name="enableVoiceCommands" type="Boolean" default="false"
+                     description="Enable voice command functionality"/>
         </targetConfig>
     </targetConfigs>
     <masterLabel>CVMA In-App Guidance</masterLabel>

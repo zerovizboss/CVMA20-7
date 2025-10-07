@@ -303,11 +303,11 @@
                                         </div>
                                         <div class="slds-card__body slds-card__body_inner">
                                             <template if:true={benefitsData.relatedCases}>
-                                                <template for:each={benefitsData.relatedCases} for:item="case">
-                                                    <div key={case.Id} class="slds-box slds-theme_info slds-m-bottom_small">
-                                                        <h5 class="slds-text-heading_x-small">{case.CaseNumber}</h5>
-                                                        <p class="slds-text-body_small">{case.Subject}</p>
-                                                        <lightning-badge label={case.Status} variant="inverse"></lightning-badge>
+                                                <template for:each={benefitsData.relatedCases} for:item="relatedCase">
+                                                    <div key={relatedCase.Id} class="slds-box slds-theme_info slds-m-bottom_small">
+                                                        <h5 class="slds-text-heading_x-small">{relatedCase.CaseNumber}</h5>
+                                                        <p class="slds-text-body_small">{relatedCase.Subject}</p>
+                                                        <lightning-badge label={relatedCase.Status} variant="inverse"></lightning-badge>
                                                     </div>
                                                 </template>
                                             </template>
@@ -500,10 +500,10 @@
                                             <template if:true={advocacyData.advocacyCases}>
                                                 <div class="slds-m-top_medium">
                                                     <h4 class="slds-text-heading_x-small slds-m-bottom_small">Active Cases:</h4>
-                                                    <template for:each={advocacyData.advocacyCases} for:item="case">
-                                                        <div key={case.Id} class="slds-box slds-theme_warning slds-m-bottom_x-small">
-                                                            <p class="slds-text-body_small">{case.Subject}</p>
-                                                            <lightning-badge label={case.Status}></lightning-badge>
+                                                    <template for:each={advocacyData.advocacyCases} for:item="advocacyCase">
+                                                        <div key={advocacyCase.Id} class="slds-box slds-theme_warning slds-m-bottom_x-small">
+                                                            <p class="slds-text-body_small">{advocacyCase.Subject}</p>
+                                                            <lightning-badge label={advocacyCase.Status}></lightning-badge>
                                                         </div>
                                                     </template>
                                                 </div>
