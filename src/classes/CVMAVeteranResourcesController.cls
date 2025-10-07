@@ -179,7 +179,7 @@ public with sharing class CVMAVeteranResourcesController {
             return organizations;
 
         } catch (Exception e) {
-            CVMAErrorHandler.handleException(e, 'CVMAVeteranResourcesController.getVeteranOrganizations');
+            System.debug(LoggingLevel.ERROR, 'CVMAVeteranResourcesController.getVeteranOrganizations error: ' + e.getMessage());
             throw new AuraHandledException('Failed to retrieve veteran organizations: ' + e.getMessage());
         }
     }
@@ -225,7 +225,7 @@ public with sharing class CVMAVeteranResourcesController {
             return results;
 
         } catch (Exception e) {
-            CVMAErrorHandler.handleException(e, 'CVMAVeteranResourcesController.checkEligibility');
+            System.debug(LoggingLevel.ERROR, 'CVMAVeteranResourcesController.checkEligibility error: ' + e.getMessage());
             throw new AuraHandledException('Failed to check eligibility: ' + e.getMessage());
         }
     }
@@ -352,13 +352,13 @@ public with sharing class CVMAVeteranResourcesController {
         @AuraEnabled public Integer priorityScore { get; set; }
         @AuraEnabled public String phoneLink { get; set; }
 
-        public VeteranOrganization(String id, String name, String category, String desc, String eligibility,
+        public VeteranOrganization(String id, String name, String category, String orgDescription, String eligibility,
                                  String states, String phone, String website, Boolean combatFocus,
                                  Boolean disabilityFocus, String appUrl, Integer priority) {
             this.id = id;
             this.organizationName = name;
             this.serviceCategory = category;
-            this.description = desc;
+            this.description = orgDescription;
             this.eligibilityCriteria = eligibility;
             this.statesCovered = states;
             this.phone = phone;
