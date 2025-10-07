@@ -36,9 +36,9 @@
 
             <!-- Primary Navigation -->
             <div class="cvma-military-grid cvma-nav-primary">
-                <template for:each={navigationItems} for:item="navItem" for:index="index">
-                    <template key={navItem.id} if:true={navItem.visible}>
-                        <div class="cvma-military-button-container">
+                <template for:each={navigationItems} for:item="navItem">
+                    <template if:true={navItem.visible}>
+                        <div key={navItem.id} class="cvma-military-button-container">
                             <lightning-button
                                 variant="base"
                                 label={navItem.label}

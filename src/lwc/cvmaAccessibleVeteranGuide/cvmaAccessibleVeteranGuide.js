@@ -106,6 +106,17 @@ export default class CvmaAccessibleVeteranGuide extends LightningElement {
     ];
 
     connectedCallback() {
+        // Add computed IDs for aria-describedby attributes
+        this.resourceCategories = this.resourceCategories.map(cat => ({
+            ...cat,
+            descId: `${cat.id}-desc`
+        }));
+
+        this.emergencyResources = this.emergencyResources.map(res => ({
+            ...res,
+            helpId: `${res.id}-help`
+        }));
+
         this.detectAccessibilityNeeds();
         this.setupKeyboardNavigation();
         this.checkVoiceSupport();
@@ -375,12 +386,24 @@ export default class CvmaAccessibleVeteranGuide extends LightningElement {
         return this.currentStep === 3;
     }
 
+    get isFirstStep() {
+        return this.currentStep === 1;
+    }
+
+    get isLastStep() {
+        return this.currentStep === this.totalSteps;
+    }
+
     get selectedCategory() {
         return this.resourceCategories.find(cat => cat.id === this.selectedResourceType);
     }
 
     get progressPercentage() {
         return (this.currentStep / this.totalSteps) * 100;
+    }
+
+    get progressBarStyle() {
+        return `width: ${this.progressPercentage}%`;
     }
 
     get containerClass() {

@@ -141,11 +141,11 @@
                                         class="resource-btn"
                                         data-resource={category.id}
                                         onclick={handleResourceSelection}
-                                        aria-describedby="{category.id}-desc">
+                                        aria-describedby={category.descId}>
                                         Start Guided Process
                                         <span class="btn-arrow" aria-hidden="true">→</span>
                                     </button>
-                                    <div id="{category.id}-desc" class="sr-only">
+                                    <div id={category.descId} class="sr-only">
                                         Begin step-by-step guidance for {category.title}. Estimated time: {category.estimatedTime}
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                         <!-- Progress Bar -->
                         <div class="progress-container" role="progressbar" aria-valuenow={currentStep} aria-valuemin="1" aria-valuemax={totalSteps} aria-label="Progress through {selectedCategory.title} process">
                             <div class="progress-bar">
-                                <div class="progress-fill" style={`width: ${progressPercentage}%`}></div>
+                                <div class="progress-fill" style={progressBarStyle}></div>
                             </div>
                             <p class="progress-text">Step {currentStep} of {totalSteps} completed</p>
                         </div>
@@ -344,7 +344,7 @@
                             type="button"
                             class="nav-btn prev-btn"
                             onclick={handlePreviousStep}
-                            disabled={currentStep === 1}
+                            disabled={isFirstStep}
                             aria-label="Go to previous step">
                             <span class="btn-arrow" aria-hidden="true">←</span>
                             Previous
@@ -354,7 +354,7 @@
                             Step {currentStep} of {totalSteps}
                         </div>
 
-                        <template if:true={currentStep < totalSteps}>
+                        <template if:false={isLastStep}>
                             <button
                                 type="button"
                                 class="nav-btn next-btn"
@@ -366,7 +366,7 @@
                             </button>
                         </template>
 
-                        <template if:true={currentStep === totalSteps}>
+                        <template if:true={isLastStep}>
                             <button
                                 type="button"
                                 class="nav-btn complete-btn"
@@ -407,10 +407,10 @@
                                         class="emergency-btn"
                                         data-resource={resource.id}
                                         onclick={handleEmergencyAccess}
-                                        aria-describedby="{resource.id}-help">
+                                        aria-describedby={resource.helpId}>
                                         Connect Now
                                     </button>
-                                    <div id="{resource.id}-help" class="sr-only">{resource.description}</div>
+                                    <div id={resource.helpId} class="sr-only">{resource.description}</div>
                                 </div>
                             </article>
                         </template>
