@@ -1023,7 +1023,7 @@ textarea,
     }
 }
 
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
     .cvma-btn-combat-action {
         border-width: 3px;
         border-color: #000;

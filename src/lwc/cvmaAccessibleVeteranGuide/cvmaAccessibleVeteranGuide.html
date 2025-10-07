@@ -206,11 +206,12 @@
                                     <div class="preparation-section">
                                         <h3>What You'll Need:</h3>
                                         <ul class="preparation-list">
-                                            <template if:true={selectedCategory.id} for:each={selectedCategory.steps} for:item="step" for:index="index">
-                                                <li key={step} class="prep-item">
-                                                    <span class="step-number" aria-hidden="true">{index + 1}.</span>
-                                                    {step}
-                                                </li>
+                                            <template if:true={selectedCategory}>
+                                                <template for:each={selectedCategory.steps} for:item="step">
+                                                    <li key={step} class="prep-item">
+                                                        {step}
+                                                    </li>
+                                                </template>
                                             </template>
                                         </ul>
                                     </div>
@@ -229,7 +230,7 @@
                                 <h2 id="step2-title">Application Process</h2>
 
                                 <!-- VA Benefits Specific Content -->
-                                <template if:true={selectedResourceType} if:equals="va-benefits">
+                                <template if:true={isVABenefitsSelected}>
                                     <div class="va-benefits-guide">
                                         <h3>VA Benefits Application Steps</h3>
                                         <ol class="detailed-steps">
@@ -263,7 +264,7 @@
                                 </template>
 
                                 <!-- Mental Health Specific Content -->
-                                <template if:true={selectedResourceType} if:equals="mental-health">
+                                <template if:true={isMentalHealthSelected}>
                                     <div class="mental-health-guide">
                                         <h3>Mental Health Support Access</h3>
                                         <div class="immediate-help">

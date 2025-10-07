@@ -394,4 +394,12 @@ export default class CvmaAccessibleVeteranGuide extends LightningElement {
     get accessibilityControlsClass() {
         return 'accessibility-controls' + (this.accessibilitySettings.screenReaderActive ? ' screen-reader-active' : '');
     }
+
+    get isVABenefitsSelected() {
+        return this.selectedResourceType === 'va-benefits';
+    }
+
+    get isMentalHealthSelected() {
+        return this.selectedResourceType === 'mental-health';
+    }
 }
