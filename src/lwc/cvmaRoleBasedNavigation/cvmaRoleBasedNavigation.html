@@ -37,19 +37,20 @@
             <!-- Primary Navigation -->
             <div class="cvma-military-grid cvma-nav-primary">
                 <template for:each={navigationItems} for:item="navItem" for:index="index">
-                    <div key={navItem.id} class="cvma-military-button-container"
-                         if:true={navItem.visible}>
-                        <lightning-button
-                            variant="base"
-                            label={navItem.label}
-                            title={navItem.description}
-                            class={navItem.buttonClass}
-                            data-id={navItem.id}
-                            onclick={handleNavigation}>
-                            <lightning-icon icon-name={navItem.icon} size="x-small"
-                                            slot="iconLeft"></lightning-icon>
-                        </lightning-button>
-                    </div>
+                    <template key={navItem.id} if:true={navItem.visible}>
+                        <div class="cvma-military-button-container">
+                            <lightning-button
+                                variant="base"
+                                label={navItem.label}
+                                title={navItem.description}
+                                class={navItem.buttonClass}
+                                data-id={navItem.id}
+                                onclick={handleNavigation}>
+                                <lightning-icon icon-name={navItem.icon} size="x-small"
+                                                slot="iconLeft"></lightning-icon>
+                            </lightning-button>
+                        </div>
+                    </template>
                 </template>
             </div>
 

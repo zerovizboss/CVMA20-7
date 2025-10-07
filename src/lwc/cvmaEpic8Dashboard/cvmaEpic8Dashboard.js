@@ -279,6 +279,10 @@ export default class CvmaEpic8Dashboard extends LightningElement {
         return this.benefitRecommendations && this.benefitRecommendations.length > 0;
     }
 
+    get firstThreeRecommendations() {
+        return this.benefitRecommendations ? this.benefitRecommendations.slice(0, 3) : [];
+    }
+
     get govServicesHealthClass() {
         const health = this.govServicesHealth;
         if (health >= 95) return 'health-excellent';
