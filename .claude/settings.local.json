@@ -59,7 +59,14 @@
       "Bash(git log:*)",
       "Bash(gh auth:*)",
       "Bash(sf project deploy report:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(sf org list:*)",
+      "Bash(sf config get:*)",
+      "Bash(for dir in */)",
+      "Bash(do if [ -f \"$dir$dir%/.html\" ])",
+      "Bash(then echo \"Checking $dir%/...\")",
+      "Bash(npx @lwc/compiler \"$dir$dir%/.html\")",
+      "Bash(fi)"
     ],
     "deny": [],
     "ask": []

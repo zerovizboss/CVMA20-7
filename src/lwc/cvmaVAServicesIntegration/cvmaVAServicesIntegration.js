@@ -26,7 +26,7 @@ const CONTACT_FIELDS = [
 
 export default class CvmaVAServicesIntegration extends LightningElement {
     @api contactId; // Member ID for personalized services
-    @api showFullIntegration = true; // Show complete VA services integration
+    @api showFullIntegration; // Show complete VA services integration
     @api defaultServiceType = 'Healthcare'; // Default service type
 
     @track vaServices = {};

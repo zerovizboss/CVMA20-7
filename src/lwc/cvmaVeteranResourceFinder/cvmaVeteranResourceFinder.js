@@ -25,7 +25,7 @@ const CONTACT_FIELDS = [
 
 export default class CvmaVeteranResourceFinder extends LightningElement {
     @api contactId; // Member ID for personalized recommendations
-    @api showGuestAccess = true; // Enable guest veteran access
+    @api showGuestAccess; // Enable guest veteran access
     @api defaultCategory = ''; // Default service category filter
     @api maxResults = 50; // Maximum results to display
 

@@ -5,8 +5,8 @@ import IS_GUEST from '@salesforce/user/isGuest';
 
 export default class CvmaInAppGuidance extends LightningElement {
     @api guidanceContext = 'veteran-resources';
-    @api showOnFirstVisit = true;
-    @api enableVoiceCommands = true;
+    @api showOnFirstVisit;
+    @api enableVoiceCommands;
     @api highContrastMode = false;
     @api reducedMotion = false;
 

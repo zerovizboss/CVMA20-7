@@ -7,7 +7,7 @@ import getVeteranOrganizations from '@salesforce/apex/CVMAVeteranResourcesContro
 import checkEligibility from '@salesforce/apex/CVMAVeteranResourcesController.checkEligibility';
 
 export default class VeteranResourceFinder extends LightningElement {
-    @api guestAccess = true;
+    @api guestAccess;
     @api requireAuthentication = false;
     @api title = 'Veteran Resources Finder';
     @api maxResults = 20;

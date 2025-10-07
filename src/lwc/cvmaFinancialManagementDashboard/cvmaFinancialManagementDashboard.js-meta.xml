@@ -18,9 +18,5 @@
             <property name="userId" type="String" label="User ID" description="Current user ID for financial access validation"/>
             <property name="dashboardMode" type="String" label="Dashboard Mode" description="Dashboard display mode: enhanced, basic, readonly"/>
         </targetConfig>
-        <targetConfig targets="lightningCommunity__Page,lightningCommunity__Default">
-            <property name="userId" type="String" label="User ID" description="Current user ID for financial access validation"/>
-            <property name="dashboardMode" type="String" label="Dashboard Mode" description="Dashboard display mode: enhanced, basic, readonly"/>
-        </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

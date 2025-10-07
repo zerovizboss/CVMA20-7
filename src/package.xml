@@ -2400,10 +2400,6 @@
         <members>CVMA_Disciplinary_Alerts</members>
         <members>CVMA_Disciplinary_Alerts/CVMA_Administrative_Hold_75_Day_Alert</members>
         <members>CVMA_Disciplinary_Alerts/CVMA_Administrative_Hold_90_Day_Expiration</members>
-        <members>CVMA_Email_Templates/CVMA_Membership_Application_Confirmation.email-meta.xml</members>
-        <members>CVMA_Email_Templates/CVMA_Membership_Approved_Notification.email-meta.xml</members>
-        <members>CVMA_Email_Templates/CVMA_Membership_Rejected_Notification.email-meta.xml</members>
-        <members>CVMA_Email_Templates/CVMA_New_Application_Officer_Notification.email-meta.xml</members>
         <name>EmailTemplate</name>
     </types>
     <types>
@@ -2744,8 +2740,6 @@
         <members>WorkType.My_WorkTypes</members>
         <members>WorkTypeGroup.All_WorkTypeGroups</members>
         <members>WorkTypeGroup.My_WorkTypeGroups</members>
-        <members>default.Membership_Application__c.CVMA_Approved_Applications</members>
-        <members>default.Membership_Application__c.CVMA_Pending_Applications</members>
         <name>ListView</name>
     </types>
     <types>
