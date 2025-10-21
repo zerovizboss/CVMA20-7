@@ -25,13 +25,13 @@
         <members>CVMA_Career_Resource.VA_Vocational_Rehab</members>
         <members>CVMA_Housing_Financial_Resource.VA_Home_Loan</members>
         <members>CVMA_Housing_Financial_Resource.HUD_VASH</members>
-        <members>CVMA_Housing_Financial_Resource.National_Call_Center</members>
         <members>CVMA_Housing_Financial_Resource.SSVF</members>
         <members>CVMA_Housing_Financial_Resource.Veterans_Inc</members>
         <members>CVMA_Housing_Financial_Resource.City_Rescue_Mission</members>
         <members>CVMA_Housing_Financial_Resource.Feeding_America</members>
         <members>CVMA_Housing_Financial_Resource.JEA_Project_CARE</members>
         <members>CVMA_Housing_Financial_Resource.CVMA_Emergency_Fund</members>
+        <members>CVMA_Housing_Financial_Resource.Natl_Homeless_Hotline</members>
         <name>CustomMetadata</name>
     </types>
     <types>
@@ -45,6 +45,7 @@
     </types>
     <types>
         <members>cvmaCareerResources</members>
+        <members>cvmaHousingFinancialResources</members>
         <name>LightningComponentBundle</name>
     </types>
     <version>65.0</version>
