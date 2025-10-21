@@ -1,0 +1,86 @@
+/**
+ * cvmaMemberDocumentPortal.css
+ * Military Awards & Ribbons Styling for CVMA Document Portal
+ * Epic #3 User Story #22: Member Document Access Portal
+ */
+
+/* Military Ribbon Header */
+.cvma-document-portal-header {
+    background: linear-gradient(135deg, #1B3A6B 0%, #2B5A8B 100%);
+    color: white;
+    border-left: 4px solid #C41E3A;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+.cvma-document-portal-header .slds-text-heading_medium {
+    color: white;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* File Cards - Military Ribbon Accent */
+.cvma-file-card {
+    border-left: 3px solid #FFD700;
+    transition: all 0.2s ease;
+}
+
+.cvma-file-card:hover {
+    border-left-color: #C41E3A;
+    box-shadow: 0 2px 8px rgba(196, 30, 58, 0.2);
+}
+
+/* Tab Styling - Military Colors */
+.slds-tabs_default__item.slds-is-active .slds-tabs_default__link {
+    border-bottom-color: #C41E3A;
+    color: #1B3A6B;
+    font-weight: 600;
+}
+
+/* Military Ribbon Footer */
+.cvma-ribbon-footer {
+    background: linear-gradient(90deg, #1B3A6B 0%, #2B5A8B 50%, #1B3A6B 100%);
+    color: white;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px solid #FFD700;
+}
+
+.cvma-ribbon-footer lightning-icon {
+    fill: #FFD700;
+}
+
+/* Document Category Sections */
+.slds-p-around_medium h3 {
+    color: #1B3A6B;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 8px;
+}
+
+/* Upload Area Styling */
+lightning-file-upload {
+    border: 2px dashed #2B5A8B;
+    border-radius: 4px;
+    padding: 16px;
+    background-color: rgba(27, 58, 107, 0.05);
+}
+
+/* Guest Restriction Message */
+.slds-theme_warning {
+    border-left: 4px solid #C41E3A;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .cvma-document-portal-header {
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+
+    .cvma-ribbon-footer {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}

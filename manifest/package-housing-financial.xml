@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>CVMA_Housing_Financial_Resource.VA_Home_Loan</members>
+        <members>CVMA_Housing_Financial_Resource.HUD_VASH</members>
+        <members>CVMA_Housing_Financial_Resource.Natl_Homeless_Hotline</members>
+        <members>CVMA_Housing_Financial_Resource.SSVF</members>
+        <members>CVMA_Housing_Financial_Resource.Veterans_Inc</members>
+        <members>CVMA_Housing_Financial_Resource.Feeding_America</members>
+        <members>CVMA_Housing_Financial_Resource.City_Rescue_Mission</members>
+        <members>CVMA_Housing_Financial_Resource.JEA_Project_CARE</members>
+        <members>CVMA_Housing_Financial_Resource.CVMA_Emergency_Fund</members>
+        <name>CustomMetadata</name>
+    </types>
+    <version>65.0</version>
+</Package>

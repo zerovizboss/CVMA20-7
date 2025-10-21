@@ -1,0 +1,109 @@
+<template>
+    <!-- CVMA Member Document Portal - Standard Feature Integration -->
+    <lightning-card title={headerText} icon-name="doctype:library_folder">
+        <!-- Military Ribbon Header Styling -->
+        <div class="slds-card__header-link slds-p-around_small cvma-document-portal-header">
+            <lightning-icon icon-name="doctype:library_folder" size="small" class="slds-m-right_small"></lightning-icon>
+            <span class="slds-text-heading_medium">{headerText}</span>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Guest User Restriction -->
+            <template if:true={isGuestUser}>
+                <div class="slds-box slds-theme_warning slds-m-around_medium">
+                    <div class="slds-media slds-media_center">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:lock" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h3 class="slds-text-heading_small">Member Access Required</h3>
+                            <p class="slds-text-body_regular">{guestMessage}</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Member Document Access -->
+            <template if:true={showPortal}>
+                <!-- Portal Description -->
+                <div class="slds-m-bottom_medium">
+                    <p class="slds-text-body_regular">{description}</p>
+                </div>
+
+                <!-- Document Categories -->
+                <lightning-tabset>
+                    <!-- Bylaws Tab -->
+                    <lightning-tab label="Bylaws & Policies" icon-name="doctype:pdf">
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Official CVMA Bylaws</h3>
+                            <p class="slds-text-body_small slds-m-bottom_medium">
+                                Access national and chapter bylaws, amendments, and governance documents.
+                            </p>
+                            <!-- Native Files Component - Content Library integration -->
+                            <div class="slds-box slds-theme_default slds-m-top_small">
+                                <p class="slds-text-body_small">
+                                    Bylaws documents will be displayed here once Content Library is configured.
+                                    Files are managed through native Salesforce Files with automatic versioning.
+                                </p>
+                            </div>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Forms Tab -->
+                    <lightning-tab label="CVMA Forms" icon-name="doctype:attachment">
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Official CVMA Forms</h3>
+                            <p class="slds-text-body_small slds-m-bottom_medium">
+                                Download membership applications, patch agreements, and administrative forms.
+                            </p>
+                            <!-- Files list will be populated via related files -->
+                        </div>
+                    </lightning-tab>
+
+                    <!-- Meeting Minutes Tab -->
+                    <lightning-tab label="Meeting Minutes" icon-name="doctype:document">
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Chapter Meeting Minutes</h3>
+                            <p class="slds-text-body_small slds-m-bottom_medium">
+                                Review past meeting minutes and chapter business records.
+                            </p>
+                        </div>
+                    </lightning-tab>
+
+                    <!-- All Documents Tab (Search) -->
+                    <lightning-tab label="All Documents" icon-name="utility:search">
+                        <div class="slds-p-around_medium">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Search All Documents</h3>
+
+                            <!-- Native File Upload (CEB Only) -->
+                            <template if:true={uploadEnabled}>
+                                <div class="slds-m-bottom_medium">
+                                    <lightning-file-upload
+                                        label="Upload Chapter Documents (CEB Only)"
+                                        accept={acceptedFormats}
+                                        onuploadfinished={handleUploadFinished}
+                                        multiple>
+                                    </lightning-file-upload>
+                                </div>
+                            </template>
+
+                            <!-- Document Browser - Uses native Salesforce Files search -->
+                            <div class="slds-box slds-theme_default">
+                                <p class="slds-text-body_small">
+                                    Use the search bar above to find documents by name, category, or content.
+                                    All documents are stored securely in Salesforce Files with automatic versioning.
+                                </p>
+                            </div>
+                        </div>
+                    </lightning-tab>
+                </lightning-tabset>
+            </template>
+        </div>
+
+        <!-- Military Ribbon Footer -->
+        <div slot="footer" class="cvma-ribbon-footer">
+            <lightning-icon icon-name="utility:shield" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+            <span class="slds-text-body_small">🏍️ CVMA Chapter 20-7 - Vets Serving Vets</span>
+        </div>
+    </lightning-card>
+</template>

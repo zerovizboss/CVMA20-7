@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>CVMA_Legal_Resource.Veterans_Legal_Services_Jacksonville</members>
+        <members>CVMA_Legal_Resource.DAV_Disabled_American_Veterans</members>
+        <members>CVMA_Legal_Resource.American_Legion_Veterans_Advocacy</members>
+        <members>CVMA_Legal_Resource.Military_Civilian_Hotline</members>
+        <members>CVMA_Legal_Resource.VFW_Service_Officers</members>
+        <name>CustomMetadata</name>
+    </types>
+    <version>65.0</version>
+</Package>

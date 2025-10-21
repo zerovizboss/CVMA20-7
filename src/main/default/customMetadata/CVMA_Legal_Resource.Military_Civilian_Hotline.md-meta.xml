@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Military-Civilian Hotline (MCH)</label>
+    <protected>false</protected>
+    <values>
+        <field>Resource_Name__c</field>
+        <value xsi:type="xsd:string">Military-Civilian Hotline (MCH)</value>
+    </values>
+    <values>
+        <field>Resource_Type__c</field>
+        <value xsi:type="xsd:string">Legal Hotline</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Free legal assistance hotline for active duty and veterans regarding military justice, family law, and benefits. Confidential consultations with experienced military attorneys available 24/7.</value>
+    </values>
+    <values>
+        <field>Contact_Phone__c</field>
+        <value xsi:type="xsd:string">1-800-MIL-LAWS</value>
+    </values>
+    <values>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://puckett-legal.com/military-civilian-hotline</value>
+    </values>
+    <values>
+        <field>Service_Area__c</field>
+        <value xsi:type="xsd:string">National</value>
+    </values>
+    <values>
+        <field>Pro_Bono_Available__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">4.0</value>
+    </values>
+    <values>
+        <field>Appointment_Required__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Eligibility_Requirements__c</field>
+        <value xsi:type="xsd:string">Active duty service members, veterans, and their families. No income restrictions.</value>
+    </values>
+</CustomMetadata>

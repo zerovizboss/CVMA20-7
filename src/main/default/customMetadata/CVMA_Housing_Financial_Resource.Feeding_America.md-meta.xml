@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Feeding America Veterans Program</label>
+    <protected>false</protected>
+    <values>
+        <field>Resource_Name__c</field>
+        <value xsi:type="xsd:string">Feeding America - Veterans &amp; Military Families Program</value>
+    </values>
+    <values>
+        <field>Resource_Type__c</field>
+        <value xsi:type="xsd:string">Food Bank</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Network of 200+ food banks providing food assistance specifically for veterans and military families</value>
+    </values>
+    <values>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://www.feedingamerica.org/our-work/hunger-relief-programs/veterans</value>
+    </values>
+    <values>
+        <field>Service_Area__c</field>
+        <value xsi:type="xsd:string">National</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Emergency_Service__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>CEB_Approval_Required__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">6</value>
+    </values>
+</CustomMetadata>

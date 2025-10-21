@@ -1,0 +1,19 @@
+/**
+ * @description Styling for CVMA Legal Resources component
+ * Implements military ribbon styling for veteran resource cards
+ * User Story #75: Legal & Advocacy Services Resources
+ *
+ * @author CVMA Chapter 20-7
+ * @date 2025-10-20
+ */
+
+.cvma-military-ribbon {
+    border-left: 4px solid #c41e3a; /* CVMA Red */
+    border-top: 1px solid #B8860B; /* Gold accent */
+}
+
+.cvma-military-ribbon:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.2s ease-in-out;
+}

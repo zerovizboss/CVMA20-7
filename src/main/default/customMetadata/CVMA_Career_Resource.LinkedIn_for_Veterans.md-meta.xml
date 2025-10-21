@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>LinkedIn for Veterans</label>
+    <protected>false</protected>
+    <values>
+        <field>Resource_Name__c</field>
+        <value xsi:type="xsd:string">LinkedIn for Veterans</value>
+    </values>
+    <values>
+        <field>Resource_Type__c</field>
+        <value xsi:type="xsd:string">Job Board</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">LinkedIn's dedicated veteran job search platform with military skills translator and veteran employer directory</value>
+    </values>
+    <values>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://www.linkedin.com/veterans</value>
+    </values>
+    <values>
+        <field>Target_Audience__c</field>
+        <value xsi:type="xsd:string">All Veterans</value>
+    </values>
+    <values>
+        <field>Service_Area__c</field>
+        <value xsi:type="xsd:string">National</value>
+    </values>
+    <values>
+        <field>Cost__c</field>
+        <value xsi:type="xsd:string">Free</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">2.0</value>
+    </values>
+    <values>
+        <field>Certification_Available__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>CEB_Approved__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+</CustomMetadata>

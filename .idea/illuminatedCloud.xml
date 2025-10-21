@@ -6,7 +6,7 @@
         <IlluminatedCloudConnection>
           <option name="connectionName" value="cvma" />
           <option name="connectionType" value="OAUTH" />
-          <option name="defaultModuleName" value="cvma" />
+          <option name="defaultModuleName" value="untrusted" />
           <option name="offlineSymbolTablePath" value="$PROJECT_DIR$/IlluminatedCloud/cvma/OfflineSymbolTable.zip" />
         </IlluminatedCloudConnection>
       </list>

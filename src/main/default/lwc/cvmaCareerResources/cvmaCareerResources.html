@@ -1,0 +1,107 @@
+<template>
+    <lightning-card title="Employment & Career Services" icon-name="standard:work_order">
+
+        <template if:false={showResources}>
+            <div class="slds-p-around_medium">
+                <lightning-formatted-text value={guestMessage}></lightning-formatted-text>
+            </div>
+        </template>
+
+        <template if:true={showResources}>
+            <!-- Filter by Resource Type -->
+            <div class="slds-p-horizontal_medium slds-p-top_medium">
+                <lightning-combobox
+                    name="resourceType"
+                    label="Filter by Resource Type"
+                    value={selectedType}
+                    placeholder="Select Resource Type"
+                    options={typeOptions}
+                    onchange={handleTypeChange}
+                ></lightning-combobox>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading career resources..."></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Resources List -->
+            <template if:false={isLoading}>
+                <template if:true={hasResources}>
+                    <div class="slds-p-around_medium">
+                        <template for:each={resources} for:item="resource">
+                            <article key={resource.resourceName} class="slds-card slds-m-bottom_medium cvma-military-ribbon">
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                <span class="slds-text-heading_small">{resource.resourceName}</span>
+                                            </h2>
+                                            <lightning-badge label={resource.resourceType}></lightning-badge>
+                                            <template if:true={resource.certificationAvailable}>
+                                                <lightning-badge label="Certification Available" class="slds-m-left_x-small" variant="success"></lightning-badge>
+                                            </template>
+                                            <template if:true={resource.cebApproved}>
+                                                <lightning-badge label="CEB Approved Partner" class="slds-m-left_x-small" variant="inverse"></lightning-badge>
+                                            </template>
+                                        </div>
+                                    </header>
+                                </div>
+                                <div class="slds-card__body slds-card__body_inner">
+                                    <p class="slds-m-bottom_small">{resource.description}</p>
+
+                                    <dl class="slds-list_horizontal slds-wrap">
+                                        <template if:true={resource.targetAudience}>
+                                            <dt class="slds-item_label slds-text-color_weak">Target Audience:</dt>
+                                            <dd class="slds-item_detail slds-m-right_large">{resource.targetAudience}</dd>
+                                        </template>
+
+                                        <template if:true={resource.serviceArea}>
+                                            <dt class="slds-item_label slds-text-color_weak">Service Area:</dt>
+                                            <dd class="slds-item_detail slds-m-right_large">{resource.serviceArea}</dd>
+                                        </template>
+
+                                        <template if:true={resource.cost}>
+                                            <dt class="slds-item_label slds-text-color_weak">Cost:</dt>
+                                            <dd class="slds-item_detail slds-m-right_large">{resource.cost}</dd>
+                                        </template>
+
+                                        <template if:true={resource.contactPhone}>
+                                            <dt class="slds-item_label slds-text-color_weak">Phone:</dt>
+                                            <dd class="slds-item_detail slds-m-right_large">
+                                                <lightning-formatted-phone value={resource.contactPhone}></lightning-formatted-phone>
+                                            </dd>
+                                        </template>
+
+                                        <template if:true={resource.contactEmail}>
+                                            <dt class="slds-item_label slds-text-color_weak">Email:</dt>
+                                            <dd class="slds-item_detail slds-m-right_large">
+                                                <lightning-formatted-email value={resource.contactEmail}></lightning-formatted-email>
+                                            </dd>
+                                        </template>
+
+                                        <template if:true={resource.websiteUrl}>
+                                            <dt class="slds-item_label slds-text-color_weak">Website:</dt>
+                                            <dd class="slds-item_detail slds-m-right_large">
+                                                <lightning-formatted-url value={resource.websiteUrl} target="_blank"></lightning-formatted-url>
+                                            </dd>
+                                        </template>
+                                    </dl>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:false={hasResources}>
+                    <div class="slds-p-around_medium slds-text-align_center">
+                        <p class="slds-text-color_weak">No career resources found for the selected filter.</p>
+                    </div>
+                </template>
+            </template>
+        </template>
+
+    </lightning-card>
+</template>

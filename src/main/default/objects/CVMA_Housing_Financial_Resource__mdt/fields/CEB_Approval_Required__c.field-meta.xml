@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEB_Approval_Required__c</fullName>
+    <label>CEB Approval Required</label>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+    <description>Requires CEB approval (CVMA emergency fund, etc.)</description>
+</CustomField>
