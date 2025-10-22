@@ -71,7 +71,12 @@
       "Bash(sf apex get test:*)",
       "Bash(sf org list metadata:*)",
       "Bash(mkdir:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(npm install:*)",
+      "Bash(npm search:*)",
+      "Bash(npm view:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:developers.google.com)"
     ],
     "deny": [],
     "ask": []

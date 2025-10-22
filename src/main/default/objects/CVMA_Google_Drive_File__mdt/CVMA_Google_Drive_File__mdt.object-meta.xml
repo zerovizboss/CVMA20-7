@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>CVMA Google Drive File</label>
+    <pluralLabel>CVMA Google Drive Files</pluralLabel>
+    <visibility>Public</visibility>
+    <description>Metadata records for files stored in Google Drive, eliminating Salesforce Developer Edition storage constraints. Each record contains file metadata (~500 bytes) while actual file content lives in Google Drive.</description>
+</CustomObject>

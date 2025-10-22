@@ -38,6 +38,7 @@
         <members>CVMA_Legal_Resource__mdt</members>
         <members>CVMA_Career_Resource__mdt</members>
         <members>CVMA_Housing_Financial_Resource__mdt</members>
+        <members>CVMA_Google_Drive_File__mdt</members>
         <name>CustomObject</name>
     </types>
     <types>
