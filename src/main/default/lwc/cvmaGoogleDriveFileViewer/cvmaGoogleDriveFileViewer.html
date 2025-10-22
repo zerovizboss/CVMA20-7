@@ -1,0 +1,152 @@
+<template>
+    <!-- CVMA Google Drive File Viewer -->
+    <lightning-card title="CVMA Documents" icon-name="standard:file">
+
+        <!-- Header with CEB Badge -->
+        <div slot="actions">
+            <template if:true={isCEBOfficer}>
+                <lightning-badge label="CEB Officer Access" class="slds-m-right_small"></lightning-badge>
+            </template>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-gutters slds-wrap">
+
+                <!-- Category Filter -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-combobox
+                        name="category"
+                        label="Category"
+                        value={selectedCategory}
+                        options={categoryOptions}
+                        onchange={handleCategoryChange}
+                        variant="label-inline">
+                    </lightning-combobox>
+                </div>
+
+                <!-- Search Box -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <lightning-input
+                        type="search"
+                        name="search"
+                        label="Search Files"
+                        value={searchTerm}
+                        onchange={handleSearchChange}
+                        placeholder="Search by file name or description..."
+                        variant="label-inline">
+                    </lightning-input>
+                </div>
+            </div>
+
+            <!-- Results Count -->
+            <div class="slds-m-top_small slds-text-body_small slds-text-color_weak">
+                <template if:true={files}>
+                    Showing {filesCount} document(s)
+                </template>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="slds-is-relative" style="height: 200px;">
+                <lightning-spinner alternative-text="Loading files..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error Message -->
+        <template if:true={error}>
+            <div class="slds-p-around_medium">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <h2>{error}</h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- File List -->
+        <template if:false={isLoading}>
+            <template if:true={hasFiles}>
+                <div class="file-list">
+                    <template for:each={files} for:item="file">
+                        <div key={file.qualifiedApiName} class="file-item slds-p-around_medium slds-border_bottom">
+                            <div class="slds-grid slds-grid_align-spread">
+
+                                <!-- File Info -->
+                                <div class="slds-col slds-size_8-of-12">
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon
+                                                icon-name={file.fileIcon}
+                                                size="medium"
+                                                alternative-text={file.fileType}>
+                                            </lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h3 class="slds-text-heading_small slds-m-bottom_xx-small">
+                                                <a href={file.publicLink} target="_blank" rel="noopener noreferrer">
+                                                    {file.fileName}
+                                                </a>
+                                            </h3>
+                                            <p class="slds-text-body_small slds-text-color_weak">
+                                                {file.description}
+                                            </p>
+                                            <div class="slds-m-top_xx-small">
+                                                <lightning-badge label={file.category} class="slds-m-right_xx-small"></lightning-badge>
+                                                <template if:true={file.cebOnly}>
+                                                    <lightning-badge label="CEB Only" class="ceb-badge"></lightning-badge>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- File Meta -->
+                                <div class="slds-col slds-size_4-of-12 slds-text-align_right">
+                                    <p class="slds-text-body_small slds-text-color_weak">
+                                        <lightning-formatted-text value={file.fileSizeDisplay}></lightning-formatted-text>
+                                    </p>
+                                    <p class="slds-text-body_small slds-text-color_weak">
+                                        <template if:true={file.uploadedDate}>
+                                            <lightning-formatted-date-time
+                                                value={file.uploadedDate}
+                                                year="numeric"
+                                                month="short"
+                                                day="2-digit">
+                                            </lightning-formatted-date-time>
+                                        </template>
+                                    </p>
+                                    <div class="slds-m-top_small">
+                                        <lightning-button
+                                            label="Open"
+                                            onclick={handleOpenFile}
+                                            data-link={file.publicLink}
+                                            variant="brand"
+                                            class="slds-m-right_xx-small">
+                                        </lightning-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- No Results Message -->
+            <template if:false={hasFiles}>
+                <div class="slds-p-around_medium slds-text-align_center">
+                    <lightning-icon
+                        icon-name="utility:search"
+                        size="large"
+                        alternative-text="No results">
+                    </lightning-icon>
+                    <p class="slds-m-top_medium slds-text-heading_small">No documents found</p>
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        Try adjusting your search or filter criteria
+                    </p>
+                </div>
+            </template>
+        </template>
+
+    </lightning-card>
+</template>

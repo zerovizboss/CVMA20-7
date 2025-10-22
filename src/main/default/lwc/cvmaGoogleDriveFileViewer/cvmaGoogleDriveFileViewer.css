@@ -1,0 +1,73 @@
+/**
+ * CVMA Google Drive File Viewer Styles
+ * Epic #12, User Story #88
+ */
+
+/* File List Container */
+.file-list {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+/* File Item Hover Effect */
+.file-item {
+    transition: background-color 0.2s ease;
+}
+
+.file-item:hover {
+    background-color: rgb(243, 243, 243);
+}
+
+/* CEB Badge Styling */
+.ceb-badge {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* File Link Styling */
+.file-item a {
+    color: #0070d2;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.file-item a:hover {
+    text-decoration: underline;
+    color: #005fb2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .file-list {
+        max-height: 400px;
+    }
+
+    .file-item .slds-col {
+        width: 100% !important;
+        text-align: left !important;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Search and Filter Section */
+.slds-p-around_medium {
+    background-color: rgb(250, 250, 250);
+}
+
+/* Custom Scrollbar for File List */
+.file-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.file-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.file-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.file-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
