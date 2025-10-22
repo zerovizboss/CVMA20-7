@@ -7,7 +7,9 @@
         "@modelcontextprotocol/server-gdrive"
       ],
       "env": {
-        "GDRIVE_FOLDER_ID": "1VblBnqHfQmjVDoRkO5mbgFnRGVPQv9Ej"
+        "GDRIVE_FOLDER_ID": "1VblBnqHfQmjVDoRkO5mbgFnRGVPQv9Ej",
+        "GDRIVE_OAUTH_PATH": "/c/Users/zerov/.config/claude-code/gdrive/gcp-oauth.keys.json",
+        "GDRIVE_CREDENTIALS_PATH": "/c/Users/zerov/.config/claude-code/gdrive/.gdrive-server-credentials.json"
       }
     }
   }
