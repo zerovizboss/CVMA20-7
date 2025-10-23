@@ -8,7 +8,7 @@
     </values>
     <values>
         <field>Google_Drive_ID__c</field>
-        <value xsi:type="xsd:string">1E8K_OyYfOLn4oNvQ0E9N58nkzCIJtczI</value>
+        <value xsi:type="xsd:string">PLACEHOLDER_APPAREL_NEEDS_ID</value>
     </values>
     <values>
         <field>File_Type__c</field>
@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>Public_Link__c</field>
-        <value xsi:type="xsd:string">https://drive.google.com/file/d/1E8K_OyYfOLn4oNvQ0E9N58nkzCIJtczI/view</value>
+        <value xsi:type="xsd:string">https://drive.google.com/file/d/PLACEHOLDER_APPAREL_NEEDS_ID/view</value>
     </values>
     <values>
         <field>Size_MB__c</field>
@@ -44,6 +44,6 @@
     </values>
     <values>
         <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
 </CustomMetadata>

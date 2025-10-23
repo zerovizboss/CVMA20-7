@@ -91,7 +91,9 @@
       "Bash(python3:*)",
       "Bash(\"/c/Program Files/Salesforce CLI/bin/sf.cmd\" data query --query \"SELECT QualifiedApiName, MasterLabel, File_Name__c, Category__c FROM CVMA_Google_Drive_File__mdt ORDER BY Display_Order__c LIMIT 5\" --target-org cvma)",
       "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, MasterLabel, File_Name__c, Category__c FROM CVMA_Google_Drive_File__mdt ORDER BY Display_Order__c LIMIT 5\" --target-org cvma)",
-      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, MasterLabel, File_Name__c, Google_Drive_ID__c, Category__c FROM CVMA_Google_Drive_File__mdt WHERE Is_Active__c = true ORDER BY Display_Order__c LIMIT 10\" --target-org cvma --json)"
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, MasterLabel, File_Name__c, Google_Drive_ID__c, Category__c FROM CVMA_Google_Drive_File__mdt WHERE Is_Active__c = true ORDER BY Display_Order__c LIMIT 10\" --target-org cvma --json)",
+      "Bash(for file in CVMA_Google_Drive_File.*.xml)",
+      "Bash(do echo \"$file\")"
     ],
     "deny": [],
     "ask": []

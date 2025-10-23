@@ -4,7 +4,7 @@
     <label>Display Order</label>
     <description>Sort order for file display in UI (lower numbers appear first)</description>
     <type>Number</type>
-    <precision>3</precision>
+    <precision>5</precision>
     <scale>0</scale>
     <required>false</required>
 </CustomField>
