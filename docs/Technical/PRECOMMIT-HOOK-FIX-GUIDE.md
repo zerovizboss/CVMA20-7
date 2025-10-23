@@ -289,8 +289,87 @@ git commit --allow-empty -m "Hook test" --dry-run
 
 ---
 
+---
+
+## 🔄 UPDATE: October 23, 2025 - Partial Fix Applied
+
+### What Was Fixed
+✅ **_socket.pyd restored**: File now present in `C:\Python313\DLLs\_socket.pyd` (86,360 bytes)
+✅ **Socket module imports**: `python -c "import socket"` works successfully
+✅ **Pre-commit command works**: `pre-commit --version` returns `pre-commit 4.3.0`
+
+### Remaining Issues
+❌ **pip is corrupted**: Missing `pip._vendor.rich._emoji_codes` module
+❌ **Cannot install packages**: `pip install` fails with ModuleNotFoundError
+❌ **Pre-commit hooks fail**: Cannot create virtualenv due to missing `distlib.util`
+
+### Error Details
+```
+ModuleNotFoundError: No module named 'pip._vendor.rich._emoji_codes'
+```
+
+**Impact**: Can run pre-commit command but hooks fail during virtualenv creation
+
+### Root Cause Analysis
+**Python Launch Manager Reinstall**: Fixed _socket but introduced new pip corruption
+- ✅ Core Python DLLs restored (_socket, _ssl, select)
+- ❌ pip installation corrupted (missing vendor packages)
+- ❌ Site-packages partially broken
+
+### Recommended Next Steps
+
+**Option A: Full Python Uninstall/Reinstall** (30 minutes, recommended)
+1. Completely uninstall Python 3.13 from Windows Settings
+2. Delete remaining directories:
+   - `C:\Python313\`
+   - `C:\Users\zerov\AppData\Roaming\Python\Python313\`
+   - `C:\Users\zerov\AppData\Local\Python313\`
+3. Download fresh Python 3.13.9 from https://www.python.org/downloads/
+4. Install with "Add to PATH" option
+5. Verify installation:
+   ```bash
+   python --version
+   python -c "import socket; print('OK')"
+   pip --version
+   ```
+6. Reinstall pre-commit:
+   ```bash
+   pip install pre-commit
+   pre-commit install
+   ```
+
+**Option B: Use Python 3.12 Instead** (20 minutes, more stable)
+1. Download Python 3.12.x (more stable than 3.13)
+2. Install alongside Python 3.13
+3. Update pre-commit hook to use Python 3.12:
+   ```bash
+   # Edit .git/hooks/pre-commit
+   INSTALL_PYTHON='C:\Python312\python.exe'
+   ```
+4. Reinstall pre-commit with Python 3.12:
+   ```bash
+   py -3.12 -m pip install pre-commit
+   pre-commit install
+   ```
+
+**Option C: Continue --no-verify Workaround** (0 minutes, temporary)
+- Socket issue fixed (progress made!)
+- pip corruption prevents full pre-commit functionality
+- Continue using `git commit --no-verify` until full repair
+
+### Current Workaround
+```bash
+# All commits require --no-verify bypass
+git commit --no-verify -m "Commit message"
+```
+
+**Recommendation**: **Option A** (full uninstall/reinstall) for clean Python environment
+
+---
+
 **Session**: October 23, 2025
-**Issue**: Pre-commit hook Python _socket module error
-**Status**: ⏳ Documented - awaiting repair in next session
+**Issue**: Pre-commit hook Python module errors
+**Progress**: ✅ _socket fixed, ❌ pip corrupted
+**Status**: ⏳ Partial fix - requires full Python reinstall
 **Workaround**: Continue using `git commit --no-verify`
-**Permanent Fix**: Python 3.13 repair or venv-based pre-commit installation
+**Permanent Fix**: Complete Python 3.13 uninstall/reinstall or switch to Python 3.12
