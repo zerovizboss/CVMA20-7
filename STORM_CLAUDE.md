@@ -118,6 +118,87 @@
 
 ---
 
+## 🐛 **BUG TRACKING PROTOCOL**
+
+**Established**: October 23, 2025
+**Mandatory For**: All deployment failures, runtime errors, and blocking issues
+
+### **When to Create Bug Issues**
+
+**Immediate Bug Creation Required When**:
+- Deployment failures (field precision errors, duplicate values, missing metadata)
+- Runtime errors preventing component functionality
+- Security violations or permission issues
+- Data validation failures blocking user workflows
+- Test failures preventing code deployment
+- Breaking changes from package updates
+
+### **Bug Issue Creation Requirements**
+
+**Required Documentation in GitHub Issue**:
+1. **Bug Description**: Clear summary of the failure/error
+2. **Root Causes Identified**: Technical analysis of why the bug occurred
+3. **Affected Files**: List all files/components impacted
+4. **Error Messages**: Full error text from deployment/runtime logs
+5. **Reproduction Steps**: How to trigger the bug (if applicable)
+6. **Impact Assessment**: Severity (blocking UAT, production impact, etc.)
+
+**GitHub Issue Labels**:
+- Primary: `bug`
+- Optional: `deployment`, `security`, `data-quality`, `blocking`
+
+### **Bug Resolution Workflow**
+
+**Step 1: Create GitHub Issue**
+```bash
+gh issue create --repo zerovizboss/CVMA20-7 \
+  --title "🐛 Bug: [Clear Description]" \
+  --label "bug" \
+  --body "[Comprehensive documentation per requirements above]"
+```
+
+**Step 2: Implement Fixes**
+- Follow standard development workflow (branch → fix → test → deploy)
+- Commit with bug reference: `🐛 Fix: [description] (Bug #XX)`
+- Include Deploy ID and success confirmation in commit message
+
+**Step 3: Close Issue with Resolution**
+```bash
+gh issue close XX --repo zerovizboss/CVMA20-7 \
+  --comment "## ✅ RESOLUTION COMPLETE
+
+[Document fixes applied, deploy IDs, verification results]
+[Include resolution time and complexity assessment]
+[Confirm UAT verification if applicable]"
+```
+
+### **Bug Tracking Benefits**
+
+**Human Tracking & Historical Reference**:
+- Future developers can see patterns in deployment issues
+- Resolution strategies documented for similar bugs
+- Time-to-resolution metrics for process improvement
+- Knowledge base for troubleshooting common errors
+
+**Examples from October 23, 2025 Session**:
+- **Bug #88**: Google Drive Metadata Deployment Failures
+  - Root Causes: Display_Order precision (3→5), duplicate Google Drive IDs, metadata never deployed
+  - Resolution Time: ~30 minutes
+  - Deploy ID: 0Afbm00000N32uUCAR (191 components, 99 active metadata records)
+  - Fixes: Field precision update, placeholder IDs for duplicates, manifest deployment
+
+### **Integration with Tech Debt Protocol**
+
+**Relationship**:
+- **Bug Issues**: Immediate blockers requiring resolution before Epic completion
+- **Tech Debt Issues**: Enhancements, optimizations, or future improvements that don't block functionality
+
+**Epic Completion Gate**:
+- All bugs MUST be resolved and closed
+- Tech debt can be documented and deferred (per Tech Debt Protocol exceptions)
+
+---
+
 ### 🏛️ SINGLE-SITE ARCHITECTURE MIGRATION (September 23, 2025)
 - **Constraint Identified**: Developer Edition allows only 1 Experience Cloud site
 - **Solution**: Unified portal with role-based navigation and audience-specific page variations
