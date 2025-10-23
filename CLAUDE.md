@@ -4,30 +4,57 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 🏍️ **ENHANCED DEVELOPMENT PROTOCOLS**
 
-**CRITICAL**: For advanced multi-agent development protocols, revolutionary architecture patterns, and Strategic→TodoWrite→Tactical methodology, see **STORM_CLAUDE.md** - our enhanced development framework that extends beyond base CLAUDE.md capabilities.
+**CRITICAL**: For advanced multi-agent development protocols, revolutionary architecture patterns, and Strategic→TodoWrite→Tactical methodology, see **STORM_CLAUDE_CORE.md** - our optimized session initialization framework.
 
 **DEVOPS TEAM PROTOCOL**: For persistent resource references, established patterns, and context preservation, see **CVMA-RESOURCE-REGISTRY.md** - prevents "chasing our tail in the Storm" by maintaining known resources across sessions.
 
-### **Required Session Initialization Files**:
-1. **STORM_CLAUDE.md**: Epic status, multi-agent protocols, development methodology
+### **Required Session Initialization Files** (Read in Order):
+1. **STORM_CLAUDE_CORE.md**: Current project status, core protocols, multi-agent coordination (~256 lines)
 2. **CVMA-RESOURCE-REGISTRY.md**: Persistent resources, known patterns, cultural context
 3. **CLAUDE.md** (this file): Base development guidance and project overview
 
-STORM_CLAUDE.md contains:
-- Multi-agent coordination protocols (Strategic Agent + Tactical Agent)
-- Standard Feature Integration methodology (88.5%+ average code reduction)
-- Epic/User Story management patterns
-- Session memory and continuity protocols
-- Advanced Salesforce development patterns
+**Optional Context**:
+- **STORM_CLAUDE_ARCHIVE.md**: Historical achievements, past Epic documentation (read only if needed for historical context)
+- **STORM_CLAUDE.md**: Full development protocols (2,695 lines - use CORE version for session init)
 
-CVMA-RESOURCE-REGISTRY.md contains:
+### **What Each File Contains**:
+
+**STORM_CLAUDE_CORE.md** (Essential - Read First):
+- Current project status and Epic portfolio completion
+- Multi-agent coordination protocols (Strategic + Tactical)
+- Standard Feature Integration methodology (88.5%+ code reduction)
+- Security & quality standards
+- Session management protocols
+- **Total**: ~15K tokens with CVMA-RESOURCE-REGISTRY.md + CLAUDE.md
+
+**CVMA-RESOURCE-REGISTRY.md** (Essential - Read Second):
 - OneDrive documentation resources (`C:\Users\zerov\OneDrive\Documents\CVMA\Documentation`)
 - GitHub repository and project management patterns
 - Established development protocols and resource integration
 - Cultural context (STORM/WX humor references)
 - DevSecOps "known knowns" that should never require re-explanation
 
-**Always reference both STORM_CLAUDE.md AND CVMA-RESOURCE-REGISTRY.md for autonomous development continuity.**
+**STORM_CLAUDE_ARCHIVE.md** (Optional - Historical Reference):
+- Epic #1-10 detailed achievements
+- User Story implementation guides
+- Historical session notes and lessons learned
+- Development evolution timeline
+
+**STORM_CLAUDE.md** (Optional - Full Protocol Reference):
+- Complete development protocols (all protocols from CORE + historical context)
+- Use for deep-dive protocol research
+- Default to STORM_CLAUDE_CORE.md for session initialization
+
+**Session Initialization Protocol**:
+```bash
+# Optimized session startup (reduced token usage):
+1. Read STORM_CLAUDE_CORE.md (current status + core protocols)
+2. Read CVMA-RESOURCE-REGISTRY.md (persistent resources)
+3. Read CLAUDE.md (project overview - this file)
+4. Optional: Read STORM_CLAUDE_ARCHIVE.md (if historical context needed)
+```
+
+**Always reference STORM_CLAUDE_CORE.md AND CVMA-RESOURCE-REGISTRY.md for autonomous development continuity.**
 
 ## Project Overview
 
