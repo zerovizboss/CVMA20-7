@@ -76,7 +76,22 @@
       "Bash(npm search:*)",
       "Bash(npm view:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:developers.google.com)"
+      "WebFetch(domain:developers.google.com)",
+      "Bash(mv:*)",
+      "Bash(ls:*)",
+      "Bash(rmdir:*)",
+      "Bash(npx:*)",
+      "Bash(cp:*)",
+      "Bash(export GDRIVE_OAUTH_PATH=\"/c/Users/zerov/.config/claude-code/gdrive/gcp-oauth.keys.json\")",
+      "WebFetch(domain:console.cloud.google.com)",
+      "Bash(GDRIVE_FOLDER_ID=\"1VblBnqHfQmjVDoRkO5mbgFnRGVPQv9Ej\" npx:*)",
+      "Bash(export GOOGLE_APPLICATION_CREDENTIALS=\"/c/Users/zerov/.config/claude-code/gdrive/credentials.json\")",
+      "Bash(export GDRIVE_CREDENTIALS_PATH:*)",
+      "Bash(export GDRIVE_FOLDER_ID:*)",
+      "Bash(python3:*)",
+      "Bash(\"/c/Program Files/Salesforce CLI/bin/sf.cmd\" data query --query \"SELECT QualifiedApiName, MasterLabel, File_Name__c, Category__c FROM CVMA_Google_Drive_File__mdt ORDER BY Display_Order__c LIMIT 5\" --target-org cvma)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, MasterLabel, File_Name__c, Category__c FROM CVMA_Google_Drive_File__mdt ORDER BY Display_Order__c LIMIT 5\" --target-org cvma)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT QualifiedApiName, MasterLabel, File_Name__c, Google_Drive_ID__c, Category__c FROM CVMA_Google_Drive_File__mdt WHERE Is_Active__c = true ORDER BY Display_Order__c LIMIT 10\" --target-org cvma --json)"
     ],
     "deny": [],
     "ask": []

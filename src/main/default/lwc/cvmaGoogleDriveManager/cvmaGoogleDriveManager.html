@@ -1,0 +1,237 @@
+<template>
+    <!-- CEB Access Check -->
+    <template if:false={isCEB}>
+        <lightning-card title="Access Denied">
+            <div class="slds-p-around_medium slds-text-align_center">
+                <lightning-icon icon-name="utility:lock" size="large" variant="error"></lightning-icon>
+                <p class="slds-m-top_medium">This component is restricted to CEB Officers only.</p>
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- Main Content (CEB Access Granted) -->
+    <template if:true={isCEB}>
+
+        <!-- Header Section -->
+        <lightning-card title="Google Drive File Management" icon-name="custom:custom18">
+
+            <!-- Action Bar -->
+            <div slot="actions">
+                <lightning-button-group>
+                    <lightning-button
+                        label="Refresh"
+                        icon-name="utility:refresh"
+                        onclick={handleRefresh}
+                    ></lightning-button>
+                    <lightning-button
+                        label="Export CSV"
+                        icon-name="utility:download"
+                        onclick={handleExportCSV}
+                    ></lightning-button>
+                    <lightning-button
+                        label="Toggle Stats"
+                        icon-name="utility:chart"
+                        onclick={handleToggleStatistics}
+                    ></lightning-button>
+                    <lightning-button
+                        label="Validate ID"
+                        icon-name="utility:check"
+                        onclick={handleToggleValidator}
+                    ></lightning-button>
+                </lightning-button-group>
+            </div>
+
+            <!-- Statistics Dashboard -->
+            <template if:true={showStatistics}>
+                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                    <div class="slds-grid slds-wrap slds-gutters">
+
+                        <!-- Total Files -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="stat-card slds-box slds-theme_shade slds-text-align_center">
+                                <lightning-icon icon-name="doctype:attachment" size="medium"></lightning-icon>
+                                <div class="slds-text-heading_large slds-m-top_small">{totalFiles}</div>
+                                <div class="slds-text-body_small">Total Files</div>
+                            </div>
+                        </div>
+
+                        <!-- Active Files -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="stat-card slds-box slds-theme_success slds-text-align_center">
+                                <lightning-icon icon-name="utility:success" size="medium" variant="inverse"></lightning-icon>
+                                <div class="slds-text-heading_large slds-m-top_small">{activeFiles}</div>
+                                <div class="slds-text-body_small">Active Files</div>
+                            </div>
+                        </div>
+
+                        <!-- Inactive Files -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="stat-card slds-box slds-theme_warning slds-text-align_center">
+                                <lightning-icon icon-name="utility:warning" size="medium"></lightning-icon>
+                                <div class="slds-text-heading_large slds-m-top_small">{inactiveFiles}</div>
+                                <div class="slds-text-body_small">Inactive Files</div>
+                            </div>
+                        </div>
+
+                        <!-- Total Storage -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                            <div class="stat-card slds-box slds-theme_info slds-text-align_center">
+                                <lightning-icon icon-name="utility:database" size="medium"></lightning-icon>
+                                <div class="slds-text-heading_large slds-m-top_small">{totalSizeMB} MB</div>
+                                <div class="slds-text-body_small">Total Storage</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </template>
+
+            <!-- Google Drive ID Validator -->
+            <template if:true={showValidator}>
+                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                    <div class="slds-box">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Google Drive ID Validator</h3>
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-4">
+                                <lightning-input
+                                    label="Google Drive File ID"
+                                    value={driveIdInput}
+                                    onchange={handleDriveIdInput}
+                                    placeholder="Enter Google Drive file ID (e.g., 1XYZ123abc456def789...)"
+                                ></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-align-bottom">
+                                <lightning-button
+                                    variant="brand"
+                                    label="Validate"
+                                    onclick={handleValidateDriveId}
+                                    disabled={isValidating}
+                                    class="slds-m-top_large"
+                                ></lightning-button>
+                            </div>
+                        </div>
+
+                        <!-- Validation Result -->
+                        <template if:true={validationResult}>
+                            <div class="slds-m-top_medium">
+                                <template if:true={validationSuccess}>
+                                    <div class="slds-box slds-theme_success slds-text-color_inverse">
+                                        <lightning-icon icon-name="utility:success" size="small" variant="inverse"></lightning-icon>
+                                        <span class="slds-m-left_small">{validationResult.message}</span>
+                                        <div class="slds-m-top_small">
+                                            <strong>Public Link:</strong> {validationResult.publicLink}
+                                        </div>
+                                    </div>
+                                </template>
+                                <template if:true={validationFailed}>
+                                    <div class="slds-box slds-theme_error slds-text-color_inverse">
+                                        <lightning-icon icon-name="utility:error" size="small" variant="inverse"></lightning-icon>
+                                        <span class="slds-m-left_small">{validationResult.message}</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Filters Section -->
+            <div class="slds-p-horizontal_medium slds-p-bottom_small">
+                <div class="slds-grid slds-wrap slds-gutters">
+
+                    <!-- Category Filter -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-combobox
+                            name="category"
+                            label="Category"
+                            value={selectedCategory}
+                            options={categoryOptions}
+                            onchange={handleCategoryChange}
+                        ></lightning-combobox>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-input
+                            type="search"
+                            label="Search Files"
+                            value={searchTerm}
+                            onchange={handleSearchChange}
+                            placeholder="Search file name, description, or API name..."
+                        ></lightning-input>
+                    </div>
+
+                    <!-- Include Inactive -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-align-bottom">
+                        <lightning-input
+                            type="checkbox"
+                            label="Include Inactive Files"
+                            checked={includeInactive}
+                            onchange={handleIncludeInactiveChange}
+                            class="slds-m-top_large"
+                        ></lightning-input>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Results Count -->
+            <div class="slds-p-horizontal_medium slds-p-bottom_small">
+                <p class="slds-text-body_small slds-text-color_weak">
+                    Showing {filesCount} of {totalFiles} files
+                </p>
+            </div>
+
+            <!-- Files Datatable -->
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading files..." size="medium"></lightning-spinner>
+                </template>
+
+                <template if:false={isLoading}>
+                    <template if:true={hasFiles}>
+                        <lightning-datatable
+                            key-field="qualifiedApiName"
+                            data={filteredFiles}
+                            columns={columns}
+                            hide-checkbox-column="true"
+                            show-row-number-column="true"
+                            wrap-text-max-lines="2"
+                        ></lightning-datatable>
+                    </template>
+
+                    <template if:false={hasFiles}>
+                        <div class="slds-text-align_center slds-p-around_large">
+                            <lightning-icon icon-name="utility:info" size="large"></lightning-icon>
+                            <p class="slds-m-top_medium">No files found matching your criteria.</p>
+                        </div>
+                    </template>
+                </template>
+            </div>
+
+            <!-- Help Text -->
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <div class="slds-box slds-theme_info">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">
+                        <lightning-icon icon-name="utility:info" size="x-small"></lightning-icon>
+                        How to Update Metadata
+                    </h3>
+                    <p class="slds-text-body_small">
+                        Custom metadata records are <strong>read-only at runtime</strong>. To update file metadata:
+                    </p>
+                    <ol class="slds-list_ordered slds-text-body_small slds-m-top_small">
+                        <li>Export metadata to CSV using the "Export CSV" button above</li>
+                        <li>Edit metadata values in the CSV file</li>
+                        <li>Use <code>sf project deploy</code> via Salesforce CLI to update metadata</li>
+                        <li>Or use Claude Code with MCP to update metadata programmatically</li>
+                    </ol>
+                    <p class="slds-text-body_small slds-m-top_small">
+                        <strong>Note:</strong> Changes require deployment and will not be visible until metadata is deployed to the org.
+                    </p>
+                </div>
+            </div>
+
+        </lightning-card>
+
+    </template>
+</template>

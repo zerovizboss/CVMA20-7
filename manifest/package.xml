@@ -7,6 +7,10 @@
         <members>CVMACareerResourcesControllerTest</members>
         <members>CVMAHousingFinancialResourcesController</members>
         <members>CVMAHousingFinancialResourcesTest</members>
+        <members>CVMAGoogleDriveFileController</members>
+        <members>CVMAGoogleDriveFileControllerTest</members>
+        <members>CVMAGoogleDriveManagementController</members>
+        <members>CVMAGoogleDriveManagementControllerTest</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -32,6 +36,107 @@
         <members>CVMA_Housing_Financial_Resource.JEA_Project_CARE</members>
         <members>CVMA_Housing_Financial_Resource.CVMA_Emergency_Fund</members>
         <members>CVMA_Housing_Financial_Resource.Natl_Homeless_Hotline</members>
+        <members>CVMA_Google_Drive_File.National_Bylaws_Rev_V</members>
+        <members>CVMA_Google_Drive_File.Bylaws_Appendix_A</members>
+        <members>CVMA_Google_Drive_File.Bylaws_Appendix_B</members>
+        <members>CVMA_Google_Drive_File.Bylaws_Appendix_C</members>
+        <members>CVMA_Google_Drive_File.Bylaws_Appendix_D</members>
+        <members>CVMA_Google_Drive_File.Bylaws_Appendix_E</members>
+        <members>CVMA_Google_Drive_File.Bylaws_Chapter_Template</members>
+        <members>CVMA_Google_Drive_File.Bylaws_FL_20_7</members>
+        <members>CVMA_Google_Drive_File.Bylaws_National_Rev_V</members>
+        <members>CVMA_Google_Drive_File.Bylaws_Revision_Summary</members>
+        <members>CVMA_Google_Drive_File.Bylaws_State_Template</members>
+        <members>CVMA_Google_Drive_File.Forms_2024_App</members>
+        <members>CVMA_Google_Drive_File.Forms_308_Blank</members>
+        <members>CVMA_Google_Drive_File.Forms_AUX_SOP</members>
+        <members>CVMA_Google_Drive_File.Forms_App_Checklist</members>
+        <members>CVMA_Google_Drive_File.Forms_Appendix_A_Copy</members>
+        <members>CVMA_Google_Drive_File.Forms_Army_AIE</members>
+        <members>CVMA_Google_Drive_File.Forms_Aux_Apparel</members>
+        <members>CVMA_Google_Drive_File.Forms_Aux_Bylaws</members>
+        <members>CVMA_Google_Drive_File.Forms_Aux_Liaison</members>
+        <members>CVMA_Google_Drive_File.Forms_Aux_Policy</members>
+        <members>CVMA_Google_Drive_File.Forms_Aux_Summary</members>
+        <members>CVMA_Google_Drive_File.Forms_Bylaws_AppB</members>
+        <members>CVMA_Google_Drive_File.Forms_Chapter_Bylaws</members>
+        <members>CVMA_Google_Drive_File.Forms_LRRP_Packet</members>
+        <members>CVMA_Google_Drive_File.Forms_Standing_Rules</members>
+        <members>CVMA_Google_Drive_File.Aux_Bylaws_Rev_A</members>
+        <members>CVMA_Google_Drive_File.Aux_Chapter_Formation</members>
+        <members>CVMA_Google_Drive_File.Aux_Leadership_Guide</members>
+        <members>CVMA_Google_Drive_File.Aux_Member_Handbook</members>
+        <members>CVMA_Google_Drive_File.Aux_Officer_Roles</members>
+        <members>CVMA_Google_Drive_File.Aux_Orientation</members>
+        <members>CVMA_Google_Drive_File.Aux_Patch_Guidelines</members>
+        <members>CVMA_Google_Drive_File.Aux_Recruitment</members>
+        <members>CVMA_Google_Drive_File.Aux_Support_Programs</members>
+        <members>CVMA_Google_Drive_File.Aux_Training_Manual</members>
+        <members>CVMA_Google_Drive_File.Forms_Bylaws_App_C</members>
+        <members>CVMA_Google_Drive_File.Forms_Bylaws_App_D</members>
+        <members>CVMA_Google_Drive_File.Forms_Bylaws_App_E</members>
+        <members>CVMA_Google_Drive_File.Forms_Change_Request</members>
+        <members>CVMA_Google_Drive_File.Forms_Chapter_App</members>
+        <members>CVMA_Google_Drive_File.Forms_Chapter_Charter</members>
+        <members>CVMA_Google_Drive_File.Forms_Charter_Checklist</members>
+        <members>CVMA_Google_Drive_File.Forms_CofA_App</members>
+        <members>CVMA_Google_Drive_File.Forms_Complaint</members>
+        <members>CVMA_Google_Drive_File.Forms_Discipline_Report</members>
+        <members>CVMA_Google_Drive_File.Forms_Event_After_Action</members>
+        <members>CVMA_Google_Drive_File.Forms_Event_Approval</members>
+        <members>CVMA_Google_Drive_File.Forms_Exemption_Request</members>
+        <members>CVMA_Google_Drive_File.Forms_Financial_Report</members>
+        <members>CVMA_Google_Drive_File.Forms_Good_Standing</members>
+        <members>CVMA_Google_Drive_File.Forms_Membership_Renewal</members>
+        <members>CVMA_Google_Drive_File.Forms_Membership_Transfer</members>
+        <members>CVMA_Google_Drive_File.Forms_Minutes_Template</members>
+        <members>CVMA_Google_Drive_File.Forms_New_Chapter_Packet</members>
+        <members>CVMA_Google_Drive_File.Forms_Officer_Nomination</members>
+        <members>CVMA_Google_Drive_File.Forms_Prospective_Member</members>
+        <members>CVMA_Google_Drive_File.Forms_Reactivation</members>
+        <members>CVMA_Google_Drive_File.Forms_Reinstatement</members>
+        <members>CVMA_Google_Drive_File.Forms_Resignation</members>
+        <members>CVMA_Google_Drive_File.Forms_Sponsorship_Request</members>
+        <members>CVMA_Google_Drive_File.Forms_State_Charter_App</members>
+        <members>CVMA_Google_Drive_File.Forms_Treasurer_Report</members>
+        <members>CVMA_Google_Drive_File.Forms_Waiver_Release</members>
+        <members>CVMA_Google_Drive_File.License_Business_Use</members>
+        <members>CVMA_Google_Drive_File.License_Cease_Desist</members>
+        <members>CVMA_Google_Drive_File.License_Guidelines</members>
+        <members>CVMA_Google_Drive_File.License_Investigation</members>
+        <members>CVMA_Google_Drive_File.License_Legal_Action</members>
+        <members>CVMA_Google_Drive_File.License_Merchandise</members>
+        <members>CVMA_Google_Drive_File.License_Trademark_FAQ</members>
+        <members>CVMA_Google_Drive_File.License_Vendor_Agreement</members>
+        <members>CVMA_Google_Drive_File.Policy_Alcohol_Use</members>
+        <members>CVMA_Google_Drive_File.Policy_Apparel</members>
+        <members>CVMA_Google_Drive_File.Policy_Auxiliary</members>
+        <members>CVMA_Google_Drive_File.Policy_Chapter_Funds</members>
+        <members>CVMA_Google_Drive_File.Policy_Code_Conduct</members>
+        <members>CVMA_Google_Drive_File.Policy_Conflict_Interest</members>
+        <members>CVMA_Google_Drive_File.Policy_Data_Privacy</members>
+        <members>CVMA_Google_Drive_File.Policy_Discrimination</members>
+        <members>CVMA_Google_Drive_File.Policy_Donations</members>
+        <members>CVMA_Google_Drive_File.Policy_Elections</members>
+        <members>CVMA_Google_Drive_File.Policy_Email_Comm</members>
+        <members>CVMA_Google_Drive_File.Policy_Event_Safety</members>
+        <members>CVMA_Google_Drive_File.Policy_Financial</members>
+        <members>CVMA_Google_Drive_File.Policy_Harassment</members>
+        <members>CVMA_Google_Drive_File.Policy_Insurance</members>
+        <members>CVMA_Google_Drive_File.Policy_Logo_Use</members>
+        <members>CVMA_Google_Drive_File.Policy_Media_Comm</members>
+        <members>CVMA_Google_Drive_File.Policy_Records_Retention</members>
+        <members>CVMA_Google_Drive_File.Policy_Social_Media</members>
+        <members>CVMA_Google_Drive_File.Policy_Whistleblower</members>
+        <members>CVMA_Google_Drive_File.Protocol_Flag_Ceremony</members>
+        <members>CVMA_Google_Drive_File.SOP_Chapter_Meetings</members>
+        <members>CVMA_Google_Drive_File.SOP_Elections</members>
+        <members>CVMA_Google_Drive_File.SOP_Event_Planning</members>
+        <members>CVMA_Google_Drive_File.SOP_Financial_Mgmt</members>
+        <members>CVMA_Google_Drive_File.SOP_Membership_Process</members>
+        <members>CVMA_Google_Drive_File.SOP_New_Chapter_Formation</members>
+        <members>CVMA_Google_Drive_File.SOP_Officer_Transition</members>
+        <members>CVMA_Google_Drive_File.SOP_Quarterly_Reports</members>
         <name>CustomMetadata</name>
     </types>
     <types>
@@ -47,6 +152,8 @@
     <types>
         <members>cvmaCareerResources</members>
         <members>cvmaHousingFinancialResources</members>
+        <members>cvmaGoogleDriveFileViewer</members>
+        <members>cvmaGoogleDriveManager</members>
         <name>LightningComponentBundle</name>
     </types>
     <version>65.0</version>
