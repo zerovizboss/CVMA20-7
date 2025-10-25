@@ -5,7 +5,15 @@
       "Bash(python -c:*)",
       "Bash(where python:*)",
       "Bash(\"C:/Program Files/PyManager/python.exe\" -c \"import socket; print(''PyManager Python socket works''); import sys; print(sys.version)\")",
-      "Bash(pre-commit:*)"
+      "Bash(pre-commit:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(pip --version:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "Bash(git push)",
+      "Bash(git push:*)",
+      "Read(//c/Users/zerov/.cache/pre-commit/**)"
     ],
     "deny": [],
     "ask": []

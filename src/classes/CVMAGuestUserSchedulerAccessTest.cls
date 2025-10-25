@@ -7,7 +7,7 @@
  */
 @IsTest
 public class CVMAGuestUserSchedulerAccessTest {
-feature/epic-6-communication-hub-completion    
+feature/epic-6-communication-hub-completion
     private static final String COMMUNITY_NAME = 'Combat Veterans Motorcycle Association';
 main
     private static final String GUEST_PROFILE_NAME = 'Guest License User';
@@ -198,8 +198,8 @@ main
             // Test read access to Cases (excluding internal)
             List<Case> visibleCases = [
 feature/epic-6-communication-hub-completion
-                SELECT Id, Subject, Type, Description 
-                FROM Case 
+                SELECT Id, Subject, Type, Description
+                FROM Case
 main
                 WHERE Type != 'Internal' OR Type = NULL
             ];
@@ -238,8 +238,8 @@ main
             // Test read access to Events (excluding private)
             List<Event> visibleEvents = [
 feature/epic-6-communication-hub-completion
-                SELECT Id, Subject, IsPrivate, Description 
-                FROM Event 
+                SELECT Id, Subject, IsPrivate, Description
+                FROM Event
 main
                 WHERE IsPrivate = FALSE
             ];
@@ -304,8 +304,8 @@ main
             // Should NOT see private Events
             List<Event> privateEvents = [
  feature/epic-6-communication-hub-completion
-                SELECT Id, Subject, IsPrivate 
-                FROM Event 
+                SELECT Id, Subject, IsPrivate
+                FROM Event
  main
                 WHERE IsPrivate = TRUE
             ];
@@ -330,20 +330,20 @@ main
         System.runAs(guestUser) {
             Schema.DescribeSObjectResult serviceAppointmentDescribe = ServiceAppointment.SObjectType.getDescribe();
  feature/epic-6-communication-hub-completion
-            System.assert(serviceAppointmentDescribe.createable, 
+            System.assert(serviceAppointmentDescribe.createable,
 main
                 'ServiceAppointment should be createable for guest user');
             System.assert(serviceAppointmentDescribe.updateable,
                 'ServiceAppointment should be updateable for guest user');
 feature/epic-6-communication-hub-completion
 
-            
+
             Schema.DescribeSObjectResult caseDescribe = Case.SObjectType.getDescribe();
-            System.assert(caseDescribe.accessible, 
+            System.assert(caseDescribe.accessible,
                 'Case should be accessible for guest user');
-            
+
             Schema.DescribeSObjectResult eventDescribe = Event.SObjectType.getDescribe();
-            System.assert(eventDescribe.accessible, 
+            System.assert(eventDescribe.accessible,
 main
                 'Event should be accessible for guest user');
         }
@@ -359,9 +359,9 @@ main
         // Try to find existing guest user
         List<User> existingGuestUsers = [
  feature/epic-6-communication-hub-completion
-            SELECT Id, Username, ProfileId 
-            FROM User 
-            WHERE ProfileId = :guestProfile.Id 
+            SELECT Id, Username, ProfileId
+            FROM User
+            WHERE ProfileId = :guestProfile.Id
  main
             AND IsActive = TRUE
             LIMIT 1
