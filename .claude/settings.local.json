@@ -13,7 +13,17 @@
       "Bash(git add:*)",
       "Bash(git push)",
       "Bash(git push:*)",
-      "Read(//c/Users/zerov/.cache/pre-commit/**)"
+      "Read(//c/Users/zerov/.cache/pre-commit/**)",
+      "Bash(xargs cat:*)",
+      "Bash(for file in src/main/default/customMetadata/CVMA_Google_Drive_File.*.md-meta.xml)",
+      "Bash(do grep -h \"Category__c\" \"$file\")",
+      "Bash(done)",
+      "Read(//c/Users/zerov/OneDrive/Documents/CVMA/Documentation/**)",
+      "Read(//c/Users/zerov/OneDrive/Documents/CVMA/**)",
+      "Bash(sf data query:*)",
+      "Bash(sf project deploy start:*)",
+      "Bash(sf apex run:*)",
+      "Bash(sf apex get test:*)"
     ],
     "deny": [],
     "ask": []

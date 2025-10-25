@@ -11,6 +11,8 @@
         <members>CVMAGoogleDriveFileControllerTest</members>
         <members>CVMAGoogleDriveManagementController</members>
         <members>CVMAGoogleDriveManagementControllerTest</members>
+        <members>CVMAKnowledgeGoogleDriveHelper</members>
+        <members>CVMAKnowledgeGoogleDriveHelperTest</members>
         <name>ApexClass</name>
     </types>
     <types>
