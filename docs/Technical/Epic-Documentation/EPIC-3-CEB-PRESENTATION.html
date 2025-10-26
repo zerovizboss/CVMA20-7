@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic #3: Knowledge Article Foundation - CEB Decision</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/black.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal .slides { text-align: left; }
+        .reveal section { height: 100%; }
+        .reveal table { font-size: 0.7em; }
+        .reveal ul { font-size: 0.9em; }
+        .reveal .comparison-table td { padding: 10px; }
+        .reveal .star { color: #FFD700; }
+        .reveal .checkmark { color: #00FF00; }
+        .reveal .warning { color: #FFA500; }
+        .highlight { background-color: #2a2a2a; padding: 10px; border-radius: 5px; }
+        .three-column { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .option-box { border: 2px solid #444; padding: 15px; border-radius: 10px; }
+        .recommended { border-color: #FFD700; }
+        .center-content { text-align: center; }
+        .mermaid { background-color: white; padding: 20px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section data-markdown>
+                <textarea data-template>
+                # Epic #3
+                ## Knowledge Article Foundation
+                ### CEB Decision Request
+
+                ---
+
+                **Combat Veterans Motorcycle Association**
+                Chapter 20-7
+
+                **Date**: October 25, 2025
+                **Presenter**: Development Team (Storm Claude)
+                **Decision Maker**: Chapter Commander + CEB
+                </textarea>
+            </section>
+
+            <!-- Slide 2: Executive Summary -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Executive Summary
+
+                ### What We've Built
+                - ✅ **107 Google Drive files** integrated with Salesforce
+                - ✅ **Helper utility class** (`CVMAKnowledgeGoogleDriveHelper`)
+                - ✅ **Proof-of-concept validated** - integration works!
+                - ✅ **Secretary + Treasurer files** deployed (6 new files)
+
+                ### What We Need to Decide
+                **Where should CEB members publish completed documents for Member access?**
+
+                - Option 1: Single "Member Documents" hub
+                - Option 2: Role-specific publication pages
+                - Option 3: Hybrid approach ⭐ **RECOMMENDED**
+                </textarea>
+            </section>
+
+            <!-- Slide 3: Current State -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Current State: 107 Files Deployed
+
+                | Category | Files | Status |
+                |----------|-------|--------|
+                | **Bylaws** (Epic #12) | 45 | ✅ Deployed |
+                | **Forms** (Epic #12) | 56 | ✅ Deployed |
+                | **Secretary** (Epic #3) | 1 | ✅ Deployed |
+                | **Treasurer** (Epic #3) | 5 | ✅ Deployed |
+                | **Total** | **107** | **Operational** |
+
+                ---
+
+                ### Google Drive Categories
+                - Meeting Minutes (Secretary)
+                - Financial Reports (Treasurer)
+                - Bylaws & Forms (General)
+                - *Future*: Events, CEB, Media
+                </textarea>
+            </section>
+
+            <!-- Slide 4: Three-Tier Access Model -->
+            <section>
+                <h2>Three-Tier Access Model</h2>
+                <div class="mermaid">
+                    graph TB
+                        A[All Users] --> B{Authentication}
+                        B -->|No Login| C[Tier 1: Guest Users]
+                        B -->|Member Login| D{Member Number?}
+                        D -->|No Member #| C
+                        D -->|Has Member #| E[Tier 2: Members]
+                        E --> F{CEB Role?}
+                        F -->|No| E
+                        F -->|Yes| G[Tier 3: CEB Members]
+
+                        C --> C1[Public Content Only]
+                        C1 --> C2[Bylaws, Public Forms]
+
+                        E --> E1[Published Knowledge Articles]
+                        E1 --> E2[Meeting Minutes, Reports]
+
+                        G --> G1[Role-Specific Pages]
+                        G1 --> G2[Create/Edit Documents]
+                        G1 --> G3[All Member Access]
+
+                        style C fill:#ff6b6b
+                        style E fill:#4ecdc4
+                        style G fill:#95e1d3
+                </div>
+            </section>
+
+            <!-- Slide 5: CEB Role Hierarchy -->
+            <section>
+                <h2>CEB Role Hierarchy</h2>
+                <p><em>Following CVMA Bylaws (Chapter + National)</em></p>
+                <div class="mermaid">
+                    graph TD
+                        CO[Commander] --> VCO[Vice Commander]
+                        CO --> SEC[Secretary]
+                        CO --> TRS[Treasurer]
+                        CO --> SAA[Sergeant at Arms]
+                        CO --> RC[Road Captain]
+                        CO --> CHAP[Chaplain]
+
+                        SEC --> SECPAGE[Secretary Page<br/>Create Meeting Minutes]
+                        TRS --> TRSPAGE[Treasurer Page<br/>Reports & Dashboards]
+                        SAA --> SAAPAGE[SAA Corner Page<br/>Responsibilities]
+                        RC --> RCPAGE[Road Captain Page<br/>Event Planning]
+                        CHAP --> CHAPPAGE[Chaplain Page<br/>Member Support]
+
+                        style CO fill:#FFD700
+                        style SECPAGE fill:#4ecdc4
+                        style TRSPAGE fill:#4ecdc4
+                        style SAAPAGE fill:#95e1d3
+                </div>
+                <p class="center-content"><small>Each CEB role has dedicated site page via CEB navigation menu</small></p>
+            </section>
+
+            <!-- Slide 6: Secretary Workflow -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Secretary Workflow Example
+
+                ### Creation Phase (CEB-Only Access)
+                1. Secretary accesses **Secretary Page** via CEB navigation menu
+                2. Creates **Meeting Minutes** using Salesforce form/flow
+                3. Drafts document (Salesforce or Google Drive via MCP)
+                4. Reviews and finalizes document
+
+                ### Publication Phase (Member Access)
+                5. Secretary clicks **"Publish to Members"** button
+                6. System creates **Knowledge Article** linking to meeting minutes
+                7. Article tagged: `Category: Meeting Minutes`, `Visibility: Members Only`
+                8. Members see article on **[TBD site page]** ⬅️ *This is what we're deciding*
+
+                ---
+
+                <div class="highlight">
+                <strong>Question:</strong> Where should that published article appear for Members?
+                </div>
+                </textarea>
+            </section>
+
+            <!-- Slide 7: Treasurer Workflow -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Treasurer Workflow Example
+
+                ### Creation Phase (CEB-Only Access)
+                1. Treasurer accesses **Treasurer Page** via CEB navigation menu
+                2. Uses **Reports & Dashboards** to compile monthly data
+                3. Generates **Monthly Treasury Report**
+                4. Reviews financial data and finalizes
+
+                ### Publication Phase (Member Access)
+                5. Treasurer clicks **"Publish Monthly Report"** action
+                6. System creates **Knowledge Article** with report link
+                7. Article tagged: `Category: Financial Reports`, `Visibility: Members Only`
+                8. Members see report on **[TBD site page]** ⬅️ *This is what we're deciding*
+
+                ---
+
+                <div class="highlight">
+                <strong>Already Deployed:</strong> 5 Treasurer reports (Jan, Mar, May, Jun, Aug 2025)
+                </div>
+                </textarea>
+            </section>
+
+            <!-- Slide 8: The Decision -->
+            <section data-markdown>
+                <textarea data-template>
+                ## The Decision: Publication Strategy
+
+                ### Three Options for Member-Facing Publication
+
+                We need to decide **where Members will access published documents**:
+
+                <div class="three-column">
+                <div class="option-box">
+
+                ### Option 1
+                **Member Documents Hub**
+
+                Single centralized page
+
+                </div>
+                <div class="option-box">
+
+                ### Option 2
+                **Role-Specific Pages**
+
+                Distributed by CEB role
+
+                </div>
+                <div class="option-box recommended">
+
+                ### Option 3 ⭐
+                **Hybrid Approach**
+
+                Hub + Role Pages + Widgets
+
+                </div>
+                </div>
+
+                ---
+
+                *Next slides detail each option*
+                </textarea>
+            </section>
+
+            <!-- Slide 9: Option 1 Details -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Option 1: Member Documents Hub
+
+                ### What It Is
+                - Single page: **"Member Documents"** or **"Chapter Documents"**
+                - All published documents in one place
+                - Organized by tabs/filters (category, role, date)
+                - Added to Member navigation menu
+
+                ### User Experience
+                ```
+                Member clicks "Documents" → Sees all content organized
+                  ├─ Tab: Meeting Minutes
+                  ├─ Tab: Financial Reports
+                  ├─ Tab: Event Plans
+                  └─ Search + Filters
+                ```
+
+                ### Pros & Cons
+                <table>
+                <tr><td>✅ Single source of truth</td><td>⚠️ New page to create</td></tr>
+                <tr><td>✅ Easy to find (one click)</td><td>⚠️ Less obvious role ownership</td></tr>
+                <tr><td>✅ Powerful search/filter</td><td></td></tr>
+                <tr><td>✅ Professional look</td><td></td></tr>
+                </table>
+
+                **Development**: 4-6 hours
+                </textarea>
+            </section>
+
+            <!-- Slide 10: Option 2 Details -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Option 2: Role-Specific Pages
+
+                ### What It Is
+                - Each CEB role has own **"Resources"** or **"Publications"** page
+                - Secretary page → Secretary's meeting minutes
+                - Treasurer page → Treasurer's reports
+                - Road Captain page → Ride plans
+
+                ### User Experience
+                ```
+                Member clicks "Secretary" → Secretary Resources page
+                  ├─ Recent Meeting Minutes (last 6 months)
+                  ├─ Historical archives link
+                  └─ Secretary contact info
+
+                Member clicks "Treasurer" → Treasurer Resources page
+                  ├─ Monthly Financial Reports
+                  └─ Treasurer contact info
+                ```
+
+                ### Pros & Cons
+                <table>
+                <tr><td>✅ Clear role ownership</td><td>⚠️ Must know which role publishes what</td></tr>
+                <tr><td>✅ Mirrors org structure</td><td>⚠️ Harder to search across all docs</td></tr>
+                <tr><td>✅ Role-specific context</td><td>⚠️ More clicks to find content</td></tr>
+                <tr><td></td><td>⚠️ 7 separate pages to create</td></tr>
+                </table>
+
+                **Development**: 10-14 hours
+                </textarea>
+            </section>
+
+            <!-- Slide 11: Option 3 Details -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Option 3: Hybrid Approach ⭐ RECOMMENDED
+
+                ### What It Is
+                - **Primary hub**: "Member Documents" page (all documents)
+                - **Secondary access**: CEB role pages with "Recent Publications" section
+                - **Tertiary access**: Dashboard widgets for latest content
+
+                ### User Experience - Multiple Paths
+                ```
+                Journey 1 (Document-focused):
+                  Member clicks "Documents" → All organized by category
+
+                Journey 2 (Role-focused):
+                  Member clicks "Treasurer" → Sees Recent Reports section
+
+                Journey 3 (Dashboard):
+                  Member visits home → "Latest Financial Report" widget
+                ```
+
+                ### Why Hybrid?
+                - **Flexible**: Supports different user mental models
+                - **Discoverable**: Multiple ways to find content
+                - **Future-proof**: Easy to add new publication types
+                - **CEB can decide later** which pages to emphasize
+
+                **Development**: 8-12 hours
+                </textarea>
+            </section>
+
+            <!-- Slide 12: Option 3 Architecture -->
+            <section>
+                <h2>Option 3: Hybrid Architecture</h2>
+                <div class="mermaid">
+                    graph TB
+                        CEB[CEB Member Creates Document] --> PUB{Publish Action}
+
+                        PUB --> KAV[Knowledge Article Created]
+                        KAV --> GDRIVE[Links to Google Drive File]
+
+                        KAV --> HUB[Primary: Member Documents Hub]
+                        KAV --> ROLE[Secondary: Role Page Recent Section]
+                        KAV --> DASH[Tertiary: Dashboard Widget]
+
+                        HUB --> USER1[Document-Focused Member]
+                        ROLE --> USER2[Role-Focused Member]
+                        DASH --> USER3[Dashboard Member]
+
+                        USER1 --> ACCESS[Access Google Drive File]
+                        USER2 --> ACCESS
+                        USER3 --> ACCESS
+
+                        style CEB fill:#FFD700
+                        style KAV fill:#4ecdc4
+                        style HUB fill:#95e1d3
+                        style ROLE fill:#95e1d3
+                        style DASH fill:#95e1d3
+                        style ACCESS fill:#00FF00
+                </div>
+                <p class="center-content"><small>Three access paths → Same Knowledge Article → Same Google Drive file</small></p>
+            </section>
+
+            <!-- Slide 13: Comparison Matrix -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Comparison Matrix
+
+                | Criteria | Option 1<br/>Hub Only | Option 2<br/>Role Pages | Option 3<br/>Hybrid ⭐ |
+                |----------|---------|---------|---------|
+                | **Ease of Finding** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+                | **Search Power** | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ |
+                | **Role Ownership** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+                | **Dev Effort** | ⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ |
+                | **Maintenance** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+                | **Flexibility** | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+                | **Scalability** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+                | **Professional** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+
+                ---
+
+                <div class="highlight center-content">
+                <strong>Option 3 scores highest in 5/8 criteria</strong>
+                </div>
+                </textarea>
+            </section>
+
+            <!-- Slide 14: Implementation Timeline -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Implementation Timeline (Option 3)
+
+                ### Phase 2A: Member Documents Hub (4-6 hours)
+                - ✅ Create "Member Documents" Experience Cloud page
+                - ✅ Add Lightning Knowledge component with filters
+                - ✅ Configure search and sorting
+                - ✅ Add to Member navigation menu
+
+                ### Phase 2B: Role Page Enhancements (3-4 hours)
+                - ✅ Add "Recent Publications" to Secretary page
+                - ✅ Add "Recent Publications" to Treasurer page
+                - ✅ Create reusable Lightning Web Component
+                - ✅ Extend to other CEB roles as needed
+
+                ### Phase 2C: Dashboard Widgets (2-3 hours)
+                - ✅ "Latest Meeting Minutes" widget
+                - ✅ "Latest Financial Report" widget
+                - ✅ "Upcoming Events" widget
+
+                ---
+
+                **Total Effort**: 9-13 hours (2-3 development sessions)
+                **Timeline**: 2-3 weeks from decision to production
+                </textarea>
+            </section>
+
+            <!-- Slide 15: Technical Implementation -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Technical Implementation
+
+                ### Already Built (Epic #12 + Epic #3)
+                - ✅ `CVMA_Google_Drive_File__mdt` custom metadata (107 files)
+                - ✅ `CVMAKnowledgeGoogleDriveHelper.cls` utility class
+                - ✅ Google Drive MCP integration operational
+                - ✅ Proof-of-concept validated
+
+                ### To Build (Phase 2)
+                - `CVMADocumentPublisher.cls` - Publication workflow utility
+                - Knowledge Article custom fields (`Google_Drive_File_ID__c`, `CEB_Role__c`)
+                - Lightning Web Component for publication workflow
+                - Experience Cloud pages (hub + role enhancements)
+                - Data Categories for role-based filtering
+
+                ### Security Model
+                - ✅ Three-tier access (Guest → Member → CEB)
+                - ✅ Member Number validation (Contact record)
+                - ✅ `WITH SECURITY_ENFORCED` in all SOQL queries
+                - ✅ Knowledge Article visibility rules
+                </textarea>
+            </section>
+
+            <!-- Slide 16: Google Drive Folder Structure -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Google Drive Folder Architecture
+
+                ### Current Structure (Mirrors CEB Roles)
+                ```
+                Google Drive/CVMA/Documentation/
+                ├── Bylaws/              ✅ DEPLOYED (Epic #12 - 45 files)
+                ├── Forms/               ✅ DEPLOYED (Epic #12 - 56 files)
+                ├── Secretary/           ✅ DEPLOYED (Epic #3 - 1 file)
+                ├── Treasurer/           ✅ DEPLOYED (Epic #3 - 5 files)
+                ├── Commander/           ⏳ PENDING
+                ├── Vice_Commander/      ⏳ PENDING
+                ├── Sergeant_at_Arms/    ⏳ PENDING
+                ├── Road_Captain/        ⏳ PENDING
+                └── Chaplain/            ⏳ PENDING
+
+                Events/                  ⏳ PENDING
+                CEB/                     ⏳ PENDING
+                Media/                   ⏳ PENDING
+                ```
+
+                ### Access Control Mapping
+                - **Bylaws/Forms**: All Members (some public for Guests)
+                - **Secretary/Treasurer**: Members only (after publication)
+                - **CEB**: CEB members only (internal documents)
+                </textarea>
+            </section>
+
+            <!-- Slide 17: Success Metrics -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Success Metrics
+
+                ### User Adoption
+                - CEB members publishing via Salesforce (vs. email/manual)
+                - Members accessing via Knowledge Articles (vs. asking CEB)
+                - Reduction in "Where is the latest [document]?" questions
+
+                ### Technical Performance
+                - Page load time < 2 seconds for Member Documents hub
+                - Search results accuracy > 95%
+                - Zero guest users accessing member-only content
+
+                ### Content Growth
+                - Number of Knowledge Articles published per month
+                - Number of Google Drive files integrated
+                - Categories and CEB roles represented
+
+                ---
+
+                <div class="highlight">
+                <strong>Goal:</strong> Replace email-based document sharing with self-service Knowledge Library
+                </div>
+                </textarea>
+            </section>
+
+            <!-- Slide 18: Decision Request -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Decision Request
+
+                ### CEB Commander: Please Select One
+
+                <div class="three-column">
+                <div class="option-box">
+
+                ☐ **Option 1**
+
+                Member Documents Hub Only
+
+                *Best for: Simple, centralized approach*
+
+                </div>
+                <div class="option-box">
+
+                ☐ **Option 2**
+
+                Role-Specific Pages
+
+                *Best for: Clear role ownership*
+
+                </div>
+                <div class="option-box recommended">
+
+                ☐ **Option 3** ⭐
+
+                Hybrid Approach
+
+                *Best for: Maximum flexibility*
+
+                </div>
+                </div>
+
+                ---
+
+                ### Additional Questions
+                - **Approval workflow needed?** ☐ Yes ☐ No
+                - **Email notifications?** ☐ Yes ☐ No
+                - **Preferred page name**: _________________
+
+                ---
+
+                <div class="highlight center-content">
+                <strong>Development Team Recommendation: Option 3</strong>
+                </div>
+                </textarea>
+            </section>
+
+            <!-- Slide 19: Questions & Discussion -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Questions & Discussion
+
+                ### Key Questions to Consider
+
+                1. **How do members currently request documents?**
+                   - Helps determine if hub or role pages work better
+
+                2. **Do members know which CEB role publishes what?**
+                   - Affects whether role-based navigation is intuitive
+
+                3. **How often are historical documents needed?**
+                   - Determines importance of search/filter capabilities
+
+                4. **Should documents require CO/VCO approval before publication?**
+                   - Affects workflow complexity
+
+                ---
+
+                ### Open Floor for CEB Input
+                </textarea>
+            </section>
+
+            <!-- Slide 20: Next Steps -->
+            <section data-markdown>
+                <textarea data-template>
+                ## Next Steps
+
+                ### After Decision is Made
+
+                1. **User zerov updates decision document** with CEB choice
+                2. **Phase 2 implementation begins**:
+                   - Create selected page(s)
+                   - Build publication workflow
+                   - Configure Knowledge Article integration
+                   - Test with CEB members
+                3. **CEB testing period** (1-2 weeks)
+                4. **Feedback and refinement**
+                5. **Production deployment** to all members
+                6. **Training/announcement** to membership
+
+                ---
+
+                ### Timeline Estimate
+                - **Option 1**: 1-2 weeks from decision to production
+                - **Option 2**: 2-3 weeks from decision to production
+                - **Option 3**: 2-3 weeks from decision to production
+
+                ---
+
+                <div class="center-content">
+                <h3>Questions?</h3>
+                </div>
+                </textarea>
+            </section>
+
+            <!-- Slide 21: Thank You -->
+            <section data-markdown data-background-color="#1a1a1a">
+                <textarea data-template>
+                <div class="center-content">
+
+                # Thank You
+
+                ## Combat Veterans Motorcycle Association
+                ### Chapter 20-7
+
+                ---
+
+                **Vets Serving Vets** 🏍️
+
+                ---
+
+                ### Contact
+                Development Team: Storm Claude
+                Documentation: `docs/Technical/Epic-Documentation/`
+
+                </div>
+                </textarea>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+
+        // Initialize Reveal.js
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+            markdown: {
+                smartypants: true
+            }
+        });
+
+        // Re-render Mermaid diagrams on slide change
+        Reveal.on('slidechanged', event => {
+            mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+        });
+    </script>
+</body>
+</html>
