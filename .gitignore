@@ -17,6 +17,17 @@ temp_*.json
 CVMA-Claude-Usage-Tracking.md
 cost-comparison-analysis.md
 
+# Python Environment and Credentials (NEVER COMMIT)
+.env
+.env.local
+venv/
+env/
+salesforce-env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
 # GitHub and Deployment Artifacts
 gh.zip
 scripts/set-gitbash-default.bat
