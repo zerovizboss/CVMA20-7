@@ -6,7 +6,7 @@
  * @author CVMA Chapter 20-7
  * @date 2025-10-20
  */
-public with sharing class CVMALegalResourcesController {
+public without sharing class CVMALegalResourcesController {
 
     /**
      * @description Retrieves legal resources from custom metadata, optionally filtered by type

@@ -1,7 +1,7 @@
 /**
- * @description Styling for CVMA Legal Resources component
+ * @description Styling for CVMA Housing & Financial Resources component
  * Responsive grid layout with fixed-width cards and military ribbon styling
- * User Story #75: Legal & Advocacy Services Resources
+ * User Story #74: Housing & Financial Assistance Resources
  *
  * @author CVMA Chapter 20-7
  * @date 2025-10-31
@@ -16,12 +16,12 @@
     margin: 0 auto;
 }
 
-/* Resource Card */
+/* Resource Card - Purple Ribbon (Support/Stability Theme) */
 .cvma-resource-card {
     background: #ffffff;
     border-radius: 8px;
-    border-left: 4px solid #c41e3a; /* CVMA Red */
-    border-top: 2px solid #B8860B; /* Gold accent */
+    border-left: 4px solid #5867e8; /* Purple Ribbon */
+    border-top: 2px solid #3d4db8; /* Darker purple accent */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -30,6 +30,8 @@
 }
 
 .cvma-resource-card:hover {
+    border-left: 4px solid #c41e3a; /* CVMA Red on hover */
+    border-top: 2px solid #B8860B; /* Gold accent on hover */
     box-shadow: 0 4px 16px rgba(196, 30, 58, 0.2);
     transform: translateY(-4px);
 }
@@ -141,23 +143,24 @@
 }
 
 .cvma-button-primary {
-    background: linear-gradient(135deg, #c41e3a 0%, #8b0000 60%, #c41e3a 100%);
+    background: linear-gradient(135deg, #5867e8 0%, #3d4db8 60%, #5867e8 100%);
     color: #ffffff;
-    border-left: 4px solid #B8860B; /* Gold Military Ribbon Accent */
-    border-bottom: 3px solid #8B4513; /* Bronze accent */
+    border-left: 4px solid #3d4db8;
+    border-bottom: 2px solid #2a3899;
     box-shadow:
-        0 4px 6px rgba(196, 30, 58, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 4px 6px rgba(88, 103, 232, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
         inset 0 -1px 0 rgba(0, 0, 0, 0.2);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .cvma-button-primary:hover {
-    background: linear-gradient(135deg, #a01730 0%, #6d0000 60%, #a01730 100%);
-    border-left-color: #FFD700; /* Brighter gold on hover */
+    background: linear-gradient(135deg, #c41e3a 0%, #8b0000 60%, #c41e3a 100%);
+    border-left-color: #B8860B; /* Gold on hover */
+    border-bottom-color: #8B4513; /* Bronze on hover */
     box-shadow:
         0 6px 12px rgba(196, 30, 58, 0.5),
-        0 0 20px rgba(184, 134, 11, 0.3),
+        0 0 20px rgba(184, 134, 11, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.15),
         inset 0 -1px 0 rgba(0, 0, 0, 0.3);
     transform: translateY(-3px) scale(1.02);

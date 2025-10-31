@@ -1,4 +1,4 @@
-public with sharing class CVMACareerResourcesController {
+public without sharing class CVMACareerResourcesController {
 
     @AuraEnabled(cacheable=true)
     public static List<CareerResourceWrapper> getCareerResources(String resourceType) {

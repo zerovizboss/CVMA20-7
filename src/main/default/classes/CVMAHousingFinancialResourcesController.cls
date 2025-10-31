@@ -6,7 +6,7 @@
  * @author CVMA Chapter 20-7
  * @date 2025-10-31
  */
-public with sharing class CVMAHousingFinancialResourcesController {
+public without sharing class CVMAHousingFinancialResourcesController {
 
     /**
      * @description Retrieves housing/financial resources from custom metadata, optionally filtered by type
