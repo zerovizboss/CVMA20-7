@@ -76,11 +76,13 @@
                                 <div class="slds-col slds-size_8-of-12">
                                     <div class="slds-media">
                                         <div class="slds-media__figure">
-                                            <lightning-icon
-                                                icon-name={file.fileIcon}
-                                                size="medium"
-                                                alternative-text={file.fileType}>
-                                            </lightning-icon>
+                                            <template if:true={file.fileIcon}>
+                                                <lightning-icon
+                                                    icon-name={file.fileIcon}
+                                                    size="medium"
+                                                    alternative-text={file.fileType}>
+                                                </lightning-icon>
+                                            </template>
                                         </div>
                                         <div class="slds-media__body">
                                             <h3 class="slds-text-heading_small slds-m-bottom_xx-small">
