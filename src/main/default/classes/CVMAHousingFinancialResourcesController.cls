@@ -27,6 +27,7 @@ public without sharing class CVMAHousingFinancialResourcesController {
                     FROM CVMA_Housing_Financial_Resource__mdt
                     WHERE Is_Active__c = true
                     AND Resource_Type__c = :resourceType
+                    WITH SECURITY_ENFORCED
                     ORDER BY Display_Order__c ASC NULLS LAST, Resource_Name__c ASC
                 ];
             } else {
@@ -37,6 +38,7 @@ public without sharing class CVMAHousingFinancialResourcesController {
                            Emergency_Service__c, CEB_Approval_Required__c, Display_Order__c
                     FROM CVMA_Housing_Financial_Resource__mdt
                     WHERE Is_Active__c = true
+                    WITH SECURITY_ENFORCED
                     ORDER BY Display_Order__c ASC NULLS LAST, Resource_Name__c ASC
                 ];
             }
@@ -68,6 +70,7 @@ public without sharing class CVMAHousingFinancialResourcesController {
                 FROM CVMA_Housing_Financial_Resource__mdt
                 WHERE Is_Active__c = true
                 AND Emergency_Service__c = true
+                WITH SECURITY_ENFORCED
                 ORDER BY Display_Order__c ASC NULLS LAST, Resource_Name__c ASC
             ];
 
@@ -96,6 +99,7 @@ public without sharing class CVMAHousingFinancialResourcesController {
                 SELECT Resource_Type__c
                 FROM CVMA_Housing_Financial_Resource__mdt
                 WHERE Is_Active__c = true
+                WITH SECURITY_ENFORCED
             ]) {
                 if (String.isNotBlank(resource.Resource_Type__c)) {
                     typeSet.add(resource.Resource_Type__c);
