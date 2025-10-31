@@ -14,7 +14,7 @@ export default class CvmaCareerResources extends LightningElement {
     isGuestUser = IS_GUEST;
 
     get showResources() {
-        return !this.isGuestUser;
+        return true; // Allow all users: Guests, Members, and CEB
     }
 
     get guestMessage() {

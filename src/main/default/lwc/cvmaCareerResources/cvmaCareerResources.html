@@ -27,68 +27,71 @@
                 </div>
             </template>
 
-            <!-- Resources List -->
+            <!-- Resources Grid -->
             <template if:false={isLoading}>
                 <template if:true={hasResources}>
-                    <div class="slds-p-around_medium">
+                    <div class="cvma-resource-grid slds-p-around_medium">
                         <template for:each={resources} for:item="resource">
-                            <article key={resource.resourceName} class="slds-card slds-m-bottom_medium cvma-military-ribbon">
-                                <div class="slds-card__header slds-grid">
-                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
-                                        <div class="slds-media__body">
-                                            <h2 class="slds-card__header-title">
-                                                <span class="slds-text-heading_small">{resource.resourceName}</span>
-                                            </h2>
-                                            <lightning-badge label={resource.resourceType}></lightning-badge>
-                                            <template if:true={resource.certificationAvailable}>
-                                                <lightning-badge label="Certification Available" class="slds-m-left_x-small" variant="success"></lightning-badge>
-                                            </template>
-                                            <template if:true={resource.cebApproved}>
-                                                <lightning-badge label="CEB Approved Partner" class="slds-m-left_x-small" variant="inverse"></lightning-badge>
-                                            </template>
-                                        </div>
-                                    </header>
-                                </div>
-                                <div class="slds-card__body slds-card__body_inner">
-                                    <p class="slds-m-bottom_small">{resource.description}</p>
-
-                                    <dl class="slds-list_horizontal slds-wrap">
-                                        <template if:true={resource.targetAudience}>
-                                            <dt class="slds-item_label slds-text-color_weak">Target Audience:</dt>
-                                            <dd class="slds-item_detail slds-m-right_large">{resource.targetAudience}</dd>
+                            <article key={resource.resourceName} class="cvma-resource-card cvma-military-ribbon">
+                                <div class="cvma-card-header">
+                                    <h3 class="cvma-card-title">{resource.resourceName}</h3>
+                                    <div class="cvma-badge-container">
+                                        <lightning-badge label={resource.resourceType}></lightning-badge>
+                                        <template if:true={resource.certificationAvailable}>
+                                            <lightning-badge label="Certification Available" variant="success"></lightning-badge>
                                         </template>
+                                        <template if:true={resource.cebApproved}>
+                                            <lightning-badge label="CEB Approved Partner" variant="inverse"></lightning-badge>
+                                        </template>
+                                    </div>
+                                </div>
 
+                                <div class="cvma-card-body">
+                                    <p class="cvma-description">{resource.description}</p>
+
+                                    <template if:true={resource.targetAudience}>
+                                        <div class="cvma-target-audience">
+                                            <strong>Target Audience:</strong> {resource.targetAudience}
+                                        </div>
+                                    </template>
+
+                                    <div class="cvma-contact-info">
                                         <template if:true={resource.serviceArea}>
-                                            <dt class="slds-item_label slds-text-color_weak">Service Area:</dt>
-                                            <dd class="slds-item_detail slds-m-right_large">{resource.serviceArea}</dd>
+                                            <div class="cvma-info-item">
+                                                <lightning-icon icon-name="utility:location" size="x-small"></lightning-icon>
+                                                <span>{resource.serviceArea}</span>
+                                            </div>
                                         </template>
 
                                         <template if:true={resource.cost}>
-                                            <dt class="slds-item_label slds-text-color_weak">Cost:</dt>
-                                            <dd class="slds-item_detail slds-m-right_large">{resource.cost}</dd>
+                                            <div class="cvma-info-item">
+                                                <lightning-icon icon-name="utility:moneybag" size="x-small"></lightning-icon>
+                                                <span>{resource.cost}</span>
+                                            </div>
                                         </template>
 
                                         <template if:true={resource.contactPhone}>
-                                            <dt class="slds-item_label slds-text-color_weak">Phone:</dt>
-                                            <dd class="slds-item_detail slds-m-right_large">
+                                            <div class="cvma-info-item">
+                                                <lightning-icon icon-name="utility:phone" size="x-small"></lightning-icon>
                                                 <lightning-formatted-phone value={resource.contactPhone}></lightning-formatted-phone>
-                                            </dd>
+                                            </div>
                                         </template>
 
                                         <template if:true={resource.contactEmail}>
-                                            <dt class="slds-item_label slds-text-color_weak">Email:</dt>
-                                            <dd class="slds-item_detail slds-m-right_large">
+                                            <div class="cvma-info-item">
+                                                <lightning-icon icon-name="utility:email" size="x-small"></lightning-icon>
                                                 <lightning-formatted-email value={resource.contactEmail}></lightning-formatted-email>
-                                            </dd>
+                                            </div>
                                         </template>
+                                    </div>
+                                </div>
 
-                                        <template if:true={resource.websiteUrl}>
-                                            <dt class="slds-item_label slds-text-color_weak">Website:</dt>
-                                            <dd class="slds-item_detail slds-m-right_large">
-                                                <lightning-formatted-url value={resource.websiteUrl} target="_blank"></lightning-formatted-url>
-                                            </dd>
-                                        </template>
-                                    </dl>
+                                <div class="cvma-card-footer">
+                                    <template if:true={resource.websiteUrl}>
+                                        <a href={resource.websiteUrl} target="_blank" class="cvma-button cvma-button-primary">
+                                            Visit Website
+                                        </a>
+                                    </template>
                                 </div>
                             </article>
                         </template>
