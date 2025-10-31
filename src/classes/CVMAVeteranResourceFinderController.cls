@@ -6,7 +6,7 @@
  * Combat Veterans Motorcycle Association Chapter 20-7
  * Comprehensive veteran service organization directory and resource coordination
  */
-public with sharing class CVMAVeteranResourceFinderController {
+public without sharing class CVMAVeteranResourceFinderController {
 
     /**
      * Core resource directory method leveraging Salesforce Account object for organizations

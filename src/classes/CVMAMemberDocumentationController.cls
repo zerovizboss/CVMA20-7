@@ -9,7 +9,7 @@
  * @version 1.0
  * @since 2025-09-22
  */
-public with sharing class CVMAMemberDocumentationController {
+public without sharing class CVMAMemberDocumentationController {
 
     /**
      * @description Get available documentation categories for portal display
