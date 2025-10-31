@@ -49,7 +49,9 @@ export default class CvmaHousingFinancialResources extends LightningElement {
         if (data) {
             this.resourceTypes = data;
         } else if (error) {
-            this.handleError('Error loading resource types', error);
+            // Guest users cannot query metadata types - gracefully degrade
+            console.warn('Resource types unavailable for guest users:', error);
+            this.resourceTypes = []; // Show all resources by default
         }
     }
 
