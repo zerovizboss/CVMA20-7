@@ -13,6 +13,7 @@
         <members>CVMAGoogleDriveManagementControllerTest</members>
         <members>CVMAKnowledgeGoogleDriveHelper</members>
         <members>CVMAKnowledgeGoogleDriveHelperTest</members>
+        <members>CVMAHousingFinancialControllerTest</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -163,6 +164,10 @@
         <members>cvmaGoogleDriveFileViewer</members>
         <members>cvmaGoogleDriveManager</members>
         <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>CVMA_Guest_Resource_Access</members>
+        <name>PermissionSet</name>
     </types>
     <version>65.0</version>
 </Package>

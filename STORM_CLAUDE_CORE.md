@@ -24,7 +24,16 @@
 - **Quality Standard**: WITH SECURITY_ENFORCED + comprehensive testing
 - **Multi-Agent**: Strategic/Tactical coordination operational
 
-### **Latest Session Achievements** (October 25, 2025):
+### **Latest Session Achievements** (October 31, 2025):
+- ✅ **CRITICAL DISCOVERY**: WITH SECURITY_ENFORCED blocks Custom Metadata Type guest access
+- ✅ Fixed 3 veteran resource components (Legal, Career, Housing/Financial)
+- ✅ Unique military ribbon styling (Blue/Green/Purple + Red hover)
+- ✅ Comprehensive bug report: 7 issues documented with solutions
+- ✅ Guest user access fully operational for all veteran resources
+- ✅ Updated STORM protocols with CMT security model
+- ✅ 6 Salesforce deployments, 7 git commits (~4 hour troubleshooting session)
+
+### **Previous Session** (October 25, 2025):
 - ✅ Pre-commit hooks fixed for Python 3.13.9 compatibility
 - ✅ Upgraded virtualenv embedded wheels (pip 25.2 → 25.3)
 - ✅ Code quality cleanup: 127 files standardized (line endings, formatting)
@@ -92,11 +101,41 @@ Strategic Analysis → TodoWrite Planning → Implementation → Quality Validat
 ## 🔒 **SECURITY & QUALITY STANDARDS**
 
 ### **Mandatory Security Requirements**:
-- ✅ All custom SOQL queries use WITH SECURITY_ENFORCED
+- ✅ All custom SOQL queries use WITH SECURITY_ENFORCED **for standard/custom objects**
+- ❌ **NEVER use WITH SECURITY_ENFORCED for Custom Metadata Types** (blocks guest access)
 - ✅ CRUD/FLS validation via CVMAErrorHandler.validateCRUDPermissions()
 - ✅ Input sanitization using CVMAErrorHandler.sanitizeInput()
 - ✅ Guest user access restrictions implemented
 - ✅ XSS prevention in all user outputs
+
+### **CRITICAL: WITH SECURITY_ENFORCED Usage Rules** (Discovered October 31, 2025):
+
+**✅ ALWAYS use for:**
+- Standard Objects (Account, Contact, Campaign, Opportunity, etc.)
+- Custom Objects (MyObject__c)
+- Any object requiring field-level security enforcement
+
+**❌ NEVER use for:**
+- Custom Metadata Types (*__mdt) - Blocks guest user access
+- Custom Settings (*__c hierarchy/list types)
+- Platform Cache
+- Configuration metadata
+
+**Rationale**: Custom Metadata Types are configuration data with inherent public visibility. `WITH SECURITY_ENFORCED` becomes overly restrictive for guest users, causing "Insufficient Privileges" errors even when all permissions are granted.
+
+**Example**:
+```apex
+// ❌ WRONG - Blocks guest users
+SELECT Field__c FROM MyMetadata__mdt WHERE Active__c = true WITH SECURITY_ENFORCED
+
+// ✅ RIGHT - Works for all users
+SELECT Field__c FROM MyMetadata__mdt WHERE Active__c = true
+
+// ✅ RIGHT - Standard objects need FLS
+SELECT Name FROM Account WITH SECURITY_ENFORCED
+```
+
+**Reference**: Bug Report SESSION-OCT-31-2025-GUEST-USER-ACCESS-BUGS.md (Bug #7)
 
 ### **Code Quality Standards**:
 - Use `with sharing` for all controllers

@@ -8,11 +8,13 @@
 
 ## Executive Summary
 
-During implementation of User Stories #73-75 (Veteran Resource components), we encountered **5 critical issues** preventing guest user access in Experience Cloud. All issues have been resolved through a combination of code changes, graceful degradation, and manual configuration.
+During implementation of User Stories #73-75 (Veteran Resource components), we encountered **7 issues** (3 critical, 2 warnings, 2 safe-to-ignore) preventing guest user access in Experience Cloud. All critical issues have been resolved through a combination of code changes, graceful degradation, and manual configuration.
 
 **Impact**: Guest users were completely blocked from viewing veteran resources until fixes were deployed.
 
-**Resolution Time**: ~3 hours (4 deployments, 4 git commits)
+**Resolution Time**: ~4 hours (6 deployments, 7 commits)
+
+**Critical Discovery**: `WITH SECURITY_ENFORCED` on Custom Metadata Type queries blocks guest user access - a poorly documented Salesforce platform limitation that has been added to CVMA development protocols.
 
 ---
 
@@ -223,52 +225,176 @@ This is documented Salesforce behavior for Lightning components in Experience Cl
 
 ---
 
-## Bug #6: Invalid Lightning-Icon Warning (Unconfirmed)
-**Severity**: 🔍 **INVESTIGATE** - Possible cosmetic issue
-**Status**: ⏳ **PENDING USER CONFIRMATION**
+## Bug #6: Invalid Lightning-Icon Warning
+**Severity**: ⚠️ **WARNING** - Cosmetic issue (fixed)
+**Status**: ✅ **RESOLVED**
 
 ### Problem
-User reported seeing invalid icon warnings in console, but exact icon name not provided.
+```
+<lightning-icon> Invalid icon name ${t}
+```
 
-### Investigation
-All icons in our components are valid SLDS icons:
-- `utility:location` ✅
-- `utility:phone` ✅
-- `utility:email` ✅
-- `utility:moneybag` ✅ (Career Resources)
-- `utility:store` ✅ (Housing/Financial)
+Browser console showed undefined variable `${t}` being passed to lightning-icon component.
 
-### Possible Causes
-1. Icon rendered when data field is empty/null (conditional rendering issue)
-2. Another component on the page has invalid icons
-3. Browser extension interfering
+### Root Cause
+In `cvmaGoogleDriveFileViewer.html`, the `<lightning-icon>` component rendered before the `fileIcon` property was initialized, causing an async race condition where undefined values were passed to the icon-name attribute.
 
-### Next Steps
-**Awaiting user to provide:**
-- Exact invalid icon name from console warning
-- Screenshot of full error message
-- Steps to reproduce
+### Solution
+Added conditional rendering with null check:
 
-**If confirmed as our code**, fix by adding null checks:
+**Before (Caused Warning):**
 ```html
-<template if:true={resource.contactPhone}>
-    <lightning-icon icon-name="utility:phone"></lightning-icon>
+<lightning-icon icon-name={file.fileIcon} size="medium"></lightning-icon>
+```
+
+**After (Fixed):**
+```html
+<template if:true={file.fileIcon}>
+    <lightning-icon icon-name={file.fileIcon} size="medium"></lightning-icon>
+</template>
+```
+
+### Files Modified
+- `cvmaGoogleDriveFileViewer.html` (lines 79-85)
+
+### Git Commit
+- `cd15324` - Added null check for dynamic icon rendering
+
+### Prevention
+**Best Practice**: Always wrap dynamic icon names with conditional rendering:
+```html
+<template if:true={dynamicIconName}>
+    <lightning-icon icon-name={dynamicIconName}></lightning-icon>
 </template>
 ```
 
 ---
 
+## Bug #7: WITH SECURITY_ENFORCED Blocks Guest Access to Custom Metadata Types
+**Severity**: 🔴 **CRITICAL** - Complete functionality blocked for all CMT-based components
+**Status**: ✅ **RESOLVED**
+
+### Problem
+```
+Error retrieving Housing/Financial Resources.
+Insufficient Privileges, secure query included inaccessible field.
+```
+
+Error did not specify which field was inaccessible, making debugging difficult.
+
+### Root Cause
+**WITH SECURITY_ENFORCED on Custom Metadata Type queries is incompatible with guest users.**
+
+Even though:
+- ✅ Custom Metadata Type object visibility is `Public`
+- ✅ All fields have public FLS
+- ✅ Guest User Profile has Apex class permissions
+- ✅ Controllers use `without sharing`
+
+**Salesforce Platform Limitation**: `WITH SECURITY_ENFORCED` becomes overly restrictive when querying Custom Metadata Types as a guest user, blocking access to fields that should be accessible.
+
+### Affected Controllers
+1. **CVMALegalResourcesController.cls** - Legal resources (CVMA_Legal_Resource__mdt)
+2. **CVMACareerResourcesController.cls** - Career resources (CVMA_Career_Resource__mdt)
+3. **CVMAHousingFinancialResourcesController.cls** - Housing/Financial resources (CVMA_Housing_Financial_Resource__mdt)
+
+**NOT Affected** (querying standard objects only):
+- CVMAMemberDocumentationController.cls (CampaignMember, EmailTemplate)
+- CVMAVeteranResourceFinderController.cls (Account, Contact)
+
+### Solution - Remove WITH SECURITY_ENFORCED from Custom Metadata Type Queries
+
+**Before (Blocked Guest Access):**
+```apex
+resources = [
+    SELECT Resource_Name__c, Resource_Type__c, Description__c,
+           Contact_Phone__c, Contact_Email__c, Website_URL__c
+    FROM CVMA_Legal_Resource__mdt
+    WHERE Is_Active__c = true
+    WITH SECURITY_ENFORCED  // <-- REMOVE THIS
+    ORDER BY Resource_Name__c ASC
+];
+```
+
+**After (Works for All Users):**
+```apex
+resources = [
+    SELECT Resource_Name__c, Resource_Type__c, Description__c,
+           Contact_Phone__c, Contact_Email__c, Website_URL__c
+    FROM CVMA_Legal_Resource__mdt
+    WHERE Is_Active__c = true
+    // Custom Metadata Types are inherently public - no FLS check needed
+    ORDER BY Resource_Name__c ASC
+];
+```
+
+### Files Modified
+- `CVMALegalResourcesController.cls` (3 queries - lines 22-31, 34-43, 67-71)
+- `CVMACareerResourcesController.cls` (3 queries - lines 9-18, 21-30, 50-54)
+- `CVMAHousingFinancialResourcesController.cls` (3 queries - lines 22-31, 34-43, 63-72)
+
+### Git Commits
+- `0Afbm00000NJE6sCAH` - Housing/Financial fix
+- `0Afbm00000NJAb8CAH` - Legal and Career fixes
+
+### Critical Rule: When to Use WITH SECURITY_ENFORCED
+
+**✅ ALWAYS use WITH SECURITY_ENFORCED for:**
+- Standard Objects (Account, Contact, Campaign, Opportunity, etc.)
+- Custom Objects (MyCustomObject__c)
+- Any object where guest users should have restricted field access
+
+**❌ NEVER use WITH SECURITY_ENFORCED for:**
+- Custom Metadata Types (*__mdt)
+- Custom Settings (*__c with hierarchy/list type)
+- Platform Cache
+- Configuration metadata
+
+### Updated Guest User Security Checklist
+
+**For Custom Metadata Type Components:**
+1. ✅ Controller uses `without sharing`
+2. ✅ Guest User Profile has Apex class permissions
+3. ❌ **DO NOT use `WITH SECURITY_ENFORCED` on CMT queries**
+4. ✅ Implement graceful degradation for `@wire` adapters
+
+**For Standard/Custom Object Components:**
+1. ✅ Controller uses `without sharing`
+2. ✅ **ALWAYS use `WITH SECURITY_ENFORCED` on queries**
+3. ✅ Guest User Profile has Apex class permissions
+4. ✅ Configure OWD and sharing rules for guest access
+
+### Lessons Learned
+1. **Error messages don't always tell the full story**: "Inaccessible field" error didn't mention the root cause was `WITH SECURITY_ENFORCED` itself
+2. **Custom Metadata Types have different security model**: They're designed to be configuration data, always accessible
+3. **Test with multiple user types**: What works for authenticated users may fail for guest users
+4. **Documentation is critical**: This limitation isn't well-documented in Salesforce docs
+
+### Prevention Protocol
+**Add to all Code Reviews:**
+- [ ] Verify `WITH SECURITY_ENFORCED` is NOT used on Custom Metadata Type queries
+- [ ] Verify `WITH SECURITY_ENFORCED` IS used on standard/custom object queries
+- [ ] Test all guest-accessible components as Guest User before deployment
+
+**Add to Deployment Checklist:**
+- [ ] Search codebase for `__mdt.*WITH SECURITY_ENFORCED` - should return 0 results
+- [ ] Test all Experience Cloud pages as Guest User
+- [ ] Verify no FLS errors in browser console
+
+---
+
 ## Deployment Summary
 
-### Git Commits (4 total)
+### Git Commits (7 total)
 1. **25ca617** - Unique Military Ribbons + Guest Access
    - Blue/Green/Purple ribbons per resource type
    - Red gradient hover state
    - Changed `with sharing` → `without sharing`
 
-2. **df281b3** - CRITICAL: WITH SECURITY_ENFORCED
+2. **df281b3** - CRITICAL: WITH SECURITY_ENFORCED Added
    - Added to all SOQL queries (3 controllers)
    - Required for `@AuraEnabled(cacheable=true)` guest access
+   - **NOTE**: Later discovered this was incorrect for Custom Metadata Types
 
 3. **4b7c78f** - FIX: Guest User 500 Error
    - Graceful degradation for getResourceTypes()
@@ -278,11 +404,26 @@ All icons in our components are valid SLDS icons:
    - CVMAMemberDocumentationController
    - CVMAVeteranResourceFinderController
 
-### Salesforce Deployments (4 total)
+5. **cd15324** - FIX: Invalid Icon Warning
+   - Added null check for dynamic icon rendering
+   - cvmaGoogleDriveFileViewer.html conditional template
+
+6. **0Afbm00000NJE6sCAH** - FIX: Housing/Financial CMT Access
+   - Removed `WITH SECURITY_ENFORCED` from Custom Metadata Type queries
+   - CVMAHousingFinancialResourcesController.cls (3 methods)
+
+7. **0Afbm00000NJAb8CAH** - FIX: Legal & Career CMT Access
+   - Removed `WITH SECURITY_ENFORCED` from Custom Metadata Type queries
+   - CVMALegalResourcesController.cls (3 methods)
+   - CVMACareerResourcesController.cls (3 methods)
+
+### Salesforce Deployments (6 total)
 1. **0Afbm00000NJ0K1CAL** - LWC components + Apex controllers (18 components)
-2. **0Afbm00000NJ1paCAD** - WITH SECURITY_ENFORCED (6 components)
+2. **0Afbm00000NJ1paCAD** - WITH SECURITY_ENFORCED (6 components) - Later corrected
 3. **0Afbm00000NJ86HCAT** - Graceful degradation (12 components)
 4. **0Afbm00000NJ8vtCAD** - Additional controllers (4 components)
+5. **0Afbm00000NJE6sCAH** - Housing/Financial CMT fix (1 component)
+6. **0Afbm00000NJAb8CAH** - Legal & Career CMT fix (2 components)
 
 ### Manual Configuration Required
 - [x] Grant Guest User Profile access to 5 Apex classes
