@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Grants guest users access to CVMA veteran resource controllers (Legal, Career, Housing/Financial)</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>CVMA Guest Resource Access</label>
+
+    <!-- Apex Class Permissions -->
+    <classAccesses>
+        <apexClass>CVMALegalResourcesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CVMACareerResourcesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CVMAHousingFinancialResourcesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+</PermissionSet>
