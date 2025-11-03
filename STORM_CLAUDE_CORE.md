@@ -47,10 +47,12 @@
 - **Code Reduction**: 54% vs V2_Gdrive package approach
 - **UAT Status**: ✅ Operational (https://cvma20-7-dev-ed.develop.my.site.com/s/saa-corner)
 
-### **Next Priority**: Epic #3 Phase 1 - Knowledge Article Foundation
-- **Immediate**: Manual Lightning Knowledge setup + document migration
-- **Scope**: 15-20 priority documents (bylaws, top 10 forms)
-- **Token Budget**: 135K remaining (~68% available)
+### **Next Priority**: Epic #3 Phase 1 - Knowledge Article Foundation (IN PROGRESS)
+- **Status**: Architectural correction in progress (November 2, 2025)
+- **Approach**: Use standard Knowledge__kav object + Record Types (NOT custom object)
+- **Scope**: 18 priority documents (bylaws, forms)
+- **GitHub Issues**: #89 (architecture error), #90 (Data Categories), #91 (Data Cloud)
+- **Estimated Completion**: 1.5 hours user implementation
 
 ---
 
@@ -95,6 +97,37 @@ Strategic Analysis → TodoWrite Planning → Implementation → Quality Validat
 - Security: 100% WITH SECURITY_ENFORCED on custom SOQL
 - Testing: >90% code coverage for all custom classes
 - Documentation: Complete implementation guides for each user story
+
+---
+
+## 📚 **LIGHTNING KNOWLEDGE ARCHITECTURE** (Added November 2, 2025)
+
+### **CRITICAL: Lightning Knowledge Uses Record Types, NOT Custom Objects**
+
+**Correct Architecture (2025)**:
+- ✅ **ONE standard object**: `Knowledge__kav` (auto-created when Lightning Knowledge enabled)
+- ✅ **Record Types**: Define article categories (FAQ, Bylaws, Forms, SOPs, etc.) on Knowledge object
+- ✅ **Custom Fields**: Added directly to `Knowledge__kav` object (not custom object)
+- ✅ **Page Layouts**: Different layouts per record type
+- ✅ **Data Categories**: Organizational hierarchy for article organization
+
+**NEVER Do This** (Classic Knowledge pattern - deprecated):
+- ❌ Create custom object expecting it to become Knowledge article type
+- ❌ Look for "Enable Knowledge for custom object" button (doesn't exist)
+- ❌ Expect `CustomObject__kav` suffix auto-creation (only works with standard Knowledge object)
+
+**Source**: Salesforce Lightning Knowledge Guide (Winter '26)
+**Lesson**: Epic #3 architectural error - $150 cost impact, 47K wasted tokens
+**GitHub Issue**: #89 - Full post-mortem documented
+
+### **Lightning Knowledge Setup Steps**:
+1. Enable Lightning Knowledge (Setup → Knowledge Settings)
+2. Navigate to standard `Knowledge__kav` object (Object Manager → Knowledge)
+3. Add custom fields to Knowledge object (not custom object)
+4. Create Record Types for article categories
+5. Create page layouts per record type
+6. Assign Data Categories to Knowledge object
+7. Create articles using standard Knowledge object
 
 ---
 
@@ -249,6 +282,7 @@ https://github.com/zerovizboss/CVMA20-7.git
 ✅ Conservative token budgeting (leave 40%+ buffer)
 ✅ Pre-commit security hooks (prevent vulnerabilities)
 ✅ Continuous tech debt resolution (not batch cleanup)
+✅ **Lightning Knowledge Record Types** (not custom objects - use standard Knowledge__kav)
 
 ### **What to Avoid**:
 ❌ Custom article types when Lightning Knowledge enabled (use UI setup)
@@ -256,12 +290,14 @@ https://github.com/zerovizboss/CVMA20-7.git
 ❌ Batching GitHub issues (resolve continuously)
 ❌ Deploying without reading files first
 ❌ Orphaned metadata files (breaks deployments)
+❌ **Custom objects as Knowledge article types** (use Record Types on Knowledge__kav)
 
 ### **Deployment Best Practices**:
 - Use manifest files for complex multi-type deployments
 - Remove technical debt before new development
 - Test in chunks (25 components max per deployment)
 - Always validate WITH SECURITY_ENFORCED compliance
+- **Verify current Salesforce architecture** before planning (Lightning vs Classic patterns)
 
 ---
 
