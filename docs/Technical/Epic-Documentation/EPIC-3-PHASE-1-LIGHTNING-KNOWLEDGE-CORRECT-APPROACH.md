@@ -168,6 +168,8 @@ This custom object is **NOT USED** by Lightning Knowledge. We have two options:
 
 ### **3. Add 6 Custom Fields to Knowledge Object** (20 minutes)
 
+**IMPORTANT**: Knowledge object has a standard **"Content"** rich text field (Standard Text Field - Rich type). You can relabel this to "Article Content" for clarity.
+
 Navigate to: Setup → Object Manager → Knowledge → Fields & Relationships → New
 
 #### **Field 1: Document Type**
@@ -204,17 +206,32 @@ Navigate to: Setup → Object Manager → Knowledge → Fields & Relationships �
 - Default: Unchecked
 - Help Text: Only CEB officers can view when checked
 
-#### **Field 5: Source OneDrive Path**
-- Field Label: Source OneDrive Path
-- Field Name: Source_OneDrive_Path
-- Data Type: Text Area (Long) - 255 characters
-- Help Text: Original file path for audit trail
+#### **Field 5: Source Google Drive URL**
+- Field Label: Source Google Drive URL
+- Field Name: Source_GoogleDrive_URL
+- Data Type: URL (or Text Area Long - 255 characters if URL type has limitations)
+- Help Text: Google Drive URL for source document (audit trail)
 
 #### **Field 6: Form Number**
 - Field Label: Form Number
 - Field Name: Form_Number
 - Data Type: Text (10)
 - Help Text: CVMA Form number (e.g., 100, 400)
+
+---
+
+### **3a. Relabel Standard "Content" Field** (2 minutes)
+
+**Standard Field Found**: Knowledge object includes a standard **"Content"** field (Standard Text Field - Rich type)
+
+**Action**: Relabel for clarity (optional but recommended)
+1. Navigate to: Setup → Object Manager → Knowledge → Fields & Relationships
+2. Find field: **Content** (Standard field)
+3. Click field name → Edit
+4. Change Field Label to: **Article Content**
+5. Save
+
+**Result**: Standard rich text field is now user-friendly ("Article Content" instead of "Content")
 
 ---
 
@@ -256,27 +273,64 @@ Navigate to: Setup → Object Manager → Knowledge → Record Types → New
 
 Navigate to: Setup → Object Manager → Knowledge → Page Layouts
 
-You'll see default layouts. Create new ones for your record types:
+🚨 **DEVELOPER EDITION LIMITATION**: Page layout cloning may not be available in Developer Edition.
 
-#### **Layout 1: CVMA Bylaws Layout**
-- Clone from: Knowledge Layout (Master)
-- Layout Name: CVMA Bylaws Layout
-- Sections:
-  - Article Information: Title, UrlName, Document_Type__c, Revision_Number__c, Effective_Date__c
-  - Access Control: CEB_Restricted__c, Source_OneDrive_Path__c
-  - Content: Summary, Detail
-  - System Info: ArticleNumber, VersionNumber, PublishStatus
-- Related Lists: Files, Article Versions
+#### **RECOMMENDED APPROACH: Use Single Master Layout for All Record Types**
 
-#### **Layout 2: CVMA Forms Layout**
-- Clone and customize for forms
-- Add: Form_Number__c field (prominent)
+This is the fastest and most practical approach for Developer Edition:
 
-**Assign Layouts to Record Types**:
-- Setup → Object Manager → Knowledge → Page Layout Assignment
-- Map CVMA Bylaws → CVMA Bylaws Layout
-- Map CVMA Forms → CVMA Forms Layout
-- etc.
+1. Find "**Knowledge Layout**" (default master layout)
+2. Click **Edit**
+3. Add all your custom fields to this layout:
+   - **Article Information Section**:
+     - Title
+     - UrlName
+     - Document_Type__c
+     - Revision_Number__c
+     - Effective_Date__c
+     - Form_Number__c
+   - **Access Control Section**:
+     - CEB_Restricted__c
+     - Source_GoogleDrive_URL__c
+   - **Content Section**:
+     - Summary
+     - **Content** (standard rich text field - relabeled as "Article Content")
+   - **System Info Section**:
+     - ArticleNumber
+     - VersionNumber
+     - PublishStatus
+   - **Related Lists**:
+     - Files
+     - Knowledge Article Versions (if available)
+4. **Save**
+
+5. **Assign to All Record Types**:
+   - Navigate to: Setup → Object Manager → Knowledge → **Page Layout Assignment**
+   - Click **Edit Assignment**
+   - Assign "Knowledge Layout" to all record types:
+     - CVMA Bylaws → Knowledge Layout
+     - CVMA Forms → Knowledge Layout
+     - CVMA SOP → Knowledge Layout
+     - CVMA Financial Reports → Knowledge Layout
+   - Click **Save**
+
+**Result**: All record types will use the same page layout. Form_Number__c field will show for all articles (users can leave it blank for non-form articles).
+
+#### **ALTERNATIVE: Create Custom Layouts Manually (If Clone Not Available)**
+
+If you need separate layouts per record type and cloning isn't available:
+
+1. Click **New** (not Clone)
+2. Name it: `CVMA Bylaws Layout`
+3. Manually drag and drop all fields from left panel to layout
+4. Organize into sections
+5. Add related lists
+6. Save
+7. Repeat for each record type (CVMA Forms, CVMA SOP, etc.)
+
+**Time**: 10 minutes per layout (40 minutes total for 4 layouts)
+
+**Recommendation**: Skip this for Phase 1 - use single master layout instead.
 
 ---
 
@@ -291,10 +345,21 @@ You already created Data Category Groups. Now assign to Knowledge object:
    - Ensure **Knowledge** is checked
    - Save
 
-**Your Category Groups** (you already have these ✅):
-- CVMA Organizational Content
-- CVMA Bylaws
+**Your Category Groups** ✅ (Updated November 3, 2025):
+
+#### **Group 1: CVMA Organizational Content**
+- Generic All categories (broad organizational content)
+
+#### **Group 2: CVMA Bylaws & Forms**
+- Bylaws-related articles
+- Forms documentation
+
+#### **Group 3: Policy, Protocols & SOP**
+- Policy documents
 - Protocols
+- Standard Operating Procedures
+
+**Total**: 3 Data Category Groups assigned to Knowledge object
 
 ---
 
@@ -334,7 +399,7 @@ Now create permission sets for `Knowledge__kav` (not custom object).
    - Revision_Number__c: Revision V
    - Effective_Date__c: 08/10/2025
    - CEB_Restricted__c: ❌
-   - Source_OneDrive_Path__c: C:\Users\zerov\OneDrive\Documents\CVMA\Documentation\Bylaws\CVMA-National-Bylaws---Revision-V---Signed.pdf
+   - Source_GoogleDrive_URL__c: [Google Drive URL to CVMA-National-Bylaws---Revision-V---Signed.pdf]
    - Summary: National CVMA Bylaws governing all chapters
 5. **Upload PDF**: Files → Upload → Select PDF
 6. **Assign Data Category**: CVMA Organizational Content > All > Bylaws > National Bylaws

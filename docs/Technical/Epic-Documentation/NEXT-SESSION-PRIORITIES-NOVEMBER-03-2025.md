@@ -34,7 +34,7 @@
    - Effective_Date__c (Date)
    - Revision_Number__c (Text, 50)
    - CEB_Restricted__c (Checkbox)
-   - Source_OneDrive_Path__c (Text Area Long, 255)
+   - Source_GoogleDrive_URL__c (URL or Text Area Long, 255)
    - Form_Number__c (Text, 10)
 
 3. **Create 4 Record Types on Knowledge Object** (15 min)

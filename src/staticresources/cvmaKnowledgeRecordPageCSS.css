@@ -1,0 +1,177 @@
+/**
+ * CVMA Knowledge Record Page Custom CSS
+ * Purpose: Override Lightning Design System accordion active color from CVMA Gold to CVMA Red
+ * Date: November 3, 2025
+ * Issue: Active accordion sections use CVMA Gold (#B8860B) which is unreadable on white background
+ * Solution: Change active accordion color to CVMA Red (#c41e3a) for better visibility
+ */
+
+/* ====================================================================
+   CVMA BRAND COLORS
+   ==================================================================== */
+:root {
+    --cvma-red: #c41e3a;
+    --cvma-gold: #B8860B;
+    --cvma-black: #000000;
+}
+
+/* ====================================================================
+   ACTIVE ACCORDION SECTION - CVMA RED
+   ==================================================================== */
+
+/* Override active accordion section background */
+.slds-accordion__section.slds-is-open .slds-accordion__summary {
+    background-color: var(--cvma-red) !important;
+    border-color: var(--cvma-red) !important;
+    color: #ffffff !important;
+}
+
+/* Override active accordion button */
+.slds-accordion__summary-action[aria-expanded="true"] {
+    background-color: var(--cvma-red) !important;
+    border-color: var(--cvma-red) !important;
+    color: #ffffff !important;
+}
+
+/* Hover state for active accordion */
+.slds-accordion__summary-action[aria-expanded="true"]:hover {
+    background-color: #a0172e !important; /* Darker CVMA Red */
+    border-color: #a0172e !important;
+}
+
+/* Focus state for active accordion */
+.slds-accordion__summary-action[aria-expanded="true"]:focus {
+    background-color: var(--cvma-red) !important;
+    border-color: var(--cvma-red) !important;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--cvma-red) !important;
+}
+
+/* ====================================================================
+   INACTIVE ACCORDION SECTION - NEUTRAL
+   ==================================================================== */
+
+/* Inactive accordion sections remain neutral */
+.slds-accordion__section .slds-accordion__summary {
+    background-color: #f3f3f3;
+    border-color: #dddbda;
+    color: #3e3e3c;
+}
+
+/* HOVER STATE - Change from CVMA Gold to CVMA Red */
+.slds-accordion__summary-action:hover {
+    background-color: var(--cvma-red) !important;
+    border-color: var(--cvma-red) !important;
+    color: #ffffff !important;
+}
+
+/* Inactive accordion hover (fallback) */
+.slds-accordion__summary-action[aria-expanded="false"]:hover {
+    background-color: var(--cvma-red) !important;
+    border-color: var(--cvma-red) !important;
+    color: #ffffff !important;
+}
+
+/* ====================================================================
+   ACCORDION CONTENT AREA
+   ==================================================================== */
+
+/* Ensure content area has proper spacing and visibility */
+.slds-accordion__content {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-left: 2px solid var(--cvma-red);
+}
+
+/* ====================================================================
+   ACCORDION ICON (EXPAND/COLLAPSE)
+   ==================================================================== */
+
+/* Icon color when accordion is active */
+.slds-accordion__summary-action[aria-expanded="true"] .slds-icon {
+    fill: #ffffff !important;
+}
+
+/* Icon color when accordion is inactive */
+.slds-accordion__summary-action[aria-expanded="false"] .slds-icon {
+    fill: #706e6b;
+}
+
+/* ====================================================================
+   DYNAMIC FORMS COMPATIBILITY
+   ==================================================================== */
+
+/* Ensure Dynamic Forms sections use CVMA Red for active state */
+.slds-form__row .slds-accordion__section.slds-is-open .slds-accordion__summary {
+    background-color: var(--cvma-red) !important;
+    border-color: var(--cvma-red) !important;
+}
+
+/* Dynamic Forms field labels within active accordion */
+.slds-accordion__section.slds-is-open .slds-form-element__label {
+    color: #3e3e3c; /* Keep labels dark for readability */
+}
+
+/* ====================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ==================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .slds-accordion__summary-action[aria-expanded="true"] {
+        border: 2px solid var(--cvma-red) !important;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .slds-accordion__summary-action {
+        transition: none !important;
+    }
+}
+
+/* ====================================================================
+   MOBILE RESPONSIVE
+   ==================================================================== */
+
+@media (max-width: 768px) {
+    .slds-accordion__summary {
+        padding: 0.75rem;
+    }
+
+    .slds-accordion__content {
+        padding: 0.75rem;
+    }
+}
+
+/* ====================================================================
+   TROUBLESHOOTING NOTES
+   ==================================================================== */
+
+/*
+ * ISSUE: Accordion HOVER state was CVMA Gold (#B8860B) - unreadable on white background
+ *
+ * SOLUTION: Changed hover to CVMA Red (#c41e3a) for better visibility
+ *
+ * DEPLOYMENT:
+ * 1. Deploy this CSS as Static Resource: cvmaKnowledgeRecordPageCSS
+ * 2. Add to Knowledge Lightning Record Page:
+ *    - Edit Lightning Record Page in Lightning App Builder
+ *    - Add "HTML" component to page
+ *    - Insert: <link rel="stylesheet" href="{!$Resource.cvmaKnowledgeRecordPageCSS}">
+ * 3. OR add to Experience Cloud site head markup:
+ *    - Workspaces → Experience Builder → Settings → Advanced → Head Markup
+ *    - Add: <link rel="stylesheet" href="{!$Resource.cvmaKnowledgeRecordPageCSS}">
+ *
+ * ALTERNATIVE (Lightning Record Page Component CSS):
+ * If this static resource doesn't work, you can add CSS directly to custom LWC component
+ *
+ * VERIFICATION:
+ * - Open Knowledge article with Dynamic Forms
+ * - Expand accordion section
+ * - Active section header should be CVMA Red (#c41e3a) with white text
+ * - Inactive sections should remain neutral gray
+ */
+
+/* ====================================================================
+   END OF FILE
+   ==================================================================== */
