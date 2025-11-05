@@ -17,6 +17,13 @@ temp_*.json
 CVMA-Claude-Usage-Tracking.md
 cost-comparison-analysis.md
 
+# Security - JWT Certificates and Keys
+*.crt
+*.key
+*.pem
+server.crt
+auth-temp.txt
+
 # GitHub and Deployment Artifacts
 gh.zip
 scripts/set-gitbash-default.bat
