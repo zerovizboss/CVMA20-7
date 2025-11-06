@@ -3,6 +3,38 @@
     <label>RecruitMilitary</label>
     <protected>false</protected>
     <values>
+        <field>CEB_Approved__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Certification_Available__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Contact_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Contact_Phone__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Cost__c</field>
+        <value xsi:type="xsd:string">Free</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Virtual and in-person job fairs connecting veterans with employers committed to hiring military talent</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">4.0</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Resource_Name__c</field>
         <value xsi:type="xsd:string">RecruitMilitary</value>
     </values>
@@ -11,39 +43,15 @@
         <value xsi:type="xsd:string">Job Board</value>
     </values>
     <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">Virtual and in-person job fairs connecting veterans with employers committed to hiring military talent</value>
-    </values>
-    <values>
-        <field>Website_URL__c</field>
-        <value xsi:type="xsd:string">https://recruitmilitary.com</value>
+        <field>Service_Area__c</field>
+        <value xsi:type="xsd:string">National</value>
     </values>
     <values>
         <field>Target_Audience__c</field>
         <value xsi:type="xsd:string">All Veterans</value>
     </values>
     <values>
-        <field>Service_Area__c</field>
-        <value xsi:type="xsd:string">National</value>
-    </values>
-    <values>
-        <field>Cost__c</field>
-        <value xsi:type="xsd:string">Free</value>
-    </values>
-    <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">4.0</value>
-    </values>
-    <values>
-        <field>Certification_Available__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>CEB_Approved__c</field>
-        <value xsi:type="xsd:boolean">false</value>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://recruitmilitary.com</value>
     </values>
 </CustomMetadata>

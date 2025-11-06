@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Public_Link__c</fullName>
-    <label>Public Link</label>
     <description>Google Drive shareable link for file viewing/downloading</description>
-    <type>Url</type>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Public Link</label>
     <required>true</required>
+    <type>Url</type>
 </CustomField>

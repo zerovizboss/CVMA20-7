@@ -3,6 +3,42 @@
     <label>Veterans Legal Services - Jacksonville</label>
     <protected>false</protected>
     <values>
+        <field>Address__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Appointment_Required__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Contact_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Contact_Phone__c</field>
+        <value xsi:type="xsd:string">(904) 355-8371</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Free legal assistance for veterans with discharge upgrades, benefits appeals, and VA claims. Specialized support for combat veterans seeking to correct military records and upgrade discharge status.</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Eligibility_Requirements__c</field>
+        <value xsi:type="xsd:string">All veterans with DD-214. Priority given to combat veterans and those with service-connected disabilities.</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Pro_Bono_Available__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Resource_Name__c</field>
         <value xsi:type="xsd:string">Veterans Legal Services - Jacksonville</value>
     </values>
@@ -11,35 +47,11 @@
         <value xsi:type="xsd:string">Legal Clinic</value>
     </values>
     <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">Free legal assistance for veterans with discharge upgrades, benefits appeals, and VA claims. Specialized support for combat veterans seeking to correct military records and upgrade discharge status.</value>
-    </values>
-    <values>
         <field>Service_Area__c</field>
         <value xsi:type="xsd:string">Jacksonville, FL</value>
     </values>
     <values>
-        <field>Pro_Bono_Available__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">1.0</value>
-    </values>
-    <values>
-        <field>Contact_Phone__c</field>
-        <value xsi:type="xsd:string">(904) 355-8371</value>
-    </values>
-    <values>
-        <field>Appointment_Required__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Eligibility_Requirements__c</field>
-        <value xsi:type="xsd:string">All veterans with DD-214. Priority given to combat veterans and those with service-connected disabilities.</value>
+        <field>Website_URL__c</field>
+        <value xsi:nil="true"/>
     </values>
 </CustomMetadata>

@@ -3,6 +3,42 @@
     <label>VA Home Loan Program</label>
     <protected>false</protected>
     <values>
+        <field>Address__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CEB_Approval_Required__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Contact_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Contact_Phone__c</field>
+        <value xsi:type="xsd:string">1-877-827-3702</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">VA-backed home loans with zero down payment and competitive interest rates for eligible veterans, service members, and surviving spouses</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Eligibility_Requirements__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Emergency_Service__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Resource_Name__c</field>
         <value xsi:type="xsd:string">VA Home Loan Program</value>
     </values>
@@ -11,35 +47,11 @@
         <value xsi:type="xsd:string">VA Home Loan</value>
     </values>
     <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">VA-backed home loans with zero down payment and competitive interest rates for eligible veterans, service members, and surviving spouses</value>
-    </values>
-    <values>
-        <field>Website_URL__c</field>
-        <value xsi:type="xsd:string">https://www.va.gov/housing-assistance/home-loans/</value>
-    </values>
-    <values>
-        <field>Contact_Phone__c</field>
-        <value xsi:type="xsd:string">1-877-827-3702</value>
-    </values>
-    <values>
         <field>Service_Area__c</field>
         <value xsi:type="xsd:string">National</value>
     </values>
     <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Emergency_Service__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>CEB_Approval_Required__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">1</value>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://www.va.gov/housing-assistance/home-loans/</value>
     </values>
 </CustomMetadata>

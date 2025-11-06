@@ -23,7 +23,19 @@
       "Bash(sf data query:*)",
       "Bash(sf project deploy start:*)",
       "Bash(sf apex run:*)",
-      "Bash(sf apex get test:*)"
+      "Bash(sf apex get test:*)",
+      "Bash(.gitignore)",
+      "WebSearch",
+      "WebFetch(domain:help.salesforce.com)",
+      "Bash(gh issue create:*)",
+      "Bash(gh label list:*)",
+      "Bash(gh issue edit:*)",
+      "Bash(sf project retrieve start:*)",
+      "Bash(git log:*)",
+      "WebFetch(domain:resources.docs.salesforce.com)",
+      "WebFetch(domain:www.learnexperiencecloud.com)",
+      "Bash(sf:*)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT Name, Label FROM PermissionSet WHERE IsCustom = true ORDER BY Name\")"
     ],
     "deny": [],
     "ask": []

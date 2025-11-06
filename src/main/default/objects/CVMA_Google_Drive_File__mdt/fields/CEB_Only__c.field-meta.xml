@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CEB_Only__c</fullName>
-    <label>CEB Only</label>
-    <description>Restrict file access to CEB officers only (Commander, VP, Secretary, Treasurer)</description>
-    <type>Checkbox</type>
     <defaultValue>false</defaultValue>
+    <description>Restrict file access to CEB officers only (Commander, VP, Secretary, Treasurer)</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>CEB Only</label>
+    <type>Checkbox</type>
 </CustomField>

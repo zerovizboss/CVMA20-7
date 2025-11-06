@@ -3,20 +3,36 @@
     <label>Treasurer Jun 2025 Report</label>
     <protected>false</protected>
     <values>
-        <field>File_Name__c</field>
-        <value xsi:type="xsd:string">june-2025-treasurers-report.docx</value>
+        <field>CEB_Only__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
-        <field>Google_Drive_ID__c</field>
-        <value xsi:type="xsd:string">1ODR_FfB6E8iZdN75N7PBH_MfVetl0Vzg</value>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Financial Reports</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Monthly Treasurer Report - June 2025</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">8060.0</value>
+    </values>
+    <values>
+        <field>File_Name__c</field>
+        <value xsi:type="xsd:string">june-2025-treasurers-report.docx</value>
     </values>
     <values>
         <field>File_Type__c</field>
         <value xsi:type="xsd:string">Google Doc</value>
     </values>
     <values>
-        <field>Category__c</field>
-        <value xsi:type="xsd:string">Financial Reports</value>
+        <field>Google_Drive_ID__c</field>
+        <value xsi:type="xsd:string">1ODR_FfB6E8iZdN75N7PBH_MfVetl0Vzg</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>Public_Link__c</field>
@@ -29,21 +45,5 @@
     <values>
         <field>Uploaded_Date__c</field>
         <value xsi:type="xsd:date">2025-10-25</value>
-    </values>
-    <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">Monthly Treasurer Report - June 2025</value>
-    </values>
-    <values>
-        <field>CEB_Only__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">8060</value>
-    </values>
-    <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
     </values>
 </CustomMetadata>

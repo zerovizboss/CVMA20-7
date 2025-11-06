@@ -3,28 +3,32 @@
     <label>HUD-VASH Program</label>
     <protected>false</protected>
     <values>
-        <field>Resource_Name__c</field>
-        <value xsi:type="xsd:string">HUD-VASH (Veterans Affairs Supportive Housing)</value>
+        <field>Address__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
-        <field>Resource_Type__c</field>
-        <value xsi:type="xsd:string">Emergency Shelter</value>
+        <field>CEB_Approval_Required__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">Combines Housing Choice Voucher rental assistance with VA supportive services for homeless veterans</value>
-    </values>
-    <values>
-        <field>Website_URL__c</field>
-        <value xsi:type="xsd:string">https://www.va.gov/homeless/hud-vash.asp</value>
+        <field>Contact_Email__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Contact_Phone__c</field>
         <value xsi:type="xsd:string">1-877-4AID-VET</value>
     </values>
     <values>
-        <field>Service_Area__c</field>
-        <value xsi:type="xsd:string">National</value>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Combines Housing Choice Voucher rental assistance with VA supportive services for homeless veterans</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">2.0</value>
+    </values>
+    <values>
+        <field>Eligibility_Requirements__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Emergency_Service__c</field>
@@ -35,11 +39,19 @@
         <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
-        <field>CEB_Approval_Required__c</field>
-        <value xsi:type="xsd:boolean">false</value>
+        <field>Resource_Name__c</field>
+        <value xsi:type="xsd:string">HUD-VASH (Veterans Affairs Supportive Housing)</value>
     </values>
     <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">2</value>
+        <field>Resource_Type__c</field>
+        <value xsi:type="xsd:string">Emergency Shelter</value>
+    </values>
+    <values>
+        <field>Service_Area__c</field>
+        <value xsi:type="xsd:string">National</value>
+    </values>
+    <values>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://www.va.gov/homeless/hud-vash.asp</value>
     </values>
 </CustomMetadata>

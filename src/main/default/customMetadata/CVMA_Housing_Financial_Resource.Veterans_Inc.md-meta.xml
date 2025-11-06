@@ -3,28 +3,32 @@
     <label>Veterans Inc Emergency Services</label>
     <protected>false</protected>
     <values>
-        <field>Resource_Name__c</field>
-        <value xsi:type="xsd:string">Veterans Inc. - Emergency Financial Assistance</value>
+        <field>Address__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
-        <field>Resource_Type__c</field>
-        <value xsi:type="xsd:string">Financial Aid</value>
+        <field>CEB_Approval_Required__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">Emergency financial assistance for veterans facing eviction, utility shutoff, or other housing crises</value>
-    </values>
-    <values>
-        <field>Website_URL__c</field>
-        <value xsi:type="xsd:string">https://www.veteransinc.org</value>
+        <field>Contact_Email__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Contact_Phone__c</field>
         <value xsi:type="xsd:string">1-800-482-2565</value>
     </values>
     <values>
-        <field>Service_Area__c</field>
-        <value xsi:type="xsd:string">National</value>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Emergency financial assistance for veterans facing eviction, utility shutoff, or other housing crises</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">5.0</value>
+    </values>
+    <values>
+        <field>Eligibility_Requirements__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Emergency_Service__c</field>
@@ -35,11 +39,19 @@
         <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
-        <field>CEB_Approval_Required__c</field>
-        <value xsi:type="xsd:boolean">false</value>
+        <field>Resource_Name__c</field>
+        <value xsi:type="xsd:string">Veterans Inc. - Emergency Financial Assistance</value>
     </values>
     <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">5</value>
+        <field>Resource_Type__c</field>
+        <value xsi:type="xsd:string">Financial Aid</value>
+    </values>
+    <values>
+        <field>Service_Area__c</field>
+        <value xsi:type="xsd:string">National</value>
+    </values>
+    <values>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://www.veteransinc.org</value>
     </values>
 </CustomMetadata>

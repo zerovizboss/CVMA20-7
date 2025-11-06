@@ -3,6 +3,42 @@
     <label>VFW - Service Officers</label>
     <protected>false</protected>
     <values>
+        <field>Address__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Appointment_Required__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Contact_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Contact_Phone__c</field>
+        <value xsi:type="xsd:string">1-800-VFW-1899</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Accredited service officers help veterans and families with VA benefits claims, appeals, and discharge reviews. Comprehensive support for service-connected disability claims and pension applications.</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">5.0</value>
+    </values>
+    <values>
+        <field>Eligibility_Requirements__c</field>
+        <value xsi:type="xsd:string">All veterans and their families. Combat veterans receive priority assistance.</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Pro_Bono_Available__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Resource_Name__c</field>
         <value xsi:type="xsd:string">Veterans of Foreign Wars (VFW) - Service Officers</value>
     </values>
@@ -11,39 +47,11 @@
         <value xsi:type="xsd:string">Benefits Appeals</value>
     </values>
     <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">Accredited service officers help veterans and families with VA benefits claims, appeals, and discharge reviews. Comprehensive support for service-connected disability claims and pension applications.</value>
-    </values>
-    <values>
-        <field>Website_URL__c</field>
-        <value xsi:type="xsd:string">https://www.vfw.org</value>
-    </values>
-    <values>
         <field>Service_Area__c</field>
         <value xsi:type="xsd:string">National</value>
     </values>
     <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">5.0</value>
-    </values>
-    <values>
-        <field>Contact_Phone__c</field>
-        <value xsi:type="xsd:string">1-800-VFW-1899</value>
-    </values>
-    <values>
-        <field>Pro_Bono_Available__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Appointment_Required__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>Eligibility_Requirements__c</field>
-        <value xsi:type="xsd:string">All veterans and their families. Combat veterans receive priority assistance.</value>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://www.vfw.org</value>
     </values>
 </CustomMetadata>

@@ -3,20 +3,36 @@
     <label>Insurance Requirements</label>
     <protected>false</protected>
     <values>
-        <field>File_Name__c</field>
-        <value xsi:type="xsd:string">CVMA-Insurance-Policy.pdf</value>
+        <field>CEB_Only__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
-        <field>Google_Drive_ID__c</field>
-        <value xsi:type="xsd:string">16j-UtL-as460Sp1YFasftpYjcMZcQKst</value>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Policy</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">CVMA Insurance Requirements Policy</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">740.0</value>
+    </values>
+    <values>
+        <field>File_Name__c</field>
+        <value xsi:type="xsd:string">CVMA-Insurance-Policy.pdf</value>
     </values>
     <values>
         <field>File_Type__c</field>
         <value xsi:type="xsd:string">PDF</value>
     </values>
     <values>
-        <field>Category__c</field>
-        <value xsi:type="xsd:string">Policy</value>
+        <field>Google_Drive_ID__c</field>
+        <value xsi:type="xsd:string">16j-UtL-as460Sp1YFasftpYjcMZcQKst</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>Public_Link__c</field>
@@ -29,21 +45,5 @@
     <values>
         <field>Uploaded_Date__c</field>
         <value xsi:type="xsd:date">2025-10-22</value>
-    </values>
-    <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">CVMA Insurance Requirements Policy</value>
-    </values>
-    <values>
-        <field>CEB_Only__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">740</value>
-    </values>
-    <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
     </values>
 </CustomMetadata>

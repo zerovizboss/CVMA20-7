@@ -3,20 +3,36 @@
     <label>Officer Nomination Form</label>
     <protected>false</protected>
     <values>
-        <field>File_Name__c</field>
-        <value xsi:type="xsd:string">CVMA-Officer-Nomination.pdf</value>
+        <field>CEB_Only__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
-        <field>Google_Drive_ID__c</field>
-        <value xsi:type="xsd:string">1AVn9XL4TuYaitTiFIabK8-_ryjCY8awL</value>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Forms</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">CVMA Officer Nomination Form</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">540.0</value>
+    </values>
+    <values>
+        <field>File_Name__c</field>
+        <value xsi:type="xsd:string">CVMA-Officer-Nomination.pdf</value>
     </values>
     <values>
         <field>File_Type__c</field>
         <value xsi:type="xsd:string">PDF</value>
     </values>
     <values>
-        <field>Category__c</field>
-        <value xsi:type="xsd:string">Forms</value>
+        <field>Google_Drive_ID__c</field>
+        <value xsi:type="xsd:string">1AVn9XL4TuYaitTiFIabK8-_ryjCY8awL</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>Public_Link__c</field>
@@ -29,21 +45,5 @@
     <values>
         <field>Uploaded_Date__c</field>
         <value xsi:type="xsd:date">2025-10-22</value>
-    </values>
-    <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">CVMA Officer Nomination Form</value>
-    </values>
-    <values>
-        <field>CEB_Only__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">540</value>
-    </values>
-    <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
     </values>
 </CustomMetadata>

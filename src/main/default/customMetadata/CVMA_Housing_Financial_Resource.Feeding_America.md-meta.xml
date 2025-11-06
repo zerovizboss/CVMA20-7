@@ -3,6 +3,42 @@
     <label>Feeding America Veterans Program</label>
     <protected>false</protected>
     <values>
+        <field>Address__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CEB_Approval_Required__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Contact_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Contact_Phone__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Network of 200+ food banks providing food assistance specifically for veterans and military families</value>
+    </values>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">6.0</value>
+    </values>
+    <values>
+        <field>Eligibility_Requirements__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Emergency_Service__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Resource_Name__c</field>
         <value xsi:type="xsd:string">Feeding America - Veterans &amp; Military Families Program</value>
     </values>
@@ -11,31 +47,11 @@
         <value xsi:type="xsd:string">Food Bank</value>
     </values>
     <values>
-        <field>Description__c</field>
-        <value xsi:type="xsd:string">Network of 200+ food banks providing food assistance specifically for veterans and military families</value>
-    </values>
-    <values>
-        <field>Website_URL__c</field>
-        <value xsi:type="xsd:string">https://www.feedingamerica.org/our-work/hunger-relief-programs/veterans</value>
-    </values>
-    <values>
         <field>Service_Area__c</field>
         <value xsi:type="xsd:string">National</value>
     </values>
     <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
-        <field>Emergency_Service__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>CEB_Approval_Required__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
-        <field>Display_Order__c</field>
-        <value xsi:type="xsd:double">6</value>
+        <field>Website_URL__c</field>
+        <value xsi:type="xsd:string">https://www.feedingamerica.org/our-work/hunger-relief-programs/veterans</value>
     </values>
 </CustomMetadata>

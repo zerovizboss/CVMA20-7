@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CEB_Approved__c</fullName>
+    <defaultValue>false</defaultValue>
+    <fieldManageability>DeveloperControlled</fieldManageability>
     <label>CEB Approved</label>
     <type>Checkbox</type>
-    <defaultValue>false</defaultValue>
 </CustomField>

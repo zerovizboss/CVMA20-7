@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Google_Drive_ID__c</fullName>
-    <label>Google Drive ID</label>
+    <caseSensitive>false</caseSensitive>
     <description>Unique Google Drive file identifier (used for API operations)</description>
-    <type>Text</type>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Google Drive ID</label>
     <length>100</length>
     <required>true</required>
+    <type>Text</type>
     <unique>true</unique>
 </CustomField>

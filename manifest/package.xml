@@ -167,7 +167,14 @@
     </types>
     <types>
         <members>CVMA_Guest_Resource_Access</members>
+        <members>CVMA_Knowledge_Article_Publisher</members>
+        <members>CVMA_Knowledge_Article_Viewer</members>
+        <members>CVMA_CEB_Knowledge_Article_Restricted_Viewer</members>
         <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>cvmaKnowledgeRecordPageCSS</members>
+        <name>StaticResource</name>
     </types>
     <version>65.0</version>
 </Package>
