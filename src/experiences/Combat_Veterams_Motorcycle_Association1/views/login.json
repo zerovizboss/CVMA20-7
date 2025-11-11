@@ -7,7 +7,7 @@
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<h1 style=\"text-align: center;\"><strong style=\"background-color: rgb(187, 187, 187); font-size: 22px; color: rgb(0, 0, 0);\"><img class=\"sfdcCbImage\" alt=\"CVMA Lucky 7 Logo\" src=\"https://drive.google.com/uc?export=view&id=1cfYbLmac1QWagugROQfhyXeiTkb0yrEn\"></strong></h1>"
+        "richTextValue" : "<div style=\"text-align: center; background-color: rgb(187, 187, 187);\"><iframe src=\"https://drive.google.com/file/d/1cfYbLmac1QWagugROQfhyXeiTkb0yrEn/preview\" width=\"512\" height=\"512\" frameborder=\"0\" allow=\"autoplay\" style=\"display: inline-block;\"></iframe></div>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "607bec15-9e1e-4863-947c-d7051982c0ec",
