@@ -35,7 +35,9 @@
       "WebFetch(domain:resources.docs.salesforce.com)",
       "WebFetch(domain:www.learnexperiencecloud.com)",
       "Bash(sf:*)",
-      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT Name, Label FROM PermissionSet WHERE IsCustom = true ORDER BY Name\")"
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT Name, Label FROM PermissionSet WHERE IsCustom = true ORDER BY Name\")",
+      "Bash(\"/c/Program Files/sf/bin/sf\" data query --query \"SELECT Id, Title, ContentSize, FileType FROM ContentDocument WHERE Origin = ''C'' ORDER BY ContentSize DESC LIMIT 30\")",
+      "WebFetch(domain:drive.google.com)"
     ],
     "deny": [],
     "ask": []
