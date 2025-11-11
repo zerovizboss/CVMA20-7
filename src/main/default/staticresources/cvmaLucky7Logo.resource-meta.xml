@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>image/png</contentType>
+    <description>CVMA Lucky 7 Chapter 20-7 logo (512x512) - Used on Experience Cloud authentication pages</description>
+</StaticResource>
